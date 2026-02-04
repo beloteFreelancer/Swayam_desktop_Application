@@ -1,0 +1,926 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="A4_Invoice" language="groovy" pageWidth="595" pageHeight="419" columnWidth="555" leftMargin="2" rightMargin="20" topMargin="2" bottomMargin="20" uuid="67c319de-73b7-451f-8b0d-b5801d899306">
+	<property name="ireport.zoom" value="4.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="474"/>
+	<parameter name="parameter1" class="java.lang.String"/>
+	<parameter name="parameter2" class="java.lang.String"/>
+	<parameter name="parameter3" class="java.lang.String"/>
+	<parameter name="parameter4" class="java.lang.String"/>
+	<parameter name="parameter5" class="java.lang.String"/>
+	<parameter name="parameter6" class="java.lang.String"/>
+	<parameter name="parameter7" class="java.lang.String"/>
+	<parameter name="parameter8" class="java.lang.String"/>
+	<parameter name="parameter9" class="java.lang.String"/>
+	<parameter name="parameter10" class="java.lang.String"/>
+	<parameter name="parameter11" class="java.lang.String"/>
+	<parameter name="parameter12" class="java.lang.String"/>
+	<parameter name="parameter13" class="java.lang.String"/>
+	<parameter name="parameter14" class="java.lang.String"/>
+	<parameter name="parameter15" class="java.lang.String"/>
+	<parameter name="parameter16" class="java.lang.String"/>
+	<parameter name="parameter17" class="java.lang.String"/>
+	<parameter name="parameter18" class="java.lang.String"/>
+	<parameter name="parameter19" class="java.lang.String"/>
+	<parameter name="parameter20" class="java.lang.String"/>
+	<parameter name="parameter21" class="java.lang.String"/>
+	<parameter name="parameter22" class="java.lang.String"/>
+	<parameter name="parameter23" class="java.lang.String"/>
+	<parameter name="parameter24" class="java.lang.String"/>
+	<parameter name="parameter25" class="java.lang.String"/>
+	<parameter name="parameter26" class="java.lang.String"/>
+	<parameter name="parameter27" class="java.lang.String"/>
+	<parameter name="parameter28" class="java.lang.String"/>
+	<parameter name="parameter29" class="java.lang.String"/>
+	<parameter name="parameter30" class="java.lang.String"/>
+	<parameter name="parameter31" class="java.lang.String"/>
+	<parameter name="parameter32" class="java.lang.String"/>
+	<parameter name="parameter33" class="java.lang.String"/>
+	<parameter name="parameter34" class="java.lang.String"/>
+	<parameter name="parameter35" class="java.lang.String"/>
+	<parameter name="parameter36" class="java.lang.String"/>
+	<parameter name="parameter37" class="java.lang.String"/>
+	<parameter name="parameter38" class="java.lang.String"/>
+	<parameter name="parameter39" class="java.lang.String"/>
+	<parameter name="parameter40" class="java.lang.String"/>
+	<parameter name="parameter41" class="java.lang.String"/>
+	<parameter name="parameter42" class="java.lang.String"/>
+	<parameter name="parameter43" class="java.lang.String"/>
+	<parameter name="parameter44" class="java.lang.String"/>
+	<parameter name="parameter45" class="java.lang.String"/>
+	<parameter name="parameter46" class="java.lang.String"/>
+	<parameter name="parameter47" class="java.lang.String"/>
+	<parameter name="parameter48" class="java.lang.String"/>
+	<parameter name="parameter49" class="java.lang.String"/>
+	<parameter name="parameter50" class="java.lang.String"/>
+	<parameter name="parameter51" class="java.lang.String"/>
+	<parameter name="parameter52" class="java.lang.String"/>
+	<parameter name="parameter53" class="java.lang.String"/>
+	<parameter name="parameter54" class="java.lang.String"/>
+	<parameter name="parameter55" class="java.lang.String"/>
+	<parameter name="parameter56" class="java.lang.String"/>
+	<parameter name="parameter57" class="java.lang.String"/>
+	<parameter name="parameter58" class="java.lang.String"/>
+	<parameter name="parameter59" class="java.lang.String"/>
+	<parameter name="parameter60" class="java.lang.String"/>
+	<parameter name="parameter61" class="java.lang.String"/>
+	<parameter name="parameter62" class="java.lang.String"/>
+	<parameter name="parameter63" class="java.lang.String"/>
+	<parameter name="parameter64" class="java.lang.String"/>
+	<parameter name="parameter65" class="java.lang.String"/>
+	<parameter name="parameter66" class="java.lang.String"/>
+	<parameter name="parameter67" class="java.lang.String"/>
+	<parameter name="parameter68" class="java.lang.String"/>
+	<parameter name="parameter69" class="java.lang.String"/>
+	<parameter name="parameter70" class="java.lang.String"/>
+	<parameter name="parameter71" class="java.lang.String"/>
+	<parameter name="parameter72" class="java.lang.String"/>
+	<parameter name="parameter73" class="java.lang.String"/>
+	<field name="field1" class="java.lang.String"/>
+	<field name="field2" class="java.lang.String"/>
+	<field name="field3" class="java.lang.String"/>
+	<field name="field4" class="java.lang.String"/>
+	<field name="field5" class="java.lang.String"/>
+	<field name="field6" class="java.lang.String"/>
+	<field name="field7" class="java.lang.String"/>
+	<field name="field8" class="java.lang.String"/>
+	<field name="field9" class="java.lang.String"/>
+	<field name="field10" class="java.lang.String"/>
+	<field name="field11" class="java.lang.String"/>
+	<field name="field12" class="java.lang.String"/>
+	<field name="field13" class="java.lang.String"/>
+	<field name="field14" class="java.lang.String"/>
+	<field name="field15" class="java.lang.String"/>
+	<background>
+		<band height="379" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="556" height="379" uuid="d63100fb-dc9c-4e26-9ad3-3415ffc5323f"/>
+			</rectangle>
+			<line>
+				<reportElement x="407" y="113" width="1" height="96" uuid="4b007c48-8b66-4a19-b1dc-47fd7647d320"/>
+			</line>
+			<line>
+				<reportElement x="18" y="94" width="1" height="115" uuid="86356ab4-f61c-4e46-8074-8c5752eac8eb"/>
+				<graphicElement>
+					<pen lineWidth="1.0"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="189" y="94" width="1" height="115" uuid="37a0d927-4421-48a9-9f8b-64bde3aa2c59"/>
+			</line>
+			<line>
+				<reportElement x="233" y="94" width="1" height="115" uuid="970f084d-a0cc-457f-a576-418653ce893f"/>
+			</line>
+			<line>
+				<reportElement x="272" y="94" width="1" height="115" uuid="27fe7801-0a67-456d-aeaa-c5f1e28f090c"/>
+			</line>
+			<line>
+				<reportElement x="308" y="94" width="1" height="115" uuid="91832685-9fc2-4f79-9d61-fce27c080b61"/>
+			</line>
+			<line>
+				<reportElement x="344" y="94" width="1" height="115" uuid="59b9c29c-c6b4-4453-aad8-dff0a0318a93"/>
+			</line>
+			<line>
+				<reportElement x="384" y="94" width="1" height="115" uuid="debc40f0-deae-4ed4-852f-f53f9ce0beb7"/>
+			</line>
+			<line>
+				<reportElement x="443" y="94" width="1" height="115" uuid="a3109c9b-55a6-42e1-9896-8a64b3220153"/>
+			</line>
+			<line>
+				<reportElement x="502" y="94" width="1" height="115" uuid="26de4032-ae2d-46b4-9212-d4e0514feca0"/>
+			</line>
+			<line>
+				<reportElement x="465" y="113" width="1" height="96" uuid="03a6b56d-6d97-4fc8-a223-28314b2580c5"/>
+			</line>
+		</band>
+	</background>
+	<title>
+		<band height="96" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="4" y="0" width="209" height="15" uuid="df166cb0-c7a6-42b3-9ba5-488af236afc1"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="4" y="15" width="209" height="13" uuid="02f81829-cb86-4a59-98e5-86aadfa10e56"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter2}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="4" y="28" width="209" height="13" uuid="1f354dde-3069-4bdc-b614-346ce8fb1342"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter3}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="4" y="41" width="209" height="13" uuid="a6b4492b-b9a5-463f-a217-d815bd871b66"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter4}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="4" y="54" width="209" height="13" uuid="fdcdc694-ab48-44f5-afc3-c32912b7ff3c"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter5}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="4" y="67" width="209" height="13" uuid="0b4e7cae-29ff-47c2-b05e-59cf2b77dfbe"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter6}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="94" width="555" height="1" uuid="58481520-d8e8-4b7d-b322-1aa0dd4b6460"/>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="437" y="0" width="118" height="15" uuid="4c869477-f9bd-40f6-a4c5-06771b7ca0fe"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="9" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter7}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="220" y="14" width="211" height="13" uuid="c533d12e-2b16-4414-95db-f825352cefc8"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter12}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="220" y="27" width="211" height="13" uuid="ba729c7f-fb72-4067-b6e4-c90110175727"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter13}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="220" y="40" width="211" height="13" uuid="72b382ac-33da-46e7-b8ac-b5ff4ea3bbe7"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter14}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="221" y="53" width="210" height="13" uuid="ead9216a-503c-4faf-bb8e-f9f25f67b79a"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter15}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="221" y="66" width="210" height="13" uuid="8ef8262b-3f48-43c9-a2f7-8641c8201162"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter16}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="221" y="79" width="210" height="13" uuid="5460225c-80b0-4f5c-87fb-5a3f68900a8e"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter17}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="477" y="16" width="78" height="13" uuid="cb9cffaf-d59b-460d-9ccd-accc029e7aa6"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter8}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="477" y="29" width="78" height="13" uuid="6ccd1f3c-15fe-446b-9c59-69ca09eb212e"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10" isBold="false" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter9}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="220" y="1" width="211" height="12" uuid="377ca007-b3ed-4d35-b7cd-600f9a6871a5"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Bill To:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="215" y="0" width="1" height="95" uuid="0d941728-cdf8-4449-af54-70db78363925"/>
+			</line>
+			<line>
+				<reportElement x="434" y="0" width="1" height="95" uuid="1e509011-0559-4347-9da9-fd275f140767"/>
+			</line>
+			<staticText>
+				<reportElement x="437" y="16" width="41" height="13" uuid="d26e78a2-ed93-42e6-a1d6-c8e6ab558517"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Invoice No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="437" y="29" width="41" height="13" uuid="66e1182f-3616-4739-ba0b-39c29b9a053d"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="437" y="42" width="41" height="13" uuid="1f419bd4-8a6a-4d00-a791-d65f3a752f7c"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Salesman]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="437" y="55" width="41" height="13" uuid="6137943a-2541-4d08-b06d-a974aec78af2"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Route]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="477" y="42" width="78" height="13" uuid="566c43c3-8657-4dd3-9cdc-cfc66d9e461b"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10" isBold="false" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter10}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="477" y="55" width="78" height="13" uuid="b5991644-bed3-4b25-acbf-98f6ba427c83"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10" isBold="false" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter11}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="31" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="30" width="555" height="1" uuid="753d4173-79af-4fbf-9a4c-aadb4f9acbe9"/>
+			</line>
+			<staticText>
+				<reportElement x="3" y="5" width="15" height="12" uuid="5a53dd8a-29a1-4415-b786-02789bfa6a72"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sl.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="17" width="15" height="12" uuid="88249db8-ee6a-4954-9ec1-df09107f7756"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="12" width="171" height="12" uuid="aeacae86-5160-486b-a2a9-c22f73fb925b"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name of Product / Service]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="192" y="5" width="39" height="12" uuid="4dc97906-1445-4fc1-8e2b-e538762fb2c6"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HSN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="192" y="17" width="39" height="12" uuid="bdf919f3-41b7-4bd4-bbce-bd026e3ad0f6"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ACS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="235" y="12" width="35" height="12" uuid="ab111221-806e-4fa1-bc90-9b94f03cb9ed"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Qty]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="273" y="12" width="33" height="12" uuid="0004635e-7f3d-429e-82af-2ea7918faf65"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Free]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="309" y="12" width="33" height="12" uuid="a9b5bcd4-32e0-4214-be81-866df9d385e0"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rate]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="344" y="12" width="37" height="12" uuid="1582e94d-afeb-4abf-92ab-2cfedb872c4b"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="388" y="4" width="57" height="12" uuid="a4ce7e82-dc96-4754-aa13-954e15787719"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CGST]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="386" y="18" width="20" height="12" uuid="762b94f9-b25d-4ffa-85c7-ebe5a3ac2201"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rate]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="445" y="4" width="55" height="12" uuid="2f679a64-20a6-4605-965f-379baeead2b2"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SGST]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="407" y="18" width="35" height="12" uuid="518d044d-2681-40a3-9d55-06774ab63dce"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="465" y="18" width="35" height="12" uuid="52ab2c14-5cf6-4d00-aa6d-9c22ab103f6a"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="445" y="18" width="20" height="12" uuid="089a488f-a469-4aa8-aa20-428c9def86fb"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rate]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="502" y="10" width="51" height="12" uuid="009980db-5f4a-4820-b859-597b506e320e"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<line>
+				<reportElement x="384" y="16" width="118" height="1" uuid="b96d347d-0abb-4137-b2c0-73689afacba0"/>
+			</line>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="3" y="0" width="15" height="15" uuid="fb74021d-4fec-4edb-960d-6f63137e80e1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{field1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="21" y="0" width="170" height="15" uuid="d2a9b64d-8317-438b-83a5-971cf4edc85f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{field2}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="192" y="0" width="39" height="15" uuid="81944a06-fd51-4310-951d-e9c3e14e9716"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{field3}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="234" y="0" width="35" height="15" uuid="16b8517c-31b5-41d0-9d48-27a3c09c60ad"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{field5}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="310" y="0" width="33" height="15" uuid="65d0833e-0157-4f0a-8c54-ce22458597aa"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{field7}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="344" y="0" width="37" height="15" uuid="8319ded4-8b88-4827-bd82-1ef7f92ac75f"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{field8}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="387" y="1" width="19" height="15" uuid="668d2ec1-fe3c-4031-a271-43beac8401aa"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{field9}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="407" y="1" width="35" height="15" uuid="850bc935-2907-4fc6-9fd3-ec5f83c6ac54"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{field10}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="444" y="1" width="19" height="15" uuid="6c3f0380-cce5-4d56-8548-453e74623039"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{field9}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="465" y="1" width="35" height="15" uuid="016f2c46-bf59-46be-9ba6-7da94a2d6604"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{field10}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="502" y="1" width="51" height="15" uuid="4f5d9e2f-0419-4e4c-8be2-252c6080edce"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{field11}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="271" y="0" width="33" height="15" uuid="30308bbf-cd64-421e-ab16-7270758a4eed"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{field6}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="172" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="1" width="555" height="1" uuid="3ceedc44-69b4-46f4-afdd-51cc754fefab"/>
+			</line>
+			<staticText>
+				<reportElement x="346" y="21" width="154" height="14" uuid="85573b43-0bc7-4c65-868d-95fa00c29eb1"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Gross Amount :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="502" y="21" width="51" height="14" uuid="3ed178af-2221-478d-90a7-e0fb6f512acb"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter24}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="502" y="35" width="51" height="14" uuid="a158cd20-5f03-42bd-899c-f57bdec41543"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter26}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="502" y="63" width="51" height="14" uuid="757b3125-1308-4c97-9ead-70ff6cae2283"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter30}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="502" y="78" width="51" height="14" uuid="2ab6ebb2-2ca2-4ec6-9a2a-e089cbaecf13"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter32}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="379" y="97" width="118" height="14" uuid="56b4ccd1-b2ae-4cb3-8807-bcb0cbdbf18a"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NET AMOUNT :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="497" y="97" width="56" height="14" uuid="f64bcaba-be13-4b1b-a6ab-95c46a11e5de"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter33}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="337" y="19" width="1" height="152" uuid="9e84fe62-3020-4063-b339-2894090b29af"/>
+			</line>
+			<staticText>
+				<reportElement x="429" y="156" width="123" height="14" uuid="8e2b4208-eb67-4310-940c-92aacff97d3c"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Authorized Signatory.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="20" width="335" height="14" uuid="0262ead4-5be0-4e48-a343-28931f51baa1"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Invoice Amount in Words:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1" y="34" width="335" height="14" uuid="3dda88d5-c52c-44e6-af82-9d864db35d0b"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter35}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="49" width="337" height="1" uuid="b36c3338-e931-4355-9edf-6c096ed56866"/>
+			</line>
+			<line>
+				<reportElement x="338" y="112" width="217" height="1" uuid="738b8eb3-6e9d-4388-be75-bb4cd5dfaf8c"/>
+			</line>
+			<line>
+				<reportElement x="338" y="94" width="217" height="1" uuid="f1a969c0-bd9b-4372-bb7f-7866020810dd"/>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="234" y="2" width="35" height="16" uuid="d8fdf9d4-9e56-47d9-9e81-f89f363900ea"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter18}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="344" y="2" width="37" height="16" uuid="0abbec72-69ef-4f6e-b5d0-8b9b27bf31c9"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter20}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="406" y="2" width="36" height="16" uuid="ea1ab9aa-ce88-4f87-a347-8b9d8f4d9a11"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter21}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="465" y="2" width="35" height="16" uuid="553ec353-f067-47a1-b45b-10000d17b9d0"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter22}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="502" y="2" width="51" height="16" uuid="8a3cbad5-4cdd-4646-b4a1-e0d354dffe13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter23}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="18" width="555" height="1" uuid="e76f47cf-9e60-4b70-9781-092f6f32eb73"/>
+			</line>
+			<staticText>
+				<reportElement x="3" y="2" width="128" height="16" uuid="5e96eba4-3417-478a-a682-4d73f829a7ee"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<line>
+				<reportElement x="210" y="108" width="1" height="64" uuid="0714d232-f598-4194-b3db-7df9bd95f8d6"/>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="346" y="35" width="154" height="14" uuid="75b3118b-d3d5-497a-a545-e449a0f95280"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter25}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="346" y="49" width="154" height="14" uuid="d34eb1a8-db02-40fb-9522-e6ef41808fa3"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter27}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="502" y="49" width="51" height="14" uuid="f8ebeef5-7649-4651-9172-7426dce15d98"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter28}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="346" y="63" width="154" height="14" uuid="7d0d59af-d15d-4180-a29a-ddc40e1f52d9"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter29}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="346" y="78" width="154" height="14" uuid="a3bb9854-6257-4232-9e9f-dd9746da48af"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter31}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="341" y="114" width="212" height="14" uuid="94693a89-d7cb-4146-bd89-1334472f322d"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter34}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="272" y="65" width="63" height="14" uuid="8a525b61-9db4-41cc-a5b1-14a869a03bf4"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter39}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="75" y="65" width="70" height="14" uuid="bb8baa4b-4d21-4cf5-872d-7c6c35e6b1b6"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter36}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="76" y="51" width="70" height="14" uuid="3eca2e09-31e6-4eac-9175-e8a65fb73ec8"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[5%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="65" width="72" height="14" uuid="9e60867d-ec90-45cb-a7b9-dbe841323b74"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[CGST]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="272" y="79" width="63" height="14" uuid="f50247c5-6680-4203-81d9-40b2a7001c87"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter39}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="209" y="65" width="63" height="14" uuid="1476699a-54b5-4c99-99b3-616227ba7c31"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter38}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="75" y="79" width="70" height="14" uuid="dc18b5b0-8be1-47ef-8bff-b0da3fd9214e"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter36}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="209" y="51" width="63" height="14" uuid="2c63aa9e-623d-4c1b-a1a4-9fb352d56cf0"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[18%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="51" width="73" height="14" uuid="d566fe93-aed4-40d3-a4bc-ba7ebb06c8bc"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[GST Summary]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="273" y="51" width="62" height="14" uuid="0b5e351f-1735-4eac-a8ed-1dda0024dec4"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[28%]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="146" y="65" width="62" height="14" uuid="b1d68e77-b5e8-40f2-8b26-f52e27865ef1"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter37}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="147" y="51" width="61" height="14" uuid="a4e457fd-6002-4fc5-94db-80e8f97736ab"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[12%]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="209" y="79" width="63" height="14" uuid="0d70513c-82a8-45da-b12c-00ce080f2041"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter38}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="3" y="79" width="72" height="14" uuid="67cbac14-fb69-4cc2-9886-0f3453906832"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[SGST]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="146" y="79" width="62" height="14" uuid="49d102be-85ae-4b45-a96b-d78b5cd6eb4d"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter37}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="3" y="93" width="72" height="14" uuid="87ce7dfe-6c51-45c7-8858-b7c3b4389aad"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="75" y="93" width="70" height="14" uuid="61dfce34-de91-42e5-8d6b-80904c492346"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter40}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="146" y="93" width="62" height="14" uuid="37fcdaa1-f6db-45cd-b1b4-72af1ce3d962"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter41}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="209" y="93" width="63" height="14" uuid="b53c4331-e74b-425b-bf96-826282d66a98"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter42}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="272" y="93" width="63" height="14" uuid="336def59-8ddb-4a7b-95da-466a8296f67c"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter43}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="108" width="337" height="1" uuid="9d6cca9a-2684-4636-bb41-2243398da445"/>
+			</line>
+			<staticText>
+				<reportElement x="3" y="110" width="205" height="12" uuid="cd15f95a-ef09-45a3-94a9-6bd4d129c232"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Terms & Notes:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3" y="122" width="205" height="12" uuid="0af8d07b-df61-4c03-ad5f-d50585b4c80e"/>
+				<textElement textAlignment="Justified">
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter44}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3" y="134" width="205" height="12" uuid="10ba15da-253d-492c-af4d-84c6c5068dea"/>
+				<textElement textAlignment="Justified">
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter45}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3" y="146" width="205" height="12" uuid="74aa3379-f07b-438e-b7f0-a7b47448e88e"/>
+				<textElement textAlignment="Justified">
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter46}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3" y="158" width="205" height="12" uuid="e9cd4d4f-eb4f-4c3f-87b9-e4bbd3282eb4"/>
+				<textElement textAlignment="Justified">
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter47}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="270" y="2" width="34" height="16" uuid="a7111394-f77e-412e-9d37-02006f056a45"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter19}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="214" y="111" width="42" height="14" uuid="64024597-368a-497f-85a0-deab81447715"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Old_Bal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="214" y="126" width="42" height="14" uuid="9c57a39e-7b59-4431-8d11-45bdfa7e9a37"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Bill_Amt]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="214" y="146" width="42" height="14" uuid="f134dcd5-702a-44ca-a35c-e666e7ec1376"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Net Bal]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="256" y="111" width="75" height="14" uuid="45e275d0-ab7e-47b0-a760-51209b0c1182"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter48}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="256" y="126" width="75" height="14" uuid="d4581e63-a0c8-4a30-8050-c9564146834d"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter49}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="256" y="146" width="75" height="14" uuid="f46f42d4-f6c9-43d5-a5d7-da91d107e492"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter50}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="256" y="143" width="75" height="1" uuid="da40029f-049c-443c-8c52-65bd28972462"/>
+			</line>
+			<line>
+				<reportElement x="256" y="162" width="75" height="1" uuid="0d124182-bfe6-4a82-a731-adea09425305"/>
+			</line>
+		</band>
+	</columnFooter>
+</jasperReport>
