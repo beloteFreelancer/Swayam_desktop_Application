@@ -18,7 +18,7 @@ import java.io.File;
 /**
  *
  * @author K.SELVAKUMAR, copyrights K.SELVAKUMAR, +91 99427 32229,
- * mysoft.java@gmail.com
+ *         mysoft.java@gmail.com
  */
 public final class setting_bill extends javax.swing.JInternalFrame {
 
@@ -105,7 +105,8 @@ public final class setting_bill extends javax.swing.JInternalFrame {
             if (upiIdField.getText().equals("")) {
                 h41.setText(".");
             }
-            int as = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Save ?</h1></html>", "Are You Sure", JOptionPane.YES_NO_OPTION);
+            int as = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Save ?</h1></html>", "Are You Sure",
+                    JOptionPane.YES_NO_OPTION);
             if (as == JOptionPane.NO_OPTION) {
                 return;
             }
@@ -269,7 +270,8 @@ public final class setting_bill extends javax.swing.JInternalFrame {
             count = ps.executeUpdate();
 
             if (count > 0) {
-                JOptionPane.showMessageDialog(this, "<html><h1>Saved Successfully</h1></html>", "Saved", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(this, "<html><h1>Saved Successfully</h1></html>", "Saved",
+                        JOptionPane.PLAIN_MESSAGE);
             }
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
@@ -369,8 +371,11 @@ public final class setting_bill extends javax.swing.JInternalFrame {
         initComponents();
         setTitle("Setting");
         this.setSize(866, 700);
-        ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("images/icon.png"));
-        this.setFrameIcon(icon);
+        java.net.URL iconUrl = ClassLoader.getSystemResource("images/icon.png");
+        if (iconUrl != null) {
+            ImageIcon icon = new ImageIcon(iconUrl);
+            this.setFrameIcon(icon);
+        }
         this.util = util;
         button_short();
         view();
@@ -378,7 +383,8 @@ public final class setting_bill extends javax.swing.JInternalFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         titlelablel = new javax.swing.JLabel();
@@ -567,7 +573,8 @@ public final class setting_bill extends javax.swing.JInternalFrame {
         jLabel16.setBounds(20, 190, 110, 30);
 
         h8.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        h8.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Inclusive of Tax", "Exclusive of Tax", "Inclusive Model-II", "No Tax" }));
+        h8.setModel(new javax.swing.DefaultComboBoxModel<>(
+                new String[] { "Inclusive of Tax", "Exclusive of Tax", "Inclusive Model-II", "No Tax" }));
         getContentPane().add(h8);
         h8.setBounds(130, 190, 200, 30);
 
@@ -634,7 +641,9 @@ public final class setting_bill extends javax.swing.JInternalFrame {
         jLabel24.setBounds(500, 490, 110, 30);
 
         h10.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        String[] formats = new String[] { "Sales 3-Inch (Thermal)", "Sales 3-Inch MRP (Thermal)", "Sales 3-Inch Short (Thermal)", "Sales 3-Inch NoGST (Thermal)", "Sales 4-Inch (Thermal)", "Sales 4-Inch MRP (Thermal)", "Sales 2-Inch MRP (Thermal)", "Sales A4", "Sales A5", "Dot Matrix USB" };
+        String[] formats = new String[] { "Sales 3-Inch (Thermal)", "Sales 3-Inch MRP (Thermal)",
+                "Sales 3-Inch Short (Thermal)", "Sales 3-Inch NoGST (Thermal)", "Sales 4-Inch (Thermal)",
+                "Sales 4-Inch MRP (Thermal)", "Sales 2-Inch MRP (Thermal)", "Sales A4", "Sales A5", "Dot Matrix USB" };
         h10.setModel(new javax.swing.DefaultComboBoxModel<>(formats));
         getContentPane().add(h10);
         h10.setBounds(130, 220, 360, 30);
@@ -650,7 +659,8 @@ public final class setting_bill extends javax.swing.JInternalFrame {
         jLabel25.setBounds(20, 430, 110, 30);
 
         h20.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        h20.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MRP Price", "MRP- Discount %", "Purchase Price + Margin %", "Manual" }));
+        h20.setModel(new javax.swing.DefaultComboBoxModel<>(
+                new String[] { "MRP Price", "MRP- Discount %", "Purchase Price + Margin %", "Manual" }));
         getContentPane().add(h20);
         h20.setBounds(130, 400, 200, 30);
 
@@ -660,7 +670,8 @@ public final class setting_bill extends javax.swing.JInternalFrame {
         jLabel26.setBounds(500, 430, 110, 30);
 
         h21.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        h21.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MRP Price", "MRP- Discount %", "Purchase Price + Margin %", "Manual" }));
+        h21.setModel(new javax.swing.DefaultComboBoxModel<>(
+                new String[] { "MRP Price", "MRP- Discount %", "Purchase Price + Margin %", "Manual" }));
         getContentPane().add(h21);
         h21.setBounds(610, 400, 160, 30);
 
@@ -779,12 +790,14 @@ public final class setting_bill extends javax.swing.JInternalFrame {
         jLabel35.setBounds(20, 220, 110, 30);
 
         h33.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        h33.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Thermal", "Thermal MRP", "Thermal Short Bill", "Thermal 4-Inch", "Thermal 4-Inch MRP", "A4", "A5" }));
+        h33.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Thermal", "Thermal MRP",
+                "Thermal Short Bill", "Thermal 4-Inch", "Thermal 4-Inch MRP", "A4", "A5" }));
         getContentPane().add(h33);
         h33.setBounds(130, 280, 360, 30);
 
         h34.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        h34.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Thermal", "Thermal MRP", "Thermal Short Bill", "Thermal 4-Inch", "Thermal 4-Inch MRP", "A4", "A5" }));
+        h34.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Thermal", "Thermal MRP",
+                "Thermal Short Bill", "Thermal 4-Inch", "Thermal 4-Inch MRP", "A4", "A5" }));
         getContentPane().add(h34);
         h34.setBounds(610, 280, 220, 30);
 
@@ -856,7 +869,6 @@ public final class setting_bill extends javax.swing.JInternalFrame {
         getContentPane().add(jButton1);
         jButton1.setBounds(500, 520, 160, 30);
 
-
         jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel1.setText("Batch/Size");
         getContentPane().add(jLabel1);
@@ -922,37 +934,37 @@ public final class setting_bill extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closebuttonActionPerformed
+    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closebuttonActionPerformed
         this.dispose();
         // TODO add your handling code here:
-    }//GEN-LAST:event_closebuttonActionPerformed
+    }// GEN-LAST:event_closebuttonActionPerformed
 
-    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savebuttonActionPerformed
+    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_savebuttonActionPerformed
         save();
 
-    }//GEN-LAST:event_savebuttonActionPerformed
+    }// GEN-LAST:event_savebuttonActionPerformed
 
-    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbuttonActionPerformed
+    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_clearbuttonActionPerformed
         clear();
-    }//GEN-LAST:event_clearbuttonActionPerformed
+    }// GEN-LAST:event_clearbuttonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
         Container parent = getTopLevelAncestor();
-        new barcodepack.jasper.BarcodeTemplateManager((parent instanceof Window) ? (Window) parent : null).setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+        new barcodepack.jasper.BarcodeTemplateManager((parent instanceof Window) ? (Window) parent : null)
+                .setVisible(true);
+    }// GEN-LAST:event_jButton1ActionPerformed
 
-    private void upiIdFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upiIdFieldActionPerformed
+    private void upiIdFieldActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_upiIdFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_upiIdFieldActionPerformed
+    }// GEN-LAST:event_upiIdFieldActionPerformed
 
-    private void expCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_expCheckboxActionPerformed
+    private void expCheckboxActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_expCheckboxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_expCheckboxActionPerformed
+    }// GEN-LAST:event_expCheckboxActionPerformed
 
-    private void weighingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_weighingButtonActionPerformed
+    private void weighingButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_weighingButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_weighingButtonActionPerformed
-
+    }// GEN-LAST:event_weighingButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> batchCombo;

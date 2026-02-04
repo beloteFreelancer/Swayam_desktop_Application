@@ -23,7 +23,7 @@ import menupack.menu_form;
 /**
  *
  * @author K.SELVAKUMAR, copyrights K.SELVAKUMAR, +91 99427 32229,
- * mysoft.java@gmail.com
+ *         mysoft.java@gmail.com
  */
 public class pay_bill_generation extends javax.swing.JInternalFrame {
 
@@ -49,6 +49,7 @@ public class pay_bill_generation extends javax.swing.JInternalFrame {
             return column == 5 || column == 6;
         }
     }
+
     sample2 s2 = new sample2();
 
     final void button_short() {
@@ -66,8 +67,11 @@ public class pay_bill_generation extends javax.swing.JInternalFrame {
         titlelablel.setText("<html><u>Payroll Generation</u></html>");
         setTitle("Payroll Generation");
         this.setSize(1017, 650);
-        ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("images/icon.png"));
-        this.setFrameIcon(icon);
+        java.net.URL iconUrl = ClassLoader.getSystemResource("/images/icon.png");
+        if (iconUrl != null) {
+            ImageIcon icon = new ImageIcon(iconUrl);
+            this.setFrameIcon(icon);
+        }
         menu_form me = new menu_form();
         hmany = me.getHmany();
         Date d = new Date();
@@ -146,15 +150,17 @@ public class pay_bill_generation extends javax.swing.JInternalFrame {
             r = util.doQuery(query);
             while (r.next()) {
                 String salary = String.format("%." + hmany + "f", r.getDouble(3));
-                s2.addRow(new Object[]{r.getString(1), r.getString(2), salary, "", "", "", "", "", r.getString(4), ".", 0});
+                s2.addRow(new Object[] { r.getString(1), r.getString(2), salary, "", "", "", "", "", r.getString(4),
+                        ".", 0 });
             }
-//attendance
+            // attendance
             for (int i = 0; i < jTable1.getRowCount(); i++) {
                 String cid = jTable1.getValueAt(i, 0).toString();
                 String cname = jTable1.getValueAt(i, 1).toString();
                 double salary = Double.parseDouble(jTable1.getValueAt(i, 2).toString());
                 int days = 0;
-                query = "select sum(value) from atten_entry where dat between '" + lk + "' and '" + lk1 + "' and sid='" + cid + "' and sname='" + cname + "'";
+                query = "select sum(value) from atten_entry where dat between '" + lk + "' and '" + lk1 + "' and sid='"
+                        + cid + "' and sname='" + cname + "'";
                 r = util.doQuery(query);
                 while (r.next()) {
                     days = r.getInt(1);
@@ -163,31 +169,33 @@ public class pay_bill_generation extends javax.swing.JInternalFrame {
                 double basic = salary * days;
                 String basic2 = String.format("%." + hmany + "f", basic);
                 jTable1.setValueAt(basic2, i, 4);
-            }//attendance ends
+            } // attendance ends
 
-//advance table
+            // advance table
             for (int i = 0; i < jTable1.getRowCount(); i++) {
                 String cid = jTable1.getValueAt(i, 0).toString();
                 String cname = jTable1.getValueAt(i, 1).toString();
-                query = "select sum(amount) from pay_advance where cid='" + cid + "' and cname='" + cname + "' and dat between '" + lk + "' and '" + lk1 + "' ";
+                query = "select sum(amount) from pay_advance where cid='" + cid + "' and cname='" + cname
+                        + "' and dat between '" + lk + "' and '" + lk1 + "' ";
                 r = util.doQuery(query);
                 while (r.next()) {
                     String amount = String.format("%." + hmany + "f", r.getDouble(1));
                     jTable1.setValueAt(amount, i, 5);
                 }
-            }//advance ends
+            } // advance ends
 
-//loan table
+            // loan table
             for (int i = 0; i < jTable1.getRowCount(); i++) {
                 String cid = jTable1.getValueAt(i, 0).toString();
                 String cname = jTable1.getValueAt(i, 1).toString();
-                query = "select sno,tot-paid from pay_loan where cid='" + cid + "' and cname='" + cname + "' and status='Active' ";
+                query = "select sno,tot-paid from pay_loan where cid='" + cid + "' and cname='" + cname
+                        + "' and status='Active' ";
                 r = util.doQuery(query);
                 while (r.next()) {
                     jTable1.setValueAt(r.getString(1), i, 9);
                     jTable1.setValueAt(r.getString(2), i, 10);
                 }
-            }//Loans ends
+            } // Loans ends
 
             h3.setEnabled(false);
             h4.setEnabled(false);
@@ -216,7 +224,8 @@ public class pay_bill_generation extends javax.swing.JInternalFrame {
                 double lopay = Double.parseDouble(jTable1.getValueAt(i, 6).toString());
                 double deduc = lpay + lopay;
                 if (deduc > basic) {
-                    JOptionPane.showMessageDialog(this, "Deductions are Greaterthan Gross Pay!", "Invalid Deductions", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Deductions are Greaterthan Gross Pay!", "Invalid Deductions",
+                            JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 double net = basic - deduc;
@@ -250,8 +259,9 @@ public class pay_bill_generation extends javax.swing.JInternalFrame {
             String nlpay2 = String.format("%." + hmany + "f", nlpay);
             String nlopay2 = String.format("%." + hmany + "f", nlopay);
             String tnet2 = String.format("%." + hmany + "f", tnet);
-            s2.addRow(new Object[]{"", "", "", "", "", "", "", "", "", "", ""});
-            s2.addRow(new Object[]{"", "Total: " + (jTable1.getRowCount() - 1), "", "", "" + nbasic2, "" + nlpay2, "" + nlopay2, "" + tnet2, "", "", ""});
+            s2.addRow(new Object[] { "", "", "", "", "", "", "", "", "", "", "" });
+            s2.addRow(new Object[] { "", "Total: " + (jTable1.getRowCount() - 1), "", "", "" + nbasic2, "" + nlpay2,
+                    "" + nlopay2, "" + tnet2, "", "", "" });
         } catch (NumberFormatException e) {
             System.out.println(e);
         }
@@ -270,7 +280,8 @@ public class pay_bill_generation extends javax.swing.JInternalFrame {
                     return;
                 }
             }
-            int a = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Save ?</h1></html>", "Are You Sure", JOptionPane.YES_NO_OPTION);
+            int a = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Save ?</h1></html>", "Are You Sure",
+                    JOptionPane.YES_NO_OPTION);
             if (a == JOptionPane.NO_OPTION) {
                 return;
             }
@@ -310,12 +321,16 @@ public class pay_bill_generation extends javax.swing.JInternalFrame {
                 String lno = jTable1.getValueAt(i, 9).toString();
                 String balance = jTable1.getValueAt(i, 10).toString();
 
-                list.add("insert into pay_bill values ('" + sno + "','" + lk + "','" + lk1 + "','" + cid + "','" + cname + "','" + salary + "','" + days + "','" + gross + "','" + lpay + "','" + lopay + "','" + net + "','" + mobile + "','" + lno + "','" + balance + "','" + last + "','" + date + "')");
-                list.add("update pay_loan set paid=paid+" + lopay + " where sno='" + lno + "' and cid='" + cid + "' and cname='" + cname + "' ");
-            }//table row counts
+                list.add("insert into pay_bill values ('" + sno + "','" + lk + "','" + lk1 + "','" + cid + "','" + cname
+                        + "','" + salary + "','" + days + "','" + gross + "','" + lpay + "','" + lopay + "','" + net
+                        + "','" + mobile + "','" + lno + "','" + balance + "','" + last + "','" + date + "')");
+                list.add("update pay_loan set paid=paid+" + lopay + " where sno='" + lno + "' and cid='" + cid
+                        + "' and cname='" + cname + "' ");
+            } // table row counts
             int as = util.doManipulation_Batch(list);
             if (as > 0) {
-                int aa = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Send SMS ?</h1></html>", "Saved Successfully", JOptionPane.YES_NO_OPTION);
+                int aa = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Send SMS ?</h1></html>",
+                        "Saved Successfully", JOptionPane.YES_NO_OPTION);
                 if (aa == JOptionPane.YES_OPTION) {
                     send_sms();
                 }
@@ -354,7 +369,8 @@ public class pay_bill_generation extends javax.swing.JInternalFrame {
 
     void view(String sno) {
         try {
-            String query = "select sno,date_format(dfrom,'%d/%m/%Y'),date_format(dto,'%d/%m/%Y'),date_format(dat,'%d/%m/%Y') from pay_bill where sno='" + sno + "' ";
+            String query = "select sno,date_format(dfrom,'%d/%m/%Y'),date_format(dto,'%d/%m/%Y'),date_format(dat,'%d/%m/%Y') from pay_bill where sno='"
+                    + sno + "' ";
             r = util.doQuery(query);
             boolean selva = false;
             while (r.next()) {
@@ -370,7 +386,8 @@ public class pay_bill_generation extends javax.swing.JInternalFrame {
                 deletebutton.setVisible(true);
                 smsbutton.setVisible(true);
 
-                query = "select cid,cname,salary,days,gross,lpay,lopay,net,mobile,lno,balance from pay_bill where sno='" + sno + "'";
+                query = "select cid,cname,salary,days,gross,lpay,lopay,net,mobile,lno,balance from pay_bill where sno='"
+                        + sno + "'";
                 r = util.doQuery(query);
                 while (r.next()) {
                     String salary = String.format("%." + hmany + "f", r.getDouble(3));
@@ -378,7 +395,8 @@ public class pay_bill_generation extends javax.swing.JInternalFrame {
                     String lpay = String.format("%." + hmany + "f", r.getDouble(6));
                     String lopay = String.format("%." + hmany + "f", r.getDouble(7));
                     String net = String.format("%." + hmany + "f", r.getDouble(8));
-                    s2.addRow(new Object[]{r.getString(1), r.getString(2), salary, r.getString(4), gross, lpay, lopay, net, r.getString(9), r.getString(10), r.getString(11)});
+                    s2.addRow(new Object[] { r.getString(1), r.getString(2), salary, r.getString(4), gross, lpay, lopay,
+                            net, r.getString(9), r.getString(10), r.getString(11) });
                 }
                 calculation();
             } else if (selva == false) {
@@ -403,10 +421,12 @@ public class pay_bill_generation extends javax.swing.JInternalFrame {
                 }
             }
             if (utype.equalsIgnoreCase("User")) {
-                JOptionPane.showMessageDialog(this, "Login as 'Administrator' to Delete!", "Permission Restricted", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Login as 'Administrator' to Delete!", "Permission Restricted",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            int a = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Delete ?</h1></html>", "Are You Sure", JOptionPane.YES_NO_OPTION);
+            int a = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Delete ?</h1></html>", "Are You Sure",
+                    JOptionPane.YES_NO_OPTION);
             if (a == JOptionPane.NO_OPTION) {
                 return;
             }
@@ -417,12 +437,14 @@ public class pay_bill_generation extends javax.swing.JInternalFrame {
                 String cname = jTable1.getValueAt(i, 1).toString();
                 double lopay = Double.parseDouble(jTable1.getValueAt(i, 6).toString());
                 String lno = jTable1.getValueAt(i, 9).toString();
-                list.add("update pay_loan set paid=paid-" + lopay + " where sno='" + lno + "' and cid='" + cid + "' and cname='" + cname + "' ");
-            }//table row counts
+                list.add("update pay_loan set paid=paid-" + lopay + " where sno='" + lno + "' and cid='" + cid
+                        + "' and cname='" + cname + "' ");
+            } // table row counts
             list.add("delete from pay_bill where sno='" + sno + "'");
             int as = util.doManipulation_Batch(list);
             if (as > 0) {
-                JOptionPane.showMessageDialog(this, "<html><h1>Deleted Successfully</h1></html>", "Deleted", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(this, "<html><h1>Deleted Successfully</h1></html>", "Deleted",
+                        JOptionPane.PLAIN_MESSAGE);
                 clear();
             } else {
                 JOptionPane.showMessageDialog(this, "Please Try again...");
@@ -444,7 +466,8 @@ public class pay_bill_generation extends javax.swing.JInternalFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         titlelablel = new javax.swing.JLabel();
@@ -565,16 +588,15 @@ public class pay_bill_generation extends javax.swing.JInternalFrame {
 
         jTable1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jTable1.setRowHeight(25);
         jScrollPane1.setViewportView(jTable1);
 
@@ -689,12 +711,12 @@ public class pay_bill_generation extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closebuttonActionPerformed
+    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closebuttonActionPerformed
         this.dispose();
         // TODO add your handling code here:
-    }//GEN-LAST:event_closebuttonActionPerformed
+    }// GEN-LAST:event_closebuttonActionPerformed
 
-    private void generatebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generatebuttonActionPerformed
+    private void generatebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_generatebuttonActionPerformed
         Date d = new Date();
         SimpleDateFormat g = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -706,9 +728,9 @@ public class pay_bill_generation extends javax.swing.JInternalFrame {
         }
         load_report(h3.getText(), h4.getText());
 
-    }//GEN-LAST:event_generatebuttonActionPerformed
+    }// GEN-LAST:event_generatebuttonActionPerformed
 
-    private void excelbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelbuttonActionPerformed
+    private void excelbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_excelbuttonActionPerformed
         if (s2.getRowCount() <= 0) {
             JOptionPane.showMessageDialog(this, "Sorry, No Records Were Found!", "Oops", JOptionPane.ERROR_MESSAGE);
             return;
@@ -742,13 +764,13 @@ public class pay_bill_generation extends javax.swing.JInternalFrame {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_excelbuttonActionPerformed
+    }// GEN-LAST:event_excelbuttonActionPerformed
 
-    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbuttonActionPerformed
+    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_clearbuttonActionPerformed
         clear();
-    }//GEN-LAST:event_clearbuttonActionPerformed
+    }// GEN-LAST:event_clearbuttonActionPerformed
 
-    private void jCalendarButton1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendarButton1PropertyChange
+    private void jCalendarButton1PropertyChange(java.beans.PropertyChangeEvent evt) {// GEN-FIRST:event_jCalendarButton1PropertyChange
         try {
             if (evt.getNewValue() instanceof Date) {
                 String ses = evt.getNewValue().toString();
@@ -759,9 +781,9 @@ public class pay_bill_generation extends javax.swing.JInternalFrame {
         } catch (ParseException e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_jCalendarButton1PropertyChange
+    }// GEN-LAST:event_jCalendarButton1PropertyChange
 
-    private void jCalendarButton2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendarButton2PropertyChange
+    private void jCalendarButton2PropertyChange(java.beans.PropertyChangeEvent evt) {// GEN-FIRST:event_jCalendarButton2PropertyChange
         try {
             if (evt.getNewValue() instanceof Date) {
                 String ses = evt.getNewValue().toString();
@@ -772,30 +794,30 @@ public class pay_bill_generation extends javax.swing.JInternalFrame {
         } catch (ParseException e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_jCalendarButton2PropertyChange
+    }// GEN-LAST:event_jCalendarButton2PropertyChange
 
-    private void viewbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewbuttonActionPerformed
+    private void viewbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_viewbuttonActionPerformed
         String sno = JOptionPane.showInputDialog(this, "Enter Entry No ?", "Entry No", JOptionPane.PLAIN_MESSAGE);
         view(sno);
-    }//GEN-LAST:event_viewbuttonActionPerformed
+    }// GEN-LAST:event_viewbuttonActionPerformed
 
-    private void netbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_netbuttonActionPerformed
+    private void netbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_netbuttonActionPerformed
         get_net_pay();
-    }//GEN-LAST:event_netbuttonActionPerformed
+    }// GEN-LAST:event_netbuttonActionPerformed
 
-    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savebuttonActionPerformed
-        save();        // TODO add your handling code here:
-    }//GEN-LAST:event_savebuttonActionPerformed
+    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_savebuttonActionPerformed
+        save(); // TODO add your handling code here:
+    }// GEN-LAST:event_savebuttonActionPerformed
 
-    private void smsbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_smsbuttonActionPerformed
+    private void smsbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_smsbuttonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_smsbuttonActionPerformed
+    }// GEN-LAST:event_smsbuttonActionPerformed
 
-    private void deletebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletebuttonActionPerformed
-        delete();        // TODO add your handling code here:
-    }//GEN-LAST:event_deletebuttonActionPerformed
+    private void deletebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_deletebuttonActionPerformed
+        delete(); // TODO add your handling code here:
+    }// GEN-LAST:event_deletebuttonActionPerformed
 
-    private void prebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prebuttonActionPerformed
+    private void prebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_prebuttonActionPerformed
 
         try {
             String query;
@@ -822,9 +844,9 @@ public class pay_bill_generation extends javax.swing.JInternalFrame {
         }
 
         // TODO add your handling code here:
-    }//GEN-LAST:event_prebuttonActionPerformed
+    }// GEN-LAST:event_prebuttonActionPerformed
 
-    private void nextbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextbuttonActionPerformed
+    private void nextbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_nextbuttonActionPerformed
 
         try {
             String query;
@@ -849,11 +871,11 @@ public class pay_bill_generation extends javax.swing.JInternalFrame {
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_nextbuttonActionPerformed
+    }// GEN-LAST:event_nextbuttonActionPerformed
 
-    private void h1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h1FocusGained
+    private void h1FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h1FocusGained
         h3.requestFocus();
-    }//GEN-LAST:event_h1FocusGained
+    }// GEN-LAST:event_h1FocusGained
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton clearbutton;

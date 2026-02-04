@@ -16,7 +16,7 @@ import menupack.sample2;
 /**
  *
  * @author K.SELVAKUMAR, copyrights K.SELVAKUMAR, +91 99427 32229,
- * mysoft.java@gmail.com
+ *         mysoft.java@gmail.com
  */
 public final class user_permissions extends javax.swing.JInternalFrame {
 
@@ -33,10 +33,11 @@ public final class user_permissions extends javax.swing.JInternalFrame {
         titlelablel.setText("<html><u>User Permissions</u></html>");
         setTitle("User Permissions");
         this.setSize(491, 648);
-        try {
-            ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("images/icon.png"));
+        java.net.URL iconUrl = ClassLoader.getSystemResource("/images/icon.png");
+        if (iconUrl != null) {
+            ImageIcon icon = new ImageIcon(iconUrl);
             this.setFrameIcon(icon);
-        } catch (Exception e) {}
+        }
     }
 
     public final void load_list_table() {
@@ -59,8 +60,8 @@ public final class user_permissions extends javax.swing.JInternalFrame {
         }
 
         // Use the Master List from PermissionManager
-        for(String feature : PermissionManager.getAllFeatures()) {
-            s2.addRow(new Object[]{feature, "No"});
+        for (String feature : PermissionManager.getAllFeatures()) {
+            s2.addRow(new Object[] { feature, "No" });
         }
     }
 
@@ -118,11 +119,13 @@ public final class user_permissions extends javax.swing.JInternalFrame {
             for (int i = 0; i < jTable1.getRowCount(); i++) {
                 String fname = jTable1.getValueAt(i, 0).toString();
                 String option = jTable1.getValueAt(i, 1).toString();
-                query_batch.add("insert into users_permissions values ('" + h3.getSelectedItem() + "','" + fname + "','" + option + "')");
+                query_batch.add("insert into users_permissions values ('" + h3.getSelectedItem() + "','" + fname + "','"
+                        + option + "')");
             }
             int count = util.doManipulation_Batch(query_batch);
             if (count > 0) {
-                JOptionPane.showMessageDialog(this, "<html><h1>Saved Successfully</h1></html>", "Saved", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(this, "<html><h1>Saved Successfully</h1></html>", "Saved",
+                        JOptionPane.PLAIN_MESSAGE);
                 clear();
                 load_report();
             }
@@ -151,7 +154,8 @@ public final class user_permissions extends javax.swing.JInternalFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         titlelablel = new javax.swing.JLabel();
@@ -174,16 +178,15 @@ public final class user_permissions extends javax.swing.JInternalFrame {
 
         jTable1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null}
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
                 },
-                new String [] {
+                new String[] {
                         "Title 1", "Title 2", "Title 3", "Title 4"
-                }
-        ));
+                }));
         jTable1.setRowHeight(25);
         jTable1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -266,7 +269,7 @@ public final class user_permissions extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTable1MouseClicked
         String value = jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString();
         if (value.equals("Yes")) {
             jTable1.setValueAt("No", jTable1.getSelectedRow(), 1);
@@ -274,36 +277,36 @@ public final class user_permissions extends javax.swing.JInternalFrame {
             jTable1.setValueAt("Yes", jTable1.getSelectedRow(), 1);
         }
 
-    }//GEN-LAST:event_jTable1MouseClicked
+    }// GEN-LAST:event_jTable1MouseClicked
 
-    private void generatebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generatebuttonActionPerformed
+    private void generatebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_generatebuttonActionPerformed
         h3.setEnabled(false);
         generatebutton.setEnabled(false);
         get_permission_list();
 
-    }//GEN-LAST:event_generatebuttonActionPerformed
+    }// GEN-LAST:event_generatebuttonActionPerformed
 
-    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbuttonActionPerformed
+    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_clearbuttonActionPerformed
         clear();
         load_report();
 
-    }//GEN-LAST:event_clearbuttonActionPerformed
+    }// GEN-LAST:event_clearbuttonActionPerformed
 
-    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closebuttonActionPerformed
+    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closebuttonActionPerformed
         this.dispose();
-    }//GEN-LAST:event_closebuttonActionPerformed
+    }// GEN-LAST:event_closebuttonActionPerformed
 
-    private void jTable1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTable1FocusGained
+    private void jTable1FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jTable1FocusGained
 
-    }//GEN-LAST:event_jTable1FocusGained
+    }// GEN-LAST:event_jTable1FocusGained
 
-    private void h3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_h3ItemStateChanged
+    private void h3ItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_h3ItemStateChanged
 
-    }//GEN-LAST:event_h3ItemStateChanged
+    }// GEN-LAST:event_h3ItemStateChanged
 
-    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savebuttonActionPerformed
+    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_savebuttonActionPerformed
         save();
-    }//GEN-LAST:event_savebuttonActionPerformed
+    }// GEN-LAST:event_savebuttonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton clearbutton;

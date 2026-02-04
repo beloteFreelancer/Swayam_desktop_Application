@@ -193,8 +193,11 @@ public final class sales extends javax.swing.JInternalFrame {
         get_date_time();
 
         this.setSize(1307, 663);
-        ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("images/icon.png"));
-        this.setFrameIcon(icon);
+        java.net.URL iconUrl = ClassLoader.getSystemResource("/images/icon.png");
+        if (iconUrl != null) {
+            ImageIcon icon = new ImageIcon(iconUrl);
+            this.setFrameIcon(icon);
+        }
     }
 
     void get_date_time() {

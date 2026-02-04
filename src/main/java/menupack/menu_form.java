@@ -234,6 +234,7 @@ public final class menu_form extends javax.swing.JFrame {
             jMenu20.setVisible(false);
             jMenu9.setVisible(false);
         }
+        jMenu10.setVisible(true); // Always show Sales menu
     }
 
     final void get_defauls() {
@@ -1528,7 +1529,7 @@ public final class menu_form extends javax.swing.JFrame {
         jLabel42.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel42.setForeground(ColorConstants.TEXT_LIGHT);
         jLabel42.setText(
-                "📞 BBS Software   |   📱 Mob: 9845972853, 8496803966   |   📧 Email: BBSsoftwaretarget@gmail.com   |   🌐 Website: BBSerp.in");
+                "📞 BBS Software   |    Email: BBSsoftwaretarget@gmail.com   |   🌐 Website: BBSerp.in");
         jPanel12.add(jLabel42);
         jLabel42.setBounds(20, 55, 1200, 25);
 
@@ -1815,7 +1816,9 @@ public final class menu_form extends javax.swing.JFrame {
         getContentPane().add(jDesktopPane1);
         jDesktopPane1.setBounds(0, 0, 1360, 720);
 
-        jMenuBar1.setPreferredSize(new java.awt.Dimension(200, 30));
+        // jMenuBar1.setPreferredSize(new java.awt.Dimension(200, 30));
+
+        jMenuBar1.setPreferredSize(new java.awt.Dimension(1360, 30));
         jMenuBar1.setBackground(ColorConstants.PRIMARY_BLUE);
         jMenuBar1.setForeground(ColorConstants.TEXT_LIGHT);
         jMenuBar1.setBorder(javax.swing.BorderFactory.createEmptyBorder());
@@ -4485,7 +4488,7 @@ public final class menu_form extends javax.swing.JFrame {
 
     private void salesbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_salesbuttonActionPerformed
         try {
-            sales im = new sales(util, version, user_type);
+            sales im = new sales(util);
             jDesktopPane1.add(im);
             im.setVisible(true);
 
@@ -4494,7 +4497,7 @@ public final class menu_form extends javax.swing.JFrame {
             im.setLocation((desktopSize.width - jInternalFrameSize.width) / 2,
                     (desktopSize.height - jInternalFrameSize.height) / 2);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }// GEN-LAST:event_salesbuttonActionPerformed
 

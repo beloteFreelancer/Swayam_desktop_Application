@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 /**
  *
  * @author K.SELVAKUMAR, copyrights K.SELVAKUMAR, +91 99427 32229,
- * mysoft.java@gmail.com
+ *         mysoft.java@gmail.com
  */
 public final class setting_terminal extends javax.swing.JInternalFrame {
 
@@ -56,7 +56,7 @@ public final class setting_terminal extends javax.swing.JInternalFrame {
             try (FileInputStream m = new FileInputStream(folder + "/Config_Files/terminal.properties")) {
                 prop.load(m);
             } catch (IOException e) {
-               // ignore
+                // ignore
             }
 
             prop.setProperty("location", h1.getText());
@@ -79,8 +79,11 @@ public final class setting_terminal extends javax.swing.JInternalFrame {
         initComponents();
         setTitle("Setting");
         this.setSize(430, 300);
-        ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("images/icon.png"));
-        this.setFrameIcon(icon);
+        java.net.URL iconUrl = ClassLoader.getSystemResource("/images/icon.png");
+        if (iconUrl != null) {
+            ImageIcon icon = new ImageIcon(iconUrl);
+            this.setFrameIcon(icon);
+        }
         drive = drive1;
         folder = folder1;
         display();
@@ -89,7 +92,8 @@ public final class setting_terminal extends javax.swing.JInternalFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
@@ -163,17 +167,17 @@ public final class setting_terminal extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closebuttonActionPerformed
+    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closebuttonActionPerformed
         this.dispose();
-    }//GEN-LAST:event_closebuttonActionPerformed
+    }// GEN-LAST:event_closebuttonActionPerformed
 
-    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savebuttonActionPerformed
+    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_savebuttonActionPerformed
         save();
-    }//GEN-LAST:event_savebuttonActionPerformed
+    }// GEN-LAST:event_savebuttonActionPerformed
 
-    private void weighingConnectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_weighingConnectButtonActionPerformed
+    private void weighingConnectButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_weighingConnectButtonActionPerformed
         new WeighingConfig(JOptionPane.getFrameForComponent(this), true, drive, folder).setVisible(true);
-    }//GEN-LAST:event_weighingConnectButtonActionPerformed
+    }// GEN-LAST:event_weighingConnectButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton closebutton;

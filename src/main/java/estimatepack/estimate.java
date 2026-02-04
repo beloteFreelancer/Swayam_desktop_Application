@@ -54,7 +54,7 @@ import smspack.SMS_Sender_Single;
 /**
  *
  * @author K.SELVAKUMAR, copyrights K.SELVAKUMAR, +91 99427 32229,
- * mysoft.java@gmail.com
+ *         mysoft.java@gmail.com
  */
 public final class estimate extends javax.swing.JInternalFrame {
 
@@ -63,10 +63,12 @@ public final class estimate extends javax.swing.JInternalFrame {
     DefaultTableCellRenderer dtcr1 = new DefaultTableCellRenderer();
     boolean selvagates = false, customer_selection = false;
     String username = "", utype = "", drive = "", folder = "", version = "", retail_format = "", wholesale_format = "";
-    String scode = "", sname = "", ttype = "", stock_bill, less_prate = "", tax = "Local", entry_mode = "Auto", dsales = "Retail", cust_details = "";
+    String scode = "", sname = "", ttype = "", stock_bill, less_prate = "", tax = "Local", entry_mode = "Auto",
+            dsales = "Retail", cust_details = "";
     double max_rdis = 0, max_wdis = 0;
     int hmany = 2, hmany1 = 3;
-    String sms_alert = "", sender = "", smsuser = "", smspass = "", smsfoot1 = "", smsfoot2 = "", alter_sms = "", management_no1 = "", management_no2 = "";
+    String sms_alert = "", sender = "", smsuser = "", smspass = "", smsfoot1 = "", smsfoot2 = "", alter_sms = "",
+            management_no1 = "", management_no2 = "";
     String points_option = "No";
     double hmuch_points = 0, points_for = 0;
     String round_option = "Yes";
@@ -154,6 +156,7 @@ public final class estimate extends javax.swing.JInternalFrame {
             return column == 3 || column == 5 || column == 7;
         }
     }
+
     sample2 s2 = new sample2();
     sample2 s3 = new sample2();
     sample2 s4 = new sample2();
@@ -182,8 +185,14 @@ public final class estimate extends javax.swing.JInternalFrame {
         get_date_time();
 
         this.setSize(1307, 663);
-        ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("images/icon.png"));
-        this.setFrameIcon(icon);
+
+        // ImageIcon icon = new
+        // ImageIcon(ClassLoader.getSystemResource("images/icon.png"));
+        java.net.URL iconUrl = ClassLoader.getSystemResource("/images/icon.png");
+        if (iconUrl != null) {
+            ImageIcon icon = new ImageIcon(iconUrl);
+            this.setFrameIcon(icon);
+        }
     }
 
     void get_date_time() {
@@ -322,7 +331,8 @@ public final class estimate extends javax.swing.JInternalFrame {
                 selva = true;
             }
             if (selva == false) {
-                JOptionPane.showMessageDialog(this, "<html><h1>Invalid Products Details!</h1></hmtl>", "Invalid", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "<html><h1>Invalid Products Details!</h1></hmtl>", "Invalid",
+                        JOptionPane.ERROR_MESSAGE);
                 fields_clear();
                 h17.requestFocus();
             } else {
@@ -379,7 +389,8 @@ public final class estimate extends javax.swing.JInternalFrame {
             double disp = 0, prate = 0, mrp = 0, rprice = 0, wprice = 0;
             int taxp = 0;
             boolean selva = false;
-            String query = "select hsn,udes,disp,taxp,iname1,prate,mrp,rprice,wprice from item where ino='" + ino + "' and barcode='" + barcode + "' and iname='" + iname + "' ";
+            String query = "select hsn,udes,disp,taxp,iname1,prate,mrp,rprice,wprice from item where ino='" + ino
+                    + "' and barcode='" + barcode + "' and iname='" + iname + "' ";
             ResultSet r = util.doQuery(query);
             while (r.next()) {
                 hsn = r.getString(1);
@@ -404,7 +415,8 @@ public final class estimate extends javax.swing.JInternalFrame {
             }
             double stock = 0;
             String entry = "purchase";
-            query = "select quan,entry from stock where barcode='" + barcode + "' and ino='" + ino + "' and iname='" + iname + "' ";
+            query = "select quan,entry from stock where barcode='" + barcode + "' and ino='" + ino + "' and iname='"
+                    + iname + "' ";
             r = util.doQuery(query);
             while (r.next()) {
                 stock = r.getDouble(1);
@@ -436,23 +448,27 @@ public final class estimate extends javax.swing.JInternalFrame {
                 String old_barcode = jTable1.getValueAt(i, 14).toString();
                 String old_entry = jTable1.getValueAt(i, 17).toString();
 
-                if (ino.equalsIgnoreCase(old_ino) && barcode.equalsIgnoreCase(old_barcode) && entry.equalsIgnoreCase(old_entry)) {
+                if (ino.equalsIgnoreCase(old_ino) && barcode.equalsIgnoreCase(old_barcode)
+                        && entry.equalsIgnoreCase(old_entry)) {
                     selvakumar = true;
                     old_row = i;
                     old_quan = Double.parseDouble(jTable1.getValueAt(i, 3).toString());
                 }
-            }// row counts ends for checking
+            } // row counts ends for checking
 
             double nquan = quan + old_quan;
             if (nquan > stock && stock_bill.equalsIgnoreCase("No")) {
-                JOptionPane.showMessageDialog(this, "Stock-in-Hand: " + stock, "Invalid Stock", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Stock-in-Hand: " + stock, "Invalid Stock",
+                        JOptionPane.ERROR_MESSAGE);
                 fields_clear();
                 h17.requestFocus();
                 return;
             }
 
             if (selvakumar == false) {
-                s2.addRow(new Object[]{jTable1.getRowCount() + 1, ino, iname, quan2, mrp2, price2, amount2, disp, disamt, sub, taxp, taxamt, total, udes, barcode, hsn, tax, entry, 0, 0, iname1, prate, rprice, wprice});
+                s2.addRow(new Object[] { jTable1.getRowCount() + 1, ino, iname, quan2, mrp2, price2, amount2, disp,
+                        disamt, sub, taxp, taxamt, total, udes, barcode, hsn, tax, entry, 0, 0, iname1, prate, rprice,
+                        wprice });
                 serial_num();
             } else {
                 double net_quan = old_quan + quan;
@@ -465,12 +481,13 @@ public final class estimate extends javax.swing.JInternalFrame {
                 s2.setValueAt(quann2, old_row, 3);
             }
 
-            infol.setText("<html>" + iname + "&nbsp &nbsp &nbsp &nbsp <b>MRP: " + mrp2 + "</b> &nbsp &nbsp &nbsp " + quan2 + "x" + price2 + "=" + amount2 + "</html>");
-            //row selected
+            infol.setText("<html>" + iname + "&nbsp &nbsp &nbsp &nbsp <b>MRP: " + mrp2 + "</b> &nbsp &nbsp &nbsp "
+                    + quan2 + "x" + price2 + "=" + amount2 + "</html>");
+            // row selected
             Rectangle rect = jTable1.getCellRect(jTable1.getRowCount() - 1, 0, true);
             jTable1.scrollRectToVisible(rect);
             jTable1.setRowSelectionInterval(jTable1.getRowCount() - 1, jTable1.getRowCount() - 1);
-            //row selected ends
+            // row selected ends
 
             apply_all_changes();
             fields_clear();
@@ -527,7 +544,7 @@ public final class estimate extends javax.swing.JInternalFrame {
                 ntax = ntax + taxamt;
                 items = items + 1;
                 ncost_rate = ncost_rate + cost_rate;
-            }//table row counts ends
+            } // table row counts ends
 
             String nsub2 = String.format("%." + hmany + "f", nsub);
             String ndis2 = String.format("%." + hmany + "f", ndis);
@@ -573,7 +590,7 @@ public final class estimate extends javax.swing.JInternalFrame {
 
             String grant = String.format("%." + hmany + "f", gt);
             if (round_option.equals("Yes")) {
-                //round off starts
+                // round off starts
                 String[] grant1 = grant.split("\\.");
                 String grant2 = grant1[0];
                 String grant3 = grant1[1];
@@ -599,12 +616,12 @@ public final class estimate extends javax.swing.JInternalFrame {
 
                 h15.setText("" + round2);
                 netl.setText(rup + ".00");
-                //round off ends
-            }//round option ends
+                // round off ends
+            } // round option ends
             else {
                 h15.setText("" + 0);
                 netl.setText(grant);
-            } //no round option
+            } // no round option
         } catch (NumberFormatException e) {
             System.out.println(e.getMessage());
         }
@@ -649,7 +666,8 @@ public final class estimate extends javax.swing.JInternalFrame {
         String paid2 = String.format("%." + hmany + "f", paid);
         paidl.setText(paid2);
         if (paid < tot) {
-            JOptionPane.showMessageDialog(this, "<html><h1>Paid Amount is Less than Bill Amount!</h1></html>", "Invalid", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "<html><h1>Paid Amount is Less than Bill Amount!</h1></html>",
+                    "Invalid", JOptionPane.ERROR_MESSAGE);
             paidl.setText("0.00");
             ball.setText("0.00");
         } else {
@@ -707,7 +725,8 @@ public final class estimate extends javax.swing.JInternalFrame {
                     if (newBal < 0) {
                         newBal = 0;
                         double advance = totalPaid - fNet;
-                        JOptionPane.showMessageDialog(this, "Customer paid ₹" + String.format("%.2f", advance) + " extra.");
+                        JOptionPane.showMessageDialog(this,
+                                "Customer paid ₹" + String.format("%.2f", advance) + " extra.");
                     }
                     ball.setText(String.format("%.2f", newBal));
 
@@ -727,7 +746,8 @@ public final class estimate extends javax.swing.JInternalFrame {
     void save() {
         try {
             if (s2.getRowCount() <= 0) {
-                JOptionPane.showMessageDialog(this, "No Records Were Found to Save!", "No Records", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No Records Were Found to Save!", "No Records",
+                        JOptionPane.ERROR_MESSAGE);
                 h17.requestFocus();
                 return;
             }
@@ -744,7 +764,8 @@ public final class estimate extends javax.swing.JInternalFrame {
                 selva = true;
             }
             if (selva == true) {
-                JOptionPane.showMessageDialog(this, "Already Exist!\nUse 'Alter' Option to Alter...", "Already Exist", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Already Exist!\nUse 'Alter' Option to Alter...", "Already Exist",
+                        JOptionPane.ERROR_MESSAGE);
                 savebutton.requestFocus();
                 return;
             }
@@ -776,7 +797,7 @@ public final class estimate extends javax.swing.JInternalFrame {
             String cid = h21.getText();
             double net = Double.parseDouble(netl.getText());
 
-//credit sales checking
+            // credit sales checking
             if (h16.getSelectedItem().equals("Credit")) {
                 String ctype = "Retail";
                 boolean kumar = false;
@@ -787,14 +808,16 @@ public final class estimate extends javax.swing.JInternalFrame {
                     kumar = true;
                 }
                 if (ctype.equals("Retail") || kumar == false) {
-                    JOptionPane.showMessageDialog(this, "<html>For Credit Bill First Create Customer Master<br>, Create as <b> 'Credit Customer'</b></html>", "Invalid Credit Customer!", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this,
+                            "<html>For Credit Bill First Create Customer Master<br>, Create as <b> 'Credit Customer'</b></html>",
+                            "Invalid Credit Customer!", JOptionPane.ERROR_MESSAGE);
                     h24.requestFocus();
                     return;
                 }
-            }//price lable is wholesale ends
+            } // price lable is wholesale ends
 
             int due_days = 0;
-            //payment mode credit starts
+            // payment mode credit starts
             if (h16.getSelectedItem().equals("Credit")) {
                 double climit = 0, old_bal = 0;
                 query = "select climit,duedays from cust where cid='" + cid + "'";
@@ -810,13 +833,15 @@ public final class estimate extends javax.swing.JInternalFrame {
                 }
                 double allowed_credit = net + old_bal;
                 if (allowed_credit > climit) {
-                    JOptionPane.showMessageDialog(this, "<html><b>Credit Limit: " + climit + "<br>Old Balance: " + old_bal + "</b></html>", "Credit Limit Exceeds", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this,
+                            "<html><b>Credit Limit: " + climit + "<br>Old Balance: " + old_bal + "</b></html>",
+                            "Credit Limit Exceeds", JOptionPane.ERROR_MESSAGE);
                     h16.requestFocus();
                     return;
                 }
             }
-            //paymode credits ends
-            //credit sales checking ends
+            // paymode credits ends
+            // credit sales checking ends
 
             String cname = h24.getText();
             String cardno = h22.getText();
@@ -824,7 +849,7 @@ public final class estimate extends javax.swing.JInternalFrame {
 
             boolean cust_card = false;
             int newcid = 0;
-            //customer card checking
+            // customer card checking
             if (customer_selection == false && mobile.length() == 10) {
                 query = "select cid from cust where cardno='" + cardno + "'";
                 r = util.doQuery(query);
@@ -832,7 +857,8 @@ public final class estimate extends javax.swing.JInternalFrame {
                     cust_card = true;
                 }
                 if (cust_card == true) {
-                    JOptionPane.showMessageDialog(this, "Customer Card No Already Exist!", "Already Exist", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Customer Card No Already Exist!", "Already Exist",
+                            JOptionPane.ERROR_MESSAGE);
                     h22.requestFocus();
                     return;
                 }
@@ -844,11 +870,11 @@ public final class estimate extends javax.swing.JInternalFrame {
                 newcid = newcid + 1;
                 cid = newcid + "";
             }
-            //customer card checking ends
+            // customer card checking ends
 
             double old_points = 0;
             boolean points_exist = false;
-            //points system checking
+            // points system checking
             if (points_option.equalsIgnoreCase("Yes") && mobile.length() == 10) {
                 query = "select points from cust_points where cid='" + cid + "'";
                 r = util.doQuery(query);
@@ -864,8 +890,9 @@ public final class estimate extends javax.swing.JInternalFrame {
                 tot_pointsl.setText("" + total_points1);
                 pointsl.setText("" + today_points1);
             }
-            //points system checking ends
-            int aa = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Save ?</h1></html>", "Are You Sure", JOptionPane.YES_NO_OPTION);
+            // points system checking ends
+            int aa = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Save ?</h1></html>", "Are You Sure",
+                    JOptionPane.YES_NO_OPTION);
             if (aa == JOptionPane.NO_OPTION) {
                 return;
             }
@@ -939,7 +966,8 @@ public final class estimate extends javax.swing.JInternalFrame {
 
             Connection conn = util.getConnection();
             conn.setAutoCommit(false);
-            PreparedStatement psEstimate = conn.prepareStatement("INSERT INTO estimate (billno, dat, tim, location, cashier, terminal, items, quans, sub, disp, disamt, gross, taxamt, addamt, round, net, pby, paid, bal, cash, card, credit, others, upi, price_type, tax_type, tax, cid, cardno, cname, mobile, user, last, today_points, total_points, cost_rate) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement psEstimate = conn.prepareStatement(
+                    "INSERT INTO estimate (billno, dat, tim, location, cashier, terminal, items, quans, sub, disp, disamt, gross, taxamt, addamt, round, net, pby, paid, bal, cash, card, credit, others, upi, price_type, tax_type, tax, cid, cardno, cname, mobile, user, last, today_points, total_points, cost_rate) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             psEstimate.setString(1, billno);
             psEstimate.setString(2, date);
             psEstimate.setString(3, time);
@@ -978,8 +1006,10 @@ public final class estimate extends javax.swing.JInternalFrame {
             psEstimate.setString(36, ncost_rate);
             psEstimate.executeUpdate();
 
-            PreparedStatement psEstimateItems = conn.prepareStatement("INSERT INTO estimate_items (billno, dat, cid, serial, ino, iname, quan, mrp, price, amount, disp, disamt, sub, taxp, taxamt, total, udes, barcode, hsn, tax, entry, cost_rate, profit, iname1, price_type, tax_type, item_type, prate, rprice, wprice, remarks) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-            PreparedStatement psUpdateStock = conn.prepareStatement("UPDATE stock SET quan=quan-? WHERE barcode=? AND ino=? AND iname=? AND entry=?");
+            PreparedStatement psEstimateItems = conn.prepareStatement(
+                    "INSERT INTO estimate_items (billno, dat, cid, serial, ino, iname, quan, mrp, price, amount, disp, disamt, sub, taxp, taxamt, total, udes, barcode, hsn, tax, entry, cost_rate, profit, iname1, price_type, tax_type, item_type, prate, rprice, wprice, remarks) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement psUpdateStock = conn
+                    .prepareStatement("UPDATE stock SET quan=quan-? WHERE barcode=? AND ino=? AND iname=? AND entry=?");
 
             for (int i = 0; i < jTable1.getRowCount(); i++) {
                 String serial = jTable1.getValueAt(i, 0).toString();
@@ -1060,7 +1090,7 @@ public final class estimate extends javax.swing.JInternalFrame {
                     psUpdateStock.setString(5, entry);
                     psUpdateStock.addBatch();
                 }
-            }//jtable row counts ends
+            } // jtable row counts ends
 
             psEstimateItems.executeBatch();
             psUpdateStock.executeBatch();
@@ -1073,7 +1103,8 @@ public final class estimate extends javax.swing.JInternalFrame {
                 c.add(Calendar.DAY_OF_MONTH, due_days);
                 String ddate = sdf.format(c.getTime());
 
-                PreparedStatement psCustBal = conn.prepareStatement("INSERT INTO cust_bal (billno, dat, ddate, cid, cname, tot, paid, last) VALUES (?,?,?,?,?,?,?,?)");
+                PreparedStatement psCustBal = conn.prepareStatement(
+                        "INSERT INTO cust_bal (billno, dat, ddate, cid, cname, tot, paid, last) VALUES (?,?,?,?,?,?,?,?)");
                 psCustBal.setString(1, billno);
                 psCustBal.setString(2, date);
                 psCustBal.setString(3, ddate);
@@ -1083,15 +1114,17 @@ public final class estimate extends javax.swing.JInternalFrame {
                 psCustBal.setInt(7, paid1);
                 psCustBal.setString(8, last);
                 psCustBal.executeUpdate();
-            }//credit bill ends
+            } // credit bill ends
 
-            //customer save
+            // customer save
             if (customer_selection == false && mobile.length() == 10) {
-                String ctype = "General", add1 = ".", add2 = ".", add3 = ".", city = ".", phone = ".", gstno = ".", climit = "" + 0, due_days1 = "" + 0, remarks = ".", email = ".";
+                String ctype = "General", add1 = ".", add2 = ".", add3 = ".", city = ".", phone = ".", gstno = ".",
+                        climit = "" + 0, due_days1 = "" + 0, remarks = ".", email = ".";
                 if (cardno.equals(".")) {
                     cardno = "" + newcid;
                 }
-                PreparedStatement psCust = conn.prepareStatement("INSERT INTO cust (cid, ctype, cardno, cname, add1, add2, add3, city, mobile, phone, gstno, sname, scode, climit, duedays, remarks, email) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                PreparedStatement psCust = conn.prepareStatement(
+                        "INSERT INTO cust (cid, ctype, cardno, cname, add1, add2, add3, city, mobile, phone, gstno, sname, scode, climit, duedays, remarks, email) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
                 psCust.setInt(1, newcid);
                 psCust.setString(2, ctype);
                 psCust.setString(3, cardno);
@@ -1111,28 +1144,31 @@ public final class estimate extends javax.swing.JInternalFrame {
                 psCust.setString(17, email);
                 psCust.executeUpdate();
             }
-            //customer save ends
+            // customer save ends
 
-            //points systems starts
+            // points systems starts
             if (points_option.equalsIgnoreCase("Yes") && mobile.length() == 10) {
                 if (points_exist == false) {
-                    PreparedStatement psCustPoints = conn.prepareStatement("INSERT INTO cust_points (cid, points) VALUES (?,?)");
+                    PreparedStatement psCustPoints = conn
+                            .prepareStatement("INSERT INTO cust_points (cid, points) VALUES (?,?)");
                     psCustPoints.setString(1, cid);
                     psCustPoints.setString(2, today_points);
                     psCustPoints.executeUpdate();
                 } else {
-                    PreparedStatement psCustPoints = conn.prepareStatement("UPDATE cust_points SET points=? WHERE cid=?");
+                    PreparedStatement psCustPoints = conn
+                            .prepareStatement("UPDATE cust_points SET points=? WHERE cid=?");
                     psCustPoints.setString(1, total_points);
                     psCustPoints.setString(2, cid);
                     psCustPoints.executeUpdate();
                 }
             }
-            //points systems ends here
+            // points systems ends here
 
             conn.commit();
             int count = 1;
             if (count > 0) {
-                int bb = JOptionPane.showConfirmDialog(this, "<html><h1>You Want to Print Bill ?</h1></html>", "Saved Successfully", JOptionPane.YES_OPTION);
+                int bb = JOptionPane.showConfirmDialog(this, "<html><h1>You Want to Print Bill ?</h1></html>",
+                        "Saved Successfully", JOptionPane.YES_OPTION);
                 if (bb == JOptionPane.YES_OPTION) {
                     String billformat = retail_format;
                     if (pricel.getText().equals("Wholesale")) {
@@ -1143,7 +1179,8 @@ public final class estimate extends javax.swing.JInternalFrame {
                 send_sms();
                 form_clear();
             } else {
-                JOptionPane.showMessageDialog(this, "Check Product Entries and then Try Again!", "Invalid Products", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Check Product Entries and then Try Again!", "Invalid Products",
+                        JOptionPane.ERROR_MESSAGE);
                 get_billno();
             }
         } catch (HeadlessException | ClassNotFoundException | NumberFormatException | SQLException | ParseException e) {
@@ -1234,7 +1271,8 @@ public final class estimate extends javax.swing.JInternalFrame {
                     s2.getDataVector().removeAllElements();
                     s2.fireTableDataChanged();
                 }
-                query = "select billno,date_format(dat,'%d/%m/%Y'),tim,location,terminal,cashier,items,quans,sub,disp,disamt,gross,taxamt,addamt,round,pby,net,paid,bal,cash,card,others,price_type,tax_type,tax,cid,cardno,mobile,cname,today_points,total_points,cost_rate from estimate where billno='" + billno + "'";
+                query = "select billno,date_format(dat,'%d/%m/%Y'),tim,location,terminal,cashier,items,quans,sub,disp,disamt,gross,taxamt,addamt,round,pby,net,paid,bal,cash,card,others,price_type,tax_type,tax,cid,cardno,mobile,cname,today_points,total_points,cost_rate from estimate where billno='"
+                        + billno + "'";
                 set1 = util.doQuery(query);
                 while (set1.next()) {
                     h1.setText(set1.getString(1));
@@ -1306,7 +1344,8 @@ public final class estimate extends javax.swing.JInternalFrame {
                     }
                 }
 
-                query = "select serial,ino,iname,quan,mrp,price,amount,disp,disamt,sub,taxp,taxamt,total,udes,barcode,hsn,tax,entry,cost_rate,profit,iname1,prate,rprice,wprice from estimate_items where billno='" + billno + "'";
+                query = "select serial,ino,iname,quan,mrp,price,amount,disp,disamt,sub,taxp,taxamt,total,udes,barcode,hsn,tax,entry,cost_rate,profit,iname1,prate,rprice,wprice from estimate_items where billno='"
+                        + billno + "'";
                 set1 = util.doQuery(query);
                 while (set1.next()) {
                     String mrp = String.format("%." + hmany + "f", set1.getDouble(5));
@@ -1324,12 +1363,16 @@ public final class estimate extends javax.swing.JInternalFrame {
                         quan2 = split3[0];
                     }
 
-                    s2.addRow(new Object[]{set1.getString(1), set1.getString(2), set1.getString(3), quan2, mrp, price, amount, set1.getString(8), disamt,
-                        sub, set1.getInt(11), taxamt, total, set1.getString(14), set1.getString(15), set1.getString(16), set1.getString(17), set1.getString(18), set1.getString(19), set1.getString(20), set1.getString(21), set1.getString(22), set1.getString(23), set1.getString(24)});
+                    s2.addRow(new Object[] { set1.getString(1), set1.getString(2), set1.getString(3), quan2, mrp, price,
+                            amount, set1.getString(8), disamt,
+                            sub, set1.getInt(11), taxamt, total, set1.getString(14), set1.getString(15),
+                            set1.getString(16), set1.getString(17), set1.getString(18), set1.getString(19),
+                            set1.getString(20), set1.getString(21), set1.getString(22), set1.getString(23),
+                            set1.getString(24) });
                 }
                 get_retail_wholesale_color();
                 get_customer_details_using_mobileno();
-            }//if selva true ends
+            } // if selva true ends
         } catch (HeadlessException | ClassNotFoundException | NumberFormatException | SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -1377,8 +1420,9 @@ public final class estimate extends javax.swing.JInternalFrame {
                     String ino = jTable1.getValueAt(i, 1).toString();
                     String entry = jTable1.getValueAt(i, 17).toString();
                     String udes = jTable1.getValueAt(i, 13).toString();
-                    f.write("" + barcode + "$" + iname + "$" + price + "$" + quan + "$" + ino + "$" + entry + "$" + udes + "\r\n");
-                }//row counts ends here
+                    f.write("" + barcode + "$" + iname + "$" + price + "$" + quan + "$" + ino + "$" + entry + "$" + udes
+                            + "\r\n");
+                } // row counts ends here
             }
 
             String file_name1 = "Bill_Details";
@@ -1414,7 +1458,11 @@ public final class estimate extends javax.swing.JInternalFrame {
                 String others = h27.getText();
 
                 String price_type = pricel.getText();
-                f1.write(billno + "$" + date + "$" + time + "$" + location + "$" + terminal + "$" + cashier + "$" + items + "$" + quans + "$" + sub + "$" + disp + "$" + dis + "$" + gross + "$" + taxamt + "$" + other + "$" + round + "$" + pby + "$" + net + "$" + paid + "$" + bal + "$" + cid + "$" + cardno + "$" + mobile + "$" + cname + "$" + cash + "$" + card + "$" + others + "$" + ttype + "$" + tax + "$" + price_type);
+                f1.write(billno + "$" + date + "$" + time + "$" + location + "$" + terminal + "$" + cashier + "$"
+                        + items + "$" + quans + "$" + sub + "$" + disp + "$" + dis + "$" + gross + "$" + taxamt + "$"
+                        + other + "$" + round + "$" + pby + "$" + net + "$" + paid + "$" + bal + "$" + cid + "$"
+                        + cardno + "$" + mobile + "$" + cname + "$" + cash + "$" + card + "$" + others + "$" + ttype
+                        + "$" + tax + "$" + price_type);
             }
 
         } catch (IOException e) {
@@ -1447,10 +1495,11 @@ public final class estimate extends javax.swing.JInternalFrame {
                     unit = token.nextToken();
                 }
                 add_item(barcode, ino, iname, price, quan, unit);
-            }//while loop reading lines one by one ends he
+            } // while loop reading lines one by one ends he
 
             String file_name1 = "Bill_Details";
-            BufferedReader br1 = new BufferedReader(new FileReader(new File(folder + "/Drafts/" + file_name1 + ".txt")));
+            BufferedReader br1 = new BufferedReader(
+                    new FileReader(new File(folder + "/Drafts/" + file_name1 + ".txt")));
             String sCurrentLine1;
             while ((sCurrentLine1 = br1.readLine()) != null) {
                 String what = sCurrentLine1;
@@ -1503,7 +1552,7 @@ public final class estimate extends javax.swing.JInternalFrame {
                         System.err.println(ex.getMessage());
                     }
                 }
-            }//while line loop ends
+            } // while line loop ends
 
         } catch (HeadlessException | IOException | NumberFormatException e) {
             System.out.println(e.getMessage());
@@ -1628,7 +1677,8 @@ public final class estimate extends javax.swing.JInternalFrame {
                 }
                 String bal2 = String.format("%." + hmany + "f", bal);
                 String climit2 = String.format("%." + hmany + "f", climit);
-                JOptionPane.showMessageDialog(this, "<html><h2>Current Balance: " + bal2 + "<br>Credit Limit: " + climit2 + "<br> No of Bills Due: " + dues + "</h2></html>");
+                JOptionPane.showMessageDialog(this, "<html><h2>Current Balance: " + bal2 + "<br>Credit Limit: "
+                        + climit2 + "<br> No of Bills Due: " + dues + "</h2></html>");
             }
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e);
@@ -1715,23 +1765,28 @@ public final class estimate extends javax.swing.JInternalFrame {
     void alter_estimate() {
         try {
             if (s2.getRowCount() <= 0) {
-                JOptionPane.showMessageDialog(this, "No Records Were Found to Alter!", "No Records", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No Records Were Found to Alter!", "No Records",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (selvagates == false) {
-                JOptionPane.showMessageDialog(this, "User 'View' Option Before Alter!", "User 'View' Option", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "User 'View' Option Before Alter!", "User 'View' Option",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (utype.equalsIgnoreCase("User")) {
-                JOptionPane.showMessageDialog(this, "Login as 'Administrator' to Alter!", "Permission Restricted", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Login as 'Administrator' to Alter!", "Permission Restricted",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            String reason = JOptionPane.showInputDialog(this, "<html><h1>Enter Reason for Alter ?</h1></html>", "Reason", JOptionPane.PLAIN_MESSAGE);
+            String reason = JOptionPane.showInputDialog(this, "<html><h1>Enter Reason for Alter ?</h1></html>",
+                    "Reason", JOptionPane.PLAIN_MESSAGE);
             if (reason == null || "".equals(reason)) {
                 JOptionPane.showMessageDialog(this, "Invalid Reason!", "Invalid", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            int as = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Alter ?</h1></html>", "Are You Sure", JOptionPane.YES_NO_OPTION);
+            int as = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Alter ?</h1></html>", "Are You Sure",
+                    JOptionPane.YES_NO_OPTION);
             if (as == JOptionPane.NO_OPTION) {
                 return;
             }
@@ -1776,7 +1831,8 @@ public final class estimate extends javax.swing.JInternalFrame {
             Connection conn = util.getConnection();
             conn.setAutoCommit(false);
 
-            PreparedStatement psAlterEstimate = conn.prepareStatement("INSERT INTO alter_estimate (billno, dat, tim, cashier, terminal, cid, cname, pby, amount, newamount, reason, user, last) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement psAlterEstimate = conn.prepareStatement(
+                    "INSERT INTO alter_estimate (billno, dat, tim, cashier, terminal, cid, cname, pby, amount, newamount, reason, user, last) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
             psAlterEstimate.setString(1, billno);
             psAlterEstimate.setString(2, date);
             psAlterEstimate.setString(3, time);
@@ -1793,7 +1849,8 @@ public final class estimate extends javax.swing.JInternalFrame {
             psAlterEstimate.executeUpdate();
 
             if (selva == true) {
-                PreparedStatement psUpdateStock = conn.prepareStatement("UPDATE stock SET quan=quan+? WHERE barcode=? AND ino=? AND iname=? AND entry=?");
+                PreparedStatement psUpdateStock = conn.prepareStatement(
+                        "UPDATE stock SET quan=quan+? WHERE barcode=? AND ino=? AND iname=? AND entry=?");
                 for (int i = 0; i < barcode.size(); i++) {
                     psUpdateStock.setDouble(1, Double.parseDouble(quan.get(i)));
                     psUpdateStock.setString(2, barcode.get(i));
@@ -1803,13 +1860,14 @@ public final class estimate extends javax.swing.JInternalFrame {
                     psUpdateStock.addBatch();
                 }
                 psUpdateStock.executeBatch();
-            }//selva true ends
+            } // selva true ends
 
             PreparedStatement psDeleteEstimate = conn.prepareStatement("DELETE FROM estimate WHERE billno=?");
             psDeleteEstimate.setString(1, billno);
             psDeleteEstimate.executeUpdate();
 
-            PreparedStatement psDeleteEstimateItems = conn.prepareStatement("DELETE FROM estimate_items WHERE billno=?");
+            PreparedStatement psDeleteEstimateItems = conn
+                    .prepareStatement("DELETE FROM estimate_items WHERE billno=?");
             psDeleteEstimateItems.setString(1, billno);
             psDeleteEstimateItems.executeUpdate();
 
@@ -1818,22 +1876,26 @@ public final class estimate extends javax.swing.JInternalFrame {
                 psDeleteCustBal.setString(1, billno);
                 psDeleteCustBal.executeUpdate();
             }
-            //points systems starts
+            // points systems starts
             if (points_option.equalsIgnoreCase("Yes")) {
-                PreparedStatement psCustPoints = conn.prepareStatement("UPDATE cust_points SET points=points-? WHERE cid=?");
+                PreparedStatement psCustPoints = conn
+                        .prepareStatement("UPDATE cust_points SET points=points-? WHERE cid=?");
                 psCustPoints.setDouble(1, Double.parseDouble(pointsl.getText()));
                 psCustPoints.setString(2, h21.getText());
                 psCustPoints.executeUpdate();
             }
-            //points systems ends here
+            // points systems ends here
             conn.commit();
             int count = 1;
             if (count > 0) {
                 save();
-                String message = ": SECURITY ALERT : \nEstimate Bill Altered,\nBill No: " + billno + "\nBill Amount: " + old_amount + "\nAltered Amount: " + netl.getText() + "\nReason: " + reason + "\nby: " + h6.getText() + "\nat: " + last;
+                String message = ": SECURITY ALERT : \nEstimate Bill Altered,\nBill No: " + billno + "\nBill Amount: "
+                        + old_amount + "\nAltered Amount: " + netl.getText() + "\nReason: " + reason + "\nby: "
+                        + h6.getText() + "\nat: " + last;
                 alter_sms(message);
             } else {
-                JOptionPane.showMessageDialog(this, "Check Entries and then Try Again!", "Invalid", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Check Entries and then Try Again!", "Invalid",
+                        JOptionPane.ERROR_MESSAGE);
             }
         } catch (HeadlessException | ClassNotFoundException | SQLException | ParseException e) {
             System.out.println(e.getMessage());
@@ -1843,23 +1905,28 @@ public final class estimate extends javax.swing.JInternalFrame {
     void delete() {
         try {
             if (s2.getRowCount() <= 0) {
-                JOptionPane.showMessageDialog(this, "No Records Were Found to Delete!", "No Records", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No Records Were Found to Delete!", "No Records",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (selvagates == false) {
-                JOptionPane.showMessageDialog(this, "User 'View' Option Before Delete!", "User 'View' Option", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "User 'View' Option Before Delete!", "User 'View' Option",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (utype.equalsIgnoreCase("User")) {
-                JOptionPane.showMessageDialog(this, "Login as 'Administrator' to Delete!", "Permission Restricted", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Login as 'Administrator' to Delete!", "Permission Restricted",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            String reason = JOptionPane.showInputDialog(this, "<html><h1>Enter Reason for Delete ?</h1></html>", "Reason", JOptionPane.PLAIN_MESSAGE);
+            String reason = JOptionPane.showInputDialog(this, "<html><h1>Enter Reason for Delete ?</h1></html>",
+                    "Reason", JOptionPane.PLAIN_MESSAGE);
             if (reason == null || "".equals(reason)) {
                 JOptionPane.showMessageDialog(this, "Invalid Reason!", "Invalid", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            int as = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Delete ?</h1></html>", "Are You Sure", JOptionPane.YES_NO_OPTION);
+            int as = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Delete ?</h1></html>", "Are You Sure",
+                    JOptionPane.YES_NO_OPTION);
             if (as == JOptionPane.NO_OPTION) {
                 return;
             }
@@ -1904,7 +1971,8 @@ public final class estimate extends javax.swing.JInternalFrame {
             Connection conn = util.getConnection();
             conn.setAutoCommit(false);
 
-            PreparedStatement psAlterEstimateDelete = conn.prepareStatement("INSERT INTO alter_estimate_delete (billno, dat, tim, cashier, terminal, cid, cname, pby, amount, newamount, reason, user, last) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement psAlterEstimateDelete = conn.prepareStatement(
+                    "INSERT INTO alter_estimate_delete (billno, dat, tim, cashier, terminal, cid, cname, pby, amount, newamount, reason, user, last) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
             psAlterEstimateDelete.setString(1, billno);
             psAlterEstimateDelete.setString(2, date);
             psAlterEstimateDelete.setString(3, time);
@@ -1921,7 +1989,8 @@ public final class estimate extends javax.swing.JInternalFrame {
             psAlterEstimateDelete.executeUpdate();
 
             if (selva == true) {
-                PreparedStatement psUpdateStock = conn.prepareStatement("UPDATE stock SET quan=quan+? WHERE barcode=? AND ino=? AND iname=? AND entry=?");
+                PreparedStatement psUpdateStock = conn.prepareStatement(
+                        "UPDATE stock SET quan=quan+? WHERE barcode=? AND ino=? AND iname=? AND entry=?");
                 for (int i = 0; i < barcode.size(); i++) {
                     psUpdateStock.setDouble(1, Double.parseDouble(quan.get(i)));
                     psUpdateStock.setString(2, barcode.get(i));
@@ -1931,13 +2000,14 @@ public final class estimate extends javax.swing.JInternalFrame {
                     psUpdateStock.addBatch();
                 }
                 psUpdateStock.executeBatch();
-            }//selva true ends
+            } // selva true ends
 
             PreparedStatement psDeleteEstimate = conn.prepareStatement("DELETE FROM estimate WHERE billno=?");
             psDeleteEstimate.setString(1, billno);
             psDeleteEstimate.executeUpdate();
 
-            PreparedStatement psDeleteEstimateItems = conn.prepareStatement("DELETE FROM estimate_items WHERE billno=?");
+            PreparedStatement psDeleteEstimateItems = conn
+                    .prepareStatement("DELETE FROM estimate_items WHERE billno=?");
             psDeleteEstimateItems.setString(1, billno);
             psDeleteEstimateItems.executeUpdate();
 
@@ -1947,23 +2017,27 @@ public final class estimate extends javax.swing.JInternalFrame {
                 psDeleteCustBal.executeUpdate();
             }
 
-            //points systems starts
+            // points systems starts
             if (points_option.equalsIgnoreCase("Yes")) {
-                PreparedStatement psCustPoints = conn.prepareStatement("UPDATE cust_points SET points=points-? WHERE cid=?");
+                PreparedStatement psCustPoints = conn
+                        .prepareStatement("UPDATE cust_points SET points=points-? WHERE cid=?");
                 psCustPoints.setDouble(1, Double.parseDouble(pointsl.getText()));
                 psCustPoints.setString(2, h21.getText());
                 psCustPoints.executeUpdate();
             }
-            //points systems ends here
+            // points systems ends here
             conn.commit();
             int count = 1;
             if (count > 0) {
-                JOptionPane.showMessageDialog(this, "<html><h1>Deleted Successfully</h1></html>", "Deleted", JOptionPane.PLAIN_MESSAGE);
-                String message = ": SECURITY ALERT : \nEstimate Bill Deleted,\nBill No: " + billno + "\nBill Amount: " + old_amount + "\nReason: " + reason + "\nby: " + h6.getText() + "\nat: " + last;
+                JOptionPane.showMessageDialog(this, "<html><h1>Deleted Successfully</h1></html>", "Deleted",
+                        JOptionPane.PLAIN_MESSAGE);
+                String message = ": SECURITY ALERT : \nEstimate Bill Deleted,\nBill No: " + billno + "\nBill Amount: "
+                        + old_amount + "\nReason: " + reason + "\nby: " + h6.getText() + "\nat: " + last;
                 alter_sms(message);
                 form_clear();
             } else {
-                JOptionPane.showMessageDialog(this, "Check Entries and then Try Again!", "Invalid", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Check Entries and then Try Again!", "Invalid",
+                        JOptionPane.ERROR_MESSAGE);
             }
         } catch (HeadlessException | ClassNotFoundException | SQLException | ParseException e) {
             System.out.println(e.getMessage());
@@ -1983,7 +2057,8 @@ public final class estimate extends javax.swing.JInternalFrame {
             double tquan;
             double stock = 0;
             String entry = "purchase";
-            String query = "select quan,entry from stock where barcode='" + barcode + "' and ino='" + ino + "' and iname='" + iname + "' ";
+            String query = "select quan,entry from stock where barcode='" + barcode + "' and ino='" + ino
+                    + "' and iname='" + iname + "' ";
             ResultSet r = util.doQuery(query);
             while (r.next()) {
                 stock = r.getDouble(1);
@@ -1999,14 +2074,15 @@ public final class estimate extends javax.swing.JInternalFrame {
                 if (ino.equals(ino1) && barcode.equals(barcode1) && entry.equals(entry1)) {
                     entry_stock = quan1;
                 }
-            }//for loop ends
+            } // for loop ends
             tquan = entry_stock + quan;
             if (stock_bill.equalsIgnoreCase("No")) {
                 if (tquan > stock && stock_bill.equalsIgnoreCase("No")) {
-                    JOptionPane.showMessageDialog(this, "Stock-in-Hand: " + stock + "\n Already Added: " + entry_stock, "Invalid Stock", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Stock-in-Hand: " + stock + "\n Already Added: " + entry_stock,
+                            "Invalid Stock", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-            } //billing without stock ends
+            } // billing without stock ends
             String quan2 = String.format("%." + hmany + "f", tquan);
             String[] split3 = quan2.split("\\.");
             int what3 = Integer.parseInt(split3[1]);
@@ -2030,12 +2106,15 @@ public final class estimate extends javax.swing.JInternalFrame {
                 String cname = "\n\nFor Queries,\n" + smsfoot1 + "\n" + smsfoot2;
                 if (pricel.getText().equals("Retail")) {
                     if (points_option.equalsIgnoreCase("Yes")) {
-                        message = "Dear Customer, Thank you for Your Purchase, No#" + h1.getText() + ", Amount Rs." + netl.getText() + " by " + h16.getSelectedItem() + ". You Have Earned :" + today_points + " Points, Total Points are: " + total_points + "" + cname;
+                        message = "Dear Customer, Thank you for Your Purchase, No#" + h1.getText() + ", Amount Rs."
+                                + netl.getText() + " by " + h16.getSelectedItem() + ". You Have Earned :" + today_points
+                                + " Points, Total Points are: " + total_points + "" + cname;
                     } else {
-                        message = "Dear Customer, Thank you for Your Purchase, No#" + h1.getText() + ", Amount Rs." + netl.getText() + " by " + h16.getSelectedItem() + " " + cname;
+                        message = "Dear Customer, Thank you for Your Purchase, No#" + h1.getText() + ", Amount Rs."
+                                + netl.getText() + " by " + h16.getSelectedItem() + " " + cname;
                     }
-                }//retail bill ends
-                else { //wholesale starts
+                } // retail bill ends
+                else { // wholesale starts
                     String closing_bal = "";
                     String query = "select sum(tot-paid) from cust_bal where cid='" + h21.getText() + "'";
                     ResultSet r = util.doQuery(query);
@@ -2043,10 +2122,12 @@ public final class estimate extends javax.swing.JInternalFrame {
                         closing_bal = String.format("%." + hmany + "f", r.getDouble(1));
                     }
 
-                    message = "Dear Customer, Thank you for Your Purchase, No#" + h1.getText() + ", Amount Rs." + netl.getText() + " by " + h16.getSelectedItem() + ". Your Net Balance is " + closing_bal + "" + cname;
-                }//wholesale ends
+                    message = "Dear Customer, Thank you for Your Purchase, No#" + h1.getText() + ", Amount Rs."
+                            + netl.getText() + " by " + h16.getSelectedItem() + ". Your Net Balance is " + closing_bal
+                            + "" + cname;
+                } // wholesale ends
                 new smspack.SMS_Sender_Single().getData(smsuser, smspass, sender, h23.getText(), message);
-            }//sms alert is yes
+            } // sms alert is yes
         } catch (ClassNotFoundException | NumberFormatException | SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -2098,7 +2179,8 @@ public final class estimate extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "No Records Were Found!", "Oops", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            int as = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Hold Bill ?</h1></html>", "Are You Sure", JOptionPane.YES_NO_OPTION);
+            int as = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Hold Bill ?</h1></html>", "Are You Sure",
+                    JOptionPane.YES_NO_OPTION);
             if (as == JOptionPane.NO_OPTION) {
                 return;
             }
@@ -2157,12 +2239,14 @@ public final class estimate extends javax.swing.JInternalFrame {
                 psHold.executeBatch();
                 conn.commit();
 
-                JOptionPane.showMessageDialog(this, "<html><h1>Bill Hold Successfully</h1></html>", "Saved", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(this, "<html><h1>Bill Hold Successfully</h1></html>", "Saved",
+                        JOptionPane.PLAIN_MESSAGE);
                 form_clear();
             } catch (SQLException e) {
                 conn.rollback();
                 e.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Error during hold: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error during hold: " + e.getMessage(), "Error",
+                        JOptionPane.ERROR_MESSAGE);
             } finally {
                 conn.setAutoCommit(true);
             }
@@ -2176,7 +2260,8 @@ public final class estimate extends javax.swing.JInternalFrame {
             String query = "select barcode,ino,iname,price,quan,unit from estimate_hold where billno='" + billno + "' ";
             ResultSet r = util.doQuery(query);
             while (r.next()) {
-                add_item(r.getString(1), r.getString(2), r.getString(3), r.getDouble(4), r.getDouble(5), r.getString(6));
+                add_item(r.getString(1), r.getString(2), r.getString(3), r.getDouble(4), r.getDouble(5),
+                        r.getString(6));
             }
             query = "delete from estimate_hold where billno='" + billno + "' ";
             int a = util.doManipulation(query);
@@ -2187,14 +2272,16 @@ public final class estimate extends javax.swing.JInternalFrame {
 
     void retail_price() {
         try {
-            int as = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Change All Products to 'Retail Price' ?</h1></html>", "Are You Sure", JOptionPane.YES_NO_OPTION);
+            int as = JOptionPane.showConfirmDialog(this,
+                    "<html><h1>Want to Change All Products to 'Retail Price' ?</h1></html>", "Are You Sure",
+                    JOptionPane.YES_NO_OPTION);
             if (as == JOptionPane.NO_OPTION) {
                 return;
             }
             for (int i = 0; i < jTable1.getRowCount(); i++) {
                 String rrate = jTable1.getValueAt(i, 22).toString();
                 jTable1.setValueAt(rrate, i, 5);
-            }//row counts ends
+            } // row counts ends
             pricel.setText("Retail");
             apply_all_changes();
         } catch (HeadlessException e) {
@@ -2204,14 +2291,16 @@ public final class estimate extends javax.swing.JInternalFrame {
 
     void wholesale_price() {
         try {
-            int as = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Change All Products to 'Wholesale Price' ?</h1></html>", "Are You Sure", JOptionPane.YES_NO_OPTION);
+            int as = JOptionPane.showConfirmDialog(this,
+                    "<html><h1>Want to Change All Products to 'Wholesale Price' ?</h1></html>", "Are You Sure",
+                    JOptionPane.YES_NO_OPTION);
             if (as == JOptionPane.NO_OPTION) {
                 return;
             }
             for (int i = 0; i < jTable1.getRowCount(); i++) {
                 String wrate = jTable1.getValueAt(i, 23).toString();
                 jTable1.setValueAt(wrate, i, 5);
-            }//row counts ends
+            } // row counts ends
             pricel.setText("Wholesale");
             apply_all_changes();
         } catch (HeadlessException e) {
@@ -2245,7 +2334,8 @@ public final class estimate extends javax.swing.JInternalFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         multi_pay_mode = new javax.swing.JDialog();
@@ -2443,70 +2533,91 @@ public final class estimate extends javax.swing.JInternalFrame {
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(h25, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(h26, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(h27, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addComponent(h28, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(150, 150, 150)
-                .addComponent(selectbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+                jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 160,
+                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 60,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(h25, javax.swing.GroupLayout.PREFERRED_SIZE, 220,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 60,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(h26, javax.swing.GroupLayout.PREFERRED_SIZE, 220,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 60,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(h27, javax.swing.GroupLayout.PREFERRED_SIZE, 220,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 60,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGap(70, 70, 70)
+                                .addComponent(h28, javax.swing.GroupLayout.PREFERRED_SIZE, 220,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 310,
+                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGap(150, 150, 150)
+                                .addComponent(selectbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 140,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)));
         jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(h25, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(h26, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(h27, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(h28, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(10, 10, 10)
-                .addComponent(selectbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+                jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 30,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20)
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(h25, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(h26, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(h27, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(10, 10, 10)
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 20,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(jPanel9Layout.createSequentialGroup()
+                                                .addGap(10, 10, 10)
+                                                .addGroup(jPanel9Layout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(h28, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(10, 10, 10)
+                                .addComponent(selectbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 50,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)));
 
         javax.swing.GroupLayout multi_pay_modeLayout = new javax.swing.GroupLayout(multi_pay_mode.getContentPane());
         multi_pay_mode.getContentPane().setLayout(multi_pay_modeLayout);
         multi_pay_modeLayout.setHorizontalGroup(
-            multi_pay_modeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+                multi_pay_modeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 306,
+                                javax.swing.GroupLayout.PREFERRED_SIZE));
         multi_pay_modeLayout.setVerticalGroup(
-            multi_pay_modeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+                multi_pay_modeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
 
         cname_list.setUndecorated(true);
         cname_list.getContentPane().setLayout(null);
@@ -2519,16 +2630,15 @@ public final class estimate extends javax.swing.JInternalFrame {
 
         jTable2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jTable2.setRowHeight(25);
         jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -2574,16 +2684,15 @@ public final class estimate extends javax.swing.JInternalFrame {
         jTable4.setBackground(new java.awt.Color(255, 255, 204));
         jTable4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jTable4.setRowHeight(25);
         jTable4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -2628,16 +2737,15 @@ public final class estimate extends javax.swing.JInternalFrame {
 
         jTable3.setFont(new java.awt.Font("Arial Unicode MS", 0, 18)); // NOI18N
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jTable3.setRowHeight(25);
         jTable3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -2680,22 +2788,21 @@ public final class estimate extends javax.swing.JInternalFrame {
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(infol, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
-                .addGap(99, 99, 99)
-                .addComponent(stockMinusCheckbox))
-        );
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(infol, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
+                                .addGap(99, 99, 99)
+                                .addComponent(stockMinusCheckbox)));
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(infol, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(stockMinusCheckbox))))
-        );
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(infol, javax.swing.GroupLayout.PREFERRED_SIZE, 50,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(15, 15, 15)
+                                                .addComponent(stockMinusCheckbox)))));
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(220, 0, 640, 50);
@@ -2815,6 +2922,7 @@ public final class estimate extends javax.swing.JInternalFrame {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 h10FocusGained(evt);
             }
+
             public void focusLost(java.awt.event.FocusEvent evt) {
                 h10FocusLost(evt);
             }
@@ -2858,6 +2966,7 @@ public final class estimate extends javax.swing.JInternalFrame {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 h14FocusGained(evt);
             }
+
             public void focusLost(java.awt.event.FocusEvent evt) {
                 h14FocusLost(evt);
             }
@@ -2995,7 +3104,8 @@ public final class estimate extends javax.swing.JInternalFrame {
         h11.setBounds(100, 300, 170, 30);
 
         h16.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        h16.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cash", "Card", "Credit", "UPI", "Others", "Multi Pay" }));
+        h16.setModel(new javax.swing.DefaultComboBoxModel<>(
+                new String[] { "Cash", "Card", "Credit", "UPI", "Others", "Multi Pay" }));
         h16.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 h16KeyPressed(evt);
@@ -3018,16 +3128,15 @@ public final class estimate extends javax.swing.JInternalFrame {
 
         jTable1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jTable1.setRowHeight(25);
         jTable1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -3502,25 +3611,25 @@ public final class estimate extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbuttonActionPerformed
+    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_clearbuttonActionPerformed
         form_clear();
 
-    }//GEN-LAST:event_clearbuttonActionPerformed
+    }// GEN-LAST:event_clearbuttonActionPerformed
 
-    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closebuttonActionPerformed
+    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closebuttonActionPerformed
         this.dispose();
-    }//GEN-LAST:event_closebuttonActionPerformed
+    }// GEN-LAST:event_closebuttonActionPerformed
 
-    private void viewbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewbuttonActionPerformed
+    private void viewbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_viewbuttonActionPerformed
         String grn = JOptionPane.showInputDialog(this, "Enter Bill No ?", "Bill No", JOptionPane.PLAIN_MESSAGE);
         if ("".equals(grn) || grn == null) {
             JOptionPane.showMessageDialog(this, "Invalid Bill No!", "Invalid", JOptionPane.ERROR_MESSAGE);
             return;
         }
         view(grn);
-    }//GEN-LAST:event_viewbuttonActionPerformed
+    }// GEN-LAST:event_viewbuttonActionPerformed
 
-    private void nextbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextbuttonActionPerformed
+    private void nextbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_nextbuttonActionPerformed
         try {
 
             String grn = h1.getText();
@@ -3544,9 +3653,9 @@ public final class estimate extends javax.swing.JInternalFrame {
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_nextbuttonActionPerformed
+    }// GEN-LAST:event_nextbuttonActionPerformed
 
-    private void prebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prebuttonActionPerformed
+    private void prebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_prebuttonActionPerformed
         try {
             String grn = h1.getText();
             String query;
@@ -3572,13 +3681,13 @@ public final class estimate extends javax.swing.JInternalFrame {
             System.out.println(e.toString());
         }
 
-    }//GEN-LAST:event_prebuttonActionPerformed
+    }// GEN-LAST:event_prebuttonActionPerformed
 
-    private void applybuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applybuttonActionPerformed
+    private void applybuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_applybuttonActionPerformed
         apply_all_changes();
-    }//GEN-LAST:event_applybuttonActionPerformed
+    }// GEN-LAST:event_applybuttonActionPerformed
 
-    private void removebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removebuttonActionPerformed
+    private void removebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_removebuttonActionPerformed
         if (s2.getRowCount() <= 0) {
             JOptionPane.showMessageDialog(this, "No Records Were Found!", "No Records", JOptionPane.ERROR_MESSAGE);
             return;
@@ -3591,23 +3700,24 @@ public final class estimate extends javax.swing.JInternalFrame {
         apply_all_changes();
         serial_num();
 
-    }//GEN-LAST:event_removebuttonActionPerformed
+    }// GEN-LAST:event_removebuttonActionPerformed
 
-    private void loadbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadbuttonActionPerformed
+    private void loadbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_loadbuttonActionPerformed
         load_draft();
-    }//GEN-LAST:event_loadbuttonActionPerformed
+    }// GEN-LAST:event_loadbuttonActionPerformed
 
-    private void draftbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_draftbuttonActionPerformed
+    private void draftbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_draftbuttonActionPerformed
         save_draft();
-        JOptionPane.showMessageDialog(this, "<html><h1>Draft Saved Successfully</h1></html>", "Saved", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(this, "<html><h1>Draft Saved Successfully</h1></html>", "Saved",
+                JOptionPane.PLAIN_MESSAGE);
         form_clear();
-    }//GEN-LAST:event_draftbuttonActionPerformed
+    }// GEN-LAST:event_draftbuttonActionPerformed
 
-    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savebuttonActionPerformed
+    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_savebuttonActionPerformed
         save();
-    }//GEN-LAST:event_savebuttonActionPerformed
+    }// GEN-LAST:event_savebuttonActionPerformed
 
-    private void tenderbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tenderbuttonActionPerformed
+    private void tenderbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_tenderbuttonActionPerformed
 
         multi_pay_mode.requestFocus();
         Point l = jLabel1.getLocationOnScreen();
@@ -3615,9 +3725,9 @@ public final class estimate extends javax.swing.JInternalFrame {
         multi_pay_mode.setSize(306, 301);
         multi_pay_mode.setVisible(true);
         h25.requestFocus();
-    }//GEN-LAST:event_tenderbuttonActionPerformed
+    }// GEN-LAST:event_tenderbuttonActionPerformed
 
-    private void retrivebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retrivebuttonActionPerformed
+    private void retrivebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_retrivebuttonActionPerformed
         if (s5.getRowCount() > 0) {
             s5.getDataVector().removeAllElements();
             s5.fireTableDataChanged();
@@ -3628,51 +3738,53 @@ public final class estimate extends javax.swing.JInternalFrame {
             hold_list.setLocation(l.x, l.y + jLabel28.getHeight());
             hold_list.setSize(1141, 528);
             hold_list.setVisible(true);
-            String query = "select distinct billno,location,terminal,cname,items,quans,net from estimate_hold where location='" + h4.getText() + "' and terminal ='" + h5.getText() + "' order by billno";
+            String query = "select distinct billno,location,terminal,cname,items,quans,net from estimate_hold where location='"
+                    + h4.getText() + "' and terminal ='" + h5.getText() + "' order by billno";
             ResultSet r = util.doQuery(query);
             while (r.next()) {
-                s5.addRow(new Object[]{r.getString(1), r.getString(2), r.getString(3), r.getString(4), r.getString(5), r.getString(6), r.getString(7)});
+                s5.addRow(new Object[] { r.getString(1), r.getString(2), r.getString(3), r.getString(4), r.getString(5),
+                        r.getString(6), r.getString(7) });
             }
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_retrivebuttonActionPerformed
+    }// GEN-LAST:event_retrivebuttonActionPerformed
 
-    private void holdbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_holdbuttonActionPerformed
+    private void holdbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_holdbuttonActionPerformed
         hold();
-    }//GEN-LAST:event_holdbuttonActionPerformed
+    }// GEN-LAST:event_holdbuttonActionPerformed
 
-    private void h27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h27ActionPerformed
+    private void h27ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h27ActionPerformed
         get_paid_bal_details();
         get_bal_details();
         multi_pay_mode.dispose();
         h22.requestFocus();
 
-    }//GEN-LAST:event_h27ActionPerformed
+    }// GEN-LAST:event_h27ActionPerformed
 
-    private void h25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h25ActionPerformed
+    private void h25ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h25ActionPerformed
         get_paid_bal_details();
         h26.requestFocus();
-    }//GEN-LAST:event_h25ActionPerformed
+    }// GEN-LAST:event_h25ActionPerformed
 
-    private void h26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h26ActionPerformed
+    private void h26ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h26ActionPerformed
         get_paid_bal_details();
         h27.requestFocus();
-    }//GEN-LAST:event_h26ActionPerformed
+    }// GEN-LAST:event_h26ActionPerformed
 
-    private void paidlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paidlActionPerformed
+    private void paidlActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_paidlActionPerformed
         get_bal_details();
 
-    }//GEN-LAST:event_paidlActionPerformed
+    }// GEN-LAST:event_paidlActionPerformed
 
-    private void selectbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectbuttonActionPerformed
+    private void selectbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_selectbuttonActionPerformed
         get_paid_bal_details();
         get_bal_details();
         multi_pay_mode.dispose();
         h22.requestFocus();
-    }//GEN-LAST:event_selectbuttonActionPerformed
+    }// GEN-LAST:event_selectbuttonActionPerformed
 
-    private void h26FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h26FocusGained
+    private void h26FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h26FocusGained
         if (h26.getText().equals("")) {
             h26.setText("0.00");
         }
@@ -3680,9 +3792,9 @@ public final class estimate extends javax.swing.JInternalFrame {
         if (card <= 0) {
             h26.setText("");
         }
-    }//GEN-LAST:event_h26FocusGained
+    }// GEN-LAST:event_h26FocusGained
 
-    private void h27FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h27FocusGained
+    private void h27FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h27FocusGained
         if (h27.getText().equals("")) {
             h27.setText("0.00");
         }
@@ -3690,9 +3802,9 @@ public final class estimate extends javax.swing.JInternalFrame {
         if (card <= 0) {
             h27.setText("");
         }
-    }//GEN-LAST:event_h27FocusGained
+    }// GEN-LAST:event_h27FocusGained
 
-    private void paidlFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_paidlFocusGained
+    private void paidlFocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_paidlFocusGained
 
         if (paidl.getText().equals("")) {
             paidl.setText("0.00");
@@ -3703,9 +3815,9 @@ public final class estimate extends javax.swing.JInternalFrame {
         if (paid <= 0) {
             paidl.setText("");
         }
-    }//GEN-LAST:event_paidlFocusGained
+    }// GEN-LAST:event_paidlFocusGained
 
-    private void h17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h17ActionPerformed
+    private void h17ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h17ActionPerformed
         if (h17.getText().equals("") && s2.getRowCount() > 0) {
             h10.requestFocus();
         } else {
@@ -3723,9 +3835,9 @@ public final class estimate extends javax.swing.JInternalFrame {
             }
         }
 
-    }//GEN-LAST:event_h17ActionPerformed
+    }// GEN-LAST:event_h17ActionPerformed
 
-    private void h10FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h10FocusGained
+    private void h10FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h10FocusGained
         if (h10.getText().equals("")) {
             h10.setText("0");
         }
@@ -3736,9 +3848,9 @@ public final class estimate extends javax.swing.JInternalFrame {
         h10.setBackground(color2.getBackground());
         h10.setForeground(color2.getForeground());
 
-    }//GEN-LAST:event_h10FocusGained
+    }// GEN-LAST:event_h10FocusGained
 
-    private void h10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h10ActionPerformed
+    private void h10ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h10ActionPerformed
         if (h10.getText().isEmpty()) {
             h10.setText("0");
         }
@@ -3747,13 +3859,16 @@ public final class estimate extends javax.swing.JInternalFrame {
             double disp = Double.parseDouble(h10.getText());
 
             if (pricel.getText().equals("Retail") && disp > max_rdis) {
-                JOptionPane.showMessageDialog(this, "<html><h1>Maximum Retail Discount: " + max_rdis + "%</h1></html>", "Invalid Discount", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "<html><h1>Maximum Retail Discount: " + max_rdis + "%</h1></html>",
+                        "Invalid Discount", JOptionPane.ERROR_MESSAGE);
                 h10.setText("0");
                 return;
             }
 
             if (pricel.getText().equals("Wholesale") && disp > max_wdis) {
-                JOptionPane.showMessageDialog(this, "<html><h1>Maximum Wholesale Discount: " + max_wdis + "%</h1></html>", "Invalid Discount", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this,
+                        "<html><h1>Maximum Wholesale Discount: " + max_wdis + "%</h1></html>", "Invalid Discount",
+                        JOptionPane.ERROR_MESSAGE);
                 h10.setText("0");
                 return;
             }
@@ -3768,18 +3883,18 @@ public final class estimate extends javax.swing.JInternalFrame {
 
         apply_all_changes();
         h14.requestFocus();
-    }//GEN-LAST:event_h10ActionPerformed
+    }// GEN-LAST:event_h10ActionPerformed
 
-    private void h14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h14ActionPerformed
+    private void h14ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h14ActionPerformed
         if (h14.getText().equals("")) {
             h14.setText("0");
         }
         final_calculate();
         h16.requestFocus();
 
-    }//GEN-LAST:event_h14ActionPerformed
+    }// GEN-LAST:event_h14ActionPerformed
 
-    private void h14FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h14FocusGained
+    private void h14FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h14FocusGained
         if (h14.getText().equals("")) {
             h14.setText("0");
         }
@@ -3790,23 +3905,23 @@ public final class estimate extends javax.swing.JInternalFrame {
         h14.setBackground(color2.getBackground());
         h14.setForeground(color2.getForeground());
 
-    }//GEN-LAST:event_h14FocusGained
+    }// GEN-LAST:event_h14FocusGained
 
-    private void jLabel28FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jLabel28FocusGained
+    private void jLabel28FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jLabel28FocusGained
         h17.requestFocus();
-    }//GEN-LAST:event_jLabel28FocusGained
+    }// GEN-LAST:event_jLabel28FocusGained
 
-    private void h10FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h10FocusLost
+    private void h10FocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h10FocusLost
         h10.setBackground(color1.getBackground());
         h10.setForeground(color1.getForeground());
-    }//GEN-LAST:event_h10FocusLost
+    }// GEN-LAST:event_h10FocusLost
 
-    private void h14FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h14FocusLost
+    private void h14FocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h14FocusLost
         h14.setBackground(color1.getBackground());
         h14.setForeground(color1.getForeground());
-    }//GEN-LAST:event_h14FocusLost
+    }// GEN-LAST:event_h14FocusLost
 
-    private void h22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h22ActionPerformed
+    private void h22ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h22ActionPerformed
 
         if (h22.getText().equals("")) {
             h22.setText(".");
@@ -3818,9 +3933,9 @@ public final class estimate extends javax.swing.JInternalFrame {
         }
 
         h23.requestFocus();
-    }//GEN-LAST:event_h22ActionPerformed
+    }// GEN-LAST:event_h22ActionPerformed
 
-    private void h23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h23ActionPerformed
+    private void h23ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h23ActionPerformed
 
         if (h23.getText().equals("")) {
             h23.setText(".");
@@ -3830,31 +3945,31 @@ public final class estimate extends javax.swing.JInternalFrame {
             get_customer_details_using_mobileno();
         }
         h24.requestFocus();
-    }//GEN-LAST:event_h23ActionPerformed
+    }// GEN-LAST:event_h23ActionPerformed
 
-    private void alterbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterbuttonActionPerformed
+    private void alterbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_alterbuttonActionPerformed
         alter_estimate();
-    }//GEN-LAST:event_alterbuttonActionPerformed
+    }// GEN-LAST:event_alterbuttonActionPerformed
 
-    private void deletebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletebuttonActionPerformed
+    private void deletebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_deletebuttonActionPerformed
         delete();
-    }//GEN-LAST:event_deletebuttonActionPerformed
+    }// GEN-LAST:event_deletebuttonActionPerformed
 
-    private void printbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printbuttonActionPerformed
+    private void printbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_printbuttonActionPerformed
         String billformat = retail_format;
         if (pricel.getText().equals("Wholesale")) {
             billformat = wholesale_format;
         }
         new print_class_estimate().get_print(util, h1.getText(), drive, folder, billformat);
-    }//GEN-LAST:event_printbuttonActionPerformed
+    }// GEN-LAST:event_printbuttonActionPerformed
 
-    private void jTable1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyPressed
+    private void jTable1KeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jTable1KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             apply_all_changes();
         }
-    }//GEN-LAST:event_jTable1KeyPressed
+    }// GEN-LAST:event_jTable1KeyPressed
 
-    private void h17KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_h17KeyPressed
+    private void h17KeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_h17KeyPressed
 
         iname_list.requestFocus();
         jTable3.requestFocus();
@@ -3881,8 +3996,7 @@ public final class estimate extends javax.swing.JInternalFrame {
                     iname_list.setLocation(l.x, l.y + jLabel28.getHeight());
                     iname_list.setSize(1281, 528);
                     iname_list.setVisible(true);
-                    String query
-                            = "SELECT i.barcode, i.ino, i.iname, i.iname1, i.prate, i.mrp, i.rprice, i.wprice "
+                    String query = "SELECT i.barcode, i.ino, i.iname, i.iname1, i.prate, i.mrp, i.rprice, i.wprice "
                             + "FROM item i "
                             + "JOIN ( "
                             + "    SELECT iname, MIN(ino) AS min_ino "
@@ -3894,7 +4008,8 @@ public final class estimate extends javax.swing.JInternalFrame {
                             + "LIMIT 500";
                     ResultSet r = util.doQuery(query);
                     while (r.next()) {
-                        s4.addRow(new Object[]{r.getString(1), r.getString(2), r.getString(3), r.getString(4), r.getString(5), r.getString(6), r.getString(7), r.getString(8)});
+                        s4.addRow(new Object[] { r.getString(1), r.getString(2), r.getString(3), r.getString(4),
+                                r.getString(5), r.getString(6), r.getString(7), r.getString(8) });
                     }
                 } catch (ClassNotFoundException | SQLException e) {
                     System.out.println(e.getMessage());
@@ -3903,25 +4018,28 @@ public final class estimate extends javax.swing.JInternalFrame {
             default:
                 break;
         }
-    }//GEN-LAST:event_h17KeyPressed
+    }// GEN-LAST:event_h17KeyPressed
 
-    private void h19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h19ActionPerformed
+    private void h19ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h19ActionPerformed
         h20.requestFocus();
-    }//GEN-LAST:event_h19ActionPerformed
+    }// GEN-LAST:event_h19ActionPerformed
 
-    private void h20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h20ActionPerformed
+    private void h20ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h20ActionPerformed
         if (h17.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "<html><h1>Enter Item Details!</h1></html>", "Invalid!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "<html><h1>Enter Item Details!</h1></html>", "Invalid!",
+                    JOptionPane.ERROR_MESSAGE);
             h17.requestFocus();
             return;
         }
         if (h18.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "<html><h1>Enter Item Details!</h1></html>", "Invalid!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "<html><h1>Enter Item Details!</h1></html>", "Invalid!",
+                    JOptionPane.ERROR_MESSAGE);
             h17.requestFocus();
             return;
         }
         if (inol.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "<html><h1>Enter Item Details!</h1></html>", "Invalid!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "<html><h1>Enter Item Details!</h1></html>", "Invalid!",
+                    JOptionPane.ERROR_MESSAGE);
             h17.requestFocus();
             return;
         }
@@ -3933,13 +4051,14 @@ public final class estimate extends javax.swing.JInternalFrame {
         double price = Double.parseDouble(h19.getText());
         double quan = Double.parseDouble(h20.getText());
         String ino = inol.getText();
-        String unit = unitCombo.getSelectedItem() != null ? unitCombo.getSelectedItem().toString() : unitCombo.getItemAt(0);
+        String unit = unitCombo.getSelectedItem() != null ? unitCombo.getSelectedItem().toString()
+                : unitCombo.getItemAt(0);
         add_item(barcode, ino, iname, price, quan, unit);
         h17.requestFocus();
 
-    }//GEN-LAST:event_h20ActionPerformed
+    }// GEN-LAST:event_h20ActionPerformed
 
-    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTable2MouseClicked
 
         if (jTable2.getRowCount() > 0) {
             h21.setText(jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString());
@@ -3966,9 +4085,9 @@ public final class estimate extends javax.swing.JInternalFrame {
         }
         h24.requestFocus();
         cname_list.dispose();
-    }//GEN-LAST:event_jTable2MouseClicked
+    }// GEN-LAST:event_jTable2MouseClicked
 
-    private void jTable2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable2KeyPressed
+    private void jTable2KeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jTable2KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (jTable2.getRowCount() > 0) {
                 h21.setText(jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString());
@@ -3999,27 +4118,27 @@ public final class estimate extends javax.swing.JInternalFrame {
             cname_list.dispose();
             h24.requestFocus();
         }
-    }//GEN-LAST:event_jTable2KeyPressed
+    }// GEN-LAST:event_jTable2KeyPressed
 
-    private void jScrollPane2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jScrollPane2FocusLost
+    private void jScrollPane2FocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jScrollPane2FocusLost
         cname_list.dispose();
-    }//GEN-LAST:event_jScrollPane2FocusLost
+    }// GEN-LAST:event_jScrollPane2FocusLost
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton3ActionPerformed
         cname_list.dispose();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }// GEN-LAST:event_jButton3ActionPerformed
 
-    private void pricelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pricelMouseClicked
+    private void pricelMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_pricelMouseClicked
         get_price_change();
 
-    }//GEN-LAST:event_pricelMouseClicked
+    }// GEN-LAST:event_pricelMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
 
         get_price_change();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }// GEN-LAST:event_jButton1ActionPerformed
 
-    private void h24KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_h24KeyPressed
+    private void h24KeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_h24KeyPressed
 
         cname_list.requestFocus();
         jTable2.requestFocus();
@@ -4049,14 +4168,17 @@ public final class estimate extends javax.swing.JInternalFrame {
                     cname_list.setVisible(true);
                     String query;
                     if (pricel.getText().equals("Retail")) {
-                        query = "select cid,ctype,cname,cardno,mobile,city,scode from cust where cname like '" + h24.getText() + "%' order by cname limit 300";
+                        query = "select cid,ctype,cname,cardno,mobile,city,scode from cust where cname like '"
+                                + h24.getText() + "%' order by cname limit 300";
                     } else {
-                        query = "select cid,ctype,cname,cardno,mobile,city,scode from cust where cname like '" + h24.getText() + "%' and ctype='Credit Customer' order by cname limit 300";
+                        query = "select cid,ctype,cname,cardno,mobile,city,scode from cust where cname like '"
+                                + h24.getText() + "%' and ctype='Credit Customer' order by cname limit 300";
                     }
 
                     ResultSet r = util.doQuery(query);
                     while (r.next()) {
-                        s3.addRow(new Object[]{r.getString(1), r.getString(2), r.getString(3), r.getString(4), r.getString(5), r.getString(6), r.getString(7)});
+                        s3.addRow(new Object[] { r.getString(1), r.getString(2), r.getString(3), r.getString(4),
+                                r.getString(5), r.getString(6), r.getString(7) });
                     }
                 } catch (ClassNotFoundException | SQLException e) {
                     System.out.println(e.getMessage());
@@ -4065,33 +4187,33 @@ public final class estimate extends javax.swing.JInternalFrame {
             default:
                 break;
         }
-    }//GEN-LAST:event_h24KeyPressed
+    }// GEN-LAST:event_h24KeyPressed
 
-    private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
+    private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jTextField1FocusGained
         if (dsales.equals("Retail")) {
             h17.requestFocus();
         } else {
             h24.requestFocus();
         }
 
-    }//GEN-LAST:event_jTextField1FocusGained
+    }// GEN-LAST:event_jTextField1FocusGained
 
-    private void h16KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_h16KeyPressed
+    private void h16KeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_h16KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             get_pay_mode();
         }
-// TODO add your handling code here:
-    }//GEN-LAST:event_h16KeyPressed
+        // TODO add your handling code here:
+    }// GEN-LAST:event_h16KeyPressed
 
-    private void jTable4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable4MouseClicked
+    private void jTable4MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTable4MouseClicked
         if (jTable4.getRowCount() > 0) {
             retrive(jTable4.getValueAt(jTable4.getSelectedRow(), 0).toString());
         }
         h17.requestFocus();
         hold_list.dispose();
-    }//GEN-LAST:event_jTable4MouseClicked
+    }// GEN-LAST:event_jTable4MouseClicked
 
-    private void jTable4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable4KeyPressed
+    private void jTable4KeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jTable4KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (jTable4.getRowCount() > 0) {
                 retrive(jTable4.getValueAt(jTable4.getSelectedRow(), 0).toString());
@@ -4102,23 +4224,24 @@ public final class estimate extends javax.swing.JInternalFrame {
             hold_list.dispose();
             h17.requestFocus();
         }
-    }//GEN-LAST:event_jTable4KeyPressed
+    }// GEN-LAST:event_jTable4KeyPressed
 
-    private void jScrollPane4FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jScrollPane4FocusLost
+    private void jScrollPane4FocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jScrollPane4FocusLost
         hold_list.dispose();
-    }//GEN-LAST:event_jScrollPane4FocusLost
+    }// GEN-LAST:event_jScrollPane4FocusLost
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton5ActionPerformed
         hold_list.dispose();
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }// GEN-LAST:event_jButton5ActionPerformed
 
-    private void hold_listFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_hold_listFocusLost
+    private void hold_listFocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_hold_listFocusLost
         hold_list.dispose();
-    }//GEN-LAST:event_hold_listFocusLost
+    }// GEN-LAST:event_hold_listFocusLost
 
-    private void jLabel24MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel24MouseClicked
+    private void jLabel24MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jLabel24MouseClicked
         if (utype.equals("User")) {
-            JOptionPane.showMessageDialog(this, "Login as 'Administrator' to Add New Item on Sales Itself", "Permission Restricted", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Login as 'Administrator' to Add New Item on Sales Itself",
+                    "Permission Restricted", JOptionPane.ERROR_MESSAGE);
             return;
         }
         item_master oe = new item_master(util);
@@ -4129,17 +4252,17 @@ public final class estimate extends javax.swing.JInternalFrame {
         Dimension jInternalFrameSize = oe.getSize();
         oe.setLocation((desktopSize.width - jInternalFrameSize.width) / 2,
                 (desktopSize.height - jInternalFrameSize.height) / 2);
-    }//GEN-LAST:event_jLabel24MouseClicked
+    }// GEN-LAST:event_jLabel24MouseClicked
 
-    private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
+    private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTable3MouseClicked
         if (jTable3.getRowCount() > 0) {
             selectItemFromJTable();
         }
         h19.requestFocus();
         iname_list.dispose();
-    }//GEN-LAST:event_jTable3MouseClicked
+    }// GEN-LAST:event_jTable3MouseClicked
 
-    private void jTable3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable3KeyPressed
+    private void jTable3KeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jTable3KeyPressed
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             selectItemFromJTable();
@@ -4147,13 +4270,16 @@ public final class estimate extends javax.swing.JInternalFrame {
             iname_list.dispose();
             h17.requestFocus();
         }
-    }//GEN-LAST:event_jTable3KeyPressed
+    }// GEN-LAST:event_jTable3KeyPressed
 
     private void selectItemFromJTable() {
         if (jTable3.getRowCount() > 0) {
             try {
                 String selectedName = jTable3.getValueAt(jTable3.getSelectedRow(), 2).toString();
-                String query = "SELECT i.ino, i.iname, i.barcode, " + (CompanySettingUtil.getInstance().isDisplayBatch() ? "i.batch" : "i.size") + ", DATE_FORMAT(i.mfg_date, '%d/%m/%Y') as mfg_date, DATE_FORMAT(i.exp_date, '%d/%m/%Y') as exp_date, i.rprice, i.wprice, i.udes, i.subunit, i.subconv, (SELECT IFNULL(SUM(s.quan), 0) FROM stock s WHERE s.ino = i.ino) AS stock FROM item i WHERE i.iname = '" + selectedName + "'";
+                String query = "SELECT i.ino, i.iname, i.barcode, "
+                        + (CompanySettingUtil.getInstance().isDisplayBatch() ? "i.batch" : "i.size")
+                        + ", DATE_FORMAT(i.mfg_date, '%d/%m/%Y') as mfg_date, DATE_FORMAT(i.exp_date, '%d/%m/%Y') as exp_date, i.rprice, i.wprice, i.udes, i.subunit, i.subconv, (SELECT IFNULL(SUM(s.quan), 0) FROM stock s WHERE s.ino = i.ino) AS stock FROM item i WHERE i.iname = '"
+                        + selectedName + "'";
                 ResultSet set = util.doQuery(query);
 
                 List<Object[]> rows = new ArrayList<>();
@@ -4188,20 +4314,27 @@ public final class estimate extends javax.swing.JInternalFrame {
                     valueMap.put("subconv", set.getString("subconv"));
                 }
                 if (rows.size() == 1) {
-                    selectedItemDisplay(valueMap.get("barcode"), valueMap.get("ino"), valueMap.get("iname"), valueMap.get("rprice"), valueMap.get("wprice"), valueMap.get("udes"), valueMap.get("subunit"), valueMap.get("subconv"));
+                    selectedItemDisplay(valueMap.get("barcode"), valueMap.get("ino"), valueMap.get("iname"),
+                            valueMap.get("rprice"), valueMap.get("wprice"), valueMap.get("udes"),
+                            valueMap.get("subunit"), valueMap.get("subconv"));
                 } else {
                     // Multiple records found, show selection dialog
                     String selectedIno = showSelectionDialog(rows);
                     if (selectedIno != null) {
-                        query = "SELECT ino, iname, barcode," + (CompanySettingUtil.getInstance().isDisplayBatch() ? "batch" : "size") + ",rprice, wprice, udes, subunit,subconv  FROM item WHERE ino = '" + selectedIno + "'";
+                        query = "SELECT ino, iname, barcode,"
+                                + (CompanySettingUtil.getInstance().isDisplayBatch() ? "batch" : "size")
+                                + ",rprice, wprice, udes, subunit,subconv  FROM item WHERE ino = '" + selectedIno + "'";
                         set = util.doQuery(query);
                         valueMap.clear();
                         while (set.next()) {
-                            selectedItemDisplay(set.getString("barcode"), set.getString("ino"), set.getString("iname"), set.getString("rprice"), set.getString("wprice"), set.getString("udes"), set.getString("subunit"), set.getString("subconv"));
+                            selectedItemDisplay(set.getString("barcode"), set.getString("ino"), set.getString("iname"),
+                                    set.getString("rprice"), set.getString("wprice"), set.getString("udes"),
+                                    set.getString("subunit"), set.getString("subconv"));
                         }
                     } else {
                         // User cancelled or no selection
-                        JOptionPane.showMessageDialog(this, "No item selected.", "Cancelled", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "No item selected.", "Cancelled",
+                                JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
             } catch (ClassNotFoundException | SQLException e) {
@@ -4213,14 +4346,15 @@ public final class estimate extends javax.swing.JInternalFrame {
         iname_list.dispose();
     }
 
-    private void selectedItemDisplay(String barcode, String ino, String iname, String rPrice, String wPrice, String mainUnit, String subUnit, String conv) {
+    private void selectedItemDisplay(String barcode, String ino, String iname, String rPrice, String wPrice,
+            String mainUnit, String subUnit, String conv) {
         h17.setText(barcode);
         inol.setText(ino);
         h18.setText(iname);
         this.mainUnit = mainUnit;
         this.subUnit = subUnit;
         this.unitConv = conv;
-        String[] items = {mainUnit, subUnit};
+        String[] items = { mainUnit, subUnit };
         unitCombo.setModel(new DefaultComboBoxModel<>(items));
         String rprice = rPrice;
         String wprice = wPrice;
@@ -4279,7 +4413,7 @@ public final class estimate extends javax.swing.JInternalFrame {
         JButton okButton = new JButton("Select");
         JButton cancelButton = new JButton("Cancel");
 
-        final String[] selectedIno = {null};
+        final String[] selectedIno = { null };
 
         okButton.addActionListener(e -> {
             int selectedRow = table.getSelectedRow();
@@ -4332,23 +4466,23 @@ public final class estimate extends javax.swing.JInternalFrame {
         return selectedIno[0]; // null if no selection
     }
 
-    private void jScrollPane3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jScrollPane3FocusLost
+    private void jScrollPane3FocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jScrollPane3FocusLost
         iname_list.dispose();
-    }//GEN-LAST:event_jScrollPane3FocusLost
+    }// GEN-LAST:event_jScrollPane3FocusLost
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton4ActionPerformed
         iname_list.dispose();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }// GEN-LAST:event_jButton4ActionPerformed
 
-    private void retailbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retailbuttonActionPerformed
+    private void retailbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_retailbuttonActionPerformed
         retail_price();
-    }//GEN-LAST:event_retailbuttonActionPerformed
+    }// GEN-LAST:event_retailbuttonActionPerformed
 
-    private void wholesalebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wholesalebuttonActionPerformed
+    private void wholesalebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_wholesalebuttonActionPerformed
         wholesale_price();
-    }//GEN-LAST:event_wholesalebuttonActionPerformed
+    }// GEN-LAST:event_wholesalebuttonActionPerformed
 
-    private void unitComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unitComboActionPerformed
+    private void unitComboActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_unitComboActionPerformed
         if (unitCombo.getSelectedItem() != null && unitCombo.getSelectedItem().equals(mainUnit)) {
             h19.setText(String.valueOf(itemRate));
         } else if (unitCombo.getSelectedItem() != null && unitCombo.getSelectedItem().equals(subUnit)) {
@@ -4361,7 +4495,7 @@ public final class estimate extends javax.swing.JInternalFrame {
                 e.printStackTrace();
             }
         }
-    }//GEN-LAST:event_unitComboActionPerformed
+    }// GEN-LAST:event_unitComboActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton alterbutton;

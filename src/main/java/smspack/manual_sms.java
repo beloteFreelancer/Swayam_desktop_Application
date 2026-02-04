@@ -24,7 +24,7 @@ import menupack.sample2;
 /**
  *
  * @author K.SELVAKUMAR, copyrights K.SELVAKUMAR, +91 99427 32229,
- * mysoft.java@gmail.com
+ *         mysoft.java@gmail.com
  */
 public final class manual_sms extends javax.swing.JInternalFrame {
 
@@ -47,8 +47,11 @@ public final class manual_sms extends javax.swing.JInternalFrame {
 
         setTitle("Manual SMS");
         this.setSize(1021, 654);
-        ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("images/icon.png"));
-        this.setFrameIcon(icon);
+        java.net.URL iconUrl = ClassLoader.getSystemResource("/images/icon.png");
+        if (iconUrl != null) {
+            ImageIcon icon = new ImageIcon(iconUrl);
+            this.setFrameIcon(icon);
+        }
     }
 
     void load_table() {
@@ -84,7 +87,7 @@ public final class manual_sms extends javax.swing.JInternalFrame {
             }
             ResultSet r = util.doQuery(query);
             while (r.next()) {
-                s2.addRow(new Object[]{r.getString(1), r.getString(2), r.getString(3)});
+                s2.addRow(new Object[] { r.getString(1), r.getString(2), r.getString(3) });
             }
             checking();
         } catch (ClassNotFoundException | SQLException e) {
@@ -107,7 +110,7 @@ public final class manual_sms extends javax.swing.JInternalFrame {
     public void load_list_from_outside(ArrayList cid, ArrayList cname, ArrayList mobile) {
         try {
             for (int i = 0; i < cid.size(); i++) {
-                s2.addRow(new Object[]{cid.get(i), cname.get(i), mobile.get(i)});
+                s2.addRow(new Object[] { cid.get(i), cname.get(i), mobile.get(i) });
             }
             checking();
         } catch (Exception e) {
@@ -147,7 +150,8 @@ public final class manual_sms extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "No Conatcts(s)", "No Records", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            int as = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Send SMS ?</h1></html>", "Are You Sure", JOptionPane.YES_NO_OPTION);
+            int as = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Send SMS ?</h1></html>", "Are You Sure",
+                    JOptionPane.YES_NO_OPTION);
         } catch (HeadlessException e) {
             System.out.println(e.getMessage());
         }
@@ -161,7 +165,8 @@ public final class manual_sms extends javax.swing.JInternalFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         titlelablel = new javax.swing.JLabel();
@@ -282,16 +287,15 @@ public final class manual_sms extends javax.swing.JInternalFrame {
 
         jTable1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jTable1.setRowHeight(25);
         jScrollPane2.setViewportView(jTable1);
 
@@ -379,16 +383,16 @@ public final class manual_sms extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closebuttonActionPerformed
+    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closebuttonActionPerformed
         this.dispose();
-    }//GEN-LAST:event_closebuttonActionPerformed
+    }// GEN-LAST:event_closebuttonActionPerformed
 
-    private void generatebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generatebuttonActionPerformed
+    private void generatebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_generatebuttonActionPerformed
         generate_list();
 
-    }//GEN-LAST:event_generatebuttonActionPerformed
+    }// GEN-LAST:event_generatebuttonActionPerformed
 
-    private void invalidbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_invalidbuttonActionPerformed
+    private void invalidbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_invalidbuttonActionPerformed
 
         for (int i = 0; i < jTable1.getRowCount(); i++) {
             String mobile = jTable1.getValueAt(i, 2).toString();
@@ -397,9 +401,9 @@ public final class manual_sms extends javax.swing.JInternalFrame {
             }
         }
         checking();
-    }//GEN-LAST:event_invalidbuttonActionPerformed
+    }// GEN-LAST:event_invalidbuttonActionPerformed
 
-    private void removebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removebuttonActionPerformed
+    private void removebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_removebuttonActionPerformed
 
         int[] rows = jTable1.getSelectedRows();
         for (int i = 0; i < rows.length; i++) {
@@ -407,26 +411,27 @@ public final class manual_sms extends javax.swing.JInternalFrame {
         }
         checking();
 
-    }//GEN-LAST:event_removebuttonActionPerformed
+    }// GEN-LAST:event_removebuttonActionPerformed
 
-    private void addbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addbuttonActionPerformed
+    private void addbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_addbuttonActionPerformed
 
         try {
-            String number = JOptionPane.showInputDialog(this, "<html><h1> Enter Mobile No ? </h1></html>", JOptionPane.PLAIN_MESSAGE);
+            String number = JOptionPane.showInputDialog(this, "<html><h1> Enter Mobile No ? </h1></html>",
+                    JOptionPane.PLAIN_MESSAGE);
             if (number.length() != 10) {
                 JOptionPane.showMessageDialog(this, "Sorry, Invalid Mobile No!", "Oops", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            s2.addRow(new Object[]{".", ".", number});
+            s2.addRow(new Object[] { ".", ".", number });
             checking();
         } catch (HeadlessException e) {
             System.out.println(e.getMessage());
         }
 
         // TODO add your handling code here:
-    }//GEN-LAST:event_addbuttonActionPerformed
+    }// GEN-LAST:event_addbuttonActionPerformed
 
-    private void downloadbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downloadbuttonActionPerformed
+    private void downloadbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_downloadbuttonActionPerformed
         try {
             menupack.menu_form me = new menu_form();
             String drive = "";
@@ -444,9 +449,9 @@ public final class manual_sms extends javax.swing.JInternalFrame {
         }
 
         // TODO add your handling code here:
-    }//GEN-LAST:event_downloadbuttonActionPerformed
+    }// GEN-LAST:event_downloadbuttonActionPerformed
 
-    private void textbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textbuttonActionPerformed
+    private void textbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_textbuttonActionPerformed
         try {
             JFileChooser j = new JFileChooser();
             j.showOpenDialog(this);
@@ -454,30 +459,30 @@ public final class manual_sms extends javax.swing.JInternalFrame {
             BufferedReader br = new BufferedReader(new FileReader(img));
             String sCurrentLine;
             while ((sCurrentLine = br.readLine()) != null) {
-                s2.addRow(new Object[]{".", ".", sCurrentLine});
+                s2.addRow(new Object[] { ".", ".", sCurrentLine });
             }
             checking();
         } catch (HeadlessException | IOException e) {
             System.out.println(e.getMessage());
         }
         // TODO add your handling code here:
-    }//GEN-LAST:event_textbuttonActionPerformed
+    }// GEN-LAST:event_textbuttonActionPerformed
 
-    private void allActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allActionPerformed
+    private void allActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_allActionPerformed
         if (all.isSelected()) {
             h1.setEnabled(false);
         } else {
             h1.setEnabled(true);
         }
-    }//GEN-LAST:event_allActionPerformed
+    }// GEN-LAST:event_allActionPerformed
 
-    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbuttonActionPerformed
+    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_clearbuttonActionPerformed
         clear();
-    }//GEN-LAST:event_clearbuttonActionPerformed
+    }// GEN-LAST:event_clearbuttonActionPerformed
 
-    private void smsbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_smsbuttonActionPerformed
+    private void smsbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_smsbuttonActionPerformed
         send_sms();
-    }//GEN-LAST:event_smsbuttonActionPerformed
+    }// GEN-LAST:event_smsbuttonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addbutton;

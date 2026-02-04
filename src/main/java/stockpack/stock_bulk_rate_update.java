@@ -22,7 +22,7 @@ import menupack.sample2;
 /**
  *
  * @author K.SELVAKUMAR, copyrights K.SELVAKUMAR, +91 99427 32229,
- * mysoft.java@gmail.com
+ *         mysoft.java@gmail.com
  */
 public class stock_bulk_rate_update extends javax.swing.JInternalFrame {
 
@@ -42,8 +42,11 @@ public class stock_bulk_rate_update extends javax.swing.JInternalFrame {
 
         setTitle("Bulk Price Update");
         this.setSize(1021, 648);
-        ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("images/icon.png"));
-        this.setFrameIcon(icon);
+        java.net.URL iconUrl = ClassLoader.getSystemResource("/images/icon.png");
+        if (iconUrl != null) {
+            ImageIcon icon = new ImageIcon(iconUrl);
+            this.setFrameIcon(icon);
+        }
 
         menu_form me = new menu_form();
         user_type = me.getUserType();
@@ -86,11 +89,13 @@ public class stock_bulk_rate_update extends javax.swing.JInternalFrame {
             if (all.isSelected()) {
                 query = "select barcode,ino,iname,prate,mrp,rprice,wprice from item order by ino";
             } else {
-                query = "select barcode,ino,iname,prate,mrp,rprice,wprice from item where cat='" + h3.getSelectedItem() + "' order by ino";
+                query = "select barcode,ino,iname,prate,mrp,rprice,wprice from item where cat='" + h3.getSelectedItem()
+                        + "' order by ino";
             }
             r = util.doQuery(query);
             while (r.next()) {
-                s2.addRow(new Object[]{r.getString(1), r.getString(2), r.getString(3), r.getString(4), r.getString(5), r.getString(6), r.getString(7)});
+                s2.addRow(new Object[] { r.getString(1), r.getString(2), r.getString(3), r.getString(4), r.getString(5),
+                        r.getString(6), r.getString(7) });
                 selva = true;
             }
             if (selva == true) {
@@ -130,10 +135,12 @@ public class stock_bulk_rate_update extends javax.swing.JInternalFrame {
     void save() {
         try {
             if (user_type.equalsIgnoreCase("User")) {
-                JOptionPane.showMessageDialog(this, "Login as 'Administrator' to Update!", "Permission Restricted", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Login as 'Administrator' to Update!", "Permission Restricted",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            int as = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Update Prices ?</h1></html>", "Are You Sure", JOptionPane.YES_NO_OPTION);
+            int as = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Update Prices ?</h1></html>",
+                    "Are You Sure", JOptionPane.YES_NO_OPTION);
             if (as == JOptionPane.NO_OPTION) {
                 return;
             }
@@ -147,12 +154,17 @@ public class stock_bulk_rate_update extends javax.swing.JInternalFrame {
                 String mrp = jTable1.getValueAt(i, 4).toString();
                 String rprice = jTable1.getValueAt(i, 5).toString();
                 String wprice = jTable1.getValueAt(i, 6).toString();
-                query_list.add("update item set prate='" + prate + "',mrp='" + mrp + "',rprice='" + rprice + "',wprice='" + wprice + "' where ino='" + ino + "' and barcode='" + barcode + "' and iname='" + iname + "' ");
-                query_list.add("update stock set prate='" + prate + "',mrp='" + mrp + "',rprice='" + rprice + "',wprice='" + wprice + "' where ino='" + ino + "' and barcode='" + barcode + "' and iname='" + iname + "' ");
+                query_list.add("update item set prate='" + prate + "',mrp='" + mrp + "',rprice='" + rprice
+                        + "',wprice='" + wprice + "' where ino='" + ino + "' and barcode='" + barcode + "' and iname='"
+                        + iname + "' ");
+                query_list.add("update stock set prate='" + prate + "',mrp='" + mrp + "',rprice='" + rprice
+                        + "',wprice='" + wprice + "' where ino='" + ino + "' and barcode='" + barcode + "' and iname='"
+                        + iname + "' ");
             }
             int a = util.doManipulation_Batch(query_list);
             if (a > 0) {
-                JOptionPane.showMessageDialog(this, "<html><h1>Updated Successfully</h1></html>", "Updated", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(this, "<html><h1>Updated Successfully</h1></html>", "Updated",
+                        JOptionPane.PLAIN_MESSAGE);
                 clear();
             }
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
@@ -182,7 +194,8 @@ public class stock_bulk_rate_update extends javax.swing.JInternalFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         titlelablel = new javax.swing.JLabel();
@@ -208,16 +221,15 @@ public class stock_bulk_rate_update extends javax.swing.JInternalFrame {
 
         jTable1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jTable1.setRowHeight(25);
         jTable1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -326,16 +338,16 @@ public class stock_bulk_rate_update extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTable1MouseClicked
 
-    }//GEN-LAST:event_jTable1MouseClicked
+    }// GEN-LAST:event_jTable1MouseClicked
 
-    private void generatebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generatebuttonActionPerformed
+    private void generatebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_generatebuttonActionPerformed
         load_report();
 
-    }//GEN-LAST:event_generatebuttonActionPerformed
+    }// GEN-LAST:event_generatebuttonActionPerformed
 
-    private void excelbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelbuttonActionPerformed
+    private void excelbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_excelbuttonActionPerformed
         if (s2.getRowCount() <= 0) {
             JOptionPane.showMessageDialog(this, "Sorry, No Records Were Found!", "Oops", JOptionPane.ERROR_MESSAGE);
             return;
@@ -369,36 +381,36 @@ public class stock_bulk_rate_update extends javax.swing.JInternalFrame {
             System.out.println(e.getMessage());
         }
 
-    }//GEN-LAST:event_excelbuttonActionPerformed
+    }// GEN-LAST:event_excelbuttonActionPerformed
 
-    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbuttonActionPerformed
+    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_clearbuttonActionPerformed
         clear();
 
-    }//GEN-LAST:event_clearbuttonActionPerformed
+    }// GEN-LAST:event_clearbuttonActionPerformed
 
-    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closebuttonActionPerformed
+    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closebuttonActionPerformed
         this.dispose();
-    }//GEN-LAST:event_closebuttonActionPerformed
+    }// GEN-LAST:event_closebuttonActionPerformed
 
-    private void jTable1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTable1FocusGained
+    private void jTable1FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jTable1FocusGained
 
-    }//GEN-LAST:event_jTable1FocusGained
+    }// GEN-LAST:event_jTable1FocusGained
 
-    private void h3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_h3ItemStateChanged
+    private void h3ItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_h3ItemStateChanged
 
-    }//GEN-LAST:event_h3ItemStateChanged
+    }// GEN-LAST:event_h3ItemStateChanged
 
-    private void allActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allActionPerformed
+    private void allActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_allActionPerformed
         if (all.isSelected()) {
             h3.setEnabled(false);
         } else {
             h3.setEnabled(true);
         }
-    }//GEN-LAST:event_allActionPerformed
+    }// GEN-LAST:event_allActionPerformed
 
-    private void updatebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatebuttonActionPerformed
+    private void updatebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_updatebuttonActionPerformed
         save();
-    }//GEN-LAST:event_updatebuttonActionPerformed
+    }// GEN-LAST:event_updatebuttonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox all;

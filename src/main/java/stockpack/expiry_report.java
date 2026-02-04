@@ -49,8 +49,11 @@ public class expiry_report extends javax.swing.JInternalFrame {
         hmany = me.getHmany();
         setTitle("Expiry Report");
         this.setSize(1021, 648);
-        ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("images/icon.png"));
-        this.setFrameIcon(icon);
+        java.net.URL iconUrl = ClassLoader.getSystemResource("/images/icon.png");
+        if (iconUrl != null) {
+            ImageIcon icon = new ImageIcon(iconUrl);
+            this.setFrameIcon(icon);
+        }
     }
 
     public final void load_list_table() {
@@ -100,7 +103,8 @@ public class expiry_report extends javax.swing.JInternalFrame {
 
             String query = "select a.ino, a.iname, a.mrp, b.prate, a.rprice, a.mfg_date, a.exp_date, b.quan from item a, stock b where a.ino=b.ino and a.exp_date between ? and ? order by a.exp_date asc";
 
-            java.sql.PreparedStatement pstmt = com.selrom.db.Database.getInstance().getConnection().prepareStatement(query);
+            java.sql.PreparedStatement pstmt = com.selrom.db.Database.getInstance().getConnection()
+                    .prepareStatement(query);
             pstmt.setString(1, date1);
             pstmt.setString(2, date2);
 
@@ -109,8 +113,7 @@ public class expiry_report extends javax.swing.JInternalFrame {
             SimpleDateFormat dbDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             SimpleDateFormat targetDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-            while(r.next())
-            {
+            while (r.next()) {
                 String mfgDateStr = r.getString(6);
                 String expDateStr = r.getString(7);
 
@@ -124,7 +127,8 @@ public class expiry_report extends javax.swing.JInternalFrame {
                     formattedExpDate = targetDateFormat.format(dbDateFormat.parse(expDateStr));
                 }
 
-                s2.addRow(new Object[]{r.getString(1),r.getString(2),r.getString(3),r.getString(4),r.getString(5),formattedMfgDate,formattedExpDate,r.getString(8)});
+                s2.addRow(new Object[] { r.getString(1), r.getString(2), r.getString(3), r.getString(4), r.getString(5),
+                        formattedMfgDate, formattedExpDate, r.getString(8) });
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -132,7 +136,8 @@ public class expiry_report extends javax.swing.JInternalFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         titlelablel = new javax.swing.JLabel();
@@ -158,16 +163,15 @@ public class expiry_report extends javax.swing.JInternalFrame {
 
         jTable1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jTable1.setRowHeight(25);
         jTable1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -260,11 +264,11 @@ public class expiry_report extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTable1MouseClicked
 
-    }//GEN-LAST:event_jTable1MouseClicked
+    }// GEN-LAST:event_jTable1MouseClicked
 
-    private void generatebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generatebuttonActionPerformed
+    private void generatebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_generatebuttonActionPerformed
         if (jDateChooser1.getDate() == null) {
             JOptionPane.showMessageDialog(this, "Please select a from date.", "Info", JOptionPane.INFORMATION_MESSAGE);
             return;
@@ -274,9 +278,9 @@ public class expiry_report extends javax.swing.JInternalFrame {
             return;
         }
         load_report();
-    }//GEN-LAST:event_generatebuttonActionPerformed
+    }// GEN-LAST:event_generatebuttonActionPerformed
 
-    private void excelbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelbuttonActionPerformed
+    private void excelbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_excelbuttonActionPerformed
         if (s2.getRowCount() <= 0) {
             JOptionPane.showMessageDialog(this, "Sorry, No Records Were Found!", "Oops", JOptionPane.ERROR_MESSAGE);
             return;
@@ -346,9 +350,9 @@ public class expiry_report extends javax.swing.JInternalFrame {
             System.out.println(e.getMessage());
         }
 
-    }//GEN-LAST:event_excelbuttonActionPerformed
+    }// GEN-LAST:event_excelbuttonActionPerformed
 
-    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbuttonActionPerformed
+    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_clearbuttonActionPerformed
         if (s2.getRowCount() > 0) {
             s2.getDataVector().removeAllElements();
             s2.fireTableDataChanged();
@@ -356,16 +360,15 @@ public class expiry_report extends javax.swing.JInternalFrame {
         jDateChooser1.setDate(null);
         jDateChooser2.setDate(null);
         generatebutton.setEnabled(true);
-    }//GEN-LAST:event_clearbuttonActionPerformed
+    }// GEN-LAST:event_clearbuttonActionPerformed
 
-    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closebuttonActionPerformed
+    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closebuttonActionPerformed
         this.dispose();
-    }//GEN-LAST:event_closebuttonActionPerformed
+    }// GEN-LAST:event_closebuttonActionPerformed
 
-    private void jTable1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTable1FocusGained
+    private void jTable1FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jTable1FocusGained
 
-    }//GEN-LAST:event_jTable1FocusGained
-
+    }// GEN-LAST:event_jTable1FocusGained
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton clearbutton;

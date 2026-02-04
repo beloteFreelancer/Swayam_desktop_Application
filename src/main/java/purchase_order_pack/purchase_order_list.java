@@ -22,7 +22,7 @@ import menupack.sample2;
 /**
  *
  * @author K.SELVAKUMAR, copyrights K.SELVAKUMAR, +91 99427 32229,
- * mysoft.java@gmail.com
+ *         mysoft.java@gmail.com
  */
 public class purchase_order_list extends javax.swing.JInternalFrame {
 
@@ -46,8 +46,11 @@ public class purchase_order_list extends javax.swing.JInternalFrame {
 
         setTitle("Purchase Orders List");
         this.setSize(1017, 650);
-        ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("images/icon.png"));
-        this.setFrameIcon(icon);
+        java.net.URL iconUrl = ClassLoader.getSystemResource("/images/icon.png");
+        if (iconUrl != null) {
+            ImageIcon icon = new ImageIcon(iconUrl);
+            this.setFrameIcon(icon);
+        }
         menu_form me = new menu_form();
         user_type = me.getUserType();
         hmany = me.getHmany();
@@ -105,7 +108,8 @@ public class purchase_order_list extends javax.swing.JInternalFrame {
                 String sub = String.format("%." + hmany + "f", r.getDouble(6));
                 String taxamt = String.format("%." + hmany + "f", r.getDouble(7));
                 String net = String.format("%." + hmany + "f", r.getDouble(8));
-                s2.addRow(new Object[]{r.getString(1), r.getString(2), r.getString(3), r.getString(4), r.getString(5), sub, taxamt, net, r.getString(9), r.getString(10), r.getString(11), r.getString(12)});
+                s2.addRow(new Object[] { r.getString(1), r.getString(2), r.getString(3), r.getString(4), r.getString(5),
+                        sub, taxamt, net, r.getString(9), r.getString(10), r.getString(11), r.getString(12) });
                 selva = true;
             }
             double net = 0;
@@ -129,10 +133,12 @@ public class purchase_order_list extends javax.swing.JInternalFrame {
                 return;
             }
             if (user_type.equalsIgnoreCase("User")) {
-                JOptionPane.showMessageDialog(this, "Login as 'Administrator' to Approve!", "Permission Restricted", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Login as 'Administrator' to Approve!", "Permission Restricted",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            int as = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Approve ?</h1></html>", "Are You Sure", JOptionPane.YES_NO_OPTION);
+            int as = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Approve ?</h1></html>", "Are You Sure",
+                    JOptionPane.YES_NO_OPTION);
             if (as == JOptionPane.NO_OPTION) {
                 return;
             }
@@ -147,7 +153,8 @@ public class purchase_order_list extends javax.swing.JInternalFrame {
             int a = util.doManipulation(query);
             if (a > 0) {
                 jTable1.setValueAt(updated_status, jTable1.getSelectedRow(), 8);
-                JOptionPane.showMessageDialog(this, "<html><h1>Order Approved</h1></html>", "Approved", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(this, "<html><h1>Order Approved</h1></html>", "Approved",
+                        JOptionPane.PLAIN_MESSAGE);
             }
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
@@ -161,10 +168,12 @@ public class purchase_order_list extends javax.swing.JInternalFrame {
                 return;
             }
             if (user_type.equalsIgnoreCase("User")) {
-                JOptionPane.showMessageDialog(this, "Login as 'Administrator' to Delete!", "Permission Restricted", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Login as 'Administrator' to Delete!", "Permission Restricted",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            int as = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Delete ?</h1></html>", "Are You Sure", JOptionPane.YES_NO_OPTION);
+            int as = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Delete ?</h1></html>", "Are You Sure",
+                    JOptionPane.YES_NO_OPTION);
             if (as == JOptionPane.NO_OPTION) {
                 return;
             }
@@ -175,7 +184,8 @@ public class purchase_order_list extends javax.swing.JInternalFrame {
             int a = util.doManipulation_Batch(query_list);
             if (a > 0) {
                 s2.removeRow(jTable1.getSelectedRow());
-                JOptionPane.showMessageDialog(this, "<html><h1>Deleted Successfully</h1></html>", "Deleted", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(this, "<html><h1>Deleted Successfully</h1></html>", "Deleted",
+                        JOptionPane.PLAIN_MESSAGE);
             }
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
@@ -190,7 +200,8 @@ public class purchase_order_list extends javax.swing.JInternalFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         titlelablel = new javax.swing.JLabel();
@@ -276,16 +287,15 @@ public class purchase_order_list extends javax.swing.JInternalFrame {
 
         jTable1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jTable1.setRowHeight(25);
         jScrollPane1.setViewportView(jTable1);
 
@@ -335,17 +345,17 @@ public class purchase_order_list extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closebuttonActionPerformed
+    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closebuttonActionPerformed
         this.dispose();
         // TODO add your handling code here:
-    }//GEN-LAST:event_closebuttonActionPerformed
+    }// GEN-LAST:event_closebuttonActionPerformed
 
-    private void generatebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generatebuttonActionPerformed
+    private void generatebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_generatebuttonActionPerformed
         load_report();
 
-    }//GEN-LAST:event_generatebuttonActionPerformed
+    }// GEN-LAST:event_generatebuttonActionPerformed
 
-    private void viewbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewbuttonActionPerformed
+    private void viewbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_viewbuttonActionPerformed
         purchase_order oe = new purchase_order(util);
         JDesktopPane desktop_pane = getDesktopPane();
         desktop_pane.add(oe);
@@ -358,9 +368,9 @@ public class purchase_order_list extends javax.swing.JInternalFrame {
         oe.setLocation((desktopSize.width - jInternalFrameSize.width) / 2,
                 (desktopSize.height - jInternalFrameSize.height) / 2);
 
-    }//GEN-LAST:event_viewbuttonActionPerformed
+    }// GEN-LAST:event_viewbuttonActionPerformed
 
-    private void excelbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelbuttonActionPerformed
+    private void excelbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_excelbuttonActionPerformed
         if (s2.getRowCount() <= 0) {
             JOptionPane.showMessageDialog(this, "Sorry, No Records Were Found!", "Oops", JOptionPane.ERROR_MESSAGE);
             return;
@@ -395,34 +405,35 @@ public class purchase_order_list extends javax.swing.JInternalFrame {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_excelbuttonActionPerformed
+    }// GEN-LAST:event_excelbuttonActionPerformed
 
-    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbuttonActionPerformed
+    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_clearbuttonActionPerformed
         if (s2.getRowCount() > 0) {
             s2.getDataVector().removeAllElements();
             s2.fireTableDataChanged();
         }
         totl.setText("");
         generatebutton.setEnabled(true);
-    }//GEN-LAST:event_clearbuttonActionPerformed
+    }// GEN-LAST:event_clearbuttonActionPerformed
 
-    private void approvebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_approvebuttonActionPerformed
+    private void approvebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_approvebuttonActionPerformed
         approve();
-    }//GEN-LAST:event_approvebuttonActionPerformed
+    }// GEN-LAST:event_approvebuttonActionPerformed
 
-    private void printbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printbuttonActionPerformed
+    private void printbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_printbuttonActionPerformed
         String billno = jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString();
         String po_status = jTable1.getValueAt(jTable1.getSelectedRow(), 8).toString();
         if (po_status.equalsIgnoreCase("Not Approved")) {
-            JOptionPane.showMessageDialog(this, "PO Should be Approved before Print!", "Invalid", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "PO Should be Approved before Print!", "Invalid",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
         new print_po_A4().Report(util, billno);
-    }//GEN-LAST:event_printbuttonActionPerformed
+    }// GEN-LAST:event_printbuttonActionPerformed
 
-    private void deletebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletebuttonActionPerformed
+    private void deletebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_deletebuttonActionPerformed
         delete();
-    }//GEN-LAST:event_deletebuttonActionPerformed
+    }// GEN-LAST:event_deletebuttonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton approvebutton;

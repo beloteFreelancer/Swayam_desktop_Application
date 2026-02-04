@@ -20,7 +20,7 @@ import menupack.sample2;
 /**
  *
  * @author K.SELVAKUMAR, copyrights K.SELVAKUMAR, +91 99427 32229,
- * mysoft.java@gmail.com
+ *         mysoft.java@gmail.com
  */
 public final class pay_loan extends javax.swing.JInternalFrame {
 
@@ -44,8 +44,11 @@ public final class pay_loan extends javax.swing.JInternalFrame {
 
         setTitle("Loan Register");
         this.setSize(496, 409);
-        ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("images/icon.png"));
-        this.setFrameIcon(icon);
+        java.net.URL iconUrl = ClassLoader.getSystemResource("/images/icon.png");
+        if (iconUrl != null) {
+            ImageIcon icon = new ImageIcon(iconUrl);
+            this.setFrameIcon(icon);
+        }
         menu_form me = new menu_form();
         hmany = me.getHmany();
     }
@@ -145,7 +148,8 @@ public final class pay_loan extends javax.swing.JInternalFrame {
                 selva = true;
             }
             if (selva == true) {
-                JOptionPane.showMessageDialog(this, "Entry No Already Exist!", "Already Exist", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Entry No Already Exist!", "Already Exist",
+                        JOptionPane.ERROR_MESSAGE);
                 h1.requestFocus();
                 return;
             }
@@ -156,18 +160,22 @@ public final class pay_loan extends javax.swing.JInternalFrame {
                 selva1 = true;
             }
             if (selva1 == true) {
-                JOptionPane.showMessageDialog(this, "Loan is Already Active for This Staff!", "Already Exist", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Loan is Already Active for This Staff!", "Already Exist",
+                        JOptionPane.ERROR_MESSAGE);
                 h1.requestFocus();
                 return;
             }
-            int aa = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Save ?</h1></html>", "Are You Sure", JOptionPane.YES_NO_OPTION);
+            int aa = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Save ?</h1></html>", "Are You Sure",
+                    JOptionPane.YES_NO_OPTION);
             if (aa == JOptionPane.NO_OPTION) {
                 return;
             }
-            query = "insert into pay_loan values ('" + sno + "','" + date + "','" + cid + "','" + cname + "','" + amount + "','" + paid + "','" + remarks + "','" + status + "','" + last + "')";
+            query = "insert into pay_loan values ('" + sno + "','" + date + "','" + cid + "','" + cname + "','" + amount
+                    + "','" + paid + "','" + remarks + "','" + status + "','" + last + "')";
             int a = util.doManipulation(query);
             if (a > 0) {
-                JOptionPane.showMessageDialog(this, "<html><h1>Saved Successfully</h1></html>", "Saved", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(this, "<html><h1>Saved Successfully</h1></html>", "Saved",
+                        JOptionPane.PLAIN_MESSAGE);
                 clear();
             } else {
                 JOptionPane.showMessageDialog(this, "Please try again...");
@@ -201,7 +209,8 @@ public final class pay_loan extends javax.swing.JInternalFrame {
 
     void view(String sno) {
         try {
-            String query = "select sno,date_format(dat,'%d/%m/%Y'),cid,cname,tot,remarks from pay_loan where sno='" + sno + "' ";
+            String query = "select sno,date_format(dat,'%d/%m/%Y'),cid,cname,tot,remarks from pay_loan where sno='"
+                    + sno + "' ";
             r = util.doQuery(query);
             boolean selva = false;
             while (r.next()) {
@@ -230,7 +239,8 @@ public final class pay_loan extends javax.swing.JInternalFrame {
     void delete(String sno) {
         try {
             if (utype.equalsIgnoreCase("User")) {
-                JOptionPane.showMessageDialog(this, "Login as 'Administrator' to Delete!", "Permission Restricted", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Login as 'Administrator' to Delete!", "Permission Restricted",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
             int as = JOptionPane.showConfirmDialog(this, "Want to Delete ?", "Are You Sure", JOptionPane.YES_NO_OPTION);
@@ -285,7 +295,8 @@ public final class pay_loan extends javax.swing.JInternalFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         cname_list = new javax.swing.JDialog();
@@ -331,16 +342,15 @@ public final class pay_loan extends javax.swing.JInternalFrame {
 
         jTable2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jTable2.setRowHeight(25);
         jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -541,6 +551,7 @@ public final class pay_loan extends javax.swing.JInternalFrame {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 h5FocusGained(evt);
             }
+
             public void focusLost(java.awt.event.FocusEvent evt) {
                 h5FocusLost(evt);
             }
@@ -575,34 +586,34 @@ public final class pay_loan extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closebuttonActionPerformed
+    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closebuttonActionPerformed
         this.dispose();
-    }//GEN-LAST:event_closebuttonActionPerformed
+    }// GEN-LAST:event_closebuttonActionPerformed
 
-    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savebuttonActionPerformed
+    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_savebuttonActionPerformed
         save();
-    }//GEN-LAST:event_savebuttonActionPerformed
+    }// GEN-LAST:event_savebuttonActionPerformed
 
-    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbuttonActionPerformed
+    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_clearbuttonActionPerformed
         clear();
-    }//GEN-LAST:event_clearbuttonActionPerformed
+    }// GEN-LAST:event_clearbuttonActionPerformed
 
-    private void viewbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewbuttonActionPerformed
+    private void viewbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_viewbuttonActionPerformed
         String sno = JOptionPane.showInputDialog(this, "Enter Entry No ?", "Entry No", JOptionPane.PLAIN_MESSAGE);
         view(sno);
-    }//GEN-LAST:event_viewbuttonActionPerformed
+    }// GEN-LAST:event_viewbuttonActionPerformed
 
-    private void deletebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletebuttonActionPerformed
+    private void deletebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_deletebuttonActionPerformed
         String sno = h1.getText();
         delete(sno);
-    }//GEN-LAST:event_deletebuttonActionPerformed
+    }// GEN-LAST:event_deletebuttonActionPerformed
 
-    private void h1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h1FocusGained
+    private void h1FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h1FocusGained
 
         h3.requestFocus();
-    }//GEN-LAST:event_h1FocusGained
+    }// GEN-LAST:event_h1FocusGained
 
-    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTable2MouseClicked
 
         if (jTable2.getRowCount() > 0) {
             String cid = jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString();
@@ -612,14 +623,14 @@ public final class pay_loan extends javax.swing.JInternalFrame {
         }
         cname_list.dispose();
 
-    }//GEN-LAST:event_jTable2MouseClicked
+    }// GEN-LAST:event_jTable2MouseClicked
 
-    private void jTable2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTable2FocusLost
+    private void jTable2FocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jTable2FocusLost
         cname_list.dispose();
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTable2FocusLost
+    }// GEN-LAST:event_jTable2FocusLost
 
-    private void jTable2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable2KeyPressed
+    private void jTable2KeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jTable2KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (jTable2.getRowCount() > 0) {
                 String cid = jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString();
@@ -633,26 +644,26 @@ public final class pay_loan extends javax.swing.JInternalFrame {
             cname_list.dispose();
             h3.requestFocus();
         }
-    }//GEN-LAST:event_jTable2KeyPressed
+    }// GEN-LAST:event_jTable2KeyPressed
 
-    private void jScrollPane4FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jScrollPane4FocusLost
+    private void jScrollPane4FocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jScrollPane4FocusLost
 
         cname_list.dispose();
-    }//GEN-LAST:event_jScrollPane4FocusLost
+    }// GEN-LAST:event_jScrollPane4FocusLost
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton10ActionPerformed
 
         cname_list.setVisible(false);
         cname_list.dispose();
         h5.requestFocus();
-    }//GEN-LAST:event_jButton10ActionPerformed
+    }// GEN-LAST:event_jButton10ActionPerformed
 
-    private void cname_listFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cname_listFocusLost
+    private void cname_listFocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_cname_listFocusLost
 
         cname_list.dispose();
-    }//GEN-LAST:event_cname_listFocusLost
+    }// GEN-LAST:event_cname_listFocusLost
 
-    private void prebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prebuttonActionPerformed
+    private void prebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_prebuttonActionPerformed
 
         try {
             String query;
@@ -679,9 +690,9 @@ public final class pay_loan extends javax.swing.JInternalFrame {
         }
 
         // TODO add your handling code here:
-    }//GEN-LAST:event_prebuttonActionPerformed
+    }// GEN-LAST:event_prebuttonActionPerformed
 
-    private void nextbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextbuttonActionPerformed
+    private void nextbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_nextbuttonActionPerformed
 
         try {
             String query;
@@ -706,9 +717,9 @@ public final class pay_loan extends javax.swing.JInternalFrame {
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_nextbuttonActionPerformed
+    }// GEN-LAST:event_nextbuttonActionPerformed
 
-    private void h3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_h3KeyPressed
+    private void h3KeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_h3KeyPressed
 
         cname_list.requestFocus();
         jTable2.requestFocus();
@@ -727,39 +738,40 @@ public final class pay_loan extends javax.swing.JInternalFrame {
                 cname_list.setLocation(l.x, l.y + jLabel23.getHeight());
                 cname_list.setSize(543, 310);
                 cname_list.setVisible(true);
-                String query = "select sid,sname,desig from staff_entry where sname like '" + h3.getText() + "%' order by sname limit 500";
+                String query = "select sid,sname,desig from staff_entry where sname like '" + h3.getText()
+                        + "%' order by sname limit 500";
                 r = util.doQuery(query);
                 while (r.next()) {
-                    s3.addRow(new Object[]{r.getString(1), r.getString(2), r.getString(3)});
+                    s3.addRow(new Object[] { r.getString(1), r.getString(2), r.getString(3) });
                 }
             } catch (ClassNotFoundException | SQLException e) {
                 System.out.println(e.getMessage());
             }
         }
-    }//GEN-LAST:event_h3KeyPressed
+    }// GEN-LAST:event_h3KeyPressed
 
-    private void h3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h3FocusLost
+    private void h3FocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h3FocusLost
         h3.setText(h3.getText().toUpperCase());
-    }//GEN-LAST:event_h3FocusLost
+    }// GEN-LAST:event_h3FocusLost
 
-    private void h4FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h4FocusGained
+    private void h4FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h4FocusGained
         // h3.setEnabled(false);
-    }//GEN-LAST:event_h4FocusGained
+    }// GEN-LAST:event_h4FocusGained
 
-    private void h5FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h5FocusLost
+    private void h5FocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h5FocusLost
 
-    }//GEN-LAST:event_h5FocusLost
+    }// GEN-LAST:event_h5FocusLost
 
-    private void h5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h5ActionPerformed
+    private void h5ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h5ActionPerformed
 
-    }//GEN-LAST:event_h5ActionPerformed
+    }// GEN-LAST:event_h5ActionPerformed
 
-    private void h5FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h5FocusGained
-    }//GEN-LAST:event_h5FocusGained
+    private void h5FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h5FocusGained
+    }// GEN-LAST:event_h5FocusGained
 
-    private void jCalendarButton2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendarButton2PropertyChange
+    private void jCalendarButton2PropertyChange(java.beans.PropertyChangeEvent evt) {// GEN-FIRST:event_jCalendarButton2PropertyChange
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCalendarButton2PropertyChange
+    }// GEN-LAST:event_jCalendarButton2PropertyChange
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton clearbutton;

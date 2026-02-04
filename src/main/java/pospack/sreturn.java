@@ -32,18 +32,27 @@ import menupack.menu_form;
 /**
  *
  * @author K.SELVAKUMAR, copyrights K.SELVAKUMAR, +91 99427 32229,
- * mysoft.java@gmail.com
+ *         mysoft.java@gmail.com
  */
 public final class sreturn extends javax.swing.JInternalFrame {
 
-    DataUtil util = null;
+    DataUtil util;
     DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
     DefaultTableCellRenderer dtcr1 = new DefaultTableCellRenderer();
     boolean selvagates = false, customer_selection = false;
-    String username = "", utype = "", drive = "", folder = "", version = "", retail_format = "", wholesale_format = "", round_option = "Yes";
-    String scode = "", sname = "", ttype = "", stock_bill, less_prate = "", auto_sms = "", tax = "Local", entry_mode = "Auto";
+    String username = "", utype = "", drive = "", folder = "", version = "", retail_format = "", wholesale_format = "",
+            round_option = "Yes";
+    String scode = "", sname = "", ttype = "", stock_bill, less_prate = "", auto_sms = "", tax = "Local",
+            entry_mode = "Auto";
     double max_rdis = 0, max_wdis = 0;
     int hmany = 2, hmany1 = 3;
+
+    // public sreturn(DataUtil util) {
+    // this.util = util;
+    // initComponents();
+    // get_defaults();
+    // button_short();
+    // }
 
     final void get_defaults() {
         try {
@@ -92,6 +101,7 @@ public final class sreturn extends javax.swing.JInternalFrame {
             return column == 3 || column == 5 || column == 7;
         }
     }
+
     sample2 s2 = new sample2();
     sample2 s3 = new sample2();
     sample2 s4 = new sample2();
@@ -126,11 +136,24 @@ public final class sreturn extends javax.swing.JInternalFrame {
             try (FileInputStream m = new FileInputStream(folder + "/Config_Files/terminal.properties")) {
                 Properties p = new Properties(null);
                 p.load(m);
-                h4.setText(p.getProperty("location"));
-                h5.setText(p.getProperty("terminal"));
+                String loc = p.getProperty("location");
+                String term = p.getProperty("terminal");
+                System.out.println("Loaded location: " + loc);
+                if (loc == null || loc.trim().isEmpty()) {
+                    loc = "DefaultLocation";
+                    System.out.println(
+                            "Warning: location property is missing or empty in terminal.properties. Using DefaultLocation.");
+                }
+                if (term == null || term.trim().isEmpty()) {
+                    term = "DefaultTerminal";
+                    System.out.println(
+                            "Warning: terminal property is missing or empty in terminal.properties. Using DefaultTerminal.");
+                }
+                h4.setText(loc);
+                h5.setText(term);
             }
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Error reading terminal.properties: " + e.getMessage());
         }
     }
 
@@ -242,7 +265,8 @@ public final class sreturn extends javax.swing.JInternalFrame {
                 selva = true;
             }
             if (selva == false) {
-                JOptionPane.showMessageDialog(this, "<html><h1>Invalid Products Details!</h1></hmtl>", "Invalid", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "<html><h1>Invalid Products Details!</h1></hmtl>", "Invalid",
+                        JOptionPane.ERROR_MESSAGE);
                 fields_clear();
             } else {
 
@@ -275,7 +299,8 @@ public final class sreturn extends javax.swing.JInternalFrame {
             double disp = 0, prate = 0, mrp = 0;
             int taxp = 0;
             boolean selva = false;
-            String query = "select hsn,udes,disp,taxp,iname1,prate,mrp from item where ino='" + ino + "' and barcode='" + barcode + "' and iname='" + iname + "' ";
+            String query = "select hsn,udes,disp,taxp,iname1,prate,mrp from item where ino='" + ino + "' and barcode='"
+                    + barcode + "' and iname='" + iname + "' ";
             ResultSet r = util.doQuery(query);
             while (r.next()) {
                 hsn = r.getString(1);
@@ -294,7 +319,8 @@ public final class sreturn extends javax.swing.JInternalFrame {
             }
             double stock = 0;
             String entry = "purchase";
-            query = "select quan,entry from stock where barcode='" + barcode + "' and ino='" + ino + "' and iname='" + iname + "' ";
+            query = "select quan,entry from stock where barcode='" + barcode + "' and ino='" + ino + "' and iname='"
+                    + iname + "' ";
             r = util.doQuery(query);
             while (r.next()) {
                 stock = r.getDouble(1);
@@ -347,15 +373,17 @@ public final class sreturn extends javax.swing.JInternalFrame {
                 String old_barcode = jTable1.getValueAt(i, 14).toString();
                 String old_entry = jTable1.getValueAt(i, 17).toString();
 
-                if (ino.equalsIgnoreCase(old_ino) && barcode.equalsIgnoreCase(old_barcode) && entry.equalsIgnoreCase(old_entry)) {
+                if (ino.equalsIgnoreCase(old_ino) && barcode.equalsIgnoreCase(old_barcode)
+                        && entry.equalsIgnoreCase(old_entry)) {
                     selvakumar = true;
                     old_row = i;
                     old_quan = Double.parseDouble(jTable1.getValueAt(i, 3).toString());
                 }
-            }// row counts ends for checking
+            } // row counts ends for checking
 
             if (selvakumar == false) {
-                s2.addRow(new Object[]{jTable1.getRowCount() + 1, ino, iname, quan2, mrp2, price2, amount2, disp, disamt, sub, taxp, taxamt, total, udes, barcode, hsn, tax, entry, prate, 0, iname1});
+                s2.addRow(new Object[] { jTable1.getRowCount() + 1, ino, iname, quan2, mrp2, price2, amount2, disp,
+                        disamt, sub, taxp, taxamt, total, udes, barcode, hsn, tax, entry, prate, 0, iname1 });
                 serial_num();
             } else {
                 double net_quan = old_quan + quan;
@@ -368,12 +396,13 @@ public final class sreturn extends javax.swing.JInternalFrame {
                 s2.setValueAt(quann2, old_row, 3);
             }
 
-            infol.setText("<html>" + iname + "&nbsp &nbsp &nbsp &nbsp <b>MRP: " + mrp2 + "</b> &nbsp &nbsp &nbsp " + quan2 + "x" + price2 + "=" + amount2 + "</html>");
-            //row selected
+            infol.setText("<html>" + iname + "&nbsp &nbsp &nbsp &nbsp <b>MRP: " + mrp2 + "</b> &nbsp &nbsp &nbsp "
+                    + quan2 + "x" + price2 + "=" + amount2 + "</html>");
+            // row selected
             Rectangle rect = jTable1.getCellRect(jTable1.getRowCount() - 1, 0, true);
             jTable1.scrollRectToVisible(rect);
             jTable1.setRowSelectionInterval(jTable1.getRowCount() - 1, jTable1.getRowCount() - 1);
-            //row selected ends
+            // row selected ends
 
             apply_all_changes();
             fields_clear();
@@ -432,7 +461,7 @@ public final class sreturn extends javax.swing.JInternalFrame {
                 ngross = ngross + sub;
                 ntax = ntax + taxamt;
                 items = items + 1;
-            }//table row counts ends
+            } // table row counts ends
 
             String nsub2 = String.format("%." + hmany + "f", nsub);
             String ndis2 = String.format("%." + hmany + "f", ndis);
@@ -479,7 +508,7 @@ public final class sreturn extends javax.swing.JInternalFrame {
 
             String grant = String.format("%." + hmany + "f", gt);
             if (round_option.equals("Yes")) {
-                //round off starts
+                // round off starts
                 String[] grant1 = grant.split("\\.");
                 String grant2 = grant1[0];
                 String grant3 = grant1[1];
@@ -505,12 +534,12 @@ public final class sreturn extends javax.swing.JInternalFrame {
 
                 h15.setText("" + round2);
                 netl.setText(rup + ".00");
-                //round off ends
-            }//round option ends
+                // round off ends
+            } // round option ends
             else {
                 h15.setText("" + 0);
                 netl.setText(grant);
-            } //no round option
+            } // no round option
 
         } catch (NumberFormatException e) {
             System.out.println(e.getMessage());
@@ -556,7 +585,8 @@ public final class sreturn extends javax.swing.JInternalFrame {
         String paid2 = String.format("%." + hmany + "f", paid);
         paidl.setText(paid2);
         if (paid < tot) {
-            JOptionPane.showMessageDialog(this, "<html><h1>Paid Amount is Lessthan Bill Amount!</h1></html>", "Invalid", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "<html><h1>Paid Amount is Lessthan Bill Amount!</h1></html>", "Invalid",
+                    JOptionPane.ERROR_MESSAGE);
             paidl.setText("0.00");
             ball.setText("0.00");
         } else {
@@ -606,7 +636,8 @@ public final class sreturn extends javax.swing.JInternalFrame {
                     if (newBal < 0) {
                         newBal = 0;
                         double advance = totalPaid - fNet;
-                        JOptionPane.showMessageDialog(this, "Customer paid ₹" + String.format("%.2f", advance) + " extra.");
+                        JOptionPane.showMessageDialog(this,
+                                "Customer paid ₹" + String.format("%.2f", advance) + " extra.");
                     }
                     ball.setText(String.format("%.2f", newBal));
 
@@ -631,7 +662,8 @@ public final class sreturn extends javax.swing.JInternalFrame {
     void save() {
         try {
             if (s2.getRowCount() <= 0) {
-                JOptionPane.showMessageDialog(this, "No Records Were Found to Save!", "No Records", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No Records Were Found to Save!", "No Records",
+                        JOptionPane.ERROR_MESSAGE);
                 h17.requestFocus();
                 return;
             }
@@ -647,7 +679,8 @@ public final class sreturn extends javax.swing.JInternalFrame {
                 selva = true;
             }
             if (selva == true) {
-                JOptionPane.showMessageDialog(this, "Already Exist!\nUse 'Alter' Option to Alter...", "Already Exist", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Already Exist!\nUse 'Alter' Option to Alter...", "Already Exist",
+                        JOptionPane.ERROR_MESSAGE);
                 savebutton.requestFocus();
                 return;
             }
@@ -673,7 +706,7 @@ public final class sreturn extends javax.swing.JInternalFrame {
             String cid = h21.getText();
             double net = Double.parseDouble(netl.getText());
 
-//credit sreturn checking
+            // credit sreturn checking
             if (pricel.getText().equals("Wholesale")) {
                 String ctype = "Retail";
                 query = "select ctype from cust where cid='" + cid + "'";
@@ -682,14 +715,16 @@ public final class sreturn extends javax.swing.JInternalFrame {
                     ctype = r.getString(1);
                 }
                 if (ctype.equals("Retail")) {
-                    JOptionPane.showMessageDialog(this, "<html>For Wholesale Bill First Create Customer Master<br>, Create as <b> 'Credit Customer'</b></html>", "Invalid Wholesale Customer!", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this,
+                            "<html>For Wholesale Bill First Create Customer Master<br>, Create as <b> 'Credit Customer'</b></html>",
+                            "Invalid Wholesale Customer!", JOptionPane.ERROR_MESSAGE);
                     h24.requestFocus();
                     return;
                 }
-            }//price lable is wholesale ends
+            } // price lable is wholesale ends
 
             int due_days = 0;
-            //payment mode credit starts
+            // payment mode credit starts
             if (h16.getSelectedItem().equals("Credit")) {
                 String ctype = "Retail";
                 query = "select ctype from cust where cid='" + cid + "'";
@@ -699,21 +734,23 @@ public final class sreturn extends javax.swing.JInternalFrame {
                 }
 
                 if (ctype.equals("Retail")) {
-                    JOptionPane.showMessageDialog(this, "<html>For Wholesale Bill First Create Customer Master<br>, Create as <b> 'Credit Customer'</b></html>", "Invalid Wholesale Customer!", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this,
+                            "<html>For Wholesale Bill First Create Customer Master<br>, Create as <b> 'Credit Customer'</b></html>",
+                            "Invalid Wholesale Customer!", JOptionPane.ERROR_MESSAGE);
                     h24.setText("");
                     h24.requestFocus();
                     return;
                 }
             }
-            //paymode credits ends
-            //credit sreturn checking ends
+            // paymode credits ends
+            // credit sreturn checking ends
             String cname = h24.getText();
             String cardno = h22.getText();
             String mobile = h23.getText();
 
             boolean cust_card = false;
             int newcid = 0;
-            //customer card checking
+            // customer card checking
             if (customer_selection == false && mobile.length() == 10) {
                 query = "select cid from cust where cardno='" + cardno + "'";
                 r = util.doQuery(query);
@@ -721,7 +758,8 @@ public final class sreturn extends javax.swing.JInternalFrame {
                     cust_card = true;
                 }
                 if (cust_card == true) {
-                    JOptionPane.showMessageDialog(this, "Customer Card No Already Exist!", "Already Exist", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Customer Card No Already Exist!", "Already Exist",
+                            JOptionPane.ERROR_MESSAGE);
                     h22.requestFocus();
                     return;
                 }
@@ -733,9 +771,10 @@ public final class sreturn extends javax.swing.JInternalFrame {
                 newcid = newcid + 1;
                 cid = newcid + "";
             }
-            //customer card checking ends
+            // customer card checking ends
 
-            int aa = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Save ?</h1></html>", "Are You Sure", JOptionPane.YES_NO_OPTION);
+            int aa = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Save ?</h1></html>", "Are You Sure",
+                    JOptionPane.YES_NO_OPTION);
             if (aa == JOptionPane.NO_OPTION) {
                 return;
             }
@@ -914,7 +953,8 @@ public final class sreturn extends javax.swing.JInternalFrame {
                 conn.commit();
                 count = 1; // Success
 
-                int bb = JOptionPane.showConfirmDialog(this, "<html><h1>You Want to Print Bill ?</h1></html>", "Saved Successfully", JOptionPane.YES_OPTION);
+                int bb = JOptionPane.showConfirmDialog(this, "<html><h1>You Want to Print Bill ?</h1></html>",
+                        "Saved Successfully", JOptionPane.YES_OPTION);
                 if (bb == JOptionPane.YES_OPTION) {
                     String billformat = retail_format;
                     if (pricel.getText().equals("Wholesale")) {
@@ -931,7 +971,8 @@ public final class sreturn extends javax.swing.JInternalFrame {
                     ex.printStackTrace();
                 }
                 e.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Database Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Database Error: " + e.getMessage(), "Error",
+                        JOptionPane.ERROR_MESSAGE);
             } finally {
                 try {
                     conn.setAutoCommit(true);
@@ -1014,7 +1055,8 @@ public final class sreturn extends javax.swing.JInternalFrame {
                     s2.fireTableDataChanged();
                 }
 
-                query = "select billno,date_format(dat,'%d/%m/%Y'),tim,location,terminal,cashier,items,quans,sub,disp,disamt,gross,taxamt,addamt,round,pby,net,paid,bal,cash,card,others,upi,price_type,tax_type,tax,cid,cardno,mobile,cname from sreturn where billno='" + billno + "'";
+                query = "select billno,date_format(dat,'%d/%m/%Y'),tim,location,terminal,cashier,items,quans,sub,disp,disamt,gross,taxamt,addamt,round,pby,net,paid,bal,cash,card,others,upi,price_type,tax_type,tax,cid,cardno,mobile,cname from sreturn where billno='"
+                        + billno + "'";
                 set1 = util.doQuery(query);
                 while (set1.next()) {
                     h1.setText(set1.getString(1));
@@ -1070,7 +1112,8 @@ public final class sreturn extends javax.swing.JInternalFrame {
                     netl.setText(net2);
                 }
 
-                query = "select serial,ino,iname,quan,mrp,price,amount,disp,disamt,sub,taxp,taxamt,total,udes,barcode,hsn,tax,entry,cost_rate,profit,iname1 from sreturn_items where billno='" + billno + "'";
+                query = "select serial,ino,iname,quan,mrp,price,amount,disp,disamt,sub,taxp,taxamt,total,udes,barcode,hsn,tax,entry,cost_rate,profit,iname1 from sreturn_items where billno='"
+                        + billno + "'";
                 set1 = util.doQuery(query);
                 while (set1.next()) {
                     String mrp = String.format("%." + hmany + "f", set1.getDouble(5));
@@ -1088,11 +1131,14 @@ public final class sreturn extends javax.swing.JInternalFrame {
                         quan2 = split3[0];
                     }
 
-                    s2.addRow(new Object[]{set1.getString(1), set1.getString(2), set1.getString(3), quan2, mrp, price, amount, set1.getString(8), disamt,
-                        sub, set1.getInt(11), taxamt, total, set1.getString(14), set1.getString(15), set1.getString(16), set1.getString(17), set1.getString(18), set1.getString(19), set1.getString(20), set1.getString(21)});
+                    s2.addRow(new Object[] { set1.getString(1), set1.getString(2), set1.getString(3), quan2, mrp, price,
+                            amount, set1.getString(8), disamt,
+                            sub, set1.getInt(11), taxamt, total, set1.getString(14), set1.getString(15),
+                            set1.getString(16), set1.getString(17), set1.getString(18), set1.getString(19),
+                            set1.getString(20), set1.getString(21) });
                 }
                 get_customer_details_using_mobileno();
-            }//if selva true ends
+            } // if selva true ends
         } catch (HeadlessException | ClassNotFoundException | NumberFormatException | SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -1211,7 +1257,8 @@ public final class sreturn extends javax.swing.JInternalFrame {
 
     void get_price_change() {
         if (s2.getRowCount() > 0) {
-            JOptionPane.showMessageDialog(this, "<html><h1>Items Already Entered!</h1></html>", "Invalid", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "<html><h1>Items Already Entered!</h1></html>", "Invalid",
+                    JOptionPane.ERROR_MESSAGE);
             h17.requestFocus();
             return;
         }
@@ -1233,19 +1280,23 @@ public final class sreturn extends javax.swing.JInternalFrame {
     void alter_sreturn() {
         try {
             if (s2.getRowCount() <= 0) {
-                JOptionPane.showMessageDialog(this, "No Records Were Found to Alter!", "No Records", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No Records Were Found to Alter!", "No Records",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (selvagates == false) {
-                JOptionPane.showMessageDialog(this, "User 'View' Option Before Alter!", "User 'View' Option", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "User 'View' Option Before Alter!", "User 'View' Option",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (utype.equalsIgnoreCase("User")) {
-                JOptionPane.showMessageDialog(this, "Login as 'Administrator' to Alter!", "Permission Restricted", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Login as 'Administrator' to Alter!", "Permission Restricted",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            int as = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Alter ?</h1></html>", "Are You Sure", JOptionPane.YES_NO_OPTION);
+            int as = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Alter ?</h1></html>", "Are You Sure",
+                    JOptionPane.YES_NO_OPTION);
             if (as == JOptionPane.NO_OPTION) {
                 return;
             }
@@ -1271,9 +1322,11 @@ public final class sreturn extends javax.swing.JInternalFrame {
             ArrayList query_batch = new ArrayList();
             if (selva == true) {
                 for (int i = 0; i < barcode.size(); i++) {
-                    query_batch.add("update stock set quan=quan-" + quan.get(i) + " where barcode='" + barcode.get(i) + "' and ino='" + ino.get(i) + "' and iname='" + iname.get(i) + "' and entry='" + entry.get(i) + "'");
+                    query_batch.add("update stock set quan=quan-" + quan.get(i) + " where barcode='" + barcode.get(i)
+                            + "' and ino='" + ino.get(i) + "' and iname='" + iname.get(i) + "' and entry='"
+                            + entry.get(i) + "'");
                 }
-            }//selva true ends
+            } // selva true ends
             query_batch.add("delete from sreturn where billno='" + billno + "'");
             query_batch.add("delete from sreturn_items where billno='" + billno + "'");
             if (h16.getSelectedItem().equals("Credit")) {
@@ -1283,7 +1336,8 @@ public final class sreturn extends javax.swing.JInternalFrame {
             if (count > 0) {
                 save();
             } else {
-                JOptionPane.showMessageDialog(this, "Check Entries and then Try Again!", "Invalid", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Check Entries and then Try Again!", "Invalid",
+                        JOptionPane.ERROR_MESSAGE);
             }
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
@@ -1293,19 +1347,23 @@ public final class sreturn extends javax.swing.JInternalFrame {
     void delete() {
         try {
             if (s2.getRowCount() <= 0) {
-                JOptionPane.showMessageDialog(this, "No Records Were Found to Delete!", "No Records", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No Records Were Found to Delete!", "No Records",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (selvagates == false) {
-                JOptionPane.showMessageDialog(this, "User 'View' Option Before Delete!", "User 'View' Option", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "User 'View' Option Before Delete!", "User 'View' Option",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (utype.equalsIgnoreCase("User")) {
-                JOptionPane.showMessageDialog(this, "Login as 'Administrator' to Delete!", "Permission Restricted", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Login as 'Administrator' to Delete!", "Permission Restricted",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            int as = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Delete ?</h1></html>", "Are You Sure", JOptionPane.YES_NO_OPTION);
+            int as = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Delete ?</h1></html>", "Are You Sure",
+                    JOptionPane.YES_NO_OPTION);
             if (as == JOptionPane.NO_OPTION) {
                 return;
             }
@@ -1331,9 +1389,11 @@ public final class sreturn extends javax.swing.JInternalFrame {
             ArrayList query_batch = new ArrayList();
             if (selva == true) {
                 for (int i = 0; i < barcode.size(); i++) {
-                    query_batch.add("update stock set quan=quan-" + quan.get(i) + " where barcode='" + barcode.get(i) + "' and ino='" + ino.get(i) + "' and iname='" + iname.get(i) + "' and entry='" + entry.get(i) + "'");
+                    query_batch.add("update stock set quan=quan-" + quan.get(i) + " where barcode='" + barcode.get(i)
+                            + "' and ino='" + ino.get(i) + "' and iname='" + iname.get(i) + "' and entry='"
+                            + entry.get(i) + "'");
                 }
-            }//selva true ends
+            } // selva true ends
             query_batch.add("delete from sreturn where billno='" + billno + "'");
             query_batch.add("delete from sreturn_items where billno='" + billno + "'");
             if (h16.getSelectedItem().equals("Credit")) {
@@ -1341,10 +1401,12 @@ public final class sreturn extends javax.swing.JInternalFrame {
             }
             int count = util.doManipulation_Batch(query_batch);
             if (count > 0) {
-                JOptionPane.showMessageDialog(this, "<html><h1>Deleted Successfully</h1></html>", "Deleted", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(this, "<html><h1>Deleted Successfully</h1></html>", "Deleted",
+                        JOptionPane.PLAIN_MESSAGE);
                 form_clear();
             } else {
-                JOptionPane.showMessageDialog(this, "Check Entries and then Try Again!", "Invalid", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Check Entries and then Try Again!", "Invalid",
+                        JOptionPane.ERROR_MESSAGE);
             }
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
@@ -1363,8 +1425,11 @@ public final class sreturn extends javax.swing.JInternalFrame {
         initComponents();
 
         this.setSize(1307, 659);
-        ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("images/icon.png"));
-        this.setFrameIcon(icon);
+        java.net.URL iconUrl = ClassLoader.getSystemResource("images/icon.png");
+        if (iconUrl != null) {
+            ImageIcon icon = new ImageIcon(iconUrl);
+            this.setFrameIcon(icon);
+        }
         this.util = util;
         setTitle(version);
         button_short();
@@ -1383,7 +1448,8 @@ public final class sreturn extends javax.swing.JInternalFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         multi_pay_mode = new javax.swing.JDialog();
@@ -1562,70 +1628,91 @@ public final class sreturn extends javax.swing.JInternalFrame {
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(h25, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(h26, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(h27, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addComponent(h28, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(150, 150, 150)
-                .addComponent(selectbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+                jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 160,
+                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 60,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(h25, javax.swing.GroupLayout.PREFERRED_SIZE, 220,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 60,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(h26, javax.swing.GroupLayout.PREFERRED_SIZE, 220,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 60,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(h27, javax.swing.GroupLayout.PREFERRED_SIZE, 220,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 60,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGap(70, 70, 70)
+                                .addComponent(h28, javax.swing.GroupLayout.PREFERRED_SIZE, 220,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 310,
+                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGap(150, 150, 150)
+                                .addComponent(selectbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 140,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)));
         jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(h25, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(h26, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(h27, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(h28, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(10, 10, 10)
-                .addComponent(selectbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+                jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 30,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20)
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(h25, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(h26, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(h27, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(10, 10, 10)
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 20,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(jPanel9Layout.createSequentialGroup()
+                                                .addGap(10, 10, 10)
+                                                .addGroup(jPanel9Layout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(h28, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(10, 10, 10)
+                                .addComponent(selectbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 50,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)));
 
         javax.swing.GroupLayout multi_pay_modeLayout = new javax.swing.GroupLayout(multi_pay_mode.getContentPane());
         multi_pay_mode.getContentPane().setLayout(multi_pay_modeLayout);
         multi_pay_modeLayout.setHorizontalGroup(
-            multi_pay_modeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+                multi_pay_modeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 306,
+                                javax.swing.GroupLayout.PREFERRED_SIZE));
         multi_pay_modeLayout.setVerticalGroup(
-            multi_pay_modeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+                multi_pay_modeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
 
         iname_list.setUndecorated(true);
         iname_list.getContentPane().setLayout(null);
@@ -1638,16 +1725,15 @@ public final class sreturn extends javax.swing.JInternalFrame {
 
         jTable3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jTable3.setRowHeight(25);
         jTable3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1686,16 +1772,15 @@ public final class sreturn extends javax.swing.JInternalFrame {
 
         jTable2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jTable2.setRowHeight(25);
         jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1735,15 +1820,15 @@ public final class sreturn extends javax.swing.JInternalFrame {
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(infol, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE)
-        );
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(infol, javax.swing.GroupLayout.Alignment.TRAILING,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE));
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(infol, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(infol, javax.swing.GroupLayout.PREFERRED_SIZE, 50,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)));
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(200, 0, 660, 50);
@@ -1863,6 +1948,7 @@ public final class sreturn extends javax.swing.JInternalFrame {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 h10FocusGained(evt);
             }
+
             public void focusLost(java.awt.event.FocusEvent evt) {
                 h10FocusLost(evt);
             }
@@ -1911,6 +1997,7 @@ public final class sreturn extends javax.swing.JInternalFrame {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 h14FocusGained(evt);
             }
+
             public void focusLost(java.awt.event.FocusEvent evt) {
                 h14FocusLost(evt);
             }
@@ -2056,7 +2143,8 @@ public final class sreturn extends javax.swing.JInternalFrame {
         h11.setBounds(100, 300, 170, 30);
 
         h16.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        h16.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cash", "Card", "Credit", "UPI", "Others", "Multi Pay" }));
+        h16.setModel(new javax.swing.DefaultComboBoxModel<>(
+                new String[] { "Cash", "Card", "Credit", "UPI", "Others", "Multi Pay" }));
         h16.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 h16KeyPressed(evt);
@@ -2070,16 +2158,15 @@ public final class sreturn extends javax.swing.JInternalFrame {
 
         jTable1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jTable1.setRowHeight(25);
         jTable1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -2433,25 +2520,25 @@ public final class sreturn extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbuttonActionPerformed
+    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_clearbuttonActionPerformed
         form_clear();
 
-    }//GEN-LAST:event_clearbuttonActionPerformed
+    }// GEN-LAST:event_clearbuttonActionPerformed
 
-    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closebuttonActionPerformed
+    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closebuttonActionPerformed
         this.dispose();
-    }//GEN-LAST:event_closebuttonActionPerformed
+    }// GEN-LAST:event_closebuttonActionPerformed
 
-    private void viewbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewbuttonActionPerformed
+    private void viewbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_viewbuttonActionPerformed
         String grn = JOptionPane.showInputDialog(this, "Enter Bill No ?", "Bill No", JOptionPane.PLAIN_MESSAGE);
         if ("".equals(grn) || grn == null) {
             JOptionPane.showMessageDialog(this, "Invalid Bill No!", "Invalid", JOptionPane.ERROR_MESSAGE);
             return;
         }
         view(grn);
-    }//GEN-LAST:event_viewbuttonActionPerformed
+    }// GEN-LAST:event_viewbuttonActionPerformed
 
-    private void nextbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextbuttonActionPerformed
+    private void nextbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_nextbuttonActionPerformed
         try {
 
             String grn = h1.getText();
@@ -2475,9 +2562,9 @@ public final class sreturn extends javax.swing.JInternalFrame {
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_nextbuttonActionPerformed
+    }// GEN-LAST:event_nextbuttonActionPerformed
 
-    private void prebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prebuttonActionPerformed
+    private void prebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_prebuttonActionPerformed
         try {
             String grn = h1.getText();
             String query;
@@ -2503,13 +2590,13 @@ public final class sreturn extends javax.swing.JInternalFrame {
             System.out.println(e.toString());
         }
 
-    }//GEN-LAST:event_prebuttonActionPerformed
+    }// GEN-LAST:event_prebuttonActionPerformed
 
-    private void applybuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applybuttonActionPerformed
+    private void applybuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_applybuttonActionPerformed
         apply_all_changes();
-    }//GEN-LAST:event_applybuttonActionPerformed
+    }// GEN-LAST:event_applybuttonActionPerformed
 
-    private void removebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removebuttonActionPerformed
+    private void removebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_removebuttonActionPerformed
         if (s2.getRowCount() <= 0) {
             JOptionPane.showMessageDialog(this, "No Records Were Found!", "No Records", JOptionPane.ERROR_MESSAGE);
             return;
@@ -2522,13 +2609,13 @@ public final class sreturn extends javax.swing.JInternalFrame {
         apply_all_changes();
         serial_num();
 
-    }//GEN-LAST:event_removebuttonActionPerformed
+    }// GEN-LAST:event_removebuttonActionPerformed
 
-    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savebuttonActionPerformed
+    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_savebuttonActionPerformed
         save();
-    }//GEN-LAST:event_savebuttonActionPerformed
+    }// GEN-LAST:event_savebuttonActionPerformed
 
-    private void tenderbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tenderbuttonActionPerformed
+    private void tenderbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_tenderbuttonActionPerformed
 
         multi_pay_mode.requestFocus();
         Point l = jLabel1.getLocationOnScreen();
@@ -2536,39 +2623,39 @@ public final class sreturn extends javax.swing.JInternalFrame {
         multi_pay_mode.setSize(306, 301);
         multi_pay_mode.setVisible(true);
         h25.requestFocus();
-    }//GEN-LAST:event_tenderbuttonActionPerformed
+    }// GEN-LAST:event_tenderbuttonActionPerformed
 
-    private void h27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h27ActionPerformed
+    private void h27ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h27ActionPerformed
         get_paid_bal_details();
         get_bal_details();
         multi_pay_mode.dispose();
         h22.requestFocus();
 
-    }//GEN-LAST:event_h27ActionPerformed
+    }// GEN-LAST:event_h27ActionPerformed
 
-    private void h25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h25ActionPerformed
+    private void h25ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h25ActionPerformed
         get_paid_bal_details();
         h26.requestFocus();
-    }//GEN-LAST:event_h25ActionPerformed
+    }// GEN-LAST:event_h25ActionPerformed
 
-    private void h26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h26ActionPerformed
+    private void h26ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h26ActionPerformed
         get_paid_bal_details();
         h27.requestFocus();
-    }//GEN-LAST:event_h26ActionPerformed
+    }// GEN-LAST:event_h26ActionPerformed
 
-    private void paidlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paidlActionPerformed
+    private void paidlActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_paidlActionPerformed
         get_bal_details();
 
-    }//GEN-LAST:event_paidlActionPerformed
+    }// GEN-LAST:event_paidlActionPerformed
 
-    private void selectbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectbuttonActionPerformed
+    private void selectbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_selectbuttonActionPerformed
         get_paid_bal_details();
         get_bal_details();
         multi_pay_mode.dispose();
         h22.requestFocus();
-    }//GEN-LAST:event_selectbuttonActionPerformed
+    }// GEN-LAST:event_selectbuttonActionPerformed
 
-    private void h26FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h26FocusGained
+    private void h26FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h26FocusGained
         if (h26.getText().equals("")) {
             h26.setText("0.00");
         }
@@ -2576,9 +2663,9 @@ public final class sreturn extends javax.swing.JInternalFrame {
         if (card <= 0) {
             h26.setText("");
         }
-    }//GEN-LAST:event_h26FocusGained
+    }// GEN-LAST:event_h26FocusGained
 
-    private void h27FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h27FocusGained
+    private void h27FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h27FocusGained
         if (h27.getText().equals("")) {
             h27.setText("0.00");
         }
@@ -2586,9 +2673,9 @@ public final class sreturn extends javax.swing.JInternalFrame {
         if (card <= 0) {
             h27.setText("");
         }
-    }//GEN-LAST:event_h27FocusGained
+    }// GEN-LAST:event_h27FocusGained
 
-    private void paidlFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_paidlFocusGained
+    private void paidlFocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_paidlFocusGained
 
         if (paidl.getText().equals("")) {
             paidl.setText("0.00");
@@ -2599,9 +2686,9 @@ public final class sreturn extends javax.swing.JInternalFrame {
         if (paid <= 0) {
             paidl.setText("");
         }
-    }//GEN-LAST:event_paidlFocusGained
+    }// GEN-LAST:event_paidlFocusGained
 
-    private void h17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h17ActionPerformed
+    private void h17ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h17ActionPerformed
         if (h17.getText().equals("") && s2.getRowCount() > 0) {
             h10.requestFocus();
         } else {
@@ -2618,9 +2705,9 @@ public final class sreturn extends javax.swing.JInternalFrame {
             }
         }
 
-    }//GEN-LAST:event_h17ActionPerformed
+    }// GEN-LAST:event_h17ActionPerformed
 
-    private void h10FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h10FocusGained
+    private void h10FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h10FocusGained
         if (h10.getText().equals("")) {
             h10.setText("0");
         }
@@ -2631,21 +2718,23 @@ public final class sreturn extends javax.swing.JInternalFrame {
         h10.setBackground(color2.getBackground());
         h10.setForeground(color2.getForeground());
 
-    }//GEN-LAST:event_h10FocusGained
+    }// GEN-LAST:event_h10FocusGained
 
-    private void h10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h10ActionPerformed
+    private void h10ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h10ActionPerformed
         if (h10.getText().equals("")) {
             h10.setText("0");
         }
         double disp = Double.parseDouble(h10.getText());
         if (pricel.getText().equals("Retail") && disp > max_rdis) {
-            JOptionPane.showMessageDialog(this, "<html><h1>Maximum Retail Discount: " + max_rdis + "%</h1></html>", "Invalid Discount", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "<html><h1>Maximum Retail Discount: " + max_rdis + "%</h1></html>",
+                    "Invalid Discount", JOptionPane.ERROR_MESSAGE);
             h10.setText("" + 0);
             return;
         }
 
         if (pricel.getText().equals("Wholesale") && disp > max_wdis) {
-            JOptionPane.showMessageDialog(this, "<html><h1>Maximum Wholesale Discount: " + max_wdis + "%</h1></html>", "Invalid Discount", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "<html><h1>Maximum Wholesale Discount: " + max_wdis + "%</h1></html>",
+                    "Invalid Discount", JOptionPane.ERROR_MESSAGE);
             h10.setText("" + 0);
             return;
         }
@@ -2654,21 +2743,21 @@ public final class sreturn extends javax.swing.JInternalFrame {
                 jTable1.setValueAt(disp, i, 7);
             }
             apply_all_changes();
-        }//discount is greaterthan zero
+        } // discount is greaterthan zero
         h14.requestFocus();
 
-    }//GEN-LAST:event_h10ActionPerformed
+    }// GEN-LAST:event_h10ActionPerformed
 
-    private void h14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h14ActionPerformed
+    private void h14ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h14ActionPerformed
         if (h14.getText().equals("")) {
             h14.setText("0");
         }
         final_calculate();
         h16.requestFocus();
 
-    }//GEN-LAST:event_h14ActionPerformed
+    }// GEN-LAST:event_h14ActionPerformed
 
-    private void h14FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h14FocusGained
+    private void h14FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h14FocusGained
         if (h14.getText().equals("")) {
             h14.setText("0");
         }
@@ -2679,30 +2768,30 @@ public final class sreturn extends javax.swing.JInternalFrame {
         h14.setBackground(color2.getBackground());
         h14.setForeground(color2.getForeground());
 
-    }//GEN-LAST:event_h14FocusGained
+    }// GEN-LAST:event_h14FocusGained
 
-    private void jLabel28FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jLabel28FocusGained
+    private void jLabel28FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jLabel28FocusGained
         h17.requestFocus();
-    }//GEN-LAST:event_jLabel28FocusGained
+    }// GEN-LAST:event_jLabel28FocusGained
 
-    private void h10FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h10FocusLost
+    private void h10FocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h10FocusLost
         h10.setBackground(color1.getBackground());
         h10.setForeground(color1.getForeground());
-    }//GEN-LAST:event_h10FocusLost
+    }// GEN-LAST:event_h10FocusLost
 
-    private void h14FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h14FocusLost
+    private void h14FocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h14FocusLost
         h14.setBackground(color1.getBackground());
         h14.setForeground(color1.getForeground());
-    }//GEN-LAST:event_h14FocusLost
+    }// GEN-LAST:event_h14FocusLost
 
-    private void h16KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_h16KeyPressed
+    private void h16KeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_h16KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             get_pay_mode();
         }
 
-    }//GEN-LAST:event_h16KeyPressed
+    }// GEN-LAST:event_h16KeyPressed
 
-    private void h22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h22ActionPerformed
+    private void h22ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h22ActionPerformed
 
         if (h22.getText().equals("")) {
             h22.setText(".");
@@ -2714,9 +2803,9 @@ public final class sreturn extends javax.swing.JInternalFrame {
         }
 
         h23.requestFocus();
-    }//GEN-LAST:event_h22ActionPerformed
+    }// GEN-LAST:event_h22ActionPerformed
 
-    private void h23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h23ActionPerformed
+    private void h23ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h23ActionPerformed
 
         if (h23.getText().equals("")) {
             h23.setText(".");
@@ -2726,31 +2815,31 @@ public final class sreturn extends javax.swing.JInternalFrame {
             get_customer_details_using_mobileno();
         }
         h24.requestFocus();
-    }//GEN-LAST:event_h23ActionPerformed
+    }// GEN-LAST:event_h23ActionPerformed
 
-    private void alterbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterbuttonActionPerformed
+    private void alterbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_alterbuttonActionPerformed
         alter_sreturn();
-    }//GEN-LAST:event_alterbuttonActionPerformed
+    }// GEN-LAST:event_alterbuttonActionPerformed
 
-    private void deletebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletebuttonActionPerformed
+    private void deletebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_deletebuttonActionPerformed
         delete();
-    }//GEN-LAST:event_deletebuttonActionPerformed
+    }// GEN-LAST:event_deletebuttonActionPerformed
 
-    private void printbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printbuttonActionPerformed
+    private void printbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_printbuttonActionPerformed
         String billformat = retail_format;
         if (pricel.getText().equals("Wholesale")) {
             billformat = wholesale_format;
         }
         new print_class_return().get_print(util, h1.getText(), drive, folder, billformat);
-    }//GEN-LAST:event_printbuttonActionPerformed
+    }// GEN-LAST:event_printbuttonActionPerformed
 
-    private void jTable1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyPressed
+    private void jTable1KeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jTable1KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             apply_all_changes();
         }
-    }//GEN-LAST:event_jTable1KeyPressed
+    }// GEN-LAST:event_jTable1KeyPressed
 
-    private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
+    private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTable3MouseClicked
         if (jTable3.getRowCount() > 0) {
             h17.setText(jTable3.getValueAt(jTable3.getSelectedRow(), 0).toString());
             inol.setText(jTable3.getValueAt(jTable3.getSelectedRow(), 1).toString());
@@ -2766,9 +2855,9 @@ public final class sreturn extends javax.swing.JInternalFrame {
         }
         h19.requestFocus();
         iname_list.dispose();
-    }//GEN-LAST:event_jTable3MouseClicked
+    }// GEN-LAST:event_jTable3MouseClicked
 
-    private void jTable3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable3KeyPressed
+    private void jTable3KeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jTable3KeyPressed
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (jTable3.getRowCount() > 0) {
@@ -2790,17 +2879,17 @@ public final class sreturn extends javax.swing.JInternalFrame {
             iname_list.dispose();
             h17.requestFocus();
         }
-    }//GEN-LAST:event_jTable3KeyPressed
+    }// GEN-LAST:event_jTable3KeyPressed
 
-    private void jScrollPane3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jScrollPane3FocusLost
+    private void jScrollPane3FocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jScrollPane3FocusLost
         iname_list.dispose();
-    }//GEN-LAST:event_jScrollPane3FocusLost
+    }// GEN-LAST:event_jScrollPane3FocusLost
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton4ActionPerformed
         iname_list.dispose();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }// GEN-LAST:event_jButton4ActionPerformed
 
-    private void h17KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_h17KeyPressed
+    private void h17KeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_h17KeyPressed
 
         iname_list.requestFocus();
         jTable3.requestFocus();
@@ -2827,10 +2916,12 @@ public final class sreturn extends javax.swing.JInternalFrame {
                     iname_list.setLocation(l.x, l.y + jLabel28.getHeight());
                     iname_list.setSize(1141, 528);
                     iname_list.setVisible(true);
-                    String query = "select barcode,ino,iname,prate,mrp,rprice,wprice from item where iname like '" + h17.getText() + "%' order by ino limit 500";
+                    String query = "select barcode,ino,iname,prate,mrp,rprice,wprice from item where iname like '"
+                            + h17.getText() + "%' order by ino limit 500";
                     ResultSet r = util.doQuery(query);
                     while (r.next()) {
-                        s4.addRow(new Object[]{r.getString(1), r.getString(2), r.getString(3), r.getString(4), r.getString(5), r.getString(6), r.getString(7)});
+                        s4.addRow(new Object[] { r.getString(1), r.getString(2), r.getString(3), r.getString(4),
+                                r.getString(5), r.getString(6), r.getString(7) });
                     }
                 } catch (ClassNotFoundException | SQLException e) {
                     System.out.println(e.getMessage());
@@ -2839,25 +2930,28 @@ public final class sreturn extends javax.swing.JInternalFrame {
             default:
                 break;
         }
-    }//GEN-LAST:event_h17KeyPressed
+    }// GEN-LAST:event_h17KeyPressed
 
-    private void h19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h19ActionPerformed
+    private void h19ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h19ActionPerformed
         h20.requestFocus();
-    }//GEN-LAST:event_h19ActionPerformed
+    }// GEN-LAST:event_h19ActionPerformed
 
-    private void h20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h20ActionPerformed
+    private void h20ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h20ActionPerformed
         if (h17.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "<html><h1>Enter Item Details!</h1></html>", "Invalid!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "<html><h1>Enter Item Details!</h1></html>", "Invalid!",
+                    JOptionPane.ERROR_MESSAGE);
             h17.requestFocus();
             return;
         }
         if (h18.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "<html><h1>Enter Item Details!</h1></html>", "Invalid!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "<html><h1>Enter Item Details!</h1></html>", "Invalid!",
+                    JOptionPane.ERROR_MESSAGE);
             h17.requestFocus();
             return;
         }
         if (inol.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "<html><h1>Enter Item Details!</h1></html>", "Invalid!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "<html><h1>Enter Item Details!</h1></html>", "Invalid!",
+                    JOptionPane.ERROR_MESSAGE);
             h17.requestFocus();
             return;
         }
@@ -2872,9 +2966,9 @@ public final class sreturn extends javax.swing.JInternalFrame {
         add_item(barcode, ino, iname, price, quan);
         h17.requestFocus();
 
-    }//GEN-LAST:event_h20ActionPerformed
+    }// GEN-LAST:event_h20ActionPerformed
 
-    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTable2MouseClicked
 
         if (jTable2.getRowCount() > 0) {
             h21.setText(jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString());
@@ -2887,9 +2981,9 @@ public final class sreturn extends javax.swing.JInternalFrame {
         }
         h24.requestFocus();
         cname_list.dispose();
-    }//GEN-LAST:event_jTable2MouseClicked
+    }// GEN-LAST:event_jTable2MouseClicked
 
-    private void jTable2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable2KeyPressed
+    private void jTable2KeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jTable2KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (jTable2.getRowCount() > 0) {
                 h21.setText(jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString());
@@ -2906,27 +3000,27 @@ public final class sreturn extends javax.swing.JInternalFrame {
             cname_list.dispose();
             h24.requestFocus();
         }
-    }//GEN-LAST:event_jTable2KeyPressed
+    }// GEN-LAST:event_jTable2KeyPressed
 
-    private void jScrollPane2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jScrollPane2FocusLost
+    private void jScrollPane2FocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jScrollPane2FocusLost
         cname_list.dispose();
-    }//GEN-LAST:event_jScrollPane2FocusLost
+    }// GEN-LAST:event_jScrollPane2FocusLost
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton3ActionPerformed
         cname_list.dispose();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }// GEN-LAST:event_jButton3ActionPerformed
 
-    private void pricelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pricelMouseClicked
+    private void pricelMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_pricelMouseClicked
         get_price_change();
 
-    }//GEN-LAST:event_pricelMouseClicked
+    }// GEN-LAST:event_pricelMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
 
         get_price_change();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }// GEN-LAST:event_jButton1ActionPerformed
 
-    private void h24KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_h24KeyPressed
+    private void h24KeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_h24KeyPressed
 
         cname_list.requestFocus();
         jTable2.requestFocus();
@@ -2956,14 +3050,17 @@ public final class sreturn extends javax.swing.JInternalFrame {
                     cname_list.setVisible(true);
                     String query;
                     if (pricel.getText().equals("Retail")) {
-                        query = "select cid,ctype,cname,cardno,mobile,city,scode from cust where cname like '" + h24.getText() + "%' order by cname limit 300";
+                        query = "select cid,ctype,cname,cardno,mobile,city,scode from cust where cname like '"
+                                + h24.getText() + "%' order by cname limit 300";
                     } else {
-                        query = "select cid,ctype,cname,cardno,mobile,city,scode from cust where cname like '" + h24.getText() + "%' and ctype='Credit Customer' order by cname limit 300";
+                        query = "select cid,ctype,cname,cardno,mobile,city,scode from cust where cname like '"
+                                + h24.getText() + "%' and ctype='Credit Customer' order by cname limit 300";
                     }
 
                     ResultSet r = util.doQuery(query);
                     while (r.next()) {
-                        s3.addRow(new Object[]{r.getString(1), r.getString(2), r.getString(3), r.getString(4), r.getString(5), r.getString(6), r.getString(7)});
+                        s3.addRow(new Object[] { r.getString(1), r.getString(2), r.getString(3), r.getString(4),
+                                r.getString(5), r.getString(6), r.getString(7) });
                     }
                 } catch (ClassNotFoundException | SQLException e) {
                     System.out.println(e.getMessage());
@@ -2972,11 +3069,11 @@ public final class sreturn extends javax.swing.JInternalFrame {
             default:
                 break;
         }
-    }//GEN-LAST:event_h24KeyPressed
+    }// GEN-LAST:event_h24KeyPressed
 
-    private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
+    private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jTextField1FocusGained
         h17.requestFocus();
-    }//GEN-LAST:event_jTextField1FocusGained
+    }// GEN-LAST:event_jTextField1FocusGained
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton alterbutton;

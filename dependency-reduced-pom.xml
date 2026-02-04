@@ -26,7 +26,7 @@
                 </transformer>
                 <transformer />
                 <transformer>
-                  <mainClass>BBS_Software</mainClass>
+                  <mainClass>Swayam_Software</mainClass>
                 </transformer>
               </transformers>
               <filters>
@@ -56,10 +56,10 @@
           </execution>
         </executions>
         <configuration>
-          <name>BBS</name>
+          <name>Swayam</name>
           <input>target</input>
           <mainJar>${project.artifactId}-${project.version}.jar</mainJar>
-          <mainClass>BBS_Software</mainClass>
+          <mainClass>Swayam_Software</mainClass>
           <type>EXE</type>
           <appVersion>1.0.0</appVersion>
           <addLauncher>true</addLauncher>

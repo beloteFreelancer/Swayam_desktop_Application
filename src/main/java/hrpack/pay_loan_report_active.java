@@ -19,7 +19,7 @@ import menupack.sample2;
 /**
  *
  * @author K.SELVAKUMAR, copyrights K.SELVAKUMAR, +91 99427 32229,
- * mysoft.java@gmail.com
+ *         mysoft.java@gmail.com
  */
 public class pay_loan_report_active extends javax.swing.JInternalFrame {
 
@@ -40,8 +40,11 @@ public class pay_loan_report_active extends javax.swing.JInternalFrame {
         titlelablel.setText("<html><u>Active Loans</u></html>");
         setTitle("Active Loans");
         this.setSize(1017, 650);
-        ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("images/icon.png"));
-        this.setFrameIcon(icon);
+        java.net.URL iconUrl = ClassLoader.getSystemResource("/images/icon.png");
+        if (iconUrl != null) {
+            ImageIcon icon = new ImageIcon(iconUrl);
+            this.setFrameIcon(icon);
+        }
         menu_form me = new menu_form();
         hmany = me.getHmany();
     }
@@ -77,7 +80,8 @@ public class pay_loan_report_active extends javax.swing.JInternalFrame {
             boolean selva = false;
             double tot, paid, bal;
             String query, status = "Active";
-            query = "select sno,date_format(dat,'%d/%m/%Y'),cid,cname,tot,paid,tot-paid,remarks,last from pay_loan where status='" + status + "' order by dat,sno";
+            query = "select sno,date_format(dat,'%d/%m/%Y'),cid,cname,tot,paid,tot-paid,remarks,last from pay_loan where status='"
+                    + status + "' order by dat,sno";
             r = util.doQuery(query);
             while (r.next()) {
                 tot = r.getDouble(5);
@@ -86,7 +90,8 @@ public class pay_loan_report_active extends javax.swing.JInternalFrame {
                 String tot2 = String.format("%." + hmany + "f", tot);
                 String paid2 = String.format("%." + hmany + "f", paid);
                 String bal2 = String.format("%." + hmany + "f", bal);
-                s2.addRow(new Object[]{r.getString(1), r.getString(2), r.getString(3), r.getString(4), tot2, paid2, bal2, r.getString(8), r.getString(9)});
+                s2.addRow(new Object[] { r.getString(1), r.getString(2), r.getString(3), r.getString(4), tot2, paid2,
+                        bal2, r.getString(8), r.getString(9) });
                 selva = true;
             }
             generatebutton.setEnabled(false);
@@ -107,8 +112,9 @@ public class pay_loan_report_active extends javax.swing.JInternalFrame {
             String tot2 = String.format("%." + hmany + "f", tot);
             String paid2 = String.format("%." + hmany + "f", paid);
             String bal2 = String.format("%." + hmany + "f", bal);
-            s2.addRow(new Object[]{"", "", "", "", "", "", "", "", ""});
-            s2.addRow(new Object[]{"", "", "", "TOTAL:" + (jTable1.getRowCount() - 1), "" + tot2, paid2, bal2, "", ""});
+            s2.addRow(new Object[] { "", "", "", "", "", "", "", "", "" });
+            s2.addRow(new Object[] { "", "", "", "TOTAL:" + (jTable1.getRowCount() - 1), "" + tot2, paid2, bal2, "",
+                    "" });
         } catch (NumberFormatException e) {
             System.out.println(e);
         }
@@ -121,10 +127,12 @@ public class pay_loan_report_active extends javax.swing.JInternalFrame {
                 return;
             }
             if (utype.equalsIgnoreCase("User")) {
-                JOptionPane.showMessageDialog(this, "Login as 'Administrator' to Close!", "Permission Restricted", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Login as 'Administrator' to Close!", "Permission Restricted",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            int as = JOptionPane.showConfirmDialog(this, "Want to Close Loan ?", "Are You Sure", JOptionPane.YES_NO_OPTION);
+            int as = JOptionPane.showConfirmDialog(this, "Want to Close Loan ?", "Are You Sure",
+                    JOptionPane.YES_NO_OPTION);
             if (as == JOptionPane.NO_OPTION) {
                 return;
             }
@@ -132,7 +140,8 @@ public class pay_loan_report_active extends javax.swing.JInternalFrame {
             String query = "update pay_loan set paid=tot,status='Closed' where sno='" + lno + "' ";
             int a = util.doManipulation(query);
             if (a > 0) {
-                JOptionPane.showMessageDialog(this, "<html><h1>Loan Closed Successfully</h1></html>", "Saved", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(this, "<html><h1>Loan Closed Successfully</h1></html>", "Saved",
+                        JOptionPane.PLAIN_MESSAGE);
                 s2.removeRow(jTable1.getSelectedRow());
                 clear();
             } else {
@@ -161,7 +170,8 @@ public class pay_loan_report_active extends javax.swing.JInternalFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         titlelablel = new javax.swing.JLabel();
@@ -232,16 +242,15 @@ public class pay_loan_report_active extends javax.swing.JInternalFrame {
 
         jTable1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jTable1.setRowHeight(25);
         jScrollPane1.setViewportView(jTable1);
 
@@ -275,17 +284,17 @@ public class pay_loan_report_active extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closebuttonActionPerformed
+    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closebuttonActionPerformed
         this.dispose();
         // TODO add your handling code here:
-    }//GEN-LAST:event_closebuttonActionPerformed
+    }// GEN-LAST:event_closebuttonActionPerformed
 
-    private void generatebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generatebuttonActionPerformed
+    private void generatebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_generatebuttonActionPerformed
         load_report();
 
-    }//GEN-LAST:event_generatebuttonActionPerformed
+    }// GEN-LAST:event_generatebuttonActionPerformed
 
-    private void excelbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelbuttonActionPerformed
+    private void excelbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_excelbuttonActionPerformed
         if (s2.getRowCount() <= 0) {
             JOptionPane.showMessageDialog(this, "Sorry, No Records Were Found!", "Oops", JOptionPane.ERROR_MESSAGE);
             return;
@@ -318,13 +327,13 @@ public class pay_loan_report_active extends javax.swing.JInternalFrame {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_excelbuttonActionPerformed
+    }// GEN-LAST:event_excelbuttonActionPerformed
 
-    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbuttonActionPerformed
+    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_clearbuttonActionPerformed
         clear();
-    }//GEN-LAST:event_clearbuttonActionPerformed
+    }// GEN-LAST:event_clearbuttonActionPerformed
 
-    private void viewbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewbuttonActionPerformed
+    private void viewbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_viewbuttonActionPerformed
         pay_loan oe = new pay_loan(util);
         JDesktopPane desktop_pane = getDesktopPane();
         desktop_pane.add(oe);
@@ -336,11 +345,11 @@ public class pay_loan_report_active extends javax.swing.JInternalFrame {
         Dimension jInternalFrameSize = oe.getSize();
         oe.setLocation((desktopSize.width - jInternalFrameSize.width) / 2,
                 (desktopSize.height - jInternalFrameSize.height) / 2);
-    }//GEN-LAST:event_viewbuttonActionPerformed
+    }// GEN-LAST:event_viewbuttonActionPerformed
 
-    private void loanbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loanbuttonActionPerformed
-        save();        // TODO add your handling code here:
-    }//GEN-LAST:event_loanbuttonActionPerformed
+    private void loanbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_loanbuttonActionPerformed
+        save(); // TODO add your handling code here:
+    }// GEN-LAST:event_loanbuttonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton clearbutton;

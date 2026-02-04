@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 /**
  *
  * @author K.SELVAKUMAR, copyrights K.SELVAKUMAR, +91 99427 32229,
- * mysoft.java@gmail.com
+ *         mysoft.java@gmail.com
  */
 public final class sms_setting extends javax.swing.JInternalFrame {
 
@@ -22,8 +22,11 @@ public final class sms_setting extends javax.swing.JInternalFrame {
         titlelablel.setText("<html><u>SMS Setting</u></html>");
         setTitle("SMS Setting");
         this.setSize(435, 481);
-        ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("images/icon.png"));
-        this.setFrameIcon(icon);
+        java.net.URL iconUrl = ClassLoader.getSystemResource("/images/icon.png");
+        if (iconUrl != null) {
+            ImageIcon icon = new ImageIcon(iconUrl);
+            this.setFrameIcon(icon);
+        }
     }
 
     void get_display() {
@@ -56,7 +59,8 @@ public final class sms_setting extends javax.swing.JInternalFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         closebutton = new javax.swing.JButton();
@@ -205,7 +209,7 @@ public final class sms_setting extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savebuttonActionPerformed
+    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_savebuttonActionPerformed
         if (h1.getText().equals("")) {
             h1.setText(".");
         }
@@ -235,9 +239,15 @@ public final class sms_setting extends javax.swing.JInternalFrame {
                 selva = true;
             }
             if (selva == false) {
-                query = "insert into setting_sms values ('" + h1.getText() + "','" + h2.getText() + "','" + h3.getText() + "','" + h4.getSelectedItem() + "','" + h5.getSelectedItem() + "','" + h6.getSelectedItem() + "','" + h7.getText() + "','" + h8.getText() + "','" + h9.getText() + "','" + h10.getText() + "')";
+                query = "insert into setting_sms values ('" + h1.getText() + "','" + h2.getText() + "','" + h3.getText()
+                        + "','" + h4.getSelectedItem() + "','" + h5.getSelectedItem() + "','" + h6.getSelectedItem()
+                        + "','" + h7.getText() + "','" + h8.getText() + "','" + h9.getText() + "','" + h10.getText()
+                        + "')";
             } else {
-                query = "update setting_sms set sender='" + h1.getText() + "', user='" + h2.getText() + "',pass='" + h3.getText() + "',sms_alert='" + h4.getSelectedItem() + "',alter_sms='" + h5.getSelectedItem() + "',statement_sms='" + h6.getSelectedItem() + "',mobile1='" + h7.getText() + "',mobile2='" + h8.getText() + "',smsfoot1='" + h9.getText() + "',smsfoot2='" + h10.getText() + "' ";
+                query = "update setting_sms set sender='" + h1.getText() + "', user='" + h2.getText() + "',pass='"
+                        + h3.getText() + "',sms_alert='" + h4.getSelectedItem() + "',alter_sms='" + h5.getSelectedItem()
+                        + "',statement_sms='" + h6.getSelectedItem() + "',mobile1='" + h7.getText() + "',mobile2='"
+                        + h8.getText() + "',smsfoot1='" + h9.getText() + "',smsfoot2='" + h10.getText() + "' ";
             }
             int a = util.doManipulation(query);
             if (a > 0) {
@@ -246,11 +256,11 @@ public final class sms_setting extends javax.swing.JInternalFrame {
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_savebuttonActionPerformed
+    }// GEN-LAST:event_savebuttonActionPerformed
 
-    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closebuttonActionPerformed
+    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closebuttonActionPerformed
         this.dispose();
-    }//GEN-LAST:event_closebuttonActionPerformed
+    }// GEN-LAST:event_closebuttonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton closebutton;

@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author K.SELVAKUMAR, copyrights K.SELVAKUMAR, +91 99427 32229,
- * mysoft.java@gmail.com
+ *         mysoft.java@gmail.com
  */
 public final class vendor_link extends javax.swing.JInternalFrame {
 
@@ -41,6 +41,7 @@ public final class vendor_link extends javax.swing.JInternalFrame {
             return column == 3 || column == 4 || column == 5 || column == 6 || column == 7 || column == 9;
         }
     }
+
     sample2 s2 = new sample2();
     sample2 s3 = new sample2();
     sample2 s4 = new sample2();
@@ -132,7 +133,7 @@ public final class vendor_link extends javax.swing.JInternalFrame {
                 taxp = r.getString(3);
                 minstock = r.getString(4);
             }
-            s2.addRow(new Object[]{h8.getText(), h9.getText(), cat, manu, taxp, minstock});
+            s2.addRow(new Object[] { h8.getText(), h9.getText(), cat, manu, taxp, minstock });
             totl.setText("Total Items: " + jTable1.getRowCount());
             h8.setText("");
             h9.setText("");
@@ -159,15 +160,18 @@ public final class vendor_link extends javax.swing.JInternalFrame {
     void save() {
         try {
             if (s2.getRowCount() <= 0) {
-                JOptionPane.showMessageDialog(this, "No Records Were Found to Save!", "No Records", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No Records Were Found to Save!", "No Records",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (h3.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "Enter Supplier Name ?", "Supplier Name", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Enter Supplier Name ?", "Supplier Name",
+                        JOptionPane.ERROR_MESSAGE);
                 h3.requestFocus();
                 return;
             }
-            int aa = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Save ?</h1></html>", "Are You Sure", JOptionPane.YES_NO_OPTION);
+            int aa = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Save ?</h1></html>", "Are You Sure",
+                    JOptionPane.YES_NO_OPTION);
             if (aa == JOptionPane.NO_OPTION) {
                 return;
             }
@@ -194,14 +198,17 @@ public final class vendor_link extends javax.swing.JInternalFrame {
                 String manu = jTable1.getValueAt(i, 3).toString();
                 String taxp = jTable1.getValueAt(i, 4).toString();
                 String minstock = jTable1.getValueAt(i, 5).toString();
-                query_list.add("insert into vendor_link values ('" + h3.getText() + "','" + ino + "','" + iname + "','" + cat + "','" + manu + "','" + taxp + "','" + minstock + "','" + last + "')");
+                query_list.add("insert into vendor_link values ('" + h3.getText() + "','" + ino + "','" + iname + "','"
+                        + cat + "','" + manu + "','" + taxp + "','" + minstock + "','" + last + "')");
             }
             int count = util.doManipulation_Batch(query_list);
             if (count > 0) {
-                JOptionPane.showMessageDialog(this, "<html><h1>Saved Successfully</h1></html>", "Saved", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(this, "<html><h1>Saved Successfully</h1></html>", "Saved",
+                        JOptionPane.PLAIN_MESSAGE);
                 form_clear();
             } else {
-                JOptionPane.showMessageDialog(this, "Check Product Entries and then Try Again!", "Invalid Products", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Check Product Entries and then Try Again!", "Invalid Products",
+                        JOptionPane.ERROR_MESSAGE);
             }
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
@@ -211,7 +218,8 @@ public final class vendor_link extends javax.swing.JInternalFrame {
     void view() {
         try {
             if (h3.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "Enter Supplier Name ?", "Supplier Name", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Enter Supplier Name ?", "Supplier Name",
+                        JOptionPane.ERROR_MESSAGE);
                 h3.requestFocus();
                 return;
             }
@@ -231,7 +239,8 @@ public final class vendor_link extends javax.swing.JInternalFrame {
                 query = "select ino,iname,cat,manu,taxp,minstock from vendor_link where cname='" + h3.getText() + "'";
                 r = util.doQuery(query);
                 while (r.next()) {
-                    s2.addRow(new Object[]{r.getString(1), r.getString(2), r.getString(3), r.getString(4), r.getString(5), r.getString(6)});
+                    s2.addRow(new Object[] { r.getString(1), r.getString(2), r.getString(3), r.getString(4),
+                            r.getString(5), r.getString(6) });
                 }
                 totl.setText(" Total Items: " + jTable1.getRowCount());
                 viewbutton.setVisible(false);
@@ -245,18 +254,21 @@ public final class vendor_link extends javax.swing.JInternalFrame {
     void delete() {
         try {
             if (h3.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "Enter Supplier Name ?", "Supplier Name", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Enter Supplier Name ?", "Supplier Name",
+                        JOptionPane.ERROR_MESSAGE);
                 h3.requestFocus();
                 return;
             }
-            int as = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Delete ?</h1></html>", "Are You Sure", JOptionPane.YES_NO_OPTION);
+            int as = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Delete ?</h1></html>", "Are You Sure",
+                    JOptionPane.YES_NO_OPTION);
             if (as == JOptionPane.NO_OPTION) {
                 return;
             }
             String query = "delete from vendor_link where cname='" + h3.getText() + "' ";
             int a = util.doManipulation(query);
             if (a > 0) {
-                JOptionPane.showMessageDialog(this, "<html><h1>Deleted Successfully</h1></html>", "Deleted", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(this, "<html><h1>Deleted Successfully</h1></html>", "Deleted",
+                        JOptionPane.PLAIN_MESSAGE);
                 form_clear();
             }
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
@@ -268,8 +280,11 @@ public final class vendor_link extends javax.swing.JInternalFrame {
         initComponents();
         this.setTitle("Supplier & Products Link");
         this.setSize(1258, 650);
-        ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("images/icon.png"));
-        this.setFrameIcon(icon);
+        java.net.URL iconUrl = ClassLoader.getSystemResource("/images/icon.png");
+        if (iconUrl != null) {
+            ImageIcon icon = new ImageIcon(iconUrl);
+            this.setFrameIcon(icon);
+        }
         this.util = util;
         button_short();
         load_items_table();
@@ -281,7 +296,8 @@ public final class vendor_link extends javax.swing.JInternalFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         cname_list = new javax.swing.JDialog();
@@ -320,16 +336,15 @@ public final class vendor_link extends javax.swing.JInternalFrame {
 
         jTable2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jTable2.setRowHeight(25);
         jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -368,16 +383,15 @@ public final class vendor_link extends javax.swing.JInternalFrame {
 
         jTable3.setFont(new java.awt.Font("Arial Unicode MS", 0, 14)); // NOI18N
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jTable3.setRowHeight(25);
         jTable3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -470,16 +484,15 @@ public final class vendor_link extends javax.swing.JInternalFrame {
 
         jTable1.setFont(new java.awt.Font("Arial Unicode MS", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jTable1.setRowHeight(25);
         jScrollPane1.setViewportView(jTable1);
 
@@ -554,25 +567,25 @@ public final class vendor_link extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closebuttonActionPerformed
+    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closebuttonActionPerformed
         this.dispose();
-    }//GEN-LAST:event_closebuttonActionPerformed
+    }// GEN-LAST:event_closebuttonActionPerformed
 
-    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savebuttonActionPerformed
+    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_savebuttonActionPerformed
         save();
 
-    }//GEN-LAST:event_savebuttonActionPerformed
+    }// GEN-LAST:event_savebuttonActionPerformed
 
-    private void viewbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewbuttonActionPerformed
+    private void viewbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_viewbuttonActionPerformed
         view();
 
-    }//GEN-LAST:event_viewbuttonActionPerformed
+    }// GEN-LAST:event_viewbuttonActionPerformed
 
-    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbuttonActionPerformed
+    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_clearbuttonActionPerformed
         form_clear();
-    }//GEN-LAST:event_clearbuttonActionPerformed
+    }// GEN-LAST:event_clearbuttonActionPerformed
 
-    private void removebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removebuttonActionPerformed
+    private void removebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_removebuttonActionPerformed
         if (s2.getRowCount() <= 0) {
             JOptionPane.showMessageDialog(this, "No Records Were Found!", "No Records", JOptionPane.ERROR_MESSAGE);
             return;
@@ -584,21 +597,21 @@ public final class vendor_link extends javax.swing.JInternalFrame {
         }
         totl.setText(" Total Items: " + jTable1.getRowCount());
         h8.requestFocus();
-    }//GEN-LAST:event_removebuttonActionPerformed
+    }// GEN-LAST:event_removebuttonActionPerformed
 
-    private void deletebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletebuttonActionPerformed
+    private void deletebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_deletebuttonActionPerformed
         delete();
-    }//GEN-LAST:event_deletebuttonActionPerformed
+    }// GEN-LAST:event_deletebuttonActionPerformed
 
-    private void h8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h8ActionPerformed
+    private void h8ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h8ActionPerformed
 
-    }//GEN-LAST:event_h8ActionPerformed
+    }// GEN-LAST:event_h8ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton3ActionPerformed
         cname_list.dispose();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }// GEN-LAST:event_jButton3ActionPerformed
 
-    private void h3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_h3KeyPressed
+    private void h3KeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_h3KeyPressed
         cname_list.requestFocus();
         jTable2.requestFocus();
         switch (evt.getKeyCode()) {
@@ -620,10 +633,11 @@ public final class vendor_link extends javax.swing.JInternalFrame {
                     cname_list.setLocation(l.x, l.y + h3.getHeight());
                     cname_list.setSize(857, 438);
                     cname_list.setVisible(true);
-                    String query = "select distinct cname,city from vendor where cname like '" + h3.getText() + "%' order by cname limit 300";
+                    String query = "select distinct cname,city from vendor where cname like '" + h3.getText()
+                            + "%' order by cname limit 300";
                     ResultSet r = util.doQuery(query);
                     while (r.next()) {
-                        s3.addRow(new Object[]{r.getString(1), r.getString(2)});
+                        s3.addRow(new Object[] { r.getString(1), r.getString(2) });
                     }
                 } catch (ClassNotFoundException | SQLException e) {
                     System.out.println(e.getMessage());
@@ -633,9 +647,9 @@ public final class vendor_link extends javax.swing.JInternalFrame {
                 break;
         }
 
-    }//GEN-LAST:event_h3KeyPressed
+    }// GEN-LAST:event_h3KeyPressed
 
-    private void jTable2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable2KeyPressed
+    private void jTable2KeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jTable2KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (jTable2.getRowCount() > 0) {
                 h3.setText(jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString());
@@ -647,31 +661,31 @@ public final class vendor_link extends javax.swing.JInternalFrame {
             h3.requestFocus();
         }
 
-    }//GEN-LAST:event_jTable2KeyPressed
+    }// GEN-LAST:event_jTable2KeyPressed
 
-    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTable2MouseClicked
 
         if (jTable2.getRowCount() > 0) {
             h3.setText(jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString());
         }
         h8.requestFocus();
         cname_list.dispose();
-    }//GEN-LAST:event_jTable2MouseClicked
+    }// GEN-LAST:event_jTable2MouseClicked
 
-    private void jScrollPane2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jScrollPane2FocusLost
+    private void jScrollPane2FocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jScrollPane2FocusLost
         cname_list.dispose();
-    }//GEN-LAST:event_jScrollPane2FocusLost
+    }// GEN-LAST:event_jScrollPane2FocusLost
 
-    private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
+    private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTable3MouseClicked
         if (jTable3.getRowCount() > 0) {
             h8.setText(jTable3.getValueAt(jTable3.getSelectedRow(), 0).toString());
             h9.setText(jTable3.getValueAt(jTable3.getSelectedRow(), 1).toString());
         }
         h8.requestFocus();
         iname_list.dispose();
-    }//GEN-LAST:event_jTable3MouseClicked
+    }// GEN-LAST:event_jTable3MouseClicked
 
-    private void jTable3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable3KeyPressed
+    private void jTable3KeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jTable3KeyPressed
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (jTable3.getRowCount() > 0) {
@@ -684,17 +698,17 @@ public final class vendor_link extends javax.swing.JInternalFrame {
             iname_list.dispose();
             h8.requestFocus();
         }
-    }//GEN-LAST:event_jTable3KeyPressed
+    }// GEN-LAST:event_jTable3KeyPressed
 
-    private void jScrollPane3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jScrollPane3FocusLost
+    private void jScrollPane3FocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jScrollPane3FocusLost
         iname_list.dispose();
-    }//GEN-LAST:event_jScrollPane3FocusLost
+    }// GEN-LAST:event_jScrollPane3FocusLost
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton4ActionPerformed
         iname_list.dispose();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }// GEN-LAST:event_jButton4ActionPerformed
 
-    private void h8KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_h8KeyPressed
+    private void h8KeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_h8KeyPressed
 
         iname_list.requestFocus();
         jTable3.requestFocus();
@@ -717,10 +731,11 @@ public final class vendor_link extends javax.swing.JInternalFrame {
                     iname_list.setLocation(l.x, l.y + h8.getHeight());
                     iname_list.setSize(916, 382);
                     iname_list.setVisible(true);
-                    String query = "select distinct ino,iname,cat,manu from item where iname like '" + h8.getText() + "%' order by ino limit 500";
+                    String query = "select distinct ino,iname,cat,manu from item where iname like '" + h8.getText()
+                            + "%' order by ino limit 500";
                     ResultSet r = util.doQuery(query);
                     while (r.next()) {
-                        s4.addRow(new Object[]{r.getString(1), r.getString(2), r.getString(3), r.getString(4)});
+                        s4.addRow(new Object[] { r.getString(1), r.getString(2), r.getString(3), r.getString(4) });
                     }
                 } catch (ClassNotFoundException | SQLException e) {
                     System.out.println(e.getMessage());
@@ -730,7 +745,7 @@ public final class vendor_link extends javax.swing.JInternalFrame {
                 break;
         }
 
-    }//GEN-LAST:event_h8KeyPressed
+    }// GEN-LAST:event_h8KeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton clearbutton;

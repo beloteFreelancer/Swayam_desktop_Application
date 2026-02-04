@@ -24,8 +24,11 @@ public class item_search extends javax.swing.JInternalFrame {
         titlelablel.setText("<html><u>Search Items</u></html>");
         setTitle("Search Items");
         this.setSize(685, 399);
-        ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("images/icon.png"));
-        this.setFrameIcon(icon);
+        java.net.URL iconUrl = ClassLoader.getSystemResource("/images/icon.png");
+        if (iconUrl != null) {
+            ImageIcon icon = new ImageIcon(iconUrl);
+            this.setFrameIcon(icon);
+        }
     }
 
     final void get_sug() {

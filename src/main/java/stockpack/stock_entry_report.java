@@ -23,7 +23,7 @@ import menupack.sample2;
 /**
  *
  * @author K.SELVAKUMAR, copyrights K.SELVAKUMAR, +91 99427 32229,
- * mysoft.java@gmail.com
+ *         mysoft.java@gmail.com
  */
 public class stock_entry_report extends javax.swing.JInternalFrame {
 
@@ -43,8 +43,11 @@ public class stock_entry_report extends javax.swing.JInternalFrame {
 
         setTitle("Manual Stock Entry Report");
         this.setSize(1017, 650);
-        ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("images/icon.png"));
-        this.setFrameIcon(icon);
+        java.net.URL iconUrl = ClassLoader.getSystemResource("/images/icon.png");
+        if (iconUrl != null) {
+            ImageIcon icon = new ImageIcon(iconUrl);
+            this.setFrameIcon(icon);
+        }
         menu_form me = new menu_form();
         hmany = me.getHmany();
     }
@@ -114,9 +117,11 @@ public class stock_entry_report extends javax.swing.JInternalFrame {
 
             String query, pby = h3.getSelectedItem().toString();
             if (all.isSelected()) {
-                query = "select grn,date_format(dat,'%d/%m/%Y'),cname,billno,date_format(bdate,'%d/%m/%Y'),items,quans,sub,dis,gross,tax,fright,other,net,pby,user,last,dis1 from stock_entry where bdate between '" + lk + "' and '" + lk1 + "' order by bdate,grn";
+                query = "select grn,date_format(dat,'%d/%m/%Y'),cname,billno,date_format(bdate,'%d/%m/%Y'),items,quans,sub,dis,gross,tax,fright,other,net,pby,user,last,dis1 from stock_entry where bdate between '"
+                        + lk + "' and '" + lk1 + "' order by bdate,grn";
             } else {
-                query = "select grn,date_format(dat,'%d/%m/%Y'),cname,billno,date_format(bdate,'%d/%m/%Y'),items,quans,sub,dis,gross,tax,fright,other,net,pby,user,last,dis1 from stock_entry where bdate between '" + lk + "' and '" + lk1 + "' and pby='" + pby + "' order by bdate,grn";
+                query = "select grn,date_format(dat,'%d/%m/%Y'),cname,billno,date_format(bdate,'%d/%m/%Y'),items,quans,sub,dis,gross,tax,fright,other,net,pby,user,last,dis1 from stock_entry where bdate between '"
+                        + lk + "' and '" + lk1 + "' and pby='" + pby + "' order by bdate,grn";
             }
             r = util.doQuery(query);
             while (r.next()) {
@@ -135,7 +140,9 @@ public class stock_entry_report extends javax.swing.JInternalFrame {
                 String other1 = String.format("%." + hmany + "f", other);
                 String net1 = String.format("%." + hmany + "f", net);
 
-                s2.addRow(new Object[]{r.getString(1), r.getString(2), r.getString(3), r.getString(4), r.getString(5), r.getString(6), r.getString(7), sub1, disamt1, gross1, frieght1, other1, net1, r.getString(15), r.getString(16), r.getString(17)});
+                s2.addRow(new Object[] { r.getString(1), r.getString(2), r.getString(3), r.getString(4), r.getString(5),
+                        r.getString(6), r.getString(7), sub1, disamt1, gross1, frieght1, other1, net1, r.getString(15),
+                        r.getString(16), r.getString(17) });
                 selva = true;
             }
             sub = 0;
@@ -162,8 +169,9 @@ public class stock_entry_report extends javax.swing.JInternalFrame {
             String net1 = String.format("%." + hmany + "f", net);
 
             if (selva == true) {
-                s2.addRow(new Object[]{"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""});
-                s2.addRow(new Object[]{"", "", "TOTAL:" + (jTable1.getRowCount() - 1), "", "", "", "", "" + sub1, disamt1, gross1, frieght1, other1, net1, "", "", ""});
+                s2.addRow(new Object[] { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" });
+                s2.addRow(new Object[] { "", "", "TOTAL:" + (jTable1.getRowCount() - 1), "", "", "", "", "" + sub1,
+                        disamt1, gross1, frieght1, other1, net1, "", "", "" });
 
                 h1.setEnabled(false);
                 h2.setEnabled(false);
@@ -187,7 +195,8 @@ public class stock_entry_report extends javax.swing.JInternalFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         titlelablel = new javax.swing.JLabel();
@@ -286,7 +295,8 @@ public class stock_entry_report extends javax.swing.JInternalFrame {
         h1.setBounds(80, 40, 110, 30);
 
         h3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        h3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Credit", "Cash", "Card", "Cheque", "Others" }));
+        h3.setModel(
+                new javax.swing.DefaultComboBoxModel<>(new String[] { "Credit", "Cash", "Card", "Cheque", "Others" }));
         getContentPane().add(h3);
         h3.setBounds(470, 40, 220, 30);
 
@@ -334,16 +344,15 @@ public class stock_entry_report extends javax.swing.JInternalFrame {
 
         jTable1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jTable1.setRowHeight(25);
         jScrollPane1.setViewportView(jTable1);
 
@@ -353,12 +362,12 @@ public class stock_entry_report extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closebuttonActionPerformed
+    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closebuttonActionPerformed
         this.dispose();
         // TODO add your handling code here:
-    }//GEN-LAST:event_closebuttonActionPerformed
+    }// GEN-LAST:event_closebuttonActionPerformed
 
-    private void generatebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generatebuttonActionPerformed
+    private void generatebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_generatebuttonActionPerformed
         Date d = new Date();
         SimpleDateFormat g = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -370,9 +379,9 @@ public class stock_entry_report extends javax.swing.JInternalFrame {
         }
         load_report(h1.getText(), h2.getText());
 
-    }//GEN-LAST:event_generatebuttonActionPerformed
+    }// GEN-LAST:event_generatebuttonActionPerformed
 
-    private void viewbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewbuttonActionPerformed
+    private void viewbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_viewbuttonActionPerformed
         stock_entry oe = new stock_entry(util);
         JDesktopPane desktop_pane = getDesktopPane();
         desktop_pane.add(oe);
@@ -385,9 +394,9 @@ public class stock_entry_report extends javax.swing.JInternalFrame {
         oe.setLocation((desktopSize.width - jInternalFrameSize.width) / 2,
                 (desktopSize.height - jInternalFrameSize.height) / 2);
 
-    }//GEN-LAST:event_viewbuttonActionPerformed
+    }// GEN-LAST:event_viewbuttonActionPerformed
 
-    private void excelbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelbuttonActionPerformed
+    private void excelbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_excelbuttonActionPerformed
         if (s2.getRowCount() <= 0) {
             JOptionPane.showMessageDialog(this, "Sorry, No Records Were Found!", "Oops", JOptionPane.ERROR_MESSAGE);
             return;
@@ -421,9 +430,9 @@ public class stock_entry_report extends javax.swing.JInternalFrame {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_excelbuttonActionPerformed
+    }// GEN-LAST:event_excelbuttonActionPerformed
 
-    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbuttonActionPerformed
+    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_clearbuttonActionPerformed
         if (s2.getRowCount() > 0) {
             s2.getDataVector().removeAllElements();
             s2.fireTableDataChanged();
@@ -439,9 +448,9 @@ public class stock_entry_report extends javax.swing.JInternalFrame {
         h3.setSelectedIndex(0);
         all.setSelected(false);
         generatebutton.setEnabled(true);
-    }//GEN-LAST:event_clearbuttonActionPerformed
+    }// GEN-LAST:event_clearbuttonActionPerformed
 
-    private void jCalendarButton1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendarButton1PropertyChange
+    private void jCalendarButton1PropertyChange(java.beans.PropertyChangeEvent evt) {// GEN-FIRST:event_jCalendarButton1PropertyChange
         try {
             if (evt.getNewValue() instanceof Date) {
                 String ses = evt.getNewValue().toString();
@@ -452,9 +461,9 @@ public class stock_entry_report extends javax.swing.JInternalFrame {
         } catch (ParseException e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_jCalendarButton1PropertyChange
+    }// GEN-LAST:event_jCalendarButton1PropertyChange
 
-    private void jCalendarButton2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendarButton2PropertyChange
+    private void jCalendarButton2PropertyChange(java.beans.PropertyChangeEvent evt) {// GEN-FIRST:event_jCalendarButton2PropertyChange
         try {
             if (evt.getNewValue() instanceof Date) {
                 String ses = evt.getNewValue().toString();
@@ -465,9 +474,9 @@ public class stock_entry_report extends javax.swing.JInternalFrame {
         } catch (ParseException e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_jCalendarButton2PropertyChange
+    }// GEN-LAST:event_jCalendarButton2PropertyChange
 
-    private void allActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allActionPerformed
+    private void allActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_allActionPerformed
 
         if (all.isSelected()) {
             h3.setEnabled(false);
@@ -475,7 +484,7 @@ public class stock_entry_report extends javax.swing.JInternalFrame {
             h3.setEnabled(true);
             h3.setSelectedIndex(0);
         }
-    }//GEN-LAST:event_allActionPerformed
+    }// GEN-LAST:event_allActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox all;

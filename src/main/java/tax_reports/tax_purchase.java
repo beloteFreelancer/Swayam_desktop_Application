@@ -19,7 +19,7 @@ import menupack.sample2;
 /**
  *
  * @author K.SELVAKUMAR, copyrights K.SELVAKUMAR, +91 99427 32229,
- * mysoft.java@gmail.com
+ *         mysoft.java@gmail.com
  */
 public class tax_purchase extends javax.swing.JInternalFrame {
 
@@ -130,7 +130,8 @@ public class tax_purchase extends javax.swing.JInternalFrame {
             for (int i = 0; i < billno.size(); i++) {
                 int taxp = 0;
                 double value = 0, taxamt, total;
-                query = "select sum(sub) from purchase_items where bdate between '" + lk + "' and '" + lk1 + "' and taxp='" + taxp + "' and billno='" + billno.get(i).toString() + "'";
+                query = "select sum(sub) from purchase_items where bdate between '" + lk + "' and '" + lk1
+                        + "' and taxp='" + taxp + "' and billno='" + billno.get(i).toString() + "'";
                 r = util.doQuery(query);
                 while (r.next()) {
                     value = r.getDouble(1);
@@ -148,12 +149,13 @@ public class tax_purchase extends javax.swing.JInternalFrame {
                     ttype1.add(ttype.get(i));
                 }
 
-//5 Percentage Tax
+                // 5 Percentage Tax
                 taxp = 5;
                 value = 0;
                 taxamt = 0;
                 total = 0;
-                query = "select sum(sub),sum(taxamt),sum(total) from purchase_items where bdate between '" + lk + "' and '" + lk1 + "' and taxp='" + taxp + "' and billno='" + billno.get(i).toString() + "'";
+                query = "select sum(sub),sum(taxamt),sum(total) from purchase_items where bdate between '" + lk
+                        + "' and '" + lk1 + "' and taxp='" + taxp + "' and billno='" + billno.get(i).toString() + "'";
                 r = util.doQuery(query);
                 while (r.next()) {
                     value = r.getDouble(1);
@@ -173,13 +175,14 @@ public class tax_purchase extends javax.swing.JInternalFrame {
                     ttype1.add(ttype.get(i));
                 }
 
-//5 Percentage Ends
-//12 Percentage Tax
+                // 5 Percentage Ends
+                // 12 Percentage Tax
                 taxp = 12;
                 value = 0;
                 taxamt = 0;
                 total = 0;
-                query = "select sum(sub),sum(taxamt),sum(total) from purchase_items where bdate between '" + lk + "' and '" + lk1 + "' and taxp='" + taxp + "' and billno='" + billno.get(i).toString() + "'";
+                query = "select sum(sub),sum(taxamt),sum(total) from purchase_items where bdate between '" + lk
+                        + "' and '" + lk1 + "' and taxp='" + taxp + "' and billno='" + billno.get(i).toString() + "'";
                 r = util.doQuery(query);
                 while (r.next()) {
                     value = r.getDouble(1);
@@ -199,13 +202,14 @@ public class tax_purchase extends javax.swing.JInternalFrame {
                     ttype1.add(ttype.get(i));
                 }
 
-//12 Percentage Ends
-//18 Percentage Tax
+                // 12 Percentage Ends
+                // 18 Percentage Tax
                 taxp = 18;
                 value = 0;
                 taxamt = 0;
                 total = 0;
-                query = "select sum(sub),sum(taxamt),sum(total) from purchase_items where bdate between '" + lk + "' and '" + lk1 + "' and taxp='" + taxp + "' and billno='" + billno.get(i).toString() + "'";
+                query = "select sum(sub),sum(taxamt),sum(total) from purchase_items where bdate between '" + lk
+                        + "' and '" + lk1 + "' and taxp='" + taxp + "' and billno='" + billno.get(i).toString() + "'";
                 r = util.doQuery(query);
                 while (r.next()) {
                     value = r.getDouble(1);
@@ -225,13 +229,14 @@ public class tax_purchase extends javax.swing.JInternalFrame {
                     ttype1.add(ttype.get(i));
                 }
 
-//18 Percentage Ends
-//28 Percentage Tax
+                // 18 Percentage Ends
+                // 28 Percentage Tax
                 taxp = 28;
                 value = 0;
                 taxamt = 0;
                 total = 0;
-                query = "select sum(sub),sum(taxamt),sum(total) from purchase_items where bdate between '" + lk + "' and '" + lk1 + "' and taxp='" + taxp + "' and billno='" + billno.get(i).toString() + "'";
+                query = "select sum(sub),sum(taxamt),sum(total) from purchase_items where bdate between '" + lk
+                        + "' and '" + lk1 + "' and taxp='" + taxp + "' and billno='" + billno.get(i).toString() + "'";
                 r = util.doQuery(query);
                 while (r.next()) {
                     value = r.getDouble(1);
@@ -252,8 +257,8 @@ public class tax_purchase extends javax.swing.JInternalFrame {
                     ttype1.add(ttype.get(i));
                 }
 
-//28 Percentage Ends
-            }//bill no row counts ends
+                // 28 Percentage Ends
+            } // bill no row counts ends
 
             int serial = 1;
             for (int i = 0; i < billno1.size(); i++) {
@@ -309,9 +314,10 @@ public class tax_purchase extends javax.swing.JInternalFrame {
                     cgst3 = "" + 0;
                 }
 
-                s2.addRow(new Object[]{serial, cname1.get(i), tin1.get(i), billno1.get(i), date1.get(i), taxp1.get(i), value3, igst3, cgst3, cgst3, "", taxamt3, total3, grn1.get(i)});
+                s2.addRow(new Object[] { serial, cname1.get(i), tin1.get(i), billno1.get(i), date1.get(i), taxp1.get(i),
+                        value3, igst3, cgst3, cgst3, "", taxamt3, total3, grn1.get(i) });
                 serial = serial + 1;
-            }//table add value ends
+            } // table add value ends
 
             double nvalue = 0, ntotal = 0, ncgst = 0, nigst = 0, ntax = 0;
             for (int i = 0; i < jTable1.getRowCount(); i++) {
@@ -393,8 +399,9 @@ public class tax_purchase extends javax.swing.JInternalFrame {
                 }
             }
 
-            s2.addRow(new Object[]{"", "", "", "", "", "", "", "", "", "", "", "", "", ""});
-            s2.addRow(new Object[]{"", "TOTAL:" + (jTable1.getRowCount() - 1), "", "", "", "", "" + value3, igst3, cgst3, cgst3, "", taxamt3, total3, ""});
+            s2.addRow(new Object[] { "", "", "", "", "", "", "", "", "", "", "", "", "", "" });
+            s2.addRow(new Object[] { "", "TOTAL:" + (jTable1.getRowCount() - 1), "", "", "", "", "" + value3, igst3,
+                    cgst3, cgst3, "", taxamt3, total3, "" });
 
             if (selva == true) {
                 h1.setEnabled(false);
@@ -413,15 +420,19 @@ public class tax_purchase extends javax.swing.JInternalFrame {
         initComponents();
         setTitle(titlelablel.getText());
         this.setSize(1021, 648);
-        ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("images/icon.png"));
-        this.setFrameIcon(icon);
+        java.net.URL iconUrl = ClassLoader.getSystemResource("/images/icon.png");
+        if (iconUrl != null) {
+            ImageIcon icon = new ImageIcon(iconUrl);
+            this.setFrameIcon(icon);
+        }
         this.util = util; // ✅ ASSIGN HERE
         button_short();
         load_list_table();
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         titlelablel = new javax.swing.JLabel();
@@ -448,16 +459,15 @@ public class tax_purchase extends javax.swing.JInternalFrame {
 
         jTable1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jTable1.setRowHeight(24);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -561,11 +571,11 @@ public class tax_purchase extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTable1MouseClicked
 
-    }//GEN-LAST:event_jTable1MouseClicked
+    }// GEN-LAST:event_jTable1MouseClicked
 
-    private void generatebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generatebuttonActionPerformed
+    private void generatebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_generatebuttonActionPerformed
         Date d = new Date();
         SimpleDateFormat g = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -577,17 +587,17 @@ public class tax_purchase extends javax.swing.JInternalFrame {
         }
         load_report(h1.getText(), h2.getText());
 
-    }//GEN-LAST:event_generatebuttonActionPerformed
+    }// GEN-LAST:event_generatebuttonActionPerformed
 
-    private void excelbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelbuttonActionPerformed
+    private void excelbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_excelbuttonActionPerformed
         if (jTable1.getRowCount() > 1) {
 
             new ExcelUtilGST(h1.getText(), h2.getText()).GenerateGstrPurchaseWorkbook();
 
         }
-    }//GEN-LAST:event_excelbuttonActionPerformed
+    }// GEN-LAST:event_excelbuttonActionPerformed
 
-    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbuttonActionPerformed
+    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_clearbuttonActionPerformed
         if (s2.getRowCount() > 0) {
             s2.getDataVector().removeAllElements();
             s2.fireTableDataChanged();
@@ -600,17 +610,17 @@ public class tax_purchase extends javax.swing.JInternalFrame {
         h2.setText("");
         generatebutton.setEnabled(true);
 
-    }//GEN-LAST:event_clearbuttonActionPerformed
+    }// GEN-LAST:event_clearbuttonActionPerformed
 
-    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closebuttonActionPerformed
+    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closebuttonActionPerformed
         this.dispose();
-    }//GEN-LAST:event_closebuttonActionPerformed
+    }// GEN-LAST:event_closebuttonActionPerformed
 
-    private void jTable1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTable1FocusGained
+    private void jTable1FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jTable1FocusGained
 
-    }//GEN-LAST:event_jTable1FocusGained
+    }// GEN-LAST:event_jTable1FocusGained
 
-    private void jCalendarButton2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendarButton2PropertyChange
+    private void jCalendarButton2PropertyChange(java.beans.PropertyChangeEvent evt) {// GEN-FIRST:event_jCalendarButton2PropertyChange
         try {
             if (evt.getNewValue() instanceof Date) {
                 String ses = evt.getNewValue().toString();
@@ -622,9 +632,9 @@ public class tax_purchase extends javax.swing.JInternalFrame {
             System.out.println(e.getMessage());
         }
 
-    }//GEN-LAST:event_jCalendarButton2PropertyChange
+    }// GEN-LAST:event_jCalendarButton2PropertyChange
 
-    private void jCalendarButton1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendarButton1PropertyChange
+    private void jCalendarButton1PropertyChange(java.beans.PropertyChangeEvent evt) {// GEN-FIRST:event_jCalendarButton1PropertyChange
         try {
             if (evt.getNewValue() instanceof Date) {
                 String ses = evt.getNewValue().toString();
@@ -637,7 +647,7 @@ public class tax_purchase extends javax.swing.JInternalFrame {
         }
 
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCalendarButton1PropertyChange
+    }// GEN-LAST:event_jCalendarButton1PropertyChange
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton clearbutton;

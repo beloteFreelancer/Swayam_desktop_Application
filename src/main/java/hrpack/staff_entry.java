@@ -24,12 +24,13 @@ import menupack.sample2;
 /**
  *
  * @author K.SELVAKUMAR, copyrights K.SELVAKUMAR, +91 99427 32229,
- * mysoft.java@gmail.com
+ *         mysoft.java@gmail.com
  */
 public final class staff_entry extends javax.swing.JInternalFrame {
 
     DataUtil util = null;
-    AutoCompleteSupport support, support1, support2, support3, support4, support5, support6, support7, support8, support10, support11, support12;
+    AutoCompleteSupport support, support1, support2, support3, support4, support5, support6, support7, support8,
+            support10, support11, support12;
     sample2 s3 = new sample2();
     ResultSet r;
     String img = "";
@@ -53,8 +54,11 @@ public final class staff_entry extends javax.swing.JInternalFrame {
         h3.setText(g1.format(d));
         setTitle("Staff Profile");
         this.setSize(1123, 643);
-        ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("images/icon.png"));
-        this.setFrameIcon(icon);
+        java.net.URL iconUrl = ClassLoader.getSystemResource("/images/icon.png");
+        if (iconUrl != null) {
+            ImageIcon icon = new ImageIcon(iconUrl);
+            this.setFrameIcon(icon);
+        }
     }
 
     void get_sno_no() {
@@ -467,18 +471,26 @@ public final class staff_entry extends javax.swing.JInternalFrame {
                 selva = true;
             }
             if (selva == true) {
-                JOptionPane.showMessageDialog(this, "Staff Id Already Exist!", "Already Exit!", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Staff Id Already Exist!", "Already Exit!",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            int aa = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Save ?</h1></html>", "Are You Sure", JOptionPane.YES_NO_OPTION);
+            int aa = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Save ?</h1></html>", "Are You Sure",
+                    JOptionPane.YES_NO_OPTION);
             if (aa == JOptionPane.NO_OPTION) {
                 return;
             }
             String status = "Working", edate = "0001/01/01";
-            query = "insert into staff_entry values ('" + sno + "','" + date + "','" + time + "','" + account + "','" + desig + "','" + sid + "','" + jdate + "','" + sname + "','" + fname + "','" + gender + "','" + bg + "','" + dob + "','" + religion + "','" + nation + "','" + add1 + "','" + add2 + "','" + add3 + "','" + area + "','" + pincode + "','" + mobile + "','" + phone + "','" + email + "','" + mstatus + "','" + family + "','" + edu + "','" + exp + "','" + job + "','" + langu + "','" + adhaar + "','" + acno + "','" + remarks + "','" + status + "','" + edate + "','" + salary + "')";
+            query = "insert into staff_entry values ('" + sno + "','" + date + "','" + time + "','" + account + "','"
+                    + desig + "','" + sid + "','" + jdate + "','" + sname + "','" + fname + "','" + gender + "','" + bg
+                    + "','" + dob + "','" + religion + "','" + nation + "','" + add1 + "','" + add2 + "','" + add3
+                    + "','" + area + "','" + pincode + "','" + mobile + "','" + phone + "','" + email + "','" + mstatus
+                    + "','" + family + "','" + edu + "','" + exp + "','" + job + "','" + langu + "','" + adhaar + "','"
+                    + acno + "','" + remarks + "','" + status + "','" + edate + "','" + salary + "')";
             int count = util.doManipulation(query);
             if (count > 0) {
-                JOptionPane.showMessageDialog(this, "<html><h1>Saved Successfully</h1></html>", "Saved", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(this, "<html><h1>Saved Successfully</h1></html>", "Saved",
+                        JOptionPane.PLAIN_MESSAGE);
                 save_image();
                 clear();
             }
@@ -507,7 +519,8 @@ public final class staff_entry extends javax.swing.JInternalFrame {
                 query1.add("insert into staff_photo values('" + h6.getText() + "','" + bb + "')");
                 int count = util.doManipulation_Batch(query1);
                 if (count > 0) {
-//JOptionPane.showMessageDialog(this, "Picture Saved","Picture",JOptionPane.PLAIN_MESSAGE);
+                    // JOptionPane.showMessageDialog(this, "Picture
+                    // Saved","Picture",JOptionPane.PLAIN_MESSAGE);
                 }
             }
         } catch (IOException | ClassNotFoundException | SQLException e) {
@@ -577,7 +590,8 @@ public final class staff_entry extends javax.swing.JInternalFrame {
     void view(String sno) {
         try {
             picturel.setIcon(null);
-            String query = "select distinct sno,date_format(dat,'%d/%m/%Y'),tim,account,desig,sid,date_format(jdate,'%d/%m/%Y'),sname,fname,gender,bg,date_format(dob,'%d/%m/%Y'),religion,nation,add1,add2,add3,area,pincode,mobile,phone,email,mstatus,family,edu,exp,job,langu,adhaar,acno,remarks,salary from staff_entry where sno='" + sno + "' ";
+            String query = "select distinct sno,date_format(dat,'%d/%m/%Y'),tim,account,desig,sid,date_format(jdate,'%d/%m/%Y'),sname,fname,gender,bg,date_format(dob,'%d/%m/%Y'),religion,nation,add1,add2,add3,area,pincode,mobile,phone,email,mstatus,family,edu,exp,job,langu,adhaar,acno,remarks,salary from staff_entry where sno='"
+                    + sno + "' ";
             r = util.doQuery(query);
             boolean selva = false;
             while (r.next()) {
@@ -633,7 +647,8 @@ public final class staff_entry extends javax.swing.JInternalFrame {
                 shiva = true;
             }
             if (shiva == true) {
-                ImageIcon icon2 = new ImageIcon(new ImageIcon(im.getImage()).getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT));
+                ImageIcon icon2 = new ImageIcon(
+                        new ImageIcon(im.getImage()).getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT));
                 picturel.setIcon(icon2);
             } else if (selva == false) {
                 JOptionPane.showMessageDialog(this, "No Records Were Found!", "No Records", JOptionPane.ERROR_MESSAGE);
@@ -724,7 +739,14 @@ public final class staff_entry extends javax.swing.JInternalFrame {
             String acno = h30.getText();
             String remarks = h31.getText();
             String salary = h32.getText();
-            query = "update staff_entry set account='" + account + "',desig='" + desig + "',jdate='" + jdate + "',sname='" + sname + "',fname='" + fname + "',gender='" + gender + "',bg='" + bg + "',dob='" + dob + "',religion='" + religion + "',nation='" + nation + "',add1='" + add1 + "',add2='" + add2 + "',add3='" + add3 + "',area='" + area + "',pincode='" + pincode + "',mobile='" + mobile + "',phone='" + phone + "',email='" + email + "',mstatus='" + mstatus + "',family='" + family + "',edu='" + edu + "',exp='" + exp + "',job='" + job + "',langu='" + langu + "',adhaar='" + adhaar + "',acno='" + acno + "',remarks='" + remarks + "',salary='" + salary + "' where sno='" + sno + "' ";
+            query = "update staff_entry set account='" + account + "',desig='" + desig + "',jdate='" + jdate
+                    + "',sname='" + sname + "',fname='" + fname + "',gender='" + gender + "',bg='" + bg + "',dob='"
+                    + dob + "',religion='" + religion + "',nation='" + nation + "',add1='" + add1 + "',add2='" + add2
+                    + "',add3='" + add3 + "',area='" + area + "',pincode='" + pincode + "',mobile='" + mobile
+                    + "',phone='" + phone + "',email='" + email + "',mstatus='" + mstatus + "',family='" + family
+                    + "',edu='" + edu + "',exp='" + exp + "',job='" + job + "',langu='" + langu + "',adhaar='" + adhaar
+                    + "',acno='" + acno + "',remarks='" + remarks + "',salary='" + salary + "' where sno='" + sno
+                    + "' ";
             int count = util.doManipulation(query);
             if (count > 0) {
                 JOptionPane.showMessageDialog(this, "Updated Successfully", "Updated", JOptionPane.PLAIN_MESSAGE);
@@ -757,7 +779,8 @@ public final class staff_entry extends javax.swing.JInternalFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         titlelablel = new javax.swing.JLabel();
@@ -1127,7 +1150,10 @@ public final class staff_entry extends javax.swing.JInternalFrame {
         jLabel43.setBounds(330, 240, 80, 30);
 
         h13.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        h13.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Hindu", "Christian", "Muslim", "Buddhis", "Sikhis", "Nonreligious", "Primal-Indigenous", "Juche", "Spiritism", "Judaism", "Bahai", "Jainism", "Shinto", "Cao Dai", "Zoroastrianism", "Tenrikyo", "Neo-Paganism", "Unitarian-Universalism", "African Traditional and Diasporic", "Chinese Traditional Religion" }));
+        h13.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Hindu", "Christian", "Muslim", "Buddhis",
+                "Sikhis", "Nonreligious", "Primal-Indigenous", "Juche", "Spiritism", "Judaism", "Bahai", "Jainism",
+                "Shinto", "Cao Dai", "Zoroastrianism", "Tenrikyo", "Neo-Paganism", "Unitarian-Universalism",
+                "African Traditional and Diasporic", "Chinese Traditional Religion" }));
         jPanel1.add(h13);
         h13.setBounds(80, 240, 230, 30);
 
@@ -1310,20 +1336,20 @@ public final class staff_entry extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closebuttonActionPerformed
+    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closebuttonActionPerformed
         this.dispose();
-    }//GEN-LAST:event_closebuttonActionPerformed
+    }// GEN-LAST:event_closebuttonActionPerformed
 
-    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savebuttonActionPerformed
+    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_savebuttonActionPerformed
         save();
-    }//GEN-LAST:event_savebuttonActionPerformed
+    }// GEN-LAST:event_savebuttonActionPerformed
 
-    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbuttonActionPerformed
+    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_clearbuttonActionPerformed
         clear();
         // TODO add your handling code here:
-    }//GEN-LAST:event_clearbuttonActionPerformed
+    }// GEN-LAST:event_clearbuttonActionPerformed
 
-    private void viewbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewbuttonActionPerformed
+    private void viewbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_viewbuttonActionPerformed
 
         if (h6.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Enter Staff Id ?", "Staff Id", JOptionPane.ERROR_MESSAGE);
@@ -1342,22 +1368,22 @@ public final class staff_entry extends javax.swing.JInternalFrame {
             System.out.println(e.getMessage());
         }
 
-    }//GEN-LAST:event_viewbuttonActionPerformed
+    }// GEN-LAST:event_viewbuttonActionPerformed
 
-    private void deletebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletebuttonActionPerformed
+    private void deletebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_deletebuttonActionPerformed
         String cid = h1.getText();
         delete(cid);
-    }//GEN-LAST:event_deletebuttonActionPerformed
+    }// GEN-LAST:event_deletebuttonActionPerformed
 
-    private void h1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h1FocusGained
+    private void h1FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h1FocusGained
         h4.requestFocus();
-    }//GEN-LAST:event_h1FocusGained
+    }// GEN-LAST:event_h1FocusGained
 
-    private void h4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h4ActionPerformed
+    private void h4ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h4ActionPerformed
 
-    }//GEN-LAST:event_h4ActionPerformed
+    }// GEN-LAST:event_h4ActionPerformed
 
-    private void prebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prebuttonActionPerformed
+    private void prebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_prebuttonActionPerformed
 
         try {
             String query;
@@ -1385,9 +1411,9 @@ public final class staff_entry extends javax.swing.JInternalFrame {
         }
 
         // TODO add your handling code here:
-    }//GEN-LAST:event_prebuttonActionPerformed
+    }// GEN-LAST:event_prebuttonActionPerformed
 
-    private void nextbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextbuttonActionPerformed
+    private void nextbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_nextbuttonActionPerformed
 
         try {
             String query;
@@ -1412,14 +1438,14 @@ public final class staff_entry extends javax.swing.JInternalFrame {
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_nextbuttonActionPerformed
+    }// GEN-LAST:event_nextbuttonActionPerformed
 
-    private void updatebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatebuttonActionPerformed
+    private void updatebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_updatebuttonActionPerformed
         String sno = h1.getText();
         Update(sno);
-    }//GEN-LAST:event_updatebuttonActionPerformed
+    }// GEN-LAST:event_updatebuttonActionPerformed
 
-    private void jCalendarButton2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendarButton2PropertyChange
+    private void jCalendarButton2PropertyChange(java.beans.PropertyChangeEvent evt) {// GEN-FIRST:event_jCalendarButton2PropertyChange
         try {
             if (evt.getNewValue() instanceof Date) {
                 String ses = evt.getNewValue().toString();
@@ -1430,9 +1456,9 @@ public final class staff_entry extends javax.swing.JInternalFrame {
         } catch (ParseException e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_jCalendarButton2PropertyChange
+    }// GEN-LAST:event_jCalendarButton2PropertyChange
 
-    private void jCalendarButton3PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendarButton3PropertyChange
+    private void jCalendarButton3PropertyChange(java.beans.PropertyChangeEvent evt) {// GEN-FIRST:event_jCalendarButton3PropertyChange
         try {
             if (evt.getNewValue() instanceof Date) {
                 String ses = evt.getNewValue().toString();
@@ -1444,10 +1470,10 @@ public final class staff_entry extends javax.swing.JInternalFrame {
             System.out.println(e.getMessage());
         }
 
-// TODO add your handling code here:
-    }//GEN-LAST:event_jCalendarButton3PropertyChange
+        // TODO add your handling code here:
+    }// GEN-LAST:event_jCalendarButton3PropertyChange
 
-    private void uploadbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadbuttonActionPerformed
+    private void uploadbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_uploadbuttonActionPerformed
 
         try {
             JFileChooser j = new JFileChooser();
@@ -1457,25 +1483,28 @@ public final class staff_entry extends javax.swing.JInternalFrame {
             BufferedImage image = ImageIO.read(new File(img));
             ImageIcon icon;
             if (image.getWidth() > 200 && image.getHeight() <= 200) {
-                icon = new ImageIcon(new ImageIcon(img).getImage().getScaledInstance(200, image.getHeight(), Image.SCALE_DEFAULT));
+                icon = new ImageIcon(
+                        new ImageIcon(img).getImage().getScaledInstance(200, image.getHeight(), Image.SCALE_DEFAULT));
             } else if (image.getHeight() > 200 && image.getWidth() <= 200) {
-                icon = new ImageIcon(new ImageIcon(img).getImage().getScaledInstance(image.getWidth(), 200, Image.SCALE_DEFAULT));
+                icon = new ImageIcon(
+                        new ImageIcon(img).getImage().getScaledInstance(image.getWidth(), 200, Image.SCALE_DEFAULT));
             } else if (image.getHeight() > 200 && image.getWidth() > 200) {
                 icon = new ImageIcon(new ImageIcon(img).getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT));
             } else {
-                icon = new ImageIcon(new ImageIcon(img).getImage().getScaledInstance(image.getWidth(), image.getHeight(), Image.SCALE_DEFAULT));
+                icon = new ImageIcon(new ImageIcon(img).getImage().getScaledInstance(image.getWidth(),
+                        image.getHeight(), Image.SCALE_DEFAULT));
             }
             picturel.setIcon(icon);
         } catch (HeadlessException | IOException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
 
-    }//GEN-LAST:event_uploadbuttonActionPerformed
+    }// GEN-LAST:event_uploadbuttonActionPerformed
 
-    private void resetbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetbuttonActionPerformed
+    private void resetbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_resetbuttonActionPerformed
 
         picturel.setIcon(null);
-    }//GEN-LAST:event_resetbuttonActionPerformed
+    }// GEN-LAST:event_resetbuttonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton clearbutton;

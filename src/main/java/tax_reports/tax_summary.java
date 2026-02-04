@@ -18,7 +18,7 @@ import menupack.sample2;
 /**
  *
  * @author K.SELVAKUMAR, copyrights K.SELVAKUMAR, +91 99427 32229,
- * mysoft.java@gmail.com
+ *         mysoft.java@gmail.com
  */
 public final class tax_summary extends javax.swing.JInternalFrame {
 
@@ -79,7 +79,8 @@ public final class tax_summary extends javax.swing.JInternalFrame {
 
             double s5 = 0, s12 = 0, s18 = 0, s28 = 0, stot = 0;
             double sr5 = 0, sr12 = 0, sr18 = 0, sr28 = 0, srtot = 0;
-            query = "select Sum(CASE WHEN t.taxp = '5' THEN t.taxamt ELSE NULL END) AS Tax5,Sum(CASE WHEN t.taxp = '12' THEN t.taxamt ELSE NULL END) AS Tax12,Sum(CASE WHEN t.taxp = '18' THEN t.taxamt ELSE NULL END) AS Tax18,Sum(CASE WHEN t.taxp = '28' THEN t.taxamt ELSE NULL END) AS Tax28 from sales_items t where dat between '" + lk + "' and '" + lk1 + "' and entry='purchase' ";
+            query = "select Sum(CASE WHEN t.taxp = '5' THEN t.taxamt ELSE NULL END) AS Tax5,Sum(CASE WHEN t.taxp = '12' THEN t.taxamt ELSE NULL END) AS Tax12,Sum(CASE WHEN t.taxp = '18' THEN t.taxamt ELSE NULL END) AS Tax18,Sum(CASE WHEN t.taxp = '28' THEN t.taxamt ELSE NULL END) AS Tax28 from sales_items t where dat between '"
+                    + lk + "' and '" + lk1 + "' and entry='purchase' ";
             r = util.doQuery(query);
             while (r.next()) {
                 s5 = r.getDouble(1);
@@ -94,9 +95,10 @@ public final class tax_summary extends javax.swing.JInternalFrame {
             String s181 = String.format("%." + hmany + "f", s18);
             String s281 = String.format("%." + hmany + "f", s28);
             String stot1 = String.format("%." + hmany + "f", stot);
-            s2.addRow(new Object[]{"Sales", s51, s121, s181, s281, 0, stot1});
+            s2.addRow(new Object[] { "Sales", s51, s121, s181, s281, 0, stot1 });
 
-            query = "select Sum(CASE WHEN t.taxp = '5' THEN t.taxamt ELSE NULL END) AS Tax5,Sum(CASE WHEN t.taxp = '12' THEN t.taxamt ELSE NULL END) AS Tax12,Sum(CASE WHEN t.taxp = '18' THEN t.taxamt ELSE NULL END) AS Tax18,Sum(CASE WHEN t.taxp = '28' THEN t.taxamt ELSE NULL END) AS Tax28 from sreturn_items t where dat between '" + lk + "' and '" + lk1 + "' and entry='purchase' ";
+            query = "select Sum(CASE WHEN t.taxp = '5' THEN t.taxamt ELSE NULL END) AS Tax5,Sum(CASE WHEN t.taxp = '12' THEN t.taxamt ELSE NULL END) AS Tax12,Sum(CASE WHEN t.taxp = '18' THEN t.taxamt ELSE NULL END) AS Tax18,Sum(CASE WHEN t.taxp = '28' THEN t.taxamt ELSE NULL END) AS Tax28 from sreturn_items t where dat between '"
+                    + lk + "' and '" + lk1 + "' and entry='purchase' ";
             r = util.doQuery(query);
             while (r.next()) {
                 sr5 = r.getDouble(1);
@@ -111,16 +113,17 @@ public final class tax_summary extends javax.swing.JInternalFrame {
             String sr181 = String.format("%." + hmany + "f", sr18);
             String sr281 = String.format("%." + hmany + "f", sr28);
             String srtot1 = String.format("%." + hmany + "f", srtot);
-            s2.addRow(new Object[]{"(-) Sales Return", sr51, sr121, sr181, sr281, 0, srtot1});
+            s2.addRow(new Object[] { "(-) Sales Return", sr51, sr121, sr181, sr281, 0, srtot1 });
             double output = stot - srtot;
             String output1 = String.format("%." + hmany + "f", output);
 
-            s2.addRow(new Object[]{"Output Tax: ", "", "", "", "", "", "" + output1});
-            s2.addRow(new Object[]{"", "", "", "", "", "", ""});
+            s2.addRow(new Object[] { "Output Tax: ", "", "", "", "", "", "" + output1 });
+            s2.addRow(new Object[] { "", "", "", "", "", "", "" });
 
             double p5 = 0, p12 = 0, p18 = 0, p28 = 0, ptot = 0;
             double pr5 = 0, pr12 = 0, pr18 = 0, pr28 = 0, prtot = 0;
-            query = "select Sum(CASE WHEN t.taxp = '5' THEN t.taxamt ELSE NULL END) AS Tax5,Sum(CASE WHEN t.taxp = '12' THEN t.taxamt ELSE NULL END) AS Tax12,Sum(CASE WHEN t.taxp = '18' THEN t.taxamt ELSE NULL END) AS Tax18,Sum(CASE WHEN t.taxp = '28' THEN t.taxamt ELSE NULL END) AS Tax28 from purchase_items t where dat between '" + lk + "' and '" + lk1 + "' ";
+            query = "select Sum(CASE WHEN t.taxp = '5' THEN t.taxamt ELSE NULL END) AS Tax5,Sum(CASE WHEN t.taxp = '12' THEN t.taxamt ELSE NULL END) AS Tax12,Sum(CASE WHEN t.taxp = '18' THEN t.taxamt ELSE NULL END) AS Tax18,Sum(CASE WHEN t.taxp = '28' THEN t.taxamt ELSE NULL END) AS Tax28 from purchase_items t where dat between '"
+                    + lk + "' and '" + lk1 + "' ";
             r = util.doQuery(query);
             while (r.next()) {
                 p5 = r.getDouble(1);
@@ -134,9 +137,10 @@ public final class tax_summary extends javax.swing.JInternalFrame {
             String p181 = String.format("%." + hmany + "f", p18);
             String p281 = String.format("%." + hmany + "f", p28);
             String ptot1 = String.format("%." + hmany + "f", ptot);
-            s2.addRow(new Object[]{"Purchase", p51, p121, p181, p281, 0, ptot1});
+            s2.addRow(new Object[] { "Purchase", p51, p121, p181, p281, 0, ptot1 });
 
-            query = "select Sum(CASE WHEN t.taxp = '5' THEN t.taxamt ELSE NULL END) AS Tax5,Sum(CASE WHEN t.taxp = '12' THEN t.taxamt ELSE NULL END) AS Tax12,Sum(CASE WHEN t.taxp = '18' THEN t.taxamt ELSE NULL END) AS Tax18,Sum(CASE WHEN t.taxp = '28' THEN t.taxamt ELSE NULL END) AS Tax28 from preturn_items t where dat between '" + lk + "' and '" + lk1 + "' ";
+            query = "select Sum(CASE WHEN t.taxp = '5' THEN t.taxamt ELSE NULL END) AS Tax5,Sum(CASE WHEN t.taxp = '12' THEN t.taxamt ELSE NULL END) AS Tax12,Sum(CASE WHEN t.taxp = '18' THEN t.taxamt ELSE NULL END) AS Tax18,Sum(CASE WHEN t.taxp = '28' THEN t.taxamt ELSE NULL END) AS Tax28 from preturn_items t where dat between '"
+                    + lk + "' and '" + lk1 + "' ";
             r = util.doQuery(query);
             while (r.next()) {
                 pr5 = r.getDouble(1);
@@ -150,20 +154,20 @@ public final class tax_summary extends javax.swing.JInternalFrame {
             String pr181 = String.format("%." + hmany + "f", pr18);
             String pr281 = String.format("%." + hmany + "f", pr28);
             String prtot1 = String.format("%." + hmany + "f", prtot);
-            s2.addRow(new Object[]{"(-) Purchase Return", pr51, pr121, pr181, pr281, 0, prtot1});
+            s2.addRow(new Object[] { "(-) Purchase Return", pr51, pr121, pr181, pr281, 0, prtot1 });
 
             double input = ptot - prtot;
             String input1 = String.format("%." + hmany + "f", input);
-            s2.addRow(new Object[]{"Input Tax: ", "", "", "", "", "", "" + input1});
-            s2.addRow(new Object[]{"", "", "", "", "", "", ""});
+            s2.addRow(new Object[] { "Input Tax: ", "", "", "", "", "", "" + input1 });
+            s2.addRow(new Object[] { "", "", "", "", "", "", "" });
 
             double tax = output - input;
             String tax1 = String.format("%." + hmany + "f", tax);
-            s2.addRow(new Object[]{"GST SUMMARY", "", "", "", "", "", ""});
-            s2.addRow(new Object[]{"Output Tax", "" + output1, "", "", "", "", ""});
-            s2.addRow(new Object[]{"Input Tax", "" + input1, "", "", "", "", ""});
-            s2.addRow(new Object[]{"", "", "", "", "", "", ""});
-            s2.addRow(new Object[]{"Tax Payable", "" + tax1, "", "", "", "", ""});
+            s2.addRow(new Object[] { "GST SUMMARY", "", "", "", "", "", "" });
+            s2.addRow(new Object[] { "Output Tax", "" + output1, "", "", "", "", "" });
+            s2.addRow(new Object[] { "Input Tax", "" + input1, "", "", "", "", "" });
+            s2.addRow(new Object[] { "", "", "", "", "", "", "" });
+            s2.addRow(new Object[] { "Tax Payable", "" + tax1, "", "", "", "", "" });
             if (selva == true) {
                 h1.setEnabled(false);
                 h2.setEnabled(false);
@@ -181,15 +185,19 @@ public final class tax_summary extends javax.swing.JInternalFrame {
         initComponents();
         setTitle(titlelablel.getText());
         this.setSize(1021, 648);
-        ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("images/icon.png"));
-        this.setFrameIcon(icon);
+        java.net.URL iconUrl = ClassLoader.getSystemResource("/images/icon.png");
+        if (iconUrl != null) {
+            ImageIcon icon = new ImageIcon(iconUrl);
+            this.setFrameIcon(icon);
+        }
         this.util = util;
         button_short();
         load_list_table();
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         titlelablel = new javax.swing.JLabel();
@@ -217,16 +225,15 @@ public final class tax_summary extends javax.swing.JInternalFrame {
 
         jTable1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jTable1.setRowHeight(24);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -340,11 +347,11 @@ public final class tax_summary extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTable1MouseClicked
 
-    }//GEN-LAST:event_jTable1MouseClicked
+    }// GEN-LAST:event_jTable1MouseClicked
 
-    private void generatebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generatebuttonActionPerformed
+    private void generatebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_generatebuttonActionPerformed
         Date d = new Date();
         SimpleDateFormat g = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -356,18 +363,18 @@ public final class tax_summary extends javax.swing.JInternalFrame {
         }
         load_report(h1.getText(), h2.getText());
 
-    }//GEN-LAST:event_generatebuttonActionPerformed
+    }// GEN-LAST:event_generatebuttonActionPerformed
 
-    private void excelbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelbuttonActionPerformed
+    private void excelbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_excelbuttonActionPerformed
         if (s2.getRowCount() <= 0) {
             JOptionPane.showMessageDialog(this, "Sorry, No Records Were Found!", "Oops", JOptionPane.ERROR_MESSAGE);
         } else {
             new ExcelUtilGST(h1.getText(), h2.getText()).GenerateSummaryWorkbook();
         }
 
-    }//GEN-LAST:event_excelbuttonActionPerformed
+    }// GEN-LAST:event_excelbuttonActionPerformed
 
-    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbuttonActionPerformed
+    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_clearbuttonActionPerformed
         if (s2.getRowCount() > 0) {
             s2.getDataVector().removeAllElements();
             s2.fireTableDataChanged();
@@ -380,17 +387,17 @@ public final class tax_summary extends javax.swing.JInternalFrame {
         h2.setText("");
         generatebutton.setEnabled(true);
 
-    }//GEN-LAST:event_clearbuttonActionPerformed
+    }// GEN-LAST:event_clearbuttonActionPerformed
 
-    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closebuttonActionPerformed
+    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closebuttonActionPerformed
         this.dispose();
-    }//GEN-LAST:event_closebuttonActionPerformed
+    }// GEN-LAST:event_closebuttonActionPerformed
 
-    private void jTable1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTable1FocusGained
+    private void jTable1FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jTable1FocusGained
 
-    }//GEN-LAST:event_jTable1FocusGained
+    }// GEN-LAST:event_jTable1FocusGained
 
-    private void jCalendarButton2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendarButton2PropertyChange
+    private void jCalendarButton2PropertyChange(java.beans.PropertyChangeEvent evt) {// GEN-FIRST:event_jCalendarButton2PropertyChange
         try {
             if (evt.getNewValue() instanceof Date) {
                 String ses = evt.getNewValue().toString();
@@ -402,9 +409,9 @@ public final class tax_summary extends javax.swing.JInternalFrame {
             System.out.println(e.getMessage());
         }
 
-    }//GEN-LAST:event_jCalendarButton2PropertyChange
+    }// GEN-LAST:event_jCalendarButton2PropertyChange
 
-    private void jCalendarButton1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendarButton1PropertyChange
+    private void jCalendarButton1PropertyChange(java.beans.PropertyChangeEvent evt) {// GEN-FIRST:event_jCalendarButton1PropertyChange
         try {
             if (evt.getNewValue() instanceof Date) {
                 String ses = evt.getNewValue().toString();
@@ -417,15 +424,15 @@ public final class tax_summary extends javax.swing.JInternalFrame {
         }
 
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCalendarButton1PropertyChange
+    }// GEN-LAST:event_jCalendarButton1PropertyChange
 
-    private void excelWorkbookButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelWorkbookButtonActionPerformed
+    private void excelWorkbookButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_excelWorkbookButtonActionPerformed
         if (s2.getRowCount() <= 0) {
             JOptionPane.showMessageDialog(this, "Sorry, No Records Were Found!", "Oops", JOptionPane.ERROR_MESSAGE);
         } else {
             new ExcelUtilGST(h1.getText(), h2.getText()).GenerateGSTWorkbookComplete();
         }
-    }//GEN-LAST:event_excelWorkbookButtonActionPerformed
+    }// GEN-LAST:event_excelWorkbookButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton clearbutton;

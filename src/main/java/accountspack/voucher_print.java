@@ -32,7 +32,6 @@ import net.sf.jasperreports.engine.export.JRPrintServiceExporterParameter;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
-
 /*
  * @author selvagates, ©Selrom Software,  www.selromsoft.in,  Ph: +91 9942732229, Email: mysoft.java@gmail.com
  */
@@ -81,7 +80,8 @@ public class voucher_print {
             String date = "", cname = "", what = "", pby = "", entry = "";
             double amount = 0;
             Collection<Map<String, ?>> col = new ArrayList<>();
-            query = "select distinct date_format(dat,'%d/%m/%Y'),whom,what,pby,amount,entry from account_voucher where billno='" + billno + "'";
+            query = "select distinct date_format(dat,'%d/%m/%Y'),whom,what,pby,amount,entry from account_voucher where billno='"
+                    + billno + "'";
             r = util.doQuery(query);
             while (r.next()) {
                 date = r.getString(1);
@@ -140,8 +140,10 @@ public class voucher_print {
             exporter = new JRPrintServiceExporter();
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
             exporter.setParameter(JRPrintServiceExporterParameter.PRINT_SERVICE, services[selectedService]);
-            exporter.setParameter(JRPrintServiceExporterParameter.PRINT_SERVICE_ATTRIBUTE_SET, services[selectedService].getAttributes());
-            exporter.setParameter(JRPrintServiceExporterParameter.PRINT_REQUEST_ATTRIBUTE_SET, printRequestAttributeSet);
+            exporter.setParameter(JRPrintServiceExporterParameter.PRINT_SERVICE_ATTRIBUTE_SET,
+                    services[selectedService].getAttributes());
+            exporter.setParameter(JRPrintServiceExporterParameter.PRINT_REQUEST_ATTRIBUTE_SET,
+                    printRequestAttributeSet);
             exporter.setParameter(JRPrintServiceExporterParameter.DISPLAY_PAGE_DIALOG, Boolean.FALSE);
             exporter.setParameter(JRPrintServiceExporterParameter.DISPLAY_PRINT_DIALOG, Boolean.TRUE);
             exporter.exportReport();

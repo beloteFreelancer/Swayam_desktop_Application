@@ -22,11 +22,11 @@ import javax.print.attribute.standard.MediaSizeName;
 import menupack.AmountInWords;
 import menupack.SelRomJasper;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.export.JRPrintServiceExporter;
 import net.sf.jasperreports.engine.export.JRPrintServiceExporterParameter;
 import net.sf.jasperreports.view.JasperViewer;
@@ -45,7 +45,8 @@ public class print_estimate_a4 {
 
             Map<String, Object> parameters = new HashMap<>();
 
-            String add1 = "", add2 = "", add3 = "", add4 = "", add5 = "", sname = "", scode = "", letter = "", head = "", sms1 = "", sms2 = "", sms3 = "", sms4 = "", logoPath = "";
+            String add1 = "", add2 = "", add3 = "", add4 = "", add5 = "", sname = "", scode = "", letter = "",
+                    head = "", sms1 = "", sms2 = "", sms3 = "", sms4 = "", logoPath = "";
             String query = "select cname,add1,add2,add3,add4,state,scode,ehead,sms1,sms2,sms3,sms4,letter,hmany,logo_path from setting_bill";
             ResultSet r = util.doQuery(query);
             while (r.next()) {
@@ -65,7 +66,8 @@ public class print_estimate_a4 {
                 letter = r.getString(13);
                 hmany = r.getInt(14);
             }
-            parameters.put("logo_path", logoPath);            parameters.put("parameter1", "" + add1);
+            parameters.put("logo_path", logoPath);
+            parameters.put("parameter1", "" + add1);
             parameters.put("parameter2", "");
             parameters.put("parameter3", "");
             parameters.put("parameter4", "");
@@ -89,7 +91,8 @@ public class print_estimate_a4 {
 
             String date = "", quans = "", cid = "", tax = "";
             double sub = 0, dis = 0, addamt = 0, net = 0, taxamt = 0;
-            query = "select date_format(dat,'%d/%m/%Y'),quans,sub,disamt,addamt,net,cid,taxamt,tax from estimate where billno='" + billno + "'";
+            query = "select date_format(dat,'%d/%m/%Y'),quans,sub,disamt,addamt,net,cid,taxamt,tax from estimate where billno='"
+                    + billno + "'";
             r = util.doQuery(query);
             while (r.next()) {
                 date = r.getString(1);
@@ -121,7 +124,8 @@ public class print_estimate_a4 {
             parameters.put("parameter23", "");
             parameters.put("parameter24", "");
 
-            String cname = "", ad1 = "", ad2 = "", ad3 = "", area = "", mobile = "", phone = "", ctin = "", csname = "", cscode = "";
+            String cname = "", ad1 = "", ad2 = "", ad3 = "", area = "", mobile = "", phone = "", ctin = "", csname = "",
+                    cscode = "";
             query = "select cname,add1,add2,add3,city,mobile,phone,gstno,sname,scode from cust where cid='" + cid + "'";
             r = util.doQuery(query);
             while (r.next()) {
@@ -227,7 +231,8 @@ public class print_estimate_a4 {
             String iname, udes, hsn;
             double quan, price, amount, disp, disamt, tot, taxp, taxamt1, total;
             double namount = 0, ndisamt = 0, ntot = 0, ntax = 0, ntotal = 0;
-            query = "select iname1,quan,price,amount,disp,disamt,sub,taxp,taxamt,total,udes,hsn from estimate_items where billno='" + billno + "'";
+            query = "select iname1,quan,price,amount,disp,disamt,sub,taxp,taxamt,total,udes,hsn from estimate_items where billno='"
+                    + billno + "'";
             r = util.doQuery(query);
             while (r.next()) {
                 SelRomJasper selRomJasper = new SelRomJasper();

@@ -25,7 +25,7 @@ import javax.swing.ListSelectionModel;
 /**
  *
  * @author K.SELVAKUMAR, copyrights K.SELVAKUMAR, +91 99427 32229,
- * mysoft.java@gmail.com
+ *         mysoft.java@gmail.com
  */
 public final class item_master extends javax.swing.JInternalFrame {
 
@@ -47,8 +47,11 @@ public final class item_master extends javax.swing.JInternalFrame {
         titlelablel.setText("<html><u>Item Master</u></html>");
         setTitle("Item Master");
         this.setSize(611, 621);
-        ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("images/icon.png"));
-        this.setFrameIcon(icon);
+        java.net.URL iconUrl = ClassLoader.getSystemResource("/images/icon.png");
+        if (iconUrl != null) {
+            ImageIcon icon = new ImageIcon(iconUrl);
+            this.setFrameIcon(icon);
+        }
     }
 
     void get_default() {
@@ -291,7 +294,8 @@ public final class item_master extends javax.swing.JInternalFrame {
     void save(boolean fromSave) {
         try {
             if (h2.getSelectedItem() == null || h2.getSelectedItem().toString().isBlank()) {
-                JOptionPane.showMessageDialog(this, "Please enter Item Name.", "Missing Item Name", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Please enter Item Name.", "Missing Item Name",
+                        JOptionPane.ERROR_MESSAGE);
                 h2.requestFocus();
                 return;
             }
@@ -302,13 +306,15 @@ public final class item_master extends javax.swing.JInternalFrame {
             try {
                 taxp = Integer.parseInt(h5.getText());
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Tax % must be a number.", "Invalid Tax", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Tax % must be a number.", "Invalid Tax",
+                        JOptionPane.ERROR_MESSAGE);
                 h5.requestFocus();
                 return;
             }
 
             if (taxp != 0 && taxp != 5 && taxp != 12 && taxp != 18 && taxp != 28) {
-                JOptionPane.showMessageDialog(this, "<html><h4>Allowed Tax %: 0%, 5%, 12%, 18%, 28%</h4></html>", "Invalid Tax", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "<html><h4>Allowed Tax %: 0%, 5%, 12%, 18%, 28%</h4></html>",
+                        "Invalid Tax", JOptionPane.ERROR_MESSAGE);
                 h5.requestFocus();
                 return;
             }
@@ -316,10 +322,10 @@ public final class item_master extends javax.swing.JInternalFrame {
             if (batchField.getText().isBlank()) {
                 JOptionPane.showMessageDialog(
                         this,
-                        "<html><h4>" + (CompanySettingUtil.getInstance().isDisplayBatch() ? "Batch is required." : "Size is required.") + "</html>",
+                        "<html><h4>" + (CompanySettingUtil.getInstance().isDisplayBatch() ? "Batch is required."
+                                : "Size is required.") + "</html>",
                         "Invalid Tax",
-                        JOptionPane.ERROR_MESSAGE
-                );
+                        JOptionPane.ERROR_MESSAGE);
                 batchField.requestFocus();
                 return;
             }
@@ -328,7 +334,8 @@ public final class item_master extends javax.swing.JInternalFrame {
             try {
                 stock = Double.parseDouble(h19.getText().trim());
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Stock must be a valid number.", "Invalid Tax", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Stock must be a valid number.", "Invalid Tax",
+                        JOptionPane.ERROR_MESSAGE);
                 h5.requestFocus();
                 return;
             }
@@ -363,7 +370,8 @@ public final class item_master extends javax.swing.JInternalFrame {
                 // Check for existing item name and barcode
                 rs = util.doQuery("SELECT iname FROM item WHERE iname = '" + iname + "'");
                 if (rs.next()) {
-                    JOptionPane.showMessageDialog(this, "Item Name already exists!", "Duplicate Entry", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Item Name already exists!", "Duplicate Entry",
+                            JOptionPane.ERROR_MESSAGE);
                     h2.requestFocus();
                     return;
                 }
@@ -372,19 +380,22 @@ public final class item_master extends javax.swing.JInternalFrame {
             rs = util.doQuery("SELECT barcode FROM item WHERE barcode = '" + barcode + "'");
             if (rs.next()) {
                 if (fromSave) {
-                    JOptionPane.showMessageDialog(this, "Barcode already exists!", "Duplicate Entry", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Barcode already exists!", "Duplicate Entry",
+                            JOptionPane.ERROR_MESSAGE);
                     h17.requestFocus();
                     return;
                 }
             }
             if (exp != null && !isValidDate(exp, "yyyy-MM-dd")) {
-                JOptionPane.showMessageDialog(this, "Invalid expiry date. Please enter in yyyy/mm/dd format.", "Invalid Date", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Invalid expiry date. Please enter in yyyy/mm/dd format.",
+                        "Invalid Date", JOptionPane.ERROR_MESSAGE);
                 expDateField.requestFocus();
                 return;
             }
 
             if (mfg != null && !isValidDate(mfg, "yyyy-MM-dd")) {
-                JOptionPane.showMessageDialog(this, "Invalid manufacturing date. Please enter in yyyy/mm/dd format.", "Invalid Date", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Invalid manufacturing date. Please enter in yyyy/mm/dd format.",
+                        "Invalid Date", JOptionPane.ERROR_MESSAGE);
                 mfgDateField.requestFocus();
                 return;
             }
@@ -396,7 +407,8 @@ public final class item_master extends javax.swing.JInternalFrame {
 
             if (!subunit.isBlank()) {
                 if (subunit.equalsIgnoreCase(udes)) {
-                    JOptionPane.showMessageDialog(this, "Main Unit and Sub Unit cannot be the same.", "Invalid Unit Selection", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Main Unit and Sub Unit cannot be the same.",
+                            "Invalid Unit Selection", JOptionPane.ERROR_MESSAGE);
                     subUnitField.requestFocus();
                     return;
                 }
@@ -404,7 +416,9 @@ public final class item_master extends javax.swing.JInternalFrame {
                 try {
                     subconvValue = Double.parseDouble(subconv);
                 } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(this, "Please enter a valid number for Sub Unit Conversion (e.g. 0.5, 1, 2).", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this,
+                            "Please enter a valid number for Sub Unit Conversion (e.g. 0.5, 1, 2).", "Invalid Input",
+                            JOptionPane.ERROR_MESSAGE);
                     subUnitValuePerUnit.requestFocus();
                     return;
                 }
@@ -470,8 +484,7 @@ public final class item_master extends javax.swing.JInternalFrame {
                     this,
                     fromSave ? "Saved Successfully" : "Copy Successfully",
                     fromSave ? "Saved" : "Copied",
-                    JOptionPane.PLAIN_MESSAGE
-            );
+                    JOptionPane.PLAIN_MESSAGE);
             clear();
 
         } catch (Exception e) {
@@ -539,9 +552,11 @@ public final class item_master extends javax.swing.JInternalFrame {
         try {
             String query;
             if (CompanySettingUtil.getInstance().isDisplayBatch()) {
-                query = "select ino,barcode,iname,iname1,prate,taxp,mrp,rprice,wprice,cat,manu,hsn,udes,minstock,maxstock,rack,disp,ostock,subunit,subconv,batch,exp_date,mfg_date from item where ino='" + ino + "' ";
+                query = "select ino,barcode,iname,iname1,prate,taxp,mrp,rprice,wprice,cat,manu,hsn,udes,minstock,maxstock,rack,disp,ostock,subunit,subconv,batch,exp_date,mfg_date from item where ino='"
+                        + ino + "' ";
             } else {
-                query = "select ino,barcode,iname,iname1,prate,taxp,mrp,rprice,wprice,cat,manu,hsn,udes,minstock,maxstock,rack,disp,ostock,subunit,subconv,size,exp_date,mfg_date from item where ino='" + ino + "' ";
+                query = "select ino,barcode,iname,iname1,prate,taxp,mrp,rprice,wprice,cat,manu,hsn,udes,minstock,maxstock,rack,disp,ostock,subunit,subconv,size,exp_date,mfg_date from item where ino='"
+                        + ino + "' ";
             }
             ResultSet set1 = util.doQuery(query);
             boolean selva = false;
@@ -602,7 +617,8 @@ public final class item_master extends javax.swing.JInternalFrame {
 
     void delete(String ino) {
         try {
-            int choice = JOptionPane.showConfirmDialog(this, "Do you really want to delete this item?", "Confirm Deletion", JOptionPane.YES_NO_OPTION);
+            int choice = JOptionPane.showConfirmDialog(this, "Do you really want to delete this item?",
+                    "Confirm Deletion", JOptionPane.YES_NO_OPTION);
             if (choice != JOptionPane.YES_OPTION) {
                 return;
             }
@@ -638,14 +654,16 @@ public final class item_master extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Item deleted successfully.", "Success", JOptionPane.PLAIN_MESSAGE);
                 clear();
             } else {
-                JOptionPane.showMessageDialog(this, "No records deleted. Please check the item code.", "Info", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No records deleted. Please check the item code.", "Info",
+                        JOptionPane.WARNING_MESSAGE);
             }
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Invalid item code format.", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error deleting item: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error deleting item: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -663,13 +681,15 @@ public final class item_master extends javax.swing.JInternalFrame {
             try {
                 taxp = Integer.parseInt(h5.getText().trim());
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Tax % must be a valid number.", "Invalid Tax", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Tax % must be a valid number.", "Invalid Tax",
+                        JOptionPane.ERROR_MESSAGE);
                 h5.requestFocus();
                 return;
             }
 
             if (taxp != 0 && taxp != 5 && taxp != 12 && taxp != 18 && taxp != 28) {
-                JOptionPane.showMessageDialog(this, "<html><h4>Allowed: 0%, 5%, 12%, 18%, 28%</h4></html>", "Invalid Tax", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "<html><h4>Allowed: 0%, 5%, 12%, 18%, 28%</h4></html>",
+                        "Invalid Tax", JOptionPane.ERROR_MESSAGE);
                 h5.requestFocus();
                 return;
             }
@@ -677,10 +697,10 @@ public final class item_master extends javax.swing.JInternalFrame {
             if (batchField.getText().isBlank()) {
                 JOptionPane.showMessageDialog(
                         this,
-                        "<html><h4>" + (CompanySettingUtil.getInstance().isDisplayBatch() ? "Batch is required." : "Size is required.") + "</html>",
+                        "<html><h4>" + (CompanySettingUtil.getInstance().isDisplayBatch() ? "Batch is required."
+                                : "Size is required.") + "</html>",
                         "Invalid Tax",
-                        JOptionPane.ERROR_MESSAGE
-                );
+                        JOptionPane.ERROR_MESSAGE);
                 batchField.requestFocus();
                 return;
             }
@@ -689,12 +709,14 @@ public final class item_master extends javax.swing.JInternalFrame {
             try {
                 stock = Double.parseDouble(h19.getText().trim());
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Stock must be a valid number.", "Invalid Tax", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Stock must be a valid number.", "Invalid Tax",
+                        JOptionPane.ERROR_MESSAGE);
                 h5.requestFocus();
                 return;
             }
 
-            int confirm = JOptionPane.showConfirmDialog(this, "Do you want to update this item?", "Confirm Update", JOptionPane.YES_NO_OPTION);
+            int confirm = JOptionPane.showConfirmDialog(this, "Do you want to update this item?", "Confirm Update",
+                    JOptionPane.YES_NO_OPTION);
             if (confirm != JOptionPane.YES_OPTION) {
                 return;
             }
@@ -725,7 +747,8 @@ public final class item_master extends javax.swing.JInternalFrame {
             Double subconvValue = null;
             if (!subunit.isBlank()) {
                 if (subunit.equalsIgnoreCase(udes)) {
-                    JOptionPane.showMessageDialog(this, "Main Unit and Sub Unit cannot be the same.", "Invalid Unit", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Main Unit and Sub Unit cannot be the same.", "Invalid Unit",
+                            JOptionPane.ERROR_MESSAGE);
                     subUnitField.requestFocus();
                     return;
                 }
@@ -733,20 +756,23 @@ public final class item_master extends javax.swing.JInternalFrame {
                 try {
                     subconvValue = Double.parseDouble(subconv);
                 } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(this, "Invalid Sub Unit Conversion (e.g. 1, 0.5)", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Invalid Sub Unit Conversion (e.g. 1, 0.5)", "Invalid Input",
+                            JOptionPane.ERROR_MESSAGE);
                     subUnitValuePerUnit.requestFocus();
                     return;
                 }
             }
 
             if (exp != null && !isValidDate(exp, "yyyy-MM-dd")) {
-                JOptionPane.showMessageDialog(this, "Invalid expiry date. Please enter in yyyy/mm/dd format.", "Invalid Date", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Invalid expiry date. Please enter in yyyy/mm/dd format.",
+                        "Invalid Date", JOptionPane.ERROR_MESSAGE);
                 expDateField.requestFocus();
                 return;
             }
 
             if (mfg != null && !isValidDate(mfg, "yyyy-MM-dd")) {
-                JOptionPane.showMessageDialog(this, "Invalid manufacturing date. Please enter in yyyy/mm/dd format.", "Invalid Date", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Invalid manufacturing date. Please enter in yyyy/mm/dd format.",
+                        "Invalid Date", JOptionPane.ERROR_MESSAGE);
                 mfgDateField.requestFocus();
                 return;
             }
@@ -819,7 +845,8 @@ public final class item_master extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Updated Successfully", "Update", JOptionPane.INFORMATION_MESSAGE);
                 clear();
             } else {
-                JOptionPane.showMessageDialog(this, "Update failed. Please check input values.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Update failed. Please check input values.", "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
 
         } catch (Exception ex) {
@@ -871,7 +898,8 @@ public final class item_master extends javax.swing.JInternalFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         titlelablel = new javax.swing.JLabel();
@@ -1334,7 +1362,8 @@ public final class item_master extends javax.swing.JInternalFrame {
         getContentPane().add(jLabel22);
         jLabel22.setBounds(310, 320, 110, 30);
 
-        subUnitCombobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        subUnitCombobox.setModel(
+                new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         subUnitCombobox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 subUnitComboboxActionPerformed(evt);
@@ -1406,28 +1435,28 @@ public final class item_master extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closebuttonActionPerformed
+    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closebuttonActionPerformed
         this.dispose();
-    }//GEN-LAST:event_closebuttonActionPerformed
+    }// GEN-LAST:event_closebuttonActionPerformed
 
-    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savebuttonActionPerformed
+    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_savebuttonActionPerformed
 
         save(true);
-    }//GEN-LAST:event_savebuttonActionPerformed
+    }// GEN-LAST:event_savebuttonActionPerformed
 
-    private void deletebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletebuttonActionPerformed
+    private void deletebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_deletebuttonActionPerformed
         delete(h1.getText());
-    }//GEN-LAST:event_deletebuttonActionPerformed
+    }// GEN-LAST:event_deletebuttonActionPerformed
 
-    private void h1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h1FocusGained
+    private void h1FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h1FocusGained
         h2.requestFocus();
-    }//GEN-LAST:event_h1FocusGained
+    }// GEN-LAST:event_h1FocusGained
 
-    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbuttonActionPerformed
+    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_clearbuttonActionPerformed
         clear();
-    }//GEN-LAST:event_clearbuttonActionPerformed
+    }// GEN-LAST:event_clearbuttonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
 
         if (h17.getSelectedItem() == null || h17.getSelectedItem() == "") {
             JOptionPane.showMessageDialog(this, "Enter Barcode ?", "Barcode", JOptionPane.ERROR_MESSAGE);
@@ -1451,9 +1480,9 @@ public final class item_master extends javax.swing.JInternalFrame {
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }// GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton2ActionPerformed
 
         if (h2.getSelectedItem() == null || h2.getSelectedItem().toString().isBlank()) {
             JOptionPane.showMessageDialog(this, "Enter Item Name ?", "Item Name", JOptionPane.ERROR_MESSAGE);
@@ -1462,16 +1491,18 @@ public final class item_master extends javax.swing.JInternalFrame {
         }
         try {
             String selectedName = h2.getSelectedItem().toString();
-            String query = "SELECT ino, iname, barcode," + (CompanySettingUtil.getInstance().isDisplayBatch() ? "batch" : "size") + " FROM item WHERE iname = '" + selectedName + "'";
+            String query = "SELECT ino, iname, barcode,"
+                    + (CompanySettingUtil.getInstance().isDisplayBatch() ? "batch" : "size")
+                    + " FROM item WHERE iname = '" + selectedName + "'";
             ResultSet set = util.doQuery(query);
 
             List<Object[]> rows = new ArrayList<>();
             while (set.next()) {
-                rows.add(new Object[]{
-                    set.getString("ino"),
-                    set.getString("iname"),
-                    set.getString("barcode"),
-                    set.getString(CompanySettingUtil.getInstance().isDisplayBatch() ? "batch" : "size")
+                rows.add(new Object[] {
+                        set.getString("ino"),
+                        set.getString("iname"),
+                        set.getString("barcode"),
+                        set.getString(CompanySettingUtil.getInstance().isDisplayBatch() ? "batch" : "size")
                 });
             }
 
@@ -1488,7 +1519,8 @@ public final class item_master extends javax.swing.JInternalFrame {
                     view(selectedIno);
                 } else {
                     // User cancelled or no selection
-                    JOptionPane.showMessageDialog(this, "No item selected.", "Cancelled", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "No item selected.", "Cancelled",
+                            JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         } catch (ClassNotFoundException | SQLException e) {
@@ -1496,11 +1528,12 @@ public final class item_master extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Exception", JOptionPane.ERROR_MESSAGE);
         }
 
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }// GEN-LAST:event_jButton2ActionPerformed
 
     private String showSelectionDialog(List<Object[]> data) {
         // Column names for the table
-        String[] columns = {"Item No", "Item Name", "Barcode", CompanySettingUtil.getInstance().isDisplayBatch() ? "Batch" : "Size"};
+        String[] columns = { "Item No", "Item Name", "Barcode",
+                CompanySettingUtil.getInstance().isDisplayBatch() ? "Batch" : "Size" };
 
         // Convert List<Object[]> to Object[][]
         Object[][] tableData = data.toArray(new Object[0][]);
@@ -1511,7 +1544,8 @@ public final class item_master extends javax.swing.JInternalFrame {
         JScrollPane scrollPane = new JScrollPane(table);
 
         // Show dialog
-        int option = JOptionPane.showConfirmDialog(this, scrollPane, "Select Item", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        int option = JOptionPane.showConfirmDialog(this, scrollPane, "Select Item", JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE);
 
         if (option == JOptionPane.OK_OPTION) {
             int selectedRow = table.getSelectedRow();
@@ -1523,7 +1557,7 @@ public final class item_master extends javax.swing.JInternalFrame {
         return null; // no selection or cancelled
     }
 
-    private void h6FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h6FocusLost
+    private void h6FocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h6FocusLost
         if (h4.getText().equals("")) {
             h4.setText("" + 0);
         }
@@ -1556,9 +1590,9 @@ public final class item_master extends javax.swing.JInternalFrame {
         String wprice2 = String.format("%." + hmany + "f", wprice);
         h8.setText("" + wprice2);
 
-    }//GEN-LAST:event_h6FocusLost
+    }// GEN-LAST:event_h6FocusLost
 
-    private void h5FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h5FocusLost
+    private void h5FocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h5FocusLost
         if (h4.getText().equals("")) {
             h4.setText("" + 0);
         }
@@ -1571,13 +1605,13 @@ public final class item_master extends javax.swing.JInternalFrame {
         double basic = prate + taxamt;
         String basic2 = String.format("%." + hmany + "f", basic);
         h18.setText("Basic Cost: " + basic2 + "   (Ex.Tax)");
-    }//GEN-LAST:event_h5FocusLost
+    }// GEN-LAST:event_h5FocusLost
 
-    private void h18FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h18FocusGained
+    private void h18FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h18FocusGained
         h7.requestFocus();
-    }//GEN-LAST:event_h18FocusGained
+    }// GEN-LAST:event_h18FocusGained
 
-    private void h7FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h7FocusGained
+    private void h7FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h7FocusGained
         if (h7.getText().equals("")) {
             h7.setText("" + 0);
         }
@@ -1585,9 +1619,9 @@ public final class item_master extends javax.swing.JInternalFrame {
         if (rprice <= 0) {
             h7.setText("");
         }
-    }//GEN-LAST:event_h7FocusGained
+    }// GEN-LAST:event_h7FocusGained
 
-    private void h8FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h8FocusGained
+    private void h8FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h8FocusGained
         if (h8.getText().equals("")) {
             h8.setText("" + 0);
         }
@@ -1595,14 +1629,14 @@ public final class item_master extends javax.swing.JInternalFrame {
         if (rprice <= 0) {
             h8.setText("");
         }
-    }//GEN-LAST:event_h8FocusGained
+    }// GEN-LAST:event_h8FocusGained
 
-    private void updatebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatebuttonActionPerformed
+    private void updatebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_updatebuttonActionPerformed
         update();
 
-    }//GEN-LAST:event_updatebuttonActionPerformed
+    }// GEN-LAST:event_updatebuttonActionPerformed
 
-    private void nextbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextbuttonActionPerformed
+    private void nextbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_nextbuttonActionPerformed
         try {
 
             String ino = h1.getText();
@@ -1626,9 +1660,9 @@ public final class item_master extends javax.swing.JInternalFrame {
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_nextbuttonActionPerformed
+    }// GEN-LAST:event_nextbuttonActionPerformed
 
-    private void prebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prebuttonActionPerformed
+    private void prebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_prebuttonActionPerformed
 
         try {
             String ino = h1.getText();
@@ -1654,9 +1688,9 @@ public final class item_master extends javax.swing.JInternalFrame {
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             System.out.println(e.toString());
         }
-    }//GEN-LAST:event_prebuttonActionPerformed
+    }// GEN-LAST:event_prebuttonActionPerformed
 
-    private void exclusiveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exclusiveButtonActionPerformed
+    private void exclusiveButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_exclusiveButtonActionPerformed
         try {
             double basePrice = Double.parseDouble(h4.getText().trim());
             double taxPercent = Double.parseDouble(h5.getText().trim());
@@ -1667,16 +1701,16 @@ public final class item_master extends javax.swing.JInternalFrame {
             h18.setText("Invalid input");
         }
 
-    }//GEN-LAST:event_exclusiveButtonActionPerformed
+    }// GEN-LAST:event_exclusiveButtonActionPerformed
 
-    private void h12ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_h12ItemStateChanged
+    private void h12ItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_h12ItemStateChanged
         if (h12.getSelectedItem() == null || h12.getSelectedItem() == "" || h12.getSelectedItem().equals(".")) {
         } else {
             h20.setText(h12.getSelectedItem().toString());
         }
-    }//GEN-LAST:event_h12ItemStateChanged
+    }// GEN-LAST:event_h12ItemStateChanged
 
-    private void inclusiveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inclusiveButtonActionPerformed
+    private void inclusiveButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_inclusiveButtonActionPerformed
         try {
             double mrp = Double.parseDouble(h4.getText().trim());
             double taxPercent = Double.parseDouble(h5.getText().trim());
@@ -1686,9 +1720,9 @@ public final class item_master extends javax.swing.JInternalFrame {
         } catch (NumberFormatException ex) {
             h18.setText("Invalid input");
         }
-    }//GEN-LAST:event_inclusiveButtonActionPerformed
+    }// GEN-LAST:event_inclusiveButtonActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton4ActionPerformed
         if (h4.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Enter Purchase Price ?", "Invalid", JOptionPane.ERROR_MESSAGE);
             return;
@@ -1704,19 +1738,22 @@ public final class item_master extends javax.swing.JInternalFrame {
         double taxamt = prate - devide;
         prate = prate - taxamt;
         String prate1 = String.format("%." + hmany + "f", prate);
-        JOptionPane.showMessageDialog(this, "<html><b>Cost Price: " + prate1 + "\nPurchase Price - Inclusive of Tax '" + h5.getText() + "'%", "Inclusive of Tax", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(this,
+                "<html><b>Cost Price: " + prate1 + "\nPurchase Price - Inclusive of Tax '" + h5.getText() + "'%",
+                "Inclusive of Tax", JOptionPane.PLAIN_MESSAGE);
 
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }// GEN-LAST:event_jButton4ActionPerformed
 
-    private void barcodeGenerateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barcodeGenerateButtonActionPerformed
+    private void barcodeGenerateButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_barcodeGenerateButtonActionPerformed
         // Get barcode
         String barcode = (h17.getSelectedItem() != null) ? h17.getSelectedItem().toString().trim() : "";
         if (barcode.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter a valid Barcode.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please enter a valid Barcode.", "Input Error",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-// Get item number
+        // Get item number
         String inoText = h1.getText();
         if (inoText == null || inoText.trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please save Item first.", "Input Error", JOptionPane.ERROR_MESSAGE);
@@ -1726,18 +1763,20 @@ public final class item_master extends javax.swing.JInternalFrame {
         try {
             ino = Integer.parseInt(inoText.trim());
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Item Number must be a valid integer.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Item Number must be a valid integer.", "Input Error",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-// Get item name
+        // Get item name
         String iname = (h2.getSelectedItem() != null) ? h2.getSelectedItem().toString().trim() : "";
         if (iname.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please select a valid Item Name.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please select a valid Item Name.", "Input Error",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-// Get MRP
+        // Get MRP
         String mrpText = h6.getText();
         if (mrpText == null || mrpText.trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter the MRP.", "Input Error", JOptionPane.ERROR_MESSAGE);
@@ -1747,50 +1786,55 @@ public final class item_master extends javax.swing.JInternalFrame {
         try {
             mrp = Double.parseDouble(mrpText.trim());
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "MRP must be a valid number.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "MRP must be a valid number.", "Input Error",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-// Get retail price
+        // Get retail price
         String rpriceText = h7.getText();
         if (rpriceText == null || rpriceText.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter the Retail Price.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please enter the Retail Price.", "Input Error",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
         double rprice;
         try {
             rprice = Double.parseDouble(rpriceText.trim());
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Retail Price must be a valid number.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Retail Price must be a valid number.", "Input Error",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-// Get wholesale price
+        // Get wholesale price
         String wpriceText = h8.getText();
         if (wpriceText == null || wpriceText.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter the Wholesale Price.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please enter the Wholesale Price.", "Input Error",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
         double wprice;
         try {
             wprice = Double.parseDouble(wpriceText.trim());
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Wholesale Price must be a valid number.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Wholesale Price must be a valid number.", "Input Error",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-// Get alternate name
+        // Get alternate name
         String iname1 = h3.getText();
         if (iname1 == null || iname1.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter the Print Name.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please enter the Print Name.", "Input Error",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         String query = String.format(
                 "INSERT INTO barcode (barcode, ino, iname, mrp, retail_price, wholesale_price, iname1) "
-                + "VALUES ('%s', %d, '%s', '%s', '%s', '%s', '%s')",
-                barcode, ino, iname, mrp, rprice, wprice, iname1
-        );
+                        + "VALUES ('%s', %d, '%s', '%s', '%s', '%s', '%s')",
+                barcode, ino, iname, mrp, rprice, wprice, iname1);
         try {
             int count = util.doManipulation(query);
             if (count > 0) {
@@ -1811,33 +1855,34 @@ public final class item_master extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Check Entries, Try Again...");
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "An error occurred while saving the barcode.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "An error occurred while saving the barcode.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
 
-    }//GEN-LAST:event_barcodeGenerateButtonActionPerformed
+    }// GEN-LAST:event_barcodeGenerateButtonActionPerformed
 
-    private void h12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h12ActionPerformed
+    private void h12ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h12ActionPerformed
         Object selectedUnit = h12.getSelectedItem();
         if (selectedUnit != null) {
             mainUnitField.setText(selectedUnit.toString());
         }
-    }//GEN-LAST:event_h12ActionPerformed
+    }// GEN-LAST:event_h12ActionPerformed
 
-    private void h20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h20ActionPerformed
+    private void h20ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h20ActionPerformed
         String selectedUnit = h20.getText();
         mainUnitField.setText(selectedUnit.toString());
-    }//GEN-LAST:event_h20ActionPerformed
+    }// GEN-LAST:event_h20ActionPerformed
 
-    private void subUnitComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subUnitComboboxActionPerformed
+    private void subUnitComboboxActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_subUnitComboboxActionPerformed
         Object selectedSubunit = subUnitCombobox.getSelectedItem();
         if (selectedSubunit != null) {
             {
                 subUnitField.setText(selectedSubunit.toString());
             }
         }
-    }//GEN-LAST:event_subUnitComboboxActionPerformed
+    }// GEN-LAST:event_subUnitComboboxActionPerformed
 
-    private void mfgJcalendarButtonPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_mfgJcalendarButtonPropertyChange
+    private void mfgJcalendarButtonPropertyChange(java.beans.PropertyChangeEvent evt) {// GEN-FIRST:event_mfgJcalendarButtonPropertyChange
         try {
             if (evt.getNewValue() instanceof Date) {
                 String ses = evt.getNewValue().toString();
@@ -1848,9 +1893,9 @@ public final class item_master extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_mfgJcalendarButtonPropertyChange
+    }// GEN-LAST:event_mfgJcalendarButtonPropertyChange
 
-    private void expJcalendarButtonPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_expJcalendarButtonPropertyChange
+    private void expJcalendarButtonPropertyChange(java.beans.PropertyChangeEvent evt) {// GEN-FIRST:event_expJcalendarButtonPropertyChange
         try {
             if (evt.getNewValue() instanceof Date) {
                 String ses = evt.getNewValue().toString();
@@ -1861,12 +1906,12 @@ public final class item_master extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_expJcalendarButtonPropertyChange
+    }// GEN-LAST:event_expJcalendarButtonPropertyChange
 
-    private void copyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyButtonActionPerformed
+    private void copyButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_copyButtonActionPerformed
         h17.setSelectedItem(null);
         save(false);
-    }//GEN-LAST:event_copyButtonActionPerformed
+    }// GEN-LAST:event_copyButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton barcodeGenerateButton;

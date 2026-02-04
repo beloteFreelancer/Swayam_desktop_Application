@@ -20,7 +20,7 @@ import menupack.sample2;
 /**
  *
  * @author K.SELVAKUMAR, copyrights K.SELVAKUMAR, +91 99427 32229,
- * mysoft.java@gmail.com
+ *         mysoft.java@gmail.com
  */
 public final class stock_alter extends javax.swing.JInternalFrame {
 
@@ -41,8 +41,11 @@ public final class stock_alter extends javax.swing.JInternalFrame {
 
         setTitle("Stock Alter");
         this.setSize(1021, 648);
-        ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("images/icon.png"));
-        this.setFrameIcon(icon);
+        java.net.URL iconUrl = ClassLoader.getSystemResource("/images/icon.png");
+        if (iconUrl != null) {
+            ImageIcon icon = new ImageIcon(iconUrl);
+            this.setFrameIcon(icon);
+        }
         Date d = new Date();
         SimpleDateFormat g = new SimpleDateFormat("dd/MM/yyyy");
         h2.setText(g.format(d));
@@ -142,7 +145,8 @@ public final class stock_alter extends javax.swing.JInternalFrame {
                 stock_type = "old_stock";
             }
             String cat = ".", mrp = "" + 0, rprice = "" + 0, wprice = "" + 0, prate = "" + 0, barcode = ".";
-            query = "select cat,mrp,rprice,wprice,prate,barcode from item where ino='" + h4.getText() + "' order by ino limit 1";
+            query = "select cat,mrp,rprice,wprice,prate,barcode from item where ino='" + h4.getText()
+                    + "' order by ino limit 1";
             r = util.doQuery(query);
             while (r.next()) {
                 cat = r.getString(1);
@@ -152,7 +156,8 @@ public final class stock_alter extends javax.swing.JInternalFrame {
                 prate = r.getString(5);
                 barcode = r.getString(6);
             }
-            s2.addRow(new Object[]{h4.getText(), h5.getText(), h6.getText(), entry, stock_type, cat, barcode, prate, mrp, rprice, wprice});
+            s2.addRow(new Object[] { h4.getText(), h5.getText(), h6.getText(), entry, stock_type, cat, barcode, prate,
+                    mrp, rprice, wprice });
             clear_filds();
             calculate();
             h4.requestFocus();
@@ -198,14 +203,17 @@ public final class stock_alter extends javax.swing.JInternalFrame {
     void save() {
         try {
             if (s2.getRowCount() <= 0) {
-                JOptionPane.showMessageDialog(this, "No Records Were Found to Save!", "No Records", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No Records Were Found to Save!", "No Records",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (utype.equalsIgnoreCase("User")) {
-                JOptionPane.showMessageDialog(this, "Login as 'Administrator' to Alter!", "Permission Restricted", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Login as 'Administrator' to Alter!", "Permission Restricted",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            int aa = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Save ?</h1></html>", "Are You Sure", JOptionPane.YES_NO_OPTION);
+            int aa = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Save ?</h1></html>", "Are You Sure",
+                    JOptionPane.YES_NO_OPTION);
             if (aa == JOptionPane.NO_OPTION) {
                 return;
             }
@@ -237,20 +245,27 @@ public final class stock_alter extends javax.swing.JInternalFrame {
                 String mrp = jTable1.getValueAt(i, 8).toString();
                 String rprice = jTable1.getValueAt(i, 9).toString();
                 String wprice = jTable1.getValueAt(i, 10).toString();
-                query_list.add("insert into stock_alter values ('" + sno + "','" + date + "','" + type + "','" + ino + "','" + iname + "','" + quan + "','" + entry + "','" + stock_type + "','" + items + "','" + quans + "','" + username + "','" + last + "')");
+                query_list.add("insert into stock_alter values ('" + sno + "','" + date + "','" + type + "','" + ino
+                        + "','" + iname + "','" + quan + "','" + entry + "','" + stock_type + "','" + items + "','"
+                        + quans + "','" + username + "','" + last + "')");
 
                 if (stock_type.equalsIgnoreCase("new_stock") && type.equalsIgnoreCase("Add")) {
-                    query_list.add("insert into stock values ('" + barcode + "','" + ino + "','" + iname + "','" + mrp + "','" + rprice + "','" + wprice + "','" + prate + "','" + quan + "','" + cat + "','" + entry + "')");
-                }//new stock ends here
+                    query_list.add("insert into stock values ('" + barcode + "','" + ino + "','" + iname + "','" + mrp
+                            + "','" + rprice + "','" + wprice + "','" + prate + "','" + quan + "','" + cat + "','"
+                            + entry + "')");
+                } // new stock ends here
                 else if (stock_type.equalsIgnoreCase("old_stock") && type.equalsIgnoreCase("Add")) {
-                    query_list.add("update stock set quan=quan+" + quan + " where ino='" + ino + "' and iname='" + iname + "' and entry='" + entry + "' ");
+                    query_list.add("update stock set quan=quan+" + quan + " where ino='" + ino + "' and iname='" + iname
+                            + "' and entry='" + entry + "' ");
                 } else if (stock_type.equalsIgnoreCase("old_stock") && type.equalsIgnoreCase("Less")) {
-                    query_list.add("update stock set quan=quan-" + quan + " where ino='" + ino + "' and iname='" + iname + "' and entry='" + entry + "' ");
+                    query_list.add("update stock set quan=quan-" + quan + " where ino='" + ino + "' and iname='" + iname
+                            + "' and entry='" + entry + "' ");
                 }
             }
             int a = util.doManipulation_Batch(query_list);
             if (a > 0) {
-                JOptionPane.showMessageDialog(this, "<html><h1>Saved Successfully</h1></html>", "Saved", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(this, "<html><h1>Saved Successfully</h1></html>", "Saved",
+                        JOptionPane.PLAIN_MESSAGE);
                 form_clear();
             } else {
                 JOptionPane.showMessageDialog(this, "Try Again...", "Oops", JOptionPane.ERROR_MESSAGE);
@@ -279,7 +294,8 @@ public final class stock_alter extends javax.swing.JInternalFrame {
                     s2.getDataVector().removeAllElements();
                     s2.fireTableDataChanged();
                 }
-                query = "select sno,date_format(dat,'%d/%m/%Y'),etype,items,quans from stock_alter where sno='" + sno + "'";
+                query = "select sno,date_format(dat,'%d/%m/%Y'),etype,items,quans from stock_alter where sno='" + sno
+                        + "'";
                 set1 = util.doQuery(query);
                 while (set1.next()) {
                     h1.setText(set1.getString(1));
@@ -291,9 +307,10 @@ public final class stock_alter extends javax.swing.JInternalFrame {
                 query = "select ino,iname,quan,entry,stock_type from stock_alter where sno='" + sno + "'";
                 set1 = util.doQuery(query);
                 while (set1.next()) {
-                    s2.addRow(new Object[]{set1.getString(1), set1.getString(2), set1.getString(3), set1.getString(4), set1.getString(5)});
+                    s2.addRow(new Object[] { set1.getString(1), set1.getString(2), set1.getString(3), set1.getString(4),
+                            set1.getString(5) });
                 }
-            }//if selva true ends
+            } // if selva true ends
         } catch (HeadlessException | ClassNotFoundException | NumberFormatException | SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -321,7 +338,8 @@ public final class stock_alter extends javax.swing.JInternalFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         iname_list = new javax.swing.JDialog();
@@ -364,16 +382,15 @@ public final class stock_alter extends javax.swing.JInternalFrame {
 
         jTable3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jTable3.setRowHeight(25);
         jTable3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -411,16 +428,15 @@ public final class stock_alter extends javax.swing.JInternalFrame {
 
         jTable1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jTable1.setRowHeight(25);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -609,37 +625,37 @@ public final class stock_alter extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTable1MouseClicked
 
-    }//GEN-LAST:event_jTable1MouseClicked
+    }// GEN-LAST:event_jTable1MouseClicked
 
-    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbuttonActionPerformed
+    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_clearbuttonActionPerformed
         form_clear();
 
-    }//GEN-LAST:event_clearbuttonActionPerformed
+    }// GEN-LAST:event_clearbuttonActionPerformed
 
-    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closebuttonActionPerformed
+    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closebuttonActionPerformed
         this.dispose();
-    }//GEN-LAST:event_closebuttonActionPerformed
+    }// GEN-LAST:event_closebuttonActionPerformed
 
-    private void jTable1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTable1FocusGained
+    private void jTable1FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jTable1FocusGained
 
-    }//GEN-LAST:event_jTable1FocusGained
+    }// GEN-LAST:event_jTable1FocusGained
 
-    private void viewbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewbuttonActionPerformed
+    private void viewbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_viewbuttonActionPerformed
         String grn = JOptionPane.showInputDialog(this, "Enter Entry No ?", "EntryNo", JOptionPane.PLAIN_MESSAGE);
         if ("".equals(grn) || grn == null) {
             JOptionPane.showMessageDialog(this, "Invalid Entry No!", "Invalid", JOptionPane.ERROR_MESSAGE);
             return;
         }
         view(grn);
-    }//GEN-LAST:event_viewbuttonActionPerformed
+    }// GEN-LAST:event_viewbuttonActionPerformed
 
-    private void h1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h1FocusGained
+    private void h1FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h1FocusGained
         h3.requestFocus();
-    }//GEN-LAST:event_h1FocusGained
+    }// GEN-LAST:event_h1FocusGained
 
-    private void h4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h4ActionPerformed
+    private void h4ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h4ActionPerformed
         if (h4.getText().equals("") && s2.getRowCount() > 0) {
             savebutton.requestFocus();
         } else {
@@ -648,9 +664,9 @@ public final class stock_alter extends javax.swing.JInternalFrame {
             }
             h6.requestFocus();
         }
-    }//GEN-LAST:event_h4ActionPerformed
+    }// GEN-LAST:event_h4ActionPerformed
 
-    private void h4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_h4KeyPressed
+    private void h4KeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_h4KeyPressed
 
         iname_list.requestFocus();
         jTable3.requestFocus();
@@ -670,10 +686,11 @@ public final class stock_alter extends javax.swing.JInternalFrame {
                     iname_list.setLocation(l.x, l.y + jLabel17.getHeight());
                     iname_list.setSize(840, 432);
                     iname_list.setVisible(true);
-                    String query = "select ino,barcode,iname,cat from item where iname like '" + h4.getText() + "%' order by ino limit 500";
+                    String query = "select ino,barcode,iname,cat from item where iname like '" + h4.getText()
+                            + "%' order by ino limit 500";
                     r = util.doQuery(query);
                     while (r.next()) {
-                        s4.addRow(new Object[]{r.getString(1), r.getString(2), r.getString(3), r.getString(4)});
+                        s4.addRow(new Object[] { r.getString(1), r.getString(2), r.getString(3), r.getString(4) });
                     }
                 } catch (ClassNotFoundException | SQLException e) {
                     System.out.println(e.getMessage());
@@ -683,26 +700,26 @@ public final class stock_alter extends javax.swing.JInternalFrame {
                 break;
         }
 
-    }//GEN-LAST:event_h4KeyPressed
+    }// GEN-LAST:event_h4KeyPressed
 
-    private void h6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h6ActionPerformed
+    private void h6ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h6ActionPerformed
         add_item();
-    }//GEN-LAST:event_h6ActionPerformed
+    }// GEN-LAST:event_h6ActionPerformed
 
-    private void h6KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_h6KeyPressed
+    private void h6KeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_h6KeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_h6KeyPressed
+    }// GEN-LAST:event_h6KeyPressed
 
-    private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
+    private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTable3MouseClicked
         if (jTable3.getRowCount() > 0) {
             h4.setText(jTable3.getValueAt(jTable3.getSelectedRow(), 0).toString());
         }
         get_item_details_using_item_no();
         h6.requestFocus();
         iname_list.dispose();
-    }//GEN-LAST:event_jTable3MouseClicked
+    }// GEN-LAST:event_jTable3MouseClicked
 
-    private void jTable3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable3KeyPressed
+    private void jTable3KeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jTable3KeyPressed
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (jTable3.getRowCount() > 0) {
@@ -715,21 +732,21 @@ public final class stock_alter extends javax.swing.JInternalFrame {
             iname_list.dispose();
             h4.requestFocus();
         }
-    }//GEN-LAST:event_jTable3KeyPressed
+    }// GEN-LAST:event_jTable3KeyPressed
 
-    private void jScrollPane3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jScrollPane3FocusLost
+    private void jScrollPane3FocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jScrollPane3FocusLost
         iname_list.dispose();
-    }//GEN-LAST:event_jScrollPane3FocusLost
+    }// GEN-LAST:event_jScrollPane3FocusLost
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton4ActionPerformed
         iname_list.dispose();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }// GEN-LAST:event_jButton4ActionPerformed
 
-    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savebuttonActionPerformed
+    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_savebuttonActionPerformed
         save();
-    }//GEN-LAST:event_savebuttonActionPerformed
+    }// GEN-LAST:event_savebuttonActionPerformed
 
-    private void removebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removebuttonActionPerformed
+    private void removebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_removebuttonActionPerformed
         if (s2.getRowCount() <= 0) {
             JOptionPane.showMessageDialog(this, "No Records Were Found!", "No Records", JOptionPane.ERROR_MESSAGE);
             return;
@@ -741,13 +758,13 @@ public final class stock_alter extends javax.swing.JInternalFrame {
         }
         calculate();
 
-    }//GEN-LAST:event_removebuttonActionPerformed
+    }// GEN-LAST:event_removebuttonActionPerformed
 
-    private void h3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_h3KeyPressed
+    private void h3KeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_h3KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             h4.requestFocus();
         }
-    }//GEN-LAST:event_h3KeyPressed
+    }// GEN-LAST:event_h3KeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton clearbutton;

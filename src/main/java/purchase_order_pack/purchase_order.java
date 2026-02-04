@@ -22,7 +22,7 @@ import menupack.menu_form;
 /**
  *
  * @author K.SELVAKUMAR, copyrights K.SELVAKUMAR, +91 99427 32229,
- * mysoft.java@gmail.com
+ *         mysoft.java@gmail.com
  */
 public final class purchase_order extends javax.swing.JInternalFrame {
 
@@ -52,6 +52,7 @@ public final class purchase_order extends javax.swing.JInternalFrame {
             return column == 2 || column == 5 || column == 6;
         }
     }
+
     sample2 s2 = new sample2();
     sample2 s3 = new sample2();
     sample2 s4 = new sample2();
@@ -158,11 +159,13 @@ public final class purchase_order extends javax.swing.JInternalFrame {
     void add_items_using_supplier() {
         try {
             if (h3.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "Enter Supplier Name ?", "Supplier Name", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Enter Supplier Name ?", "Supplier Name",
+                        JOptionPane.ERROR_MESSAGE);
                 h3.requestFocus();
                 return;
             }
-            String query = "select distinct a.ino,a.iname,mrp,minstock,sum(quan),prate,taxp from vendor_link a,stock b where cname='" + h3.getText() + "' and a.ino=b.ino and a.iname=b.iname group by a.ino order by a.ino";
+            String query = "select distinct a.ino,a.iname,mrp,minstock,sum(quan),prate,taxp from vendor_link a,stock b where cname='"
+                    + h3.getText() + "' and a.ino=b.ino and a.iname=b.iname group by a.ino order by a.ino";
             ResultSet r = util.doQuery(query);
             while (r.next()) {
                 int taxp = r.getInt(7);
@@ -175,7 +178,8 @@ public final class purchase_order extends javax.swing.JInternalFrame {
                     prate = prate - taxamt;
                 }
                 String prate2 = String.format("%." + hmany + "f", prate);
-                s2.addRow(new Object[]{r.getString(1), r.getString(2), r.getString(3), r.getString(4), r.getString(5), "" + 0, "" + prate2, "", "" + taxp, "" + 0, "" + 0});
+                s2.addRow(new Object[] { r.getString(1), r.getString(2), r.getString(3), r.getString(4), r.getString(5),
+                        "" + 0, "" + prate2, "", "" + taxp, "" + 0, "" + 0 });
             }
             apply_all_changes();
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
@@ -244,7 +248,7 @@ public final class purchase_order extends javax.swing.JInternalFrame {
                 total = amount;
             }
 
-            s2.addRow(new Object[]{ino, iname, mrp, minstock, stock, quan, prate, amount, taxp, taxamt, total});
+            s2.addRow(new Object[] { ino, iname, mrp, minstock, stock, quan, prate, amount, taxp, taxamt, total });
             apply_all_changes();
             fields_clear();
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
@@ -288,7 +292,7 @@ public final class purchase_order extends javax.swing.JInternalFrame {
                 nsub = nsub + amount;
                 ntax = ntax + taxamt;
                 items = items + 1;
-            }//table row counts ends
+            } // table row counts ends
             String nsub2 = String.format("%." + hmany + "f", nsub);
             String ntax2 = String.format("%." + hmany + "f", ntax);
             h17.setText("" + items);
@@ -307,7 +311,7 @@ public final class purchase_order extends javax.swing.JInternalFrame {
             double taxamt = Double.parseDouble(h20.getText());
             double gt = sub + taxamt;
             String grant = String.format("%." + hmany + "f", gt);
-            //round off starts
+            // round off starts
             String[] grant1 = grant.split("\\.");
             String grant2 = grant1[0];
             String grant3 = grant1[1];
@@ -338,7 +342,7 @@ public final class purchase_order extends javax.swing.JInternalFrame {
                 round = -round;
             }
             String round2 = String.format("%." + hmany + "f", round);
-            //round off ends
+            // round off ends
             h21.setText("" + round2);
             netl.setText(rup + ".00");
             h22.setText(rup + ".00");
@@ -363,11 +367,13 @@ public final class purchase_order extends javax.swing.JInternalFrame {
     void save() {
         try {
             if (s2.getRowCount() <= 0) {
-                JOptionPane.showMessageDialog(this, "No Records Were Found to Save!", "No Records", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No Records Were Found to Save!", "No Records",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (h3.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "Enter Supplier Name ?", "Supplier Name", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Enter Supplier Name ?", "Supplier Name",
+                        JOptionPane.ERROR_MESSAGE);
                 h3.requestFocus();
                 return;
             }
@@ -396,7 +402,8 @@ public final class purchase_order extends javax.swing.JInternalFrame {
                 selva = true;
             }
             if (selva == true) {
-                JOptionPane.showMessageDialog(this, "Entry Already Exist!\nUse 'Alter' Option to Alter...", "Already Exist", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Entry Already Exist!\nUse 'Alter' Option to Alter...",
+                        "Already Exist", JOptionPane.ERROR_MESSAGE);
                 h3.requestFocus();
                 return;
             }
@@ -408,10 +415,12 @@ public final class purchase_order extends javax.swing.JInternalFrame {
                 }
             }
             if (quan_check == true) {
-                JOptionPane.showMessageDialog(this, "Invalid Qty, Check Entries...", "Invalid Qty", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Invalid Qty, Check Entries...", "Invalid Qty",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            int aa = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Save ?</h1></html>", "Are You Sure", JOptionPane.YES_NO_OPTION);
+            int aa = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Save ?</h1></html>", "Are You Sure",
+                    JOptionPane.YES_NO_OPTION);
             if (aa == JOptionPane.NO_OPTION) {
                 return;
             }
@@ -440,7 +449,9 @@ public final class purchase_order extends javax.swing.JInternalFrame {
                 String taxamt1 = jTable1.getValueAt(i, 9).toString();
                 String total = jTable1.getValueAt(i, 10).toString();
 
-                query_batch.add("insert into po_items values ('" + grn + "','" + date + "','" + cname + "','" + ino + "','" + iname + "','" + mrp + "','" + minstock + "','" + stock + "','" + quan + "','" + price + "','" + amount + "','" + taxp + "','" + taxamt1 + "','" + total + "','" + ttype + "')");
+                query_batch.add("insert into po_items values ('" + grn + "','" + date + "','" + cname + "','" + ino
+                        + "','" + iname + "','" + mrp + "','" + minstock + "','" + stock + "','" + quan + "','" + price
+                        + "','" + amount + "','" + taxp + "','" + taxamt1 + "','" + total + "','" + ttype + "')");
             }
 
             String items = h17.getText();
@@ -456,14 +467,19 @@ public final class purchase_order extends javax.swing.JInternalFrame {
             String term2 = h24.getText();
             String term3 = h25.getText();
             String term4 = h26.getText();
-            query_batch.add("insert into po_entry values ('" + grn + "','" + date + "','" + cname + "','" + items + "','" + quans + "','" + sub + "','" + taxamt + "','" + round + "','" + net + "','" + status + "','" + pstatus + "','" + username + "','" + last + "','" + ttype + "','" + rdate + "','" + term1 + "','" + term2 + "','" + term3 + "','" + term4 + "')");
+            query_batch.add("insert into po_entry values ('" + grn + "','" + date + "','" + cname + "','" + items
+                    + "','" + quans + "','" + sub + "','" + taxamt + "','" + round + "','" + net + "','" + status
+                    + "','" + pstatus + "','" + username + "','" + last + "','" + ttype + "','" + rdate + "','" + term1
+                    + "','" + term2 + "','" + term3 + "','" + term4 + "')");
 
             int count = util.doManipulation_Batch(query_batch);
             if (count > 0) {
-                JOptionPane.showMessageDialog(this, "<html><h1>PO Number: " + h1.getText() + "</h1></html>", "Saved Successfully", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(this, "<html><h1>PO Number: " + h1.getText() + "</h1></html>",
+                        "Saved Successfully", JOptionPane.PLAIN_MESSAGE);
                 form_clear();
             } else {
-                JOptionPane.showMessageDialog(this, "Check Product Entries and then Try Again!", "Invalid Products", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Check Product Entries and then Try Again!", "Invalid Products",
+                        JOptionPane.ERROR_MESSAGE);
             }
         } catch (HeadlessException | ClassNotFoundException | NumberFormatException | SQLException | ParseException e) {
             System.out.println(e.getMessage());
@@ -523,7 +539,8 @@ public final class purchase_order extends javax.swing.JInternalFrame {
                     s2.fireTableDataChanged();
                 }
 
-                query = "select grn,date_format(dat,'%d/%m/%Y'),cname,items,quans,sub,taxamt,round,net,ttype,term1,term2,term3,term4 from po_entry where grn='" + grn + "'";
+                query = "select grn,date_format(dat,'%d/%m/%Y'),cname,items,quans,sub,taxamt,round,net,ttype,term1,term2,term3,term4 from po_entry where grn='"
+                        + grn + "'";
                 set1 = util.doQuery(query);
                 while (set1.next()) {
                     h1.setText(set1.getString(1));
@@ -546,7 +563,8 @@ public final class purchase_order extends javax.swing.JInternalFrame {
                     h25.setText(set1.getString(13));
                     h26.setText(set1.getString(14));
                 }
-                query = "select ino,iname,mrp,minstock,stock,quan,price,amount,taxp,taxamt,total from po_items where grn='" + grn + "'";
+                query = "select ino,iname,mrp,minstock,stock,quan,price,amount,taxp,taxamt,total from po_items where grn='"
+                        + grn + "'";
                 set1 = util.doQuery(query);
                 while (set1.next()) {
                     String mrp2 = String.format("%." + hmany + "f", set1.getDouble(3));
@@ -554,9 +572,11 @@ public final class purchase_order extends javax.swing.JInternalFrame {
                     String amount2 = String.format("%." + hmany + "f", set1.getDouble(8));
                     String taxamt2 = String.format("%." + hmany + "f", set1.getDouble(10));
                     String total2 = String.format("%." + hmany + "f", set1.getDouble(11));
-                    s2.addRow(new Object[]{set1.getString(1), set1.getString(2), mrp2, set1.getString(4), set1.getString(5), set1.getString(6), price2, amount2, set1.getString(9), taxamt2, total2});
+                    s2.addRow(new Object[] { set1.getString(1), set1.getString(2), mrp2, set1.getString(4),
+                            set1.getString(5), set1.getString(6), price2, amount2, set1.getString(9), taxamt2,
+                            total2 });
                 }
-            }//if selva true ends
+            } // if selva true ends
         } catch (HeadlessException | ClassNotFoundException | NumberFormatException | SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -565,18 +585,22 @@ public final class purchase_order extends javax.swing.JInternalFrame {
     void delete() {
         try {
             if (s2.getRowCount() <= 0) {
-                JOptionPane.showMessageDialog(this, "No Records Were Found to Delete!", "No Records", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No Records Were Found to Delete!", "No Records",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (selvagates == false) {
-                JOptionPane.showMessageDialog(this, "User 'View' Option Before Delete!", "User 'View' Option", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "User 'View' Option Before Delete!", "User 'View' Option",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (user_type.equalsIgnoreCase("User")) {
-                JOptionPane.showMessageDialog(this, "Login as 'Administrator' to Delete!", "Permission Restricted", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Login as 'Administrator' to Delete!", "Permission Restricted",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            int as = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Delete ?</h1></html>", "Are You Sure", JOptionPane.YES_NO_OPTION);
+            int as = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Delete ?</h1></html>", "Are You Sure",
+                    JOptionPane.YES_NO_OPTION);
             if (as == JOptionPane.NO_OPTION) {
                 return;
             }
@@ -586,10 +610,12 @@ public final class purchase_order extends javax.swing.JInternalFrame {
             query_batch.add("delete from po_items where grn='" + grn + "'");
             int count = util.doManipulation_Batch(query_batch);
             if (count > 0) {
-                JOptionPane.showMessageDialog(this, "<html><h1>Deleted Successfully</h1></html>", "Deleted", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(this, "<html><h1>Deleted Successfully</h1></html>", "Deleted",
+                        JOptionPane.PLAIN_MESSAGE);
                 form_clear();
             } else {
-                JOptionPane.showMessageDialog(this, "Check Entries and then Try Again!", "Invalid", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Check Entries and then Try Again!", "Invalid",
+                        JOptionPane.ERROR_MESSAGE);
             }
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
@@ -599,19 +625,23 @@ public final class purchase_order extends javax.swing.JInternalFrame {
     void alter_po_entry() {
         try {
             if (s2.getRowCount() <= 0) {
-                JOptionPane.showMessageDialog(this, "No Records Were Found to Alter!", "No Records", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No Records Were Found to Alter!", "No Records",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (selvagates == false) {
-                JOptionPane.showMessageDialog(this, "User 'View' Option Before Alter!", "User 'View' Option", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "User 'View' Option Before Alter!", "User 'View' Option",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (user_type.equalsIgnoreCase("User")) {
-                JOptionPane.showMessageDialog(this, "Login as 'Administrator' to Alter!", "Permission Restricted", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Login as 'Administrator' to Alter!", "Permission Restricted",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            int as = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Alter ?</h1></html>", "Are You Sure", JOptionPane.YES_NO_OPTION);
+            int as = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Alter ?</h1></html>", "Are You Sure",
+                    JOptionPane.YES_NO_OPTION);
             if (as == JOptionPane.NO_OPTION) {
                 return;
             }
@@ -624,7 +654,8 @@ public final class purchase_order extends javax.swing.JInternalFrame {
             if (count > 0) {
                 save();
             } else {
-                JOptionPane.showMessageDialog(this, "Check Entries and then Try Again!", "Invalid", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Check Entries and then Try Again!", "Invalid",
+                        JOptionPane.ERROR_MESSAGE);
             }
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
@@ -670,8 +701,11 @@ public final class purchase_order extends javax.swing.JInternalFrame {
         initComponents();
         this.setTitle("Purchase Register");
         this.setSize(1258, 650);
-        ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("images/icon.png"));
-        this.setFrameIcon(icon);
+        java.net.URL iconUrl = ClassLoader.getSystemResource("/images/icon.png");
+        if (iconUrl != null) {
+            ImageIcon icon = new ImageIcon(iconUrl);
+            this.setFrameIcon(icon);
+        }
         this.util = util;
         button_short();
         load_items_table();
@@ -684,7 +718,8 @@ public final class purchase_order extends javax.swing.JInternalFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         cname_list = new javax.swing.JDialog();
@@ -757,16 +792,15 @@ public final class purchase_order extends javax.swing.JInternalFrame {
 
         jTable2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jTable2.setRowHeight(25);
         jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -805,16 +839,15 @@ public final class purchase_order extends javax.swing.JInternalFrame {
 
         jTable3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jTable3.setRowHeight(25);
         jTable3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -950,16 +983,15 @@ public final class purchase_order extends javax.swing.JInternalFrame {
 
         jTable1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jTable1.setRowHeight(25);
         jTable1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -1184,7 +1216,8 @@ public final class purchase_order extends javax.swing.JInternalFrame {
         jLabel4.setBounds(490, 70, 80, 30);
 
         ttypel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        ttypel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Exclusive of Tax", "Inclusive of Tax", "No Tax" }));
+        ttypel.setModel(new javax.swing.DefaultComboBoxModel<>(
+                new String[] { "Exclusive of Tax", "Inclusive of Tax", "No Tax" }));
         getContentPane().add(ttypel);
         ttypel.setBounds(560, 70, 230, 30);
 
@@ -1237,17 +1270,17 @@ public final class purchase_order extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closebuttonActionPerformed
+    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closebuttonActionPerformed
         this.dispose();
         // TODO add your handling code here:
-    }//GEN-LAST:event_closebuttonActionPerformed
+    }// GEN-LAST:event_closebuttonActionPerformed
 
-    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savebuttonActionPerformed
+    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_savebuttonActionPerformed
         save();
 
-    }//GEN-LAST:event_savebuttonActionPerformed
+    }// GEN-LAST:event_savebuttonActionPerformed
 
-    private void viewbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewbuttonActionPerformed
+    private void viewbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_viewbuttonActionPerformed
         String grn = JOptionPane.showInputDialog(this, "Enter GRN No ?", "GRN No", JOptionPane.PLAIN_MESSAGE);
         if ("".equals(grn) || grn == null) {
             JOptionPane.showMessageDialog(this, "Invalid GRN No!", "Invalid", JOptionPane.ERROR_MESSAGE);
@@ -1255,18 +1288,18 @@ public final class purchase_order extends javax.swing.JInternalFrame {
         }
         view(grn);
 
-    }//GEN-LAST:event_viewbuttonActionPerformed
+    }// GEN-LAST:event_viewbuttonActionPerformed
 
-    private void alterbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterbuttonActionPerformed
+    private void alterbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_alterbuttonActionPerformed
         alter_po_entry();
-    }//GEN-LAST:event_alterbuttonActionPerformed
+    }// GEN-LAST:event_alterbuttonActionPerformed
 
-    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbuttonActionPerformed
+    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_clearbuttonActionPerformed
         form_clear();
 
-    }//GEN-LAST:event_clearbuttonActionPerformed
+    }// GEN-LAST:event_clearbuttonActionPerformed
 
-    private void nextbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextbuttonActionPerformed
+    private void nextbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_nextbuttonActionPerformed
         try {
 
             String grn = h1.getText();
@@ -1290,9 +1323,9 @@ public final class purchase_order extends javax.swing.JInternalFrame {
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_nextbuttonActionPerformed
+    }// GEN-LAST:event_nextbuttonActionPerformed
 
-    private void prebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prebuttonActionPerformed
+    private void prebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_prebuttonActionPerformed
 
         try {
             String grn = h1.getText();
@@ -1318,9 +1351,9 @@ public final class purchase_order extends javax.swing.JInternalFrame {
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             System.out.println(e.toString());
         }
-    }//GEN-LAST:event_prebuttonActionPerformed
+    }// GEN-LAST:event_prebuttonActionPerformed
 
-    private void removebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removebuttonActionPerformed
+    private void removebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_removebuttonActionPerformed
         if (s2.getRowCount() <= 0) {
             JOptionPane.showMessageDialog(this, "No Records Were Found!", "No Records", JOptionPane.ERROR_MESSAGE);
             return;
@@ -1332,21 +1365,21 @@ public final class purchase_order extends javax.swing.JInternalFrame {
         }
         apply_all_changes();
 
-    }//GEN-LAST:event_removebuttonActionPerformed
+    }// GEN-LAST:event_removebuttonActionPerformed
 
-    private void applybuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applybuttonActionPerformed
+    private void applybuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_applybuttonActionPerformed
         if (s2.getRowCount() <= 0) {
             JOptionPane.showMessageDialog(this, "No Records Were Found!", "No Records", JOptionPane.ERROR_MESSAGE);
             return;
         }
         apply_all_changes();
-    }//GEN-LAST:event_applybuttonActionPerformed
+    }// GEN-LAST:event_applybuttonActionPerformed
 
-    private void deletebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletebuttonActionPerformed
+    private void deletebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_deletebuttonActionPerformed
         delete();
-    }//GEN-LAST:event_deletebuttonActionPerformed
+    }// GEN-LAST:event_deletebuttonActionPerformed
 
-    private void h7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h7ActionPerformed
+    private void h7ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h7ActionPerformed
         Object obj = h7.getText();
         if (obj != null || obj != "") {
             get_item_details_using_itemcode();
@@ -1358,9 +1391,9 @@ public final class purchase_order extends javax.swing.JInternalFrame {
             h9.requestFocus();
         }
 
-    }//GEN-LAST:event_h7ActionPerformed
+    }// GEN-LAST:event_h7ActionPerformed
 
-    private void h11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h11ActionPerformed
+    private void h11ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h11ActionPerformed
         try {
             if (h7.getText().equals("") || h8.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Enter Item Details ?", "Item Details", JOptionPane.ERROR_MESSAGE);
@@ -1368,7 +1401,8 @@ public final class purchase_order extends javax.swing.JInternalFrame {
                 return;
             }
             if (h9.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "Enter Purchase Price ?", "Purchase Price", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Enter Purchase Price ?", "Purchase Price",
+                        JOptionPane.ERROR_MESSAGE);
                 h9.requestFocus();
                 return;
             }
@@ -1380,7 +1414,8 @@ public final class purchase_order extends javax.swing.JInternalFrame {
             }
             int taxp = Integer.parseInt(h10.getText());
             if (taxp != 0 && taxp != 5 && taxp != 12 && taxp != 18 && taxp != 28) {
-                JOptionPane.showMessageDialog(this, "<html><h4>Allowed: 0%, 5%, 12%, 18%, 28%</h4></html>", "Invalid GST", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "<html><h4>Allowed: 0%, 5%, 12%, 18%, 28%</h4></html>",
+                        "Invalid GST", JOptionPane.ERROR_MESSAGE);
                 h7.requestFocus();
                 return;
             }
@@ -1389,22 +1424,22 @@ public final class purchase_order extends javax.swing.JInternalFrame {
             System.out.println(e.getMessage());
         }
 
-    }//GEN-LAST:event_h11ActionPerformed
+    }// GEN-LAST:event_h11ActionPerformed
 
-    private void h9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h9ActionPerformed
+    private void h9ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h9ActionPerformed
         h11.requestFocus();
         // TODO add your handling code here:
-    }//GEN-LAST:event_h9ActionPerformed
+    }// GEN-LAST:event_h9ActionPerformed
 
-    private void h1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h1FocusGained
+    private void h1FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h1FocusGained
         h3.requestFocus();
-    }//GEN-LAST:event_h1FocusGained
+    }// GEN-LAST:event_h1FocusGained
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton3ActionPerformed
         cname_list.dispose();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }// GEN-LAST:event_jButton3ActionPerformed
 
-    private void h3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_h3KeyPressed
+    private void h3KeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_h3KeyPressed
         cname_list.requestFocus();
         jTable2.requestFocus();
         switch (evt.getKeyCode()) {
@@ -1426,10 +1461,11 @@ public final class purchase_order extends javax.swing.JInternalFrame {
                     cname_list.setLocation(l.x, l.y + h3.getHeight());
                     cname_list.setSize(857, 438);
                     cname_list.setVisible(true);
-                    String query = "select distinct cname,city from vendor where cname like '" + h3.getText() + "%' order by cname limit 300";
+                    String query = "select distinct cname,city from vendor where cname like '" + h3.getText()
+                            + "%' order by cname limit 300";
                     ResultSet r = util.doQuery(query);
                     while (r.next()) {
-                        s3.addRow(new Object[]{r.getString(1), r.getString(2)});
+                        s3.addRow(new Object[] { r.getString(1), r.getString(2) });
                     }
                 } catch (ClassNotFoundException | SQLException e) {
                     System.out.println(e.getMessage());
@@ -1439,9 +1475,9 @@ public final class purchase_order extends javax.swing.JInternalFrame {
                 break;
         }
 
-    }//GEN-LAST:event_h3KeyPressed
+    }// GEN-LAST:event_h3KeyPressed
 
-    private void jTable2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable2KeyPressed
+    private void jTable2KeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jTable2KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (jTable2.getRowCount() > 0) {
                 h3.setText(jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString());
@@ -1453,22 +1489,22 @@ public final class purchase_order extends javax.swing.JInternalFrame {
             h3.requestFocus();
         }
 
-    }//GEN-LAST:event_jTable2KeyPressed
+    }// GEN-LAST:event_jTable2KeyPressed
 
-    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTable2MouseClicked
 
         if (jTable2.getRowCount() > 0) {
             h3.setText(jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString());
         }
         h7.requestFocus();
         cname_list.dispose();
-    }//GEN-LAST:event_jTable2MouseClicked
+    }// GEN-LAST:event_jTable2MouseClicked
 
-    private void jScrollPane2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jScrollPane2FocusLost
+    private void jScrollPane2FocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jScrollPane2FocusLost
         cname_list.dispose();
-    }//GEN-LAST:event_jScrollPane2FocusLost
+    }// GEN-LAST:event_jScrollPane2FocusLost
 
-    private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
+    private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTable3MouseClicked
         if (jTable3.getRowCount() > 0) {
             h7.setText(jTable3.getValueAt(jTable3.getSelectedRow(), 0).toString());
             h8.setText(jTable3.getValueAt(jTable3.getSelectedRow(), 1).toString());
@@ -1476,9 +1512,9 @@ public final class purchase_order extends javax.swing.JInternalFrame {
         get_item_details_using_itemcode();
         h9.requestFocus();
         iname_list.dispose();
-    }//GEN-LAST:event_jTable3MouseClicked
+    }// GEN-LAST:event_jTable3MouseClicked
 
-    private void jTable3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable3KeyPressed
+    private void jTable3KeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jTable3KeyPressed
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (jTable3.getRowCount() > 0) {
@@ -1492,17 +1528,17 @@ public final class purchase_order extends javax.swing.JInternalFrame {
             iname_list.dispose();
             h7.requestFocus();
         }
-    }//GEN-LAST:event_jTable3KeyPressed
+    }// GEN-LAST:event_jTable3KeyPressed
 
-    private void jScrollPane3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jScrollPane3FocusLost
+    private void jScrollPane3FocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jScrollPane3FocusLost
         iname_list.dispose();
-    }//GEN-LAST:event_jScrollPane3FocusLost
+    }// GEN-LAST:event_jScrollPane3FocusLost
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton4ActionPerformed
         iname_list.dispose();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }// GEN-LAST:event_jButton4ActionPerformed
 
-    private void h7KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_h7KeyPressed
+    private void h7KeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_h7KeyPressed
 
         iname_list.requestFocus();
         jTable3.requestFocus();
@@ -1522,10 +1558,11 @@ public final class purchase_order extends javax.swing.JInternalFrame {
                     iname_list.setLocation(l.x, l.y + h7.getHeight());
                     iname_list.setSize(916, 382);
                     iname_list.setVisible(true);
-                    String query = "select distinct ino,iname,cat,manu from item where iname like '" + h7.getText() + "%' order by ino limit 500";
+                    String query = "select distinct ino,iname,cat,manu from item where iname like '" + h7.getText()
+                            + "%' order by ino limit 500";
                     ResultSet r = util.doQuery(query);
                     while (r.next()) {
-                        s4.addRow(new Object[]{r.getString(1), r.getString(2), r.getString(3), r.getString(4)});
+                        s4.addRow(new Object[] { r.getString(1), r.getString(2), r.getString(3), r.getString(4) });
                     }
                 } catch (ClassNotFoundException | SQLException e) {
                     System.out.println(e.getMessage());
@@ -1535,45 +1572,46 @@ public final class purchase_order extends javax.swing.JInternalFrame {
                 break;
         }
 
-    }//GEN-LAST:event_h7KeyPressed
+    }// GEN-LAST:event_h7KeyPressed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
         add_items_using_supplier();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }// GEN-LAST:event_jButton1ActionPerformed
 
-    private void jTable1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyPressed
+    private void jTable1KeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jTable1KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             apply_all_changes();
         }
-    }//GEN-LAST:event_jTable1KeyPressed
+    }// GEN-LAST:event_jTable1KeyPressed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton2ActionPerformed
         if (s2.getRowCount() <= 0) {
             JOptionPane.showMessageDialog(this, "No Records Were Found!", "No Records", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        int as = JOptionPane.showConfirmDialog(this, "Want to Auto Fill Qty ?", "Are You Sure", JOptionPane.YES_NO_OPTION);
+        int as = JOptionPane.showConfirmDialog(this, "Want to Auto Fill Qty ?", "Are You Sure",
+                JOptionPane.YES_NO_OPTION);
         if (as == JOptionPane.NO_OPTION) {
             return;
         }
         load_auto_genrate();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }// GEN-LAST:event_jButton2ActionPerformed
 
-    private void h23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h23ActionPerformed
+    private void h23ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h23ActionPerformed
         h24.requestFocus();
-    }//GEN-LAST:event_h23ActionPerformed
+    }// GEN-LAST:event_h23ActionPerformed
 
-    private void h24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h24ActionPerformed
+    private void h24ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h24ActionPerformed
         h25.requestFocus();
-    }//GEN-LAST:event_h24ActionPerformed
+    }// GEN-LAST:event_h24ActionPerformed
 
-    private void h25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h25ActionPerformed
+    private void h25ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h25ActionPerformed
         h26.requestFocus();
-    }//GEN-LAST:event_h25ActionPerformed
+    }// GEN-LAST:event_h25ActionPerformed
 
-    private void h26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h26ActionPerformed
+    private void h26ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h26ActionPerformed
         save();
-    }//GEN-LAST:event_h26ActionPerformed
+    }// GEN-LAST:event_h26ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton alterbutton;

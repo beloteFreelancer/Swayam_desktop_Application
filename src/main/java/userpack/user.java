@@ -7,7 +7,7 @@ import java.awt.BorderLayout;
 /**
  *
  * @author K.SELVAKUMAR, copyrights K.SELVAKUMAR, +91 99427 32229,
- * mysoft.java@gmail.com
+ *         mysoft.java@gmail.com
  */
 public final class user extends javax.swing.JInternalFrame {
 
@@ -19,8 +19,11 @@ public final class user extends javax.swing.JInternalFrame {
     private void initComponents(DataUtil util) {
         setTitle("Users Management");
         this.setSize(1022, 536);
-        ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("images/icon.png"));
-        this.setFrameIcon(icon);
+        java.net.URL iconUrl = ClassLoader.getSystemResource("/images/icon.png");
+        if (iconUrl != null) {
+            ImageIcon icon = new ImageIcon(iconUrl);
+            this.setFrameIcon(icon);
+        }
 
         setLayout(new BorderLayout());
         UserPanel panel = new UserPanel(util);
