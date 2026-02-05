@@ -1,5 +1,6 @@
 package emailpack;
 
+import Utils.ColorConstants;
 import com.selrom.db.DataUtil;
 import java.awt.HeadlessException;
 import java.sql.ResultSet;
@@ -10,7 +11,7 @@ import javax.swing.JOptionPane;
 /**
  *
  * @author K.SELVAKUMAR, copyrights K.SELVAKUMAR, +91 99427 32229,
- * mysoft.java@gmail.com
+ *         mysoft.java@gmail.com
  */
 public final class email_setting extends javax.swing.JInternalFrame {
 
@@ -22,8 +23,10 @@ public final class email_setting extends javax.swing.JInternalFrame {
         titlelablel.setText("<html><u>Email Setting</u></html>");
         setTitle("Email Setting");
         this.setSize(616, 331);
-        ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("images/icon.png"));
-        this.setFrameIcon(icon);
+        ImageIcon icon = ColorConstants.loadIcon("/images/icon.png");
+        if (icon != null) {
+            this.setFrameIcon(icon);
+        }
     }
 
     void get_display() {
@@ -52,7 +55,8 @@ public final class email_setting extends javax.swing.JInternalFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         closebutton = new javax.swing.JButton();
@@ -73,7 +77,7 @@ public final class email_setting extends javax.swing.JInternalFrame {
         getContentPane().setLayout(null);
 
         closebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        closebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/close45.png"))); // NOI18N
+        closebutton.setIcon(ColorConstants.loadIcon("/icons/close45.png")); // NOI18N
         closebutton.setMnemonic('o');
         closebutton.setText("Close");
         closebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -99,7 +103,7 @@ public final class email_setting extends javax.swing.JInternalFrame {
         jLabel8.setBounds(20, 160, 160, 30);
 
         savebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        savebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/save45.png"))); // NOI18N
+        savebutton.setIcon(ColorConstants.loadIcon("/icons/save45.png")); // NOI18N
         savebutton.setMnemonic('s');
         savebutton.setText("Save");
         savebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -151,7 +155,7 @@ public final class email_setting extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savebuttonActionPerformed
+    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_savebuttonActionPerformed
         if (h1.getText().equals("")) {
             h1.setText(".");
         }
@@ -169,9 +173,12 @@ public final class email_setting extends javax.swing.JInternalFrame {
                 selva = true;
             }
             if (selva == true) {
-                query = "update setting_email set user='" + h1.getText() + "',pass='" + h2.getText() + "',backup_option='" + h3.getSelectedItem() + "',statement_option='" + h4.getSelectedItem() + "',email1='" + h5.getText() + "'";
+                query = "update setting_email set user='" + h1.getText() + "',pass='" + h2.getText()
+                        + "',backup_option='" + h3.getSelectedItem() + "',statement_option='" + h4.getSelectedItem()
+                        + "',email1='" + h5.getText() + "'";
             } else {
-                query = "insert into setting_email values ('" + h1.getText() + "','" + h2.getText() + "','" + h3.getSelectedItem() + "','" + h4.getSelectedItem() + "','" + h5.getText() + "')";
+                query = "insert into setting_email values ('" + h1.getText() + "','" + h2.getText() + "','"
+                        + h3.getSelectedItem() + "','" + h4.getSelectedItem() + "','" + h5.getText() + "')";
             }
             int a = util.doManipulation(query);
             if (a > 0) {
@@ -180,11 +187,11 @@ public final class email_setting extends javax.swing.JInternalFrame {
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_savebuttonActionPerformed
+    }// GEN-LAST:event_savebuttonActionPerformed
 
-    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closebuttonActionPerformed
+    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closebuttonActionPerformed
         this.dispose();
-    }//GEN-LAST:event_closebuttonActionPerformed
+    }// GEN-LAST:event_closebuttonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton closebutton;

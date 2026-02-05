@@ -1,5 +1,6 @@
 package userpack;
 
+import Utils.ColorConstants;
 import com.selrom.db.DataUtil;
 import java.awt.Font;
 import java.awt.HeadlessException;
@@ -18,7 +19,7 @@ import javax.swing.DefaultComboBoxModel;
 /**
  *
  * @author K.SELVAKUMAR, copyrights K.SELVAKUMAR, +91 99427 32229,
- * mysoft.java@gmail.com
+ *         mysoft.java@gmail.com
  */
 public class UserPanel extends JPanel {
 
@@ -92,7 +93,7 @@ public class UserPanel extends JPanel {
             String query = "select user,utype,last from users order by utype,user";
             r = util.doQuery(query);
             while (r.next()) {
-                s2.addRow(new Object[]{r.getString(1), r.getString(2), r.getString(3)});
+                s2.addRow(new Object[] { r.getString(1), r.getString(2), r.getString(3) });
             }
         } catch (ClassNotFoundException | SQLException e) {
             e.getMessage();
@@ -137,7 +138,7 @@ public class UserPanel extends JPanel {
         setLayout(null); // Keep null layout as in original
 
         closebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        closebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/close45.png"))); // NOI18N
+        closebutton.setIcon(ColorConstants.loadIcon("/icons/close45.png")); // NOI18N
         closebutton.setMnemonic('o');
         closebutton.setText("Close");
         closebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -150,16 +151,15 @@ public class UserPanel extends JPanel {
 
         jTable1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jTable1.setRowHeight(25);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -216,7 +216,7 @@ public class UserPanel extends JPanel {
         h1.setBounds(120, 0, 300, 30);
 
         savebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        savebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/save45.png"))); // NOI18N
+        savebutton.setIcon(ColorConstants.loadIcon("/icons/save45.png")); // NOI18N
         savebutton.setMnemonic('s');
         savebutton.setText("Save");
         savebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -228,7 +228,7 @@ public class UserPanel extends JPanel {
         savebutton.setBounds(120, 130, 150, 50);
 
         clearbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        clearbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/clear45.png"))); // NOI18N
+        clearbutton.setIcon(ColorConstants.loadIcon("/icons/clear45.png")); // NOI18N
         clearbutton.setMnemonic('c');
         clearbutton.setText("Clear");
         clearbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -243,7 +243,7 @@ public class UserPanel extends JPanel {
         jPanel1.setBounds(20, 50, 420, 180);
 
         deletebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        deletebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/delete45.png"))); // NOI18N
+        deletebutton.setIcon(ColorConstants.loadIcon("/icons/delete45.png")); // NOI18N
         deletebutton.setMnemonic('d');
         deletebutton.setText("Delete");
         deletebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -255,7 +255,7 @@ public class UserPanel extends JPanel {
         deletebutton.setBounds(630, 450, 180, 50);
 
         passbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        passbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/apply45.png"))); // NOI18N
+        passbutton.setIcon(ColorConstants.loadIcon("/icons/apply45.png")); // NOI18N
         passbutton.setMnemonic('v');
         passbutton.setText("View Password");
         passbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -306,12 +306,14 @@ public class UserPanel extends JPanel {
 
                 if ("License Owner".equals(selectedType)) {
                     if (!selva) {
-                         JOptionPane.showMessageDialog(this, "Cannot create License Owner user.", "Action Denied", JOptionPane.ERROR_MESSAGE);
-                         return;
+                        JOptionPane.showMessageDialog(this, "Cannot create License Owner user.", "Action Denied",
+                                JOptionPane.ERROR_MESSAGE);
+                        return;
                     }
                     if (!"License Owner".equals(currentUtype)) {
-                         JOptionPane.showMessageDialog(this, "Cannot promote user to License Owner.", "Action Denied", JOptionPane.ERROR_MESSAGE);
-                         return;
+                        JOptionPane.showMessageDialog(this, "Cannot promote user to License Owner.", "Action Denied",
+                                JOptionPane.ERROR_MESSAGE);
+                        return;
                     }
                 }
 
@@ -319,14 +321,17 @@ public class UserPanel extends JPanel {
                 String hashedPassword = Utils.PasswordUtils.hashPassword(h3.getText());
 
                 if (selva == true) {
-                    query = "update users set utype='" + h1.getSelectedItem() + "',pass='" + hashedPassword + "',last='" + last + "' where user='" + h2.getText() + "'";
+                    query = "update users set utype='" + h1.getSelectedItem() + "',pass='" + hashedPassword + "',last='"
+                            + last + "' where user='" + h2.getText() + "'";
                     int count = util.doManipulation(query);
                     if (count > 0) {
-                        JOptionPane.showMessageDialog(this, "Updated Successfully", "Updated", JOptionPane.PLAIN_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Updated Successfully", "Updated",
+                                JOptionPane.PLAIN_MESSAGE);
                         clear();
                     }
                 } else {
-                    query = "insert into users values ('" + h1.getSelectedItem() + "','" + h2.getText() + "','" + hashedPassword + "','" + last + "')";
+                    query = "insert into users values ('" + h1.getSelectedItem() + "','" + h2.getText() + "','"
+                            + hashedPassword + "','" + last + "')";
                     int count = util.doManipulation(query);
                     if (count > 0) {
                         JOptionPane.showMessageDialog(this, "Saved Successfully", "Saved", JOptionPane.PLAIN_MESSAGE);
@@ -334,7 +339,8 @@ public class UserPanel extends JPanel {
                     }
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Sorry, Password & Confirm Password Not Matching!", "Invalid", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sorry, Password & Confirm Password Not Matching!", "Invalid",
+                        JOptionPane.ERROR_MESSAGE);
                 h3.requestFocus();
             }
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
@@ -348,7 +354,7 @@ public class UserPanel extends JPanel {
         java.awt.Container parent = this.getParent();
         while (parent != null) {
             if (parent instanceof javax.swing.JInternalFrame) {
-                ((javax.swing.JInternalFrame)parent).dispose();
+                ((javax.swing.JInternalFrame) parent).dispose();
                 return;
             }
             parent = parent.getParent();
@@ -372,8 +378,9 @@ public class UserPanel extends JPanel {
             // Check if License Owner
             String userLevel = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 1);
             if ("License Owner".equals(userLevel)) {
-                 JOptionPane.showMessageDialog(this, "License Owner cannot be deleted!", "Action Denied", JOptionPane.WARNING_MESSAGE);
-                 return;
+                JOptionPane.showMessageDialog(this, "License Owner cannot be deleted!", "Action Denied",
+                        JOptionPane.WARNING_MESSAGE);
+                return;
             }
 
             int as = JOptionPane.showConfirmDialog(this, "Want to Delete", "Are You Sure", JOptionPane.YES_NO_OPTION);
@@ -398,7 +405,8 @@ public class UserPanel extends JPanel {
                 return;
             }
             // Cannot view hashed password
-            JOptionPane.showMessageDialog(this, "Password cannot be viewed as it is hashed for security.", "Password", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Password cannot be viewed as it is hashed for security.", "Password",
+                    JOptionPane.PLAIN_MESSAGE);
         } catch (HeadlessException e) {
             System.out.println(e.getMessage());
         }
@@ -412,7 +420,8 @@ public class UserPanel extends JPanel {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {
         try {
             if (s2.getRowCount() > 0) {
-                String query = "select utype,user,pass from users where user='" + jTable1.getValueAt(jTable1.getSelectedRow(), 0) + "'";
+                String query = "select utype,user,pass from users where user='"
+                        + jTable1.getValueAt(jTable1.getSelectedRow(), 0) + "'";
                 ResultSet r = util.doQuery(query);
                 while (r.next()) {
                     String uType = r.getString(1);

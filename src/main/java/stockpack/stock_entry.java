@@ -1,5 +1,6 @@
 package stockpack;
 
+import Utils.ColorConstants;
 import ca.odell.glazedlists.GlazedLists;
 import ca.odell.glazedlists.swing.AutoCompleteSupport;
 import com.selrom.db.DataUtil;
@@ -1259,10 +1260,9 @@ public final class stock_entry extends javax.swing.JInternalFrame {
         initComponents();
         this.setTitle("Manual Stock Entry");
         this.setSize(1258, 650);
-        java.net.URL iconUrl = ClassLoader.getSystemResource("/images/icon.png");
-        if (iconUrl != null) {
-            ImageIcon icon = new ImageIcon(iconUrl);
-            this.setFrameIcon(icon);
+        javax.swing.ImageIcon icon = ColorConstants.loadIcon("/images/icon.png");
+        if (icon != null) {
+            setFrameIcon(icon);
         }
         this.util = util;
         button_short();
@@ -1417,7 +1417,7 @@ public final class stock_entry extends javax.swing.JInternalFrame {
         cname_list.getContentPane().add(jScrollPane2);
         jScrollPane2.setBounds(0, 0, 850, 400);
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/delete22.png"))); // NOI18N
+        jButton3.setIcon(ColorConstants.loadIcon("/icons/delete22.png")); // NOI18N
         jButton3.setMnemonic('o');
         jButton3.setText("Close");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -1464,7 +1464,7 @@ public final class stock_entry extends javax.swing.JInternalFrame {
         iname_list.getContentPane().add(jScrollPane3);
         jScrollPane3.setBounds(0, 0, 1090, 350);
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/delete22.png"))); // NOI18N
+        jButton4.setIcon(ColorConstants.loadIcon("/icons/delete22.png")); // NOI18N
         jButton4.setMnemonic('o');
         jButton4.setText("Close");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -1489,7 +1489,7 @@ public final class stock_entry extends javax.swing.JInternalFrame {
         jLabel3.setBounds(250, 40, 80, 30);
 
         savebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        savebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/save45.png"))); // NOI18N
+        savebutton.setIcon(ColorConstants.loadIcon("/icons/save45.png")); // NOI18N
         savebutton.setMnemonic('s');
         savebutton.setText("Save");
         savebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -1501,7 +1501,7 @@ public final class stock_entry extends javax.swing.JInternalFrame {
         savebutton.setBounds(480, 510, 150, 50);
 
         viewbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        viewbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/view45.png"))); // NOI18N
+        viewbutton.setIcon(ColorConstants.loadIcon("/icons/view45.png")); // NOI18N
         viewbutton.setMnemonic('v');
         viewbutton.setText("View");
         viewbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -1513,7 +1513,7 @@ public final class stock_entry extends javax.swing.JInternalFrame {
         viewbutton.setBounds(780, 560, 150, 50);
 
         draftbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        draftbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/draft45.png"))); // NOI18N
+        draftbutton.setIcon(ColorConstants.loadIcon("/icons/draft45.png")); // NOI18N
         draftbutton.setMnemonic('f');
         draftbutton.setText("Draft");
         draftbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -1525,7 +1525,7 @@ public final class stock_entry extends javax.swing.JInternalFrame {
         draftbutton.setBounds(630, 510, 150, 50);
 
         closebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        closebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/close45.png"))); // NOI18N
+        closebutton.setIcon(ColorConstants.loadIcon("/icons/close45.png")); // NOI18N
         closebutton.setMnemonic('o');
         closebutton.setText("Close");
         closebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -1542,7 +1542,7 @@ public final class stock_entry extends javax.swing.JInternalFrame {
         jLabel11.setBounds(630, 470, 90, 30);
 
         alterbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        alterbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/upload45.png"))); // NOI18N
+        alterbutton.setIcon(ColorConstants.loadIcon("/icons/upload45.png")); // NOI18N
         alterbutton.setMnemonic('u');
         alterbutton.setText("Alter");
         alterbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -1554,7 +1554,7 @@ public final class stock_entry extends javax.swing.JInternalFrame {
         alterbutton.setBounds(10, 510, 150, 50);
 
         excelbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        excelbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/load45.jpg.png"))); // NOI18N
+        excelbutton.setIcon(ColorConstants.loadIcon("/icons/load45.jpg.png")); // NOI18N
         excelbutton.setMnemonic('x');
         excelbutton.setText("Load Excel");
         excelbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -1773,7 +1773,7 @@ public final class stock_entry extends javax.swing.JInternalFrame {
         getContentPane().add(h14);
         h14.setBounds(790, 180, 60, 30);
 
-        jCalendarButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cal40.png"))); // NOI18N
+        jCalendarButton1.setIcon(ColorConstants.loadIcon("/icons/cal40.png")); // NOI18N
         jCalendarButton1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 jCalendarButton1PropertyChange(evt);
@@ -1916,7 +1916,7 @@ public final class stock_entry extends javax.swing.JInternalFrame {
         h27.setBounds(880, 470, 130, 30);
 
         clearbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        clearbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/clear45.png"))); // NOI18N
+        clearbutton.setIcon(ColorConstants.loadIcon("/icons/clear45.png")); // NOI18N
         clearbutton.setMnemonic('c');
         clearbutton.setText("Clear");
         clearbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -1928,7 +1928,7 @@ public final class stock_entry extends javax.swing.JInternalFrame {
         clearbutton.setBounds(930, 560, 150, 50);
 
         nextbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        nextbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/next45.png"))); // NOI18N
+        nextbutton.setIcon(ColorConstants.loadIcon("/icons/next45.png")); // NOI18N
         nextbutton.setMnemonic('u');
         nextbutton.setText("Next Entry");
         nextbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -1940,7 +1940,7 @@ public final class stock_entry extends javax.swing.JInternalFrame {
         nextbutton.setBounds(630, 560, 150, 50);
 
         prebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        prebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/pre45.png"))); // NOI18N
+        prebutton.setIcon(ColorConstants.loadIcon("/icons/pre45.png")); // NOI18N
         prebutton.setMnemonic('r');
         prebutton.setText("Last Entry");
         prebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -1952,7 +1952,7 @@ public final class stock_entry extends javax.swing.JInternalFrame {
         prebutton.setBounds(480, 560, 150, 50);
 
         removebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        removebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/remove45.png"))); // NOI18N
+        removebutton.setIcon(ColorConstants.loadIcon("/icons/remove45.png")); // NOI18N
         removebutton.setMnemonic('m');
         removebutton.setText("Remove");
         removebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -1964,7 +1964,7 @@ public final class stock_entry extends javax.swing.JInternalFrame {
         removebutton.setBounds(930, 510, 150, 50);
 
         webbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        webbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/web45.png"))); // NOI18N
+        webbutton.setIcon(ColorConstants.loadIcon("/icons/web45.png")); // NOI18N
         webbutton.setMnemonic('w');
         webbutton.setText("Web Order");
         webbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -1976,7 +1976,7 @@ public final class stock_entry extends javax.swing.JInternalFrame {
         webbutton.setBounds(320, 560, 160, 50);
 
         formatbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        formatbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/excel45.png"))); // NOI18N
+        formatbutton.setIcon(ColorConstants.loadIcon("/icons/excel45.png")); // NOI18N
         formatbutton.setMnemonic('y');
         formatbutton.setText("Excel Format");
         formatbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -1988,7 +1988,7 @@ public final class stock_entry extends javax.swing.JInternalFrame {
         formatbutton.setBounds(160, 560, 160, 50);
 
         applybutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        applybutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/apply45.png"))); // NOI18N
+        applybutton.setIcon(ColorConstants.loadIcon("/icons/apply45.png")); // NOI18N
         applybutton.setMnemonic('a');
         applybutton.setText("Appy");
         applybutton.addActionListener(new java.awt.event.ActionListener() {
@@ -2000,7 +2000,7 @@ public final class stock_entry extends javax.swing.JInternalFrame {
         applybutton.setBounds(1080, 510, 150, 50);
 
         loadbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        loadbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/draftload45.png"))); // NOI18N
+        loadbutton.setIcon(ColorConstants.loadIcon("/icons/draftload45.png")); // NOI18N
         loadbutton.setMnemonic('t');
         loadbutton.setText("Load Draft");
         loadbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -2012,7 +2012,7 @@ public final class stock_entry extends javax.swing.JInternalFrame {
         loadbutton.setBounds(780, 510, 150, 50);
 
         deletebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        deletebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/delete45.png"))); // NOI18N
+        deletebutton.setIcon(ColorConstants.loadIcon("/icons/delete45.png")); // NOI18N
         deletebutton.setMnemonic('d');
         deletebutton.setText("Delete");
         deletebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -2051,7 +2051,7 @@ public final class stock_entry extends javax.swing.JInternalFrame {
         h28.setBounds(1100, 470, 130, 30);
 
         searchbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        searchbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search22.png"))); // NOI18N
+        searchbutton.setIcon(ColorConstants.loadIcon("/icons/search22.png")); // NOI18N
         searchbutton.setMnemonic('h');
         searchbutton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         searchbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -2063,7 +2063,7 @@ public final class stock_entry extends javax.swing.JInternalFrame {
         searchbutton.setBounds(720, 100, 60, 30);
 
         itembutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        itembutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add22_1.png"))); // NOI18N
+        itembutton.setIcon(ColorConstants.loadIcon("/icons/add22_1.png")); // NOI18N
         itembutton.setMnemonic('i');
         itembutton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         itembutton.addActionListener(new java.awt.event.ActionListener() {
@@ -2144,7 +2144,7 @@ public final class stock_entry extends javax.swing.JInternalFrame {
         jLabel29.setBounds(630, 440, 80, 30);
 
         printbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        printbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/print45.png"))); // NOI18N
+        printbutton.setIcon(ColorConstants.loadIcon("/icons/print45.png")); // NOI18N
         printbutton.setMnemonic('p');
         printbutton.setText("Print");
         printbutton.addActionListener(new java.awt.event.ActionListener() {

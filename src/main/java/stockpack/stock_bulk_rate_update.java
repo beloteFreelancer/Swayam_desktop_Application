@@ -1,5 +1,6 @@
 package stockpack;
 
+import Utils.ColorConstants;
 import ca.odell.glazedlists.GlazedLists;
 import ca.odell.glazedlists.swing.AutoCompleteSupport;
 import com.selrom.db.DataUtil;
@@ -42,10 +43,9 @@ public class stock_bulk_rate_update extends javax.swing.JInternalFrame {
 
         setTitle("Bulk Price Update");
         this.setSize(1021, 648);
-        java.net.URL iconUrl = ClassLoader.getSystemResource("/images/icon.png");
-        if (iconUrl != null) {
-            ImageIcon icon = new ImageIcon(iconUrl);
-            this.setFrameIcon(icon);
+        javax.swing.ImageIcon icon = ColorConstants.loadIcon("/images/icon.png");
+        if (icon != null) {
+            setFrameIcon(icon);
         }
 
         menu_form me = new menu_form();

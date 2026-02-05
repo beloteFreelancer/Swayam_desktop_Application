@@ -1,5 +1,6 @@
 package salespack;
 
+import Utils.ColorConstants;
 import com.selrom.db.DataUtil;
 import java.awt.Desktop;
 import java.awt.Font;
@@ -29,7 +30,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 /**
  *
  * @author K.SELVAKUMAR, copyrights K.SELVAKUMAR, +91 99427 32229,
- * mysoft.java@gmail.com
+ *         mysoft.java@gmail.com
  */
 public final class sreturn_summary_item extends javax.swing.JInternalFrame {
 
@@ -47,10 +48,9 @@ public final class sreturn_summary_item extends javax.swing.JInternalFrame {
         titlelablel.setText("<html><u>Item Wise Sales Return Summary</u></html>");
         setTitle("Item Wise Sales Return Summary");
         this.setSize(1017, 650);
-        java.net.URL imgUrl = getClass().getResource("/images/icon.png");
-        if (imgUrl != null) {
-            ImageIcon icon = new ImageIcon(imgUrl);
-            this.setFrameIcon(icon);
+        javax.swing.ImageIcon icon = ColorConstants.loadIcon("/images/icon.png");
+        if (icon != null) {
+            setFrameIcon(icon);
         }
     }
 
@@ -85,15 +85,18 @@ public final class sreturn_summary_item extends javax.swing.JInternalFrame {
 
             String query;
             if (all.isSelected()) {
-                query = "select ino,iname,sum(quan),sum(amount) from sreturn_items where dat between '" + lk + "' and '" + lk1 + "' group by ino order by ino";
+                query = "select ino,iname,sum(quan),sum(amount) from sreturn_items where dat between '" + lk + "' and '"
+                        + lk1 + "' group by ino order by ino";
             } else {
-                query = "select distinct a.ino,a.iname,sum(quan),sum(amount) from sreturn_items a,item b where dat between '" + lk + "' and '" + lk1 + "' and cat='" + h3.getSelectedItem() + "' and a.ino=b.ino group by a.ino order by a.ino";
+                query = "select distinct a.ino,a.iname,sum(quan),sum(amount) from sreturn_items a,item b where dat between '"
+                        + lk + "' and '" + lk1 + "' and cat='" + h3.getSelectedItem()
+                        + "' and a.ino=b.ino group by a.ino order by a.ino";
             }
             r = util.doQuery(query);
             while (r.next()) {
                 sub = r.getDouble(4);
                 String sub2 = String.format("%." + hmany + "f", sub);
-                s2.addRow(new Object[]{r.getString(1), r.getString(2), r.getString(3), sub2});
+                s2.addRow(new Object[] { r.getString(1), r.getString(2), r.getString(3), sub2 });
                 selva = true;
             }
             sub = 0;
@@ -102,8 +105,8 @@ public final class sreturn_summary_item extends javax.swing.JInternalFrame {
             }
             String sub2 = String.format("%." + hmany + "f", sub);
             if (selva == true) {
-                s2.addRow(new Object[]{"", "", "", ""});
-                s2.addRow(new Object[]{"", "TOTAL:" + (jTable1.getRowCount() - 1), "", sub2});
+                s2.addRow(new Object[] { "", "", "", "" });
+                s2.addRow(new Object[] { "", "TOTAL:" + (jTable1.getRowCount() - 1), "", sub2 });
 
                 h1.setEnabled(false);
                 h2.setEnabled(false);
@@ -143,7 +146,8 @@ public final class sreturn_summary_item extends javax.swing.JInternalFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         titlelablel = new javax.swing.JLabel();
@@ -172,7 +176,7 @@ public final class sreturn_summary_item extends javax.swing.JInternalFrame {
         titlelablel.setBounds(10, 0, 330, 30);
 
         generatebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        generatebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/generate30.png"))); // NOI18N
+        generatebutton.setIcon(ColorConstants.loadIcon("/icons/generate30.png")); // NOI18N
         generatebutton.setMnemonic('g');
         generatebutton.setText("Generate");
         generatebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -184,7 +188,7 @@ public final class sreturn_summary_item extends javax.swing.JInternalFrame {
         generatebutton.setBounds(810, 40, 190, 30);
 
         clearbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        clearbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/clear45.png"))); // NOI18N
+        clearbutton.setIcon(ColorConstants.loadIcon("/icons/clear45.png")); // NOI18N
         clearbutton.setMnemonic('c');
         clearbutton.setText("Clear");
         clearbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -196,7 +200,7 @@ public final class sreturn_summary_item extends javax.swing.JInternalFrame {
         clearbutton.setBounds(740, 560, 130, 50);
 
         closebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        closebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/close45.png"))); // NOI18N
+        closebutton.setIcon(ColorConstants.loadIcon("/icons/close45.png")); // NOI18N
         closebutton.setMnemonic('o');
         closebutton.setText("Close");
         closebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -208,7 +212,7 @@ public final class sreturn_summary_item extends javax.swing.JInternalFrame {
         closebutton.setBounds(870, 560, 130, 50);
 
         excelbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        excelbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/excel45.png"))); // NOI18N
+        excelbutton.setIcon(ColorConstants.loadIcon("/icons/excel45.png")); // NOI18N
         excelbutton.setMnemonic('i');
         excelbutton.setText("Excel");
         excelbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -227,7 +231,7 @@ public final class sreturn_summary_item extends javax.swing.JInternalFrame {
         getContentPane().add(h2);
         h2.setBounds(230, 40, 90, 30);
 
-        jCalendarButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cal40.png"))); // NOI18N
+        jCalendarButton1.setIcon(ColorConstants.loadIcon("/icons/cal40.png")); // NOI18N
         jCalendarButton1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 jCalendarButton1PropertyChange(evt);
@@ -236,7 +240,7 @@ public final class sreturn_summary_item extends javax.swing.JInternalFrame {
         getContentPane().add(jCalendarButton1);
         jCalendarButton1.setBounds(170, 40, 30, 30);
 
-        jCalendarButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cal40.png"))); // NOI18N
+        jCalendarButton2.setIcon(ColorConstants.loadIcon("/icons/cal40.png")); // NOI18N
         jCalendarButton2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 jCalendarButton2PropertyChange(evt);
@@ -252,16 +256,15 @@ public final class sreturn_summary_item extends javax.swing.JInternalFrame {
 
         jTable1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jTable1.setRowHeight(25);
         jScrollPane1.setViewportView(jTable1);
 
@@ -296,12 +299,12 @@ public final class sreturn_summary_item extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closebuttonActionPerformed
+    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closebuttonActionPerformed
         this.dispose();
         // TODO add your handling code here:
-    }//GEN-LAST:event_closebuttonActionPerformed
+    }// GEN-LAST:event_closebuttonActionPerformed
 
-    private void generatebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generatebuttonActionPerformed
+    private void generatebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_generatebuttonActionPerformed
         Date d = new Date();
         SimpleDateFormat g = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -313,9 +316,9 @@ public final class sreturn_summary_item extends javax.swing.JInternalFrame {
         }
         load_report(h1.getText(), h2.getText());
 
-    }//GEN-LAST:event_generatebuttonActionPerformed
+    }// GEN-LAST:event_generatebuttonActionPerformed
 
-    private void excelbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelbuttonActionPerformed
+    private void excelbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_excelbuttonActionPerformed
         if (s2.getRowCount() <= 0) {
             JOptionPane.showMessageDialog(this, "Sorry, No Records Were Found!", "Oops", JOptionPane.ERROR_MESSAGE);
             return;
@@ -378,11 +381,12 @@ public final class sreturn_summary_item extends javax.swing.JInternalFrame {
             Desktop.getDesktop().open(file);
         } catch (IOException e) {
             System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(this, "Error exporting to Excel: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error exporting to Excel: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_excelbuttonActionPerformed
+    }// GEN-LAST:event_excelbuttonActionPerformed
 
-    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbuttonActionPerformed
+    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_clearbuttonActionPerformed
         if (s2.getRowCount() > 0) {
             s2.getDataVector().removeAllElements();
             s2.fireTableDataChanged();
@@ -399,9 +403,9 @@ public final class sreturn_summary_item extends javax.swing.JInternalFrame {
         h2.setText("");
         h3.setSelectedIndex(0);
         generatebutton.setEnabled(true);
-    }//GEN-LAST:event_clearbuttonActionPerformed
+    }// GEN-LAST:event_clearbuttonActionPerformed
 
-    private void jCalendarButton1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendarButton1PropertyChange
+    private void jCalendarButton1PropertyChange(java.beans.PropertyChangeEvent evt) {// GEN-FIRST:event_jCalendarButton1PropertyChange
         try {
             if (evt.getNewValue() instanceof Date) {
                 String ses = evt.getNewValue().toString();
@@ -412,9 +416,9 @@ public final class sreturn_summary_item extends javax.swing.JInternalFrame {
         } catch (ParseException e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_jCalendarButton1PropertyChange
+    }// GEN-LAST:event_jCalendarButton1PropertyChange
 
-    private void jCalendarButton2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendarButton2PropertyChange
+    private void jCalendarButton2PropertyChange(java.beans.PropertyChangeEvent evt) {// GEN-FIRST:event_jCalendarButton2PropertyChange
         try {
             if (evt.getNewValue() instanceof Date) {
                 String ses = evt.getNewValue().toString();
@@ -425,9 +429,9 @@ public final class sreturn_summary_item extends javax.swing.JInternalFrame {
         } catch (ParseException e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_jCalendarButton2PropertyChange
+    }// GEN-LAST:event_jCalendarButton2PropertyChange
 
-    private void allActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allActionPerformed
+    private void allActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_allActionPerformed
 
         if (all.isSelected()) {
             h3.setEnabled(false);
@@ -435,7 +439,7 @@ public final class sreturn_summary_item extends javax.swing.JInternalFrame {
             h3.setEnabled(true);
             h3.setSelectedIndex(0);
         }
-    }//GEN-LAST:event_allActionPerformed
+    }// GEN-LAST:event_allActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox all;

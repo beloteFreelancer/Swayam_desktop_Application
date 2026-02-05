@@ -1,5 +1,6 @@
 package venpack;
 
+import Utils.ColorConstants;
 import ca.odell.glazedlists.GlazedLists;
 import ca.odell.glazedlists.swing.AutoCompleteSupport;
 import com.selrom.db.DataUtil;
@@ -20,7 +21,7 @@ import menupack.sample2;
 /**
  *
  * @author K.SELVAKUMAR, copyrights K.SELVAKUMAR, +91 99427 32229,
- * mysoft.java@gmail.com
+ *         mysoft.java@gmail.com
  */
 public final class ven_dues_report extends javax.swing.JInternalFrame {
 
@@ -39,10 +40,9 @@ public final class ven_dues_report extends javax.swing.JInternalFrame {
 
         setTitle("Supplier Dues Report");
         this.setSize(1021, 648);
-        java.net.URL imgUrl = getClass().getResource("/images/icon.png");
-        if (imgUrl != null) {
-            ImageIcon icon = new ImageIcon(imgUrl);
-            this.setFrameIcon(icon);
+        javax.swing.ImageIcon icon = ColorConstants.loadIcon("/images/icon.png");
+        if (icon != null) {
+            setFrameIcon(icon);
         }
     }
 
@@ -81,7 +81,8 @@ public final class ven_dues_report extends javax.swing.JInternalFrame {
             if (all.isSelected()) {
                 query = "select billno,date_format(dat,'%d/%m/%Y'),date_format(ddate,'%d/%m/%Y'),cname,tot,paid from ven_bal where tot-paid>0 order by dat,billno";
             } else {
-                query = "select billno,date_format(dat,'%d/%m/%Y'),date_format(ddate,'%d/%m/%Y'),cname,tot,paid from ven_bal where cname='" + h3.getSelectedItem() + "' and tot-paid>0 order by dat,billno";
+                query = "select billno,date_format(dat,'%d/%m/%Y'),date_format(ddate,'%d/%m/%Y'),cname,tot,paid from ven_bal where cname='"
+                        + h3.getSelectedItem() + "' and tot-paid>0 order by dat,billno";
             }
             r = util.doQuery(query);
             while (r.next()) {
@@ -91,7 +92,8 @@ public final class ven_dues_report extends javax.swing.JInternalFrame {
                 String tot2 = String.format("%." + hmany + "f", tot);
                 String paid2 = String.format("%." + hmany + "f", paid);
                 String bal2 = String.format("%." + hmany + "f", bal);
-                s2.addRow(new Object[]{r.getString(1), r.getString(2), r.getString(3), r.getString(4), tot2, paid2, bal2});
+                s2.addRow(new Object[] { r.getString(1), r.getString(2), r.getString(3), r.getString(4), tot2, paid2,
+                        bal2 });
                 selva = true;
             }
 
@@ -104,8 +106,8 @@ public final class ven_dues_report extends javax.swing.JInternalFrame {
             String tot2 = String.format("%." + hmany + "f", tot);
             String paid2 = String.format("%." + hmany + "f", paid);
             String bal2 = String.format("%." + hmany + "f", bal);
-            s2.addRow(new Object[]{"", "", "", "", "", "", ""});
-            s2.addRow(new Object[]{"", "", "", "Total Records: " + (jTable1.getRowCount() - 1), tot2, paid2, bal2});
+            s2.addRow(new Object[] { "", "", "", "", "", "", "" });
+            s2.addRow(new Object[] { "", "", "", "Total Records: " + (jTable1.getRowCount() - 1), tot2, paid2, bal2 });
             if (selva == true) {
                 generatebutton.setEnabled(false);
                 h3.setEnabled(false);
@@ -149,7 +151,8 @@ public final class ven_dues_report extends javax.swing.JInternalFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         titlelablel = new javax.swing.JLabel();
@@ -173,16 +176,15 @@ public final class ven_dues_report extends javax.swing.JInternalFrame {
 
         jTable1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jTable1.setRowHeight(24);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -200,7 +202,7 @@ public final class ven_dues_report extends javax.swing.JInternalFrame {
         jScrollPane1.setBounds(0, 82, 1000, 480);
 
         generatebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        generatebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/generate30.png"))); // NOI18N
+        generatebutton.setIcon(ColorConstants.loadIcon("/icons/generate30.png")); // NOI18N
         generatebutton.setMnemonic('g');
         generatebutton.setText("Generate");
         generatebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -212,7 +214,7 @@ public final class ven_dues_report extends javax.swing.JInternalFrame {
         generatebutton.setBounds(590, 50, 180, 30);
 
         excelbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        excelbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/excel45.png"))); // NOI18N
+        excelbutton.setIcon(ColorConstants.loadIcon("/icons/excel45.png")); // NOI18N
         excelbutton.setMnemonic('i');
         excelbutton.setText("Excel");
         excelbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -224,7 +226,7 @@ public final class ven_dues_report extends javax.swing.JInternalFrame {
         excelbutton.setBounds(620, 560, 130, 50);
 
         clearbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        clearbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/clear45.png"))); // NOI18N
+        clearbutton.setIcon(ColorConstants.loadIcon("/icons/clear45.png")); // NOI18N
         clearbutton.setMnemonic('c');
         clearbutton.setText("Clear");
         clearbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -236,7 +238,7 @@ public final class ven_dues_report extends javax.swing.JInternalFrame {
         clearbutton.setBounds(750, 560, 130, 50);
 
         closebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        closebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/close45.png"))); // NOI18N
+        closebutton.setIcon(ColorConstants.loadIcon("/icons/close45.png")); // NOI18N
         closebutton.setMnemonic('o');
         closebutton.setText("Close");
         closebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -275,16 +277,16 @@ public final class ven_dues_report extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTable1MouseClicked
 
-    }//GEN-LAST:event_jTable1MouseClicked
+    }// GEN-LAST:event_jTable1MouseClicked
 
-    private void generatebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generatebuttonActionPerformed
+    private void generatebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_generatebuttonActionPerformed
         load_report();
 
-    }//GEN-LAST:event_generatebuttonActionPerformed
+    }// GEN-LAST:event_generatebuttonActionPerformed
 
-    private void excelbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelbuttonActionPerformed
+    private void excelbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_excelbuttonActionPerformed
         if (s2.getRowCount() <= 0) {
             JOptionPane.showMessageDialog(this, "Sorry, No Records Were Found!", "Oops", JOptionPane.ERROR_MESSAGE);
             return;
@@ -304,9 +306,9 @@ public final class ven_dues_report extends javax.swing.JInternalFrame {
             System.out.println(e.getMessage());
         }
 
-    }//GEN-LAST:event_excelbuttonActionPerformed
+    }// GEN-LAST:event_excelbuttonActionPerformed
 
-    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbuttonActionPerformed
+    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_clearbuttonActionPerformed
         if (s2.getRowCount() > 0) {
             s2.getDataVector().removeAllElements();
             s2.fireTableDataChanged();
@@ -317,27 +319,27 @@ public final class ven_dues_report extends javax.swing.JInternalFrame {
         generatebutton.setEnabled(true);
         h3.setSelectedItem("");
 
-    }//GEN-LAST:event_clearbuttonActionPerformed
+    }// GEN-LAST:event_clearbuttonActionPerformed
 
-    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closebuttonActionPerformed
+    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closebuttonActionPerformed
         this.dispose();
-    }//GEN-LAST:event_closebuttonActionPerformed
+    }// GEN-LAST:event_closebuttonActionPerformed
 
-    private void jTable1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTable1FocusGained
+    private void jTable1FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jTable1FocusGained
 
-    }//GEN-LAST:event_jTable1FocusGained
+    }// GEN-LAST:event_jTable1FocusGained
 
-    private void h3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_h3ItemStateChanged
+    private void h3ItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_h3ItemStateChanged
 
-    }//GEN-LAST:event_h3ItemStateChanged
+    }// GEN-LAST:event_h3ItemStateChanged
 
-    private void allActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allActionPerformed
+    private void allActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_allActionPerformed
         if (all.isSelected()) {
             h3.setEnabled(false);
         } else {
             h3.setEnabled(true);
         }
-    }//GEN-LAST:event_allActionPerformed
+    }// GEN-LAST:event_allActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox all;

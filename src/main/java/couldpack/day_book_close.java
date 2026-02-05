@@ -34,8 +34,10 @@ public class day_book_close extends javax.swing.JInternalFrame {
             titlelablel.setText("<html><u>Day End Process</u></html>");
             setTitle("Day End Process");
             this.setSize(444, 358);
-            ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("images/icon.png"));
-            this.setFrameIcon(icon);
+            ImageIcon icon = ColorConstants.loadIcon("/images/icon.png");
+            if (icon != null) {
+                this.setFrameIcon(icon);
+            }
             menupack.menu_form me = new menu_form();
             drive = "";
             folder = Utils.AppConfig.getAppPath();

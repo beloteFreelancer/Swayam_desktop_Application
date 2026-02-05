@@ -1,5 +1,6 @@
 package stockpack;
 
+import Utils.ColorConstants;
 import com.selrom.db.DataUtil;
 import java.awt.Font;
 import java.awt.HeadlessException;
@@ -41,10 +42,9 @@ public final class stock_alter extends javax.swing.JInternalFrame {
 
         setTitle("Stock Alter");
         this.setSize(1021, 648);
-        java.net.URL iconUrl = ClassLoader.getSystemResource("/images/icon.png");
-        if (iconUrl != null) {
-            ImageIcon icon = new ImageIcon(iconUrl);
-            this.setFrameIcon(icon);
+        javax.swing.ImageIcon icon = ColorConstants.loadIcon("/images/icon.png");
+        if (icon != null) {
+            setFrameIcon(icon);
         }
         Date d = new Date();
         SimpleDateFormat g = new SimpleDateFormat("dd/MM/yyyy");

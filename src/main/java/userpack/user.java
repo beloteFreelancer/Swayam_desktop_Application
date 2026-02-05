@@ -3,6 +3,7 @@ package userpack;
 import com.selrom.db.DataUtil;
 import javax.swing.ImageIcon;
 import java.awt.BorderLayout;
+import Utils.ColorConstants;
 
 /**
  *
@@ -19,9 +20,8 @@ public final class user extends javax.swing.JInternalFrame {
     private void initComponents(DataUtil util) {
         setTitle("Users Management");
         this.setSize(1022, 536);
-        java.net.URL iconUrl = ClassLoader.getSystemResource("/images/icon.png");
-        if (iconUrl != null) {
-            ImageIcon icon = new ImageIcon(iconUrl);
+        javax.swing.ImageIcon icon = ColorConstants.loadIcon("/images/icon.png");
+        if (icon != null) {
             this.setFrameIcon(icon);
         }
 

@@ -1,5 +1,6 @@
 package estimatepack;
 
+import Utils.ColorConstants;
 import com.selrom.db.DataUtil;
 import java.awt.Font;
 import java.io.File;
@@ -23,7 +24,7 @@ import menupack.sample2;
 /**
  *
  * @author K.SELVAKUMAR, copyrights K.SELVAKUMAR, +91 99427 32229,
- * mysoft.java@gmail.com
+ *         mysoft.java@gmail.com
  */
 public final class estimate_summary extends javax.swing.JInternalFrame {
 
@@ -40,8 +41,10 @@ public final class estimate_summary extends javax.swing.JInternalFrame {
         titlelablel.setText("<html><u>Estimate Summary</u></html>");
         setTitle("Estimate Summary");
         this.setSize(1017, 650);
-        ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("images/icon.png"));
-        this.setFrameIcon(icon);
+        javax.swing.ImageIcon icon = ColorConstants.loadIcon("/images/icon.png");
+        if (icon != null) {
+            this.setFrameIcon(icon);
+        }
     }
 
     void load_list_table() {
@@ -72,7 +75,7 @@ public final class estimate_summary extends javax.swing.JInternalFrame {
             jTable1.getColumnModel().getColumn(4).setCellRenderer(dtcr);
             jTable1.getColumnModel().getColumn(5).setCellRenderer(dtcr);
             jTable1.getColumnModel().getColumn(6).setCellRenderer(dtcr);
-//jTable1.getColumnModel().getColumn(7).setCellRenderer(dtcr);
+            // jTable1.getColumnModel().getColumn(7).setCellRenderer(dtcr);
             jTable1.getColumnModel().getColumn(8).setCellRenderer(dtcr);
             jTable1.getColumnModel().getColumn(9).setCellRenderer(dtcr1);
             jTable1.getColumnModel().getColumn(10).setCellRenderer(dtcr);
@@ -133,9 +136,11 @@ public final class estimate_summary extends javax.swing.JInternalFrame {
             boolean selva = false;
             String query;
             if (all.isSelected()) {
-                query = "select billno,date_format(dat,'%d/%m/%Y'),pby,items,quans,net,cid,cname from estimate where dat between '" + lk + "' and '" + lk1 + "' order by dat,billno";
+                query = "select billno,date_format(dat,'%d/%m/%Y'),pby,items,quans,net,cid,cname from estimate where dat between '"
+                        + lk + "' and '" + lk1 + "' order by dat,billno";
             } else {
-                query = "select billno,date_format(dat,'%d/%m/%Y'),pby,items,quans,net,cid,cname from estimate where dat between '" + lk + "' and '" + lk1 + "' and pby='" + h3.getSelectedItem() + "' order by dat,billno";
+                query = "select billno,date_format(dat,'%d/%m/%Y'),pby,items,quans,net,cid,cname from estimate where dat between '"
+                        + lk + "' and '" + lk1 + "' and pby='" + h3.getSelectedItem() + "' order by dat,billno";
             }
             r = util.doQuery(query);
             while (r.next()) {
@@ -164,7 +169,8 @@ public final class estimate_summary extends javax.swing.JInternalFrame {
                 qty.add("");
                 amount.add("");
 
-                query = "select iname,price,quan,amount,quan,amount from estimate_items where billno='" + billno1.get(i) + "'";
+                query = "select iname,price,quan,amount,quan,amount from estimate_items where billno='" + billno1.get(i)
+                        + "'";
                 r = util.doQuery(query);
                 while (r.next()) {
                     billno.add("");
@@ -196,14 +202,15 @@ public final class estimate_summary extends javax.swing.JInternalFrame {
                 qty.add("");
                 amount.add("");
 
-            }//billno size
+            } // billno size
 
             for (int i = 0; i < billno.size(); i++) {
-                s2.addRow(new Object[]{billno.get(i), date.get(i), pby.get(i), items.get(i), quans.get(i), net.get(i), cid.get(i), cname.get(i), iname.get(i), rate.get(i), qty.get(i), amount.get(i)});
+                s2.addRow(new Object[] { billno.get(i), date.get(i), pby.get(i), items.get(i), quans.get(i), net.get(i),
+                        cid.get(i), cname.get(i), iname.get(i), rate.get(i), qty.get(i), amount.get(i) });
             }
             if (selva = true) {
-                s2.addRow(new Object[]{"", "", "", "", "", "", "", "", "", "", "", ""});
-                s2.addRow(new Object[]{"", "", "", "", "", "", "", "", "", "", "" + tquan, "" + tamount});
+                s2.addRow(new Object[] { "", "", "", "", "", "", "", "", "", "", "", "" });
+                s2.addRow(new Object[] { "", "", "", "", "", "", "", "", "", "", "" + tquan, "" + tamount });
                 h1.setEnabled(false);
                 h2.setEnabled(false);
                 jCalendarButton1.setEnabled(false);
@@ -227,7 +234,8 @@ public final class estimate_summary extends javax.swing.JInternalFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         titlelablel = new javax.swing.JLabel();
@@ -256,7 +264,7 @@ public final class estimate_summary extends javax.swing.JInternalFrame {
         titlelablel.setBounds(10, 0, 200, 30);
 
         generatebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        generatebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/generate30.png"))); // NOI18N
+        generatebutton.setIcon(ColorConstants.loadIcon("/icons/generate30.png")); // NOI18N
         generatebutton.setMnemonic('g');
         generatebutton.setText("Generate");
         generatebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -268,7 +276,7 @@ public final class estimate_summary extends javax.swing.JInternalFrame {
         generatebutton.setBounds(780, 40, 220, 30);
 
         clearbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        clearbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/clear45.png"))); // NOI18N
+        clearbutton.setIcon(ColorConstants.loadIcon("/icons/clear45.png")); // NOI18N
         clearbutton.setMnemonic('c');
         clearbutton.setText("Clear");
         clearbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -280,7 +288,7 @@ public final class estimate_summary extends javax.swing.JInternalFrame {
         clearbutton.setBounds(740, 560, 130, 50);
 
         closebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        closebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/close45.png"))); // NOI18N
+        closebutton.setIcon(ColorConstants.loadIcon("/icons/close45.png")); // NOI18N
         closebutton.setMnemonic('o');
         closebutton.setText("Close");
         closebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -297,7 +305,7 @@ public final class estimate_summary extends javax.swing.JInternalFrame {
         jLabel11.setBounds(400, 40, 70, 30);
 
         excelbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        excelbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/excel45.png"))); // NOI18N
+        excelbutton.setIcon(ColorConstants.loadIcon("/icons/excel45.png")); // NOI18N
         excelbutton.setMnemonic('i');
         excelbutton.setText("Excel");
         excelbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -313,7 +321,8 @@ public final class estimate_summary extends javax.swing.JInternalFrame {
         h1.setBounds(80, 40, 110, 30);
 
         h3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        h3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cash", "Card", "Credit", "UPI", "Others", "Multi Pay" }));
+        h3.setModel(new javax.swing.DefaultComboBoxModel<>(
+                new String[] { "Cash", "Card", "Credit", "UPI", "Others", "Multi Pay" }));
         getContentPane().add(h3);
         h3.setBounds(470, 40, 220, 30);
 
@@ -326,7 +335,7 @@ public final class estimate_summary extends javax.swing.JInternalFrame {
         getContentPane().add(h2);
         h2.setBounds(250, 40, 110, 30);
 
-        jCalendarButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cal40.png"))); // NOI18N
+        jCalendarButton1.setIcon(ColorConstants.loadIcon("/icons/cal40.png")); // NOI18N
         jCalendarButton1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 jCalendarButton1PropertyChange(evt);
@@ -335,7 +344,7 @@ public final class estimate_summary extends javax.swing.JInternalFrame {
         getContentPane().add(jCalendarButton1);
         jCalendarButton1.setBounds(190, 40, 30, 30);
 
-        jCalendarButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cal40.png"))); // NOI18N
+        jCalendarButton2.setIcon(ColorConstants.loadIcon("/icons/cal40.png")); // NOI18N
         jCalendarButton2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 jCalendarButton2PropertyChange(evt);
@@ -361,16 +370,15 @@ public final class estimate_summary extends javax.swing.JInternalFrame {
 
         jTable1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jTable1.setRowHeight(25);
         jScrollPane1.setViewportView(jTable1);
 
@@ -380,11 +388,11 @@ public final class estimate_summary extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closebuttonActionPerformed
+    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closebuttonActionPerformed
         this.dispose();
-    }//GEN-LAST:event_closebuttonActionPerformed
+    }// GEN-LAST:event_closebuttonActionPerformed
 
-    private void generatebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generatebuttonActionPerformed
+    private void generatebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_generatebuttonActionPerformed
         Date d = new Date();
         SimpleDateFormat g = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -396,9 +404,9 @@ public final class estimate_summary extends javax.swing.JInternalFrame {
         }
         load_report(h1.getText(), h2.getText());
 
-    }//GEN-LAST:event_generatebuttonActionPerformed
+    }// GEN-LAST:event_generatebuttonActionPerformed
 
-    private void excelbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelbuttonActionPerformed
+    private void excelbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_excelbuttonActionPerformed
         if (s2.getRowCount() <= 0) {
             JOptionPane.showMessageDialog(this, "Sorry, No Records Were Found!", "Oops", JOptionPane.ERROR_MESSAGE);
             return;
@@ -433,9 +441,9 @@ public final class estimate_summary extends javax.swing.JInternalFrame {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_excelbuttonActionPerformed
+    }// GEN-LAST:event_excelbuttonActionPerformed
 
-    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbuttonActionPerformed
+    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_clearbuttonActionPerformed
         if (s2.getRowCount() > 0) {
             s2.getDataVector().removeAllElements();
             s2.fireTableDataChanged();
@@ -451,9 +459,9 @@ public final class estimate_summary extends javax.swing.JInternalFrame {
         h3.setSelectedIndex(0);
         all.setSelected(false);
         generatebutton.setEnabled(true);
-    }//GEN-LAST:event_clearbuttonActionPerformed
+    }// GEN-LAST:event_clearbuttonActionPerformed
 
-    private void jCalendarButton1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendarButton1PropertyChange
+    private void jCalendarButton1PropertyChange(java.beans.PropertyChangeEvent evt) {// GEN-FIRST:event_jCalendarButton1PropertyChange
         try {
             if (evt.getNewValue() instanceof Date) {
                 String ses = evt.getNewValue().toString();
@@ -464,9 +472,9 @@ public final class estimate_summary extends javax.swing.JInternalFrame {
         } catch (ParseException e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_jCalendarButton1PropertyChange
+    }// GEN-LAST:event_jCalendarButton1PropertyChange
 
-    private void jCalendarButton2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendarButton2PropertyChange
+    private void jCalendarButton2PropertyChange(java.beans.PropertyChangeEvent evt) {// GEN-FIRST:event_jCalendarButton2PropertyChange
         try {
             if (evt.getNewValue() instanceof Date) {
                 String ses = evt.getNewValue().toString();
@@ -477,9 +485,9 @@ public final class estimate_summary extends javax.swing.JInternalFrame {
         } catch (ParseException e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_jCalendarButton2PropertyChange
+    }// GEN-LAST:event_jCalendarButton2PropertyChange
 
-    private void allActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allActionPerformed
+    private void allActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_allActionPerformed
 
         if (all.isSelected()) {
             h3.setEnabled(false);
@@ -487,7 +495,7 @@ public final class estimate_summary extends javax.swing.JInternalFrame {
             h3.setEnabled(true);
             h3.setSelectedIndex(0);
         }
-    }//GEN-LAST:event_allActionPerformed
+    }// GEN-LAST:event_allActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox all;

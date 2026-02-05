@@ -1,5 +1,6 @@
 package tax_reports;
 
+import Utils.ColorConstants;
 import Utils.ExcelUtilGST;
 import com.selrom.db.DataUtil;
 import java.awt.Font;
@@ -37,10 +38,9 @@ public final class tax_hsn_sales extends javax.swing.JInternalFrame {
 
         setTitle("GSTR - HSN Wise Sales");
         this.setSize(1021, 648);
-        java.net.URL iconUrl = ClassLoader.getSystemResource("/images/icon.png");
-        if (iconUrl != null) {
-            ImageIcon icon = new ImageIcon(iconUrl);
-            this.setFrameIcon(icon);
+        javax.swing.ImageIcon icon = ColorConstants.loadIcon("/images/icon.png");
+        if (icon != null) {
+            setFrameIcon(icon);
         }
     }
 
@@ -256,7 +256,7 @@ public final class tax_hsn_sales extends javax.swing.JInternalFrame {
         jScrollPane1.setBounds(0, 82, 1000, 480);
 
         generatebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        generatebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/generate30.png"))); // NOI18N
+        generatebutton.setIcon(ColorConstants.loadIcon("/icons/generate30.png")); // NOI18N
         generatebutton.setMnemonic('g');
         generatebutton.setText("Generate");
         generatebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -268,7 +268,7 @@ public final class tax_hsn_sales extends javax.swing.JInternalFrame {
         generatebutton.setBounds(370, 50, 210, 30);
 
         excelbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        excelbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/excel45.png"))); // NOI18N
+        excelbutton.setIcon(ColorConstants.loadIcon("/icons/excel45.png")); // NOI18N
         excelbutton.setMnemonic('i');
         excelbutton.setText("Excel");
         excelbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -280,7 +280,7 @@ public final class tax_hsn_sales extends javax.swing.JInternalFrame {
         excelbutton.setBounds(620, 560, 130, 50);
 
         clearbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        clearbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/clear45.png"))); // NOI18N
+        clearbutton.setIcon(ColorConstants.loadIcon("/icons/clear45.png")); // NOI18N
         clearbutton.setMnemonic('c');
         clearbutton.setText("Clear");
         clearbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -292,7 +292,7 @@ public final class tax_hsn_sales extends javax.swing.JInternalFrame {
         clearbutton.setBounds(750, 560, 130, 50);
 
         closebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        closebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/close45.png"))); // NOI18N
+        closebutton.setIcon(ColorConstants.loadIcon("/icons/close45.png")); // NOI18N
         closebutton.setMnemonic('o');
         closebutton.setText("Close");
         closebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -303,7 +303,7 @@ public final class tax_hsn_sales extends javax.swing.JInternalFrame {
         getContentPane().add(closebutton);
         closebutton.setBounds(880, 560, 120, 50);
 
-        jCalendarButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cal40.png"))); // NOI18N
+        jCalendarButton2.setIcon(ColorConstants.loadIcon("/icons/cal40.png")); // NOI18N
         jCalendarButton2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 jCalendarButton2PropertyChange(evt);
@@ -312,7 +312,7 @@ public final class tax_hsn_sales extends javax.swing.JInternalFrame {
         getContentPane().add(jCalendarButton2);
         jCalendarButton2.setBounds(170, 50, 40, 30);
 
-        jCalendarButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cal40.png"))); // NOI18N
+        jCalendarButton1.setIcon(ColorConstants.loadIcon("/icons/cal40.png")); // NOI18N
         jCalendarButton1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 jCalendarButton1PropertyChange(evt);

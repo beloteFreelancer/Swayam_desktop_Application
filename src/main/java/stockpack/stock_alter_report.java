@@ -1,5 +1,6 @@
 package stockpack;
 
+import Utils.ColorConstants;
 import com.selrom.db.DataUtil;
 import java.awt.Font;
 import java.io.File;
@@ -36,10 +37,9 @@ public class stock_alter_report extends javax.swing.JInternalFrame {
         titlelablel.setText("<html><u>Stock Alter Report</u></html>");
         setTitle("Stock Alter Report");
         this.setSize(1017, 650);
-        java.net.URL iconUrl = ClassLoader.getSystemResource("/images/icon.png");
-        if (iconUrl != null) {
-            ImageIcon icon = new ImageIcon(iconUrl);
-            this.setFrameIcon(icon);
+        javax.swing.ImageIcon icon = ColorConstants.loadIcon("/images/icon.png");
+        if (icon != null) {
+            setFrameIcon(icon);
         }
     }
 

@@ -2,6 +2,7 @@ package itempack;
 
 import Utils.CompanySettingUtil;
 import Utils.ItemUtil;
+import Utils.ColorConstants;
 import ca.odell.glazedlists.GlazedLists;
 import ca.odell.glazedlists.swing.AutoCompleteSupport;
 import com.selrom.db.DataUtil;
@@ -47,9 +48,8 @@ public final class item_master extends javax.swing.JInternalFrame {
         titlelablel.setText("<html><u>Item Master</u></html>");
         setTitle("Item Master");
         this.setSize(611, 621);
-        java.net.URL iconUrl = ClassLoader.getSystemResource("/images/icon.png");
-        if (iconUrl != null) {
-            ImageIcon icon = new ImageIcon(iconUrl);
+        javax.swing.ImageIcon icon = ColorConstants.loadIcon("/images/icon.png");
+        if (icon != null) {
             this.setFrameIcon(icon);
         }
     }
@@ -101,7 +101,7 @@ public final class item_master extends javax.swing.JInternalFrame {
             }
             query = "select distinct hsn from item";
             set = util.doQuery(query);
-            Object f[] = new Object[count];
+            String f[] = new String[count];
             int index = 0;
             while (set.next()) {
                 f[index] = set.getString(1);
@@ -123,7 +123,7 @@ public final class item_master extends javax.swing.JInternalFrame {
             }
             query = "select distinct cat from item";
             set = util.doQuery(query);
-            Object f[] = new Object[count];
+            String f[] = new String[count];
             int index = 0;
             while (set.next()) {
                 f[index] = set.getString(1);
@@ -1062,7 +1062,7 @@ public final class item_master extends javax.swing.JInternalFrame {
         h13.setBounds(120, 350, 190, 30);
 
         savebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        savebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/save45.png"))); // NOI18N
+        savebutton.setIcon(ColorConstants.loadIcon("/icons/save45.png")); // NOI18N
         savebutton.setMnemonic('s');
         savebutton.setText("Save");
         savebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -1074,7 +1074,7 @@ public final class item_master extends javax.swing.JInternalFrame {
         savebutton.setBounds(120, 480, 150, 50);
 
         clearbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        clearbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/clear45.png"))); // NOI18N
+        clearbutton.setIcon(ColorConstants.loadIcon("/icons/clear45.png")); // NOI18N
         clearbutton.setMnemonic('c');
         clearbutton.setText("Clear");
         clearbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -1086,7 +1086,7 @@ public final class item_master extends javax.swing.JInternalFrame {
         clearbutton.setBounds(270, 530, 150, 50);
 
         closebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        closebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/close45.png"))); // NOI18N
+        closebutton.setIcon(ColorConstants.loadIcon("/icons/close45.png")); // NOI18N
         closebutton.setMnemonic('o');
         closebutton.setText("Close");
         closebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -1103,7 +1103,7 @@ public final class item_master extends javax.swing.JInternalFrame {
         jLabel11.setBounds(20, 80, 100, 30);
 
         deletebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        deletebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/delete45.png"))); // NOI18N
+        deletebutton.setIcon(ColorConstants.loadIcon("/icons/delete45.png")); // NOI18N
         deletebutton.setMnemonic('d');
         deletebutton.setText("Delete");
         deletebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -1115,7 +1115,7 @@ public final class item_master extends javax.swing.JInternalFrame {
         deletebutton.setBounds(120, 530, 150, 50);
 
         updatebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        updatebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/load45.jpg.png"))); // NOI18N
+        updatebutton.setIcon(ColorConstants.loadIcon("/icons/load45.jpg.png")); // NOI18N
         updatebutton.setMnemonic('u');
         updatebutton.setText("Update");
         updatebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -1231,7 +1231,7 @@ public final class item_master extends javax.swing.JInternalFrame {
         getContentPane().add(h17);
         h17.setBounds(120, 410, 160, 30);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search22.png"))); // NOI18N
+        jButton1.setIcon(ColorConstants.loadIcon("/icons/search22.png")); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -1240,7 +1240,7 @@ public final class item_master extends javax.swing.JInternalFrame {
         getContentPane().add(jButton1);
         jButton1.setBounds(280, 410, 30, 30);
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search22.png"))); // NOI18N
+        jButton2.setIcon(ColorConstants.loadIcon("/icons/search22.png")); // NOI18N
         jButton2.setMnemonic('v');
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1268,7 +1268,7 @@ public final class item_master extends javax.swing.JInternalFrame {
         h18.setBounds(310, 170, 200, 30);
 
         nextbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        nextbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/next45.png"))); // NOI18N
+        nextbutton.setIcon(ColorConstants.loadIcon("/icons/next45.png")); // NOI18N
         nextbutton.setMnemonic('n');
         nextbutton.setText("Next Entry");
         nextbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -1280,7 +1280,7 @@ public final class item_master extends javax.swing.JInternalFrame {
         nextbutton.setBounds(420, 480, 150, 50);
 
         prebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        prebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/pre45.png"))); // NOI18N
+        prebutton.setIcon(ColorConstants.loadIcon("/icons/pre45.png")); // NOI18N
         prebutton.setMnemonic('r');
         prebutton.setText("Last Entry");
         prebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -1292,7 +1292,7 @@ public final class item_master extends javax.swing.JInternalFrame {
         prebutton.setBounds(270, 480, 150, 50);
 
         exclusiveButton.setBackground(new java.awt.Color(153, 153, 153));
-        exclusiveButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search22.png"))); // NOI18N
+        exclusiveButton.setIcon(ColorConstants.loadIcon("/icons/search22.png")); // NOI18N
         exclusiveButton.setMnemonic('v');
         exclusiveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1320,7 +1320,7 @@ public final class item_master extends javax.swing.JInternalFrame {
         getContentPane().add(h20);
         h20.setBounds(420, 290, 70, 30);
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search22.png"))); // NOI18N
+        jButton4.setIcon(ColorConstants.loadIcon("/icons/search22.png")); // NOI18N
         jButton4.setMnemonic('v');
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1331,7 +1331,7 @@ public final class item_master extends javax.swing.JInternalFrame {
         jButton4.setBounds(540, 140, 30, 30);
 
         inclusiveButton.setBackground(new java.awt.Color(204, 204, 204));
-        inclusiveButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search22.png"))); // NOI18N
+        inclusiveButton.setIcon(ColorConstants.loadIcon("/icons/search22.png")); // NOI18N
         inclusiveButton.setMnemonic('v');
         inclusiveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1342,7 +1342,7 @@ public final class item_master extends javax.swing.JInternalFrame {
         inclusiveButton.setBounds(510, 170, 30, 30);
 
         barcodeGenerateButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        barcodeGenerateButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/barcodeIcon.png"))); // NOI18N
+        barcodeGenerateButton.setIcon(ColorConstants.loadIcon("/icons/barcodeIcon.png")); // NOI18N
         barcodeGenerateButton.setText("Barcode");
         barcodeGenerateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1422,7 +1422,7 @@ public final class item_master extends javax.swing.JInternalFrame {
         mfgLabel.setBounds(20, 440, 100, 30);
 
         copyButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        copyButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/copy.png"))); // NOI18N
+        copyButton.setIcon(ColorConstants.loadIcon("/icons/copy.png")); // NOI18N
         copyButton.setText("Copy");
         copyButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -1,5 +1,6 @@
 package smspack;
 
+import Utils.ColorConstants;
 import com.selrom.db.DataUtil;
 import java.awt.HeadlessException;
 import java.sql.ResultSet;
@@ -22,10 +23,9 @@ public final class sms_setting extends javax.swing.JInternalFrame {
         titlelablel.setText("<html><u>SMS Setting</u></html>");
         setTitle("SMS Setting");
         this.setSize(435, 481);
-        java.net.URL iconUrl = ClassLoader.getSystemResource("/images/icon.png");
-        if (iconUrl != null) {
-            ImageIcon icon = new ImageIcon(iconUrl);
-            this.setFrameIcon(icon);
+        javax.swing.ImageIcon icon = ColorConstants.loadIcon("/images/icon.png");
+        if (icon != null) {
+            setFrameIcon(icon);
         }
     }
 
@@ -90,7 +90,7 @@ public final class sms_setting extends javax.swing.JInternalFrame {
         getContentPane().setLayout(null);
 
         closebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        closebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/close45.png"))); // NOI18N
+        closebutton.setIcon(ColorConstants.loadIcon("/icons/close45.png")); // NOI18N
         closebutton.setMnemonic('o');
         closebutton.setText("Close");
         closebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -130,7 +130,7 @@ public final class sms_setting extends javax.swing.JInternalFrame {
         h3.setBounds(100, 100, 300, 30);
 
         savebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        savebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/save45.png"))); // NOI18N
+        savebutton.setIcon(ColorConstants.loadIcon("/icons/save45.png")); // NOI18N
         savebutton.setMnemonic('s');
         savebutton.setText("Save");
         savebutton.addActionListener(new java.awt.event.ActionListener() {

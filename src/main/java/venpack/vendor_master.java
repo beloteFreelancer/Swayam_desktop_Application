@@ -8,11 +8,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import Utils.ColorConstants;
 
 /**
  *
  * @author K.SELVAKUMAR, copyrights K.SELVAKUMAR, +91 99427 32229,
- * mysoft.java@gmail.com
+ *         mysoft.java@gmail.com
  */
 public final class vendor_master extends javax.swing.JInternalFrame {
 
@@ -30,9 +31,8 @@ public final class vendor_master extends javax.swing.JInternalFrame {
         titlelablel.setText("<html><u>Supplier Master</u></html>");
         setTitle("Supplier Master");
         this.setSize(630, 534);
-        java.net.URL imgUrl = getClass().getResource("/images/icon.png");
-        if (imgUrl != null) {
-            ImageIcon icon = new ImageIcon(imgUrl);
+        javax.swing.ImageIcon icon = ColorConstants.loadIcon("/images/icon.png");
+        if (icon != null) {
             this.setFrameIcon(icon);
         }
     }
@@ -47,7 +47,7 @@ public final class vendor_master extends javax.swing.JInternalFrame {
             }
             query = "select distinct cname from vendor";
             set = util.doQuery(query);
-            Object f[] = new Object[count];
+            String f[] = new String[count];
             int index = 0;
             while (set.next()) {
                 f[index] = set.getString(1);
@@ -70,7 +70,7 @@ public final class vendor_master extends javax.swing.JInternalFrame {
             }
             query = "select distinct city from vendor";
             set = util.doQuery(query);
-            Object f[] = new Object[count];
+            String f[] = new String[count];
             int index = 0;
             while (set.next()) {
                 f[index] = set.getString(1);
@@ -93,7 +93,7 @@ public final class vendor_master extends javax.swing.JInternalFrame {
             }
             query = "select distinct sname from vendor";
             set = util.doQuery(query);
-            Object f[] = new Object[count];
+            String f[] = new String[count];
             int index = 0;
             while (set.next()) {
                 f[index] = set.getString(1);
@@ -116,7 +116,7 @@ public final class vendor_master extends javax.swing.JInternalFrame {
             }
             query = "select distinct scode from vendor";
             set = util.doQuery(query);
-            Object f[] = new Object[count];
+            String f[] = new String[count];
             int index = 0;
             while (set.next()) {
                 f[index] = set.getString(1);
@@ -132,7 +132,8 @@ public final class vendor_master extends javax.swing.JInternalFrame {
     void save() {
         try {
             if (h1.getSelectedItem() == null || h1.getSelectedItem() == "") {
-                JOptionPane.showMessageDialog(this, "Enter Supplier Name ?", "Supplier Name", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Enter Supplier Name ?", "Supplier Name",
+                        JOptionPane.ERROR_MESSAGE);
                 h1.requestFocus();
                 return;
             }
@@ -195,7 +196,9 @@ public final class vendor_master extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Already Exist!", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            query = "insert into vendor values ('" + cname + "','" + add1 + "','" + add2 + "','" + add3 + "','" + area + "','" + mobile + "','" + phone + "','" + gstno + "','" + sname + "','" + scode + "','" + duedays + "','" + remarks + "','" + email + "')";
+            query = "insert into vendor values ('" + cname + "','" + add1 + "','" + add2 + "','" + add3 + "','" + area
+                    + "','" + mobile + "','" + phone + "','" + gstno + "','" + sname + "','" + scode + "','" + duedays
+                    + "','" + remarks + "','" + email + "')";
             int count = util.doManipulation(query);
             if (count > 0) {
                 JOptionPane.showMessageDialog(this, "Saved Successfully", "Saved", JOptionPane.PLAIN_MESSAGE);
@@ -209,7 +212,8 @@ public final class vendor_master extends javax.swing.JInternalFrame {
     void update() {
         try {
             if (h1.getSelectedItem() == null || h1.getSelectedItem() == "") {
-                JOptionPane.showMessageDialog(this, "Enter Supplier Name ?", "Supplier Name", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Enter Supplier Name ?", "Supplier Name",
+                        JOptionPane.ERROR_MESSAGE);
                 h1.requestFocus();
                 return;
             }
@@ -270,10 +274,14 @@ public final class vendor_master extends javax.swing.JInternalFrame {
                 selva = true;
             }
             if (selva == false) {
-                JOptionPane.showMessageDialog(this, "Supplier Details Not Found!", "No Records", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Supplier Details Not Found!", "No Records",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            query = "update vendor set add1='" + add1 + "',add2='" + add2 + "',add3='" + add3 + "',city='" + area + "',mobile='" + mobile + "',phone='" + phone + "',gstno='" + gstno + "',sname='" + sname + "',scode='" + scode + "',duedays='" + duedays + "',remarks='" + remarks + "',email='" + email + "' where cname='" + cname + "' ";
+            query = "update vendor set add1='" + add1 + "',add2='" + add2 + "',add3='" + add3 + "',city='" + area
+                    + "',mobile='" + mobile + "',phone='" + phone + "',gstno='" + gstno + "',sname='" + sname
+                    + "',scode='" + scode + "',duedays='" + duedays + "',remarks='" + remarks + "',email='" + email
+                    + "' where cname='" + cname + "' ";
             int count = util.doManipulation(query);
             if (count > 0) {
                 JOptionPane.showMessageDialog(this, "Updated Successfully", "Updated", JOptionPane.PLAIN_MESSAGE);
@@ -316,7 +324,8 @@ public final class vendor_master extends javax.swing.JInternalFrame {
 
     void view() {
         try {
-            String query = "select distinct cname,add1,add2,add3,city,mobile,phone,gstno,sname,scode,duedays,remarks from vendor where cname='" + h1.getSelectedItem() + "' ";
+            String query = "select distinct cname,add1,add2,add3,city,mobile,phone,gstno,sname,scode,duedays,remarks from vendor where cname='"
+                    + h1.getSelectedItem() + "' ";
             ResultSet set1 = util.doQuery(query);
             boolean selva = false;
             while (set1.next()) {
@@ -388,7 +397,8 @@ public final class vendor_master extends javax.swing.JInternalFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         titlelablel = new javax.swing.JLabel();
@@ -455,7 +465,7 @@ public final class vendor_master extends javax.swing.JInternalFrame {
         h10.setBounds(490, 320, 100, 30);
 
         savebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        savebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/save45.png"))); // NOI18N
+        savebutton.setIcon(ColorConstants.loadIcon("/icons/save45.png")); // NOI18N
         savebutton.setMnemonic('s');
         savebutton.setText("Save");
         savebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -467,7 +477,7 @@ public final class vendor_master extends javax.swing.JInternalFrame {
         savebutton.setBounds(70, 430, 130, 50);
 
         viewbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        viewbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/view45.png"))); // NOI18N
+        viewbutton.setIcon(ColorConstants.loadIcon("/icons/view45.png")); // NOI18N
         viewbutton.setMnemonic('v');
         viewbutton.setText("View");
         viewbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -479,7 +489,7 @@ public final class vendor_master extends javax.swing.JInternalFrame {
         viewbutton.setBounds(200, 430, 130, 50);
 
         clearbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        clearbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/clear45.png"))); // NOI18N
+        clearbutton.setIcon(ColorConstants.loadIcon("/icons/clear45.png")); // NOI18N
         clearbutton.setMnemonic('c');
         clearbutton.setText("Clear");
         clearbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -491,7 +501,7 @@ public final class vendor_master extends javax.swing.JInternalFrame {
         clearbutton.setBounds(330, 430, 130, 50);
 
         closebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        closebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/close45.png"))); // NOI18N
+        closebutton.setIcon(ColorConstants.loadIcon("/icons/close45.png")); // NOI18N
         closebutton.setMnemonic('o');
         closebutton.setText("Close");
         closebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -508,7 +518,7 @@ public final class vendor_master extends javax.swing.JInternalFrame {
         jLabel11.setBounds(20, 80, 100, 30);
 
         deletebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        deletebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/delete45.png"))); // NOI18N
+        deletebutton.setIcon(ColorConstants.loadIcon("/icons/delete45.png")); // NOI18N
         deletebutton.setMnemonic('d');
         deletebutton.setText("Delete");
         deletebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -520,7 +530,7 @@ public final class vendor_master extends javax.swing.JInternalFrame {
         deletebutton.setBounds(200, 430, 130, 50);
 
         updatebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        updatebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/load45.jpg.png"))); // NOI18N
+        updatebutton.setIcon(ColorConstants.loadIcon("/icons/load45.jpg.png")); // NOI18N
         updatebutton.setMnemonic('u');
         updatebutton.setText("Update");
         updatebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -617,18 +627,18 @@ public final class vendor_master extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closebuttonActionPerformed
+    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closebuttonActionPerformed
         this.dispose();
         // TODO add your handling code here:
-    }//GEN-LAST:event_closebuttonActionPerformed
+    }// GEN-LAST:event_closebuttonActionPerformed
 
-    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savebuttonActionPerformed
+    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_savebuttonActionPerformed
 
         save();
         // TODO add your handling code here:
-    }//GEN-LAST:event_savebuttonActionPerformed
+    }// GEN-LAST:event_savebuttonActionPerformed
 
-    private void viewbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewbuttonActionPerformed
+    private void viewbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_viewbuttonActionPerformed
         if (h1.getSelectedItem() == null || h1.getSelectedItem() == "") {
             JOptionPane.showMessageDialog(this, "Enter Supplier Name ?", "Supplier Name", JOptionPane.ERROR_MESSAGE);
             h1.requestFocus();
@@ -636,21 +646,21 @@ public final class vendor_master extends javax.swing.JInternalFrame {
         }
         view();
 
-    }//GEN-LAST:event_viewbuttonActionPerformed
+    }// GEN-LAST:event_viewbuttonActionPerformed
 
-    private void deletebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletebuttonActionPerformed
+    private void deletebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_deletebuttonActionPerformed
         delete();
-    }//GEN-LAST:event_deletebuttonActionPerformed
+    }// GEN-LAST:event_deletebuttonActionPerformed
 
-    private void updatebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatebuttonActionPerformed
+    private void updatebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_updatebuttonActionPerformed
         update();
         // TODO add your handling code here:
-    }//GEN-LAST:event_updatebuttonActionPerformed
+    }// GEN-LAST:event_updatebuttonActionPerformed
 
-    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbuttonActionPerformed
+    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_clearbuttonActionPerformed
         clear();
         // TODO add your handling code here:
-    }//GEN-LAST:event_clearbuttonActionPerformed
+    }// GEN-LAST:event_clearbuttonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton clearbutton;

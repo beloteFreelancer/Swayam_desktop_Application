@@ -1,5 +1,6 @@
 package hrpack;
 
+import Utils.ColorConstants;
 import com.selrom.db.DataUtil;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -149,7 +150,7 @@ public class pay_advance_report extends javax.swing.JInternalFrame {
         titlelablel.setBounds(10, 0, 310, 30);
 
         generatebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        generatebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/generate30.png"))); // NOI18N
+        generatebutton.setIcon(ColorConstants.loadIcon("/icons/generate30.png")); // NOI18N
         generatebutton.setMnemonic('g');
         generatebutton.setText("Generate");
         generatebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -161,7 +162,7 @@ public class pay_advance_report extends javax.swing.JInternalFrame {
         generatebutton.setBounds(400, 40, 220, 30);
 
         clearbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        clearbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/clear45.png"))); // NOI18N
+        clearbutton.setIcon(ColorConstants.loadIcon("/icons/clear45.png")); // NOI18N
         clearbutton.setMnemonic('c');
         clearbutton.setText("Clear");
         clearbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -173,7 +174,7 @@ public class pay_advance_report extends javax.swing.JInternalFrame {
         clearbutton.setBounds(740, 560, 130, 50);
 
         closebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        closebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/close45.png"))); // NOI18N
+        closebutton.setIcon(ColorConstants.loadIcon("/icons/close45.png")); // NOI18N
         closebutton.setMnemonic('o');
         closebutton.setText("Close");
         closebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -185,7 +186,7 @@ public class pay_advance_report extends javax.swing.JInternalFrame {
         closebutton.setBounds(870, 560, 130, 50);
 
         excelbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        excelbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/excel45.png"))); // NOI18N
+        excelbutton.setIcon(ColorConstants.loadIcon("/icons/excel45.png")); // NOI18N
         excelbutton.setMnemonic('i');
         excelbutton.setText("Excel");
         excelbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -209,7 +210,7 @@ public class pay_advance_report extends javax.swing.JInternalFrame {
         getContentPane().add(h2);
         h2.setBounds(250, 40, 110, 30);
 
-        jCalendarButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cal40.png"))); // NOI18N
+        jCalendarButton1.setIcon(ColorConstants.loadIcon("/icons/cal40.png")); // NOI18N
         jCalendarButton1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 jCalendarButton1PropertyChange(evt);
@@ -218,7 +219,7 @@ public class pay_advance_report extends javax.swing.JInternalFrame {
         getContentPane().add(jCalendarButton1);
         jCalendarButton1.setBounds(190, 40, 30, 30);
 
-        jCalendarButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cal40.png"))); // NOI18N
+        jCalendarButton2.setIcon(ColorConstants.loadIcon("/icons/cal40.png")); // NOI18N
         jCalendarButton2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 jCalendarButton2PropertyChange(evt);
@@ -250,7 +251,7 @@ public class pay_advance_report extends javax.swing.JInternalFrame {
         jScrollPane1.setBounds(0, 70, 1000, 490);
 
         viewbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        viewbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/view45.png"))); // NOI18N
+        viewbutton.setIcon(ColorConstants.loadIcon("/icons/view45.png")); // NOI18N
         viewbutton.setMnemonic('v');
         viewbutton.setText("View");
         viewbutton.addActionListener(new java.awt.event.ActionListener() {

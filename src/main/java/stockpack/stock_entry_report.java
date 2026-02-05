@@ -1,5 +1,6 @@
 package stockpack;
 
+import Utils.ColorConstants;
 import com.selrom.db.DataUtil;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -43,10 +44,9 @@ public class stock_entry_report extends javax.swing.JInternalFrame {
 
         setTitle("Manual Stock Entry Report");
         this.setSize(1017, 650);
-        java.net.URL iconUrl = ClassLoader.getSystemResource("/images/icon.png");
-        if (iconUrl != null) {
-            ImageIcon icon = new ImageIcon(iconUrl);
-            this.setFrameIcon(icon);
+        javax.swing.ImageIcon icon = ColorConstants.loadIcon("/images/icon.png");
+        if (icon != null) {
+            setFrameIcon(icon);
         }
         menu_form me = new menu_form();
         hmany = me.getHmany();

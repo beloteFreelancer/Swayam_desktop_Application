@@ -19,11 +19,12 @@ import javax.swing.JTable;
 import javax.swing.text.DefaultCaret;
 import menupack.menu_form;
 import menupack.sample2;
+import Utils.ColorConstants;
 
 /**
  *
  * @author K.SELVAKUMAR, copyrights K.SELVAKUMAR, +91 99427 32229,
- * mysoft.java@gmail.com
+ *         mysoft.java@gmail.com
  */
 public final class cust_bill extends javax.swing.JInternalFrame {
 
@@ -47,9 +48,8 @@ public final class cust_bill extends javax.swing.JInternalFrame {
 
         setTitle("Customer Bill Register (Opening Balance)");
         this.setSize(979, 617);
-        java.net.URL imgUrl = getClass().getResource("/images/icon.png");
-        if (imgUrl != null) {
-            ImageIcon icon = new ImageIcon(imgUrl);
+        javax.swing.ImageIcon icon = ColorConstants.loadIcon("/images/icon.png");
+        if (icon != null) {
             this.setFrameIcon(icon);
         }
         menu_form me = new menu_form();
@@ -175,32 +175,41 @@ public final class cust_bill extends javax.swing.JInternalFrame {
                 selva = true;
             }
             if (selva == true) {
-                JOptionPane.showMessageDialog(this, "Entry No Already Exist!", "Already Exist", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Entry No Already Exist!", "Already Exist",
+                        JOptionPane.ERROR_MESSAGE);
                 h2.requestFocus();
                 return;
             }
             boolean selva1 = false;
-            query = "select billno from cust_bill where cid='" + cid + "' and cname='" + cname + "' and billno='" + billno + "'";
+            query = "select billno from cust_bill where cid='" + cid + "' and cname='" + cname + "' and billno='"
+                    + billno + "'";
             r = util.doQuery(query);
             while (r.next()) {
                 selva1 = true;
             }
             if (selva1 == true) {
-                JOptionPane.showMessageDialog(this, "This Bill No: '" + billno + "'  is Already Exist for '" + cname + "' ", "Already Exist", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this,
+                        "This Bill No: '" + billno + "'  is Already Exist for '" + cname + "' ", "Already Exist",
+                        JOptionPane.ERROR_MESSAGE);
                 h4.requestFocus();
                 return;
             }
-            int aa = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Save ?</h1></html>", "Are You Sure", JOptionPane.YES_NO_OPTION);
+            int aa = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Save ?</h1></html>", "Are You Sure",
+                    JOptionPane.YES_NO_OPTION);
             if (aa == JOptionPane.NO_OPTION) {
                 return;
             }
             ArrayList query_list = new ArrayList();
             double paid = 0;
-            query_list.add("insert into cust_bill values ('" + sno + "','" + cid + "','" + cname + "','" + billno + "','" + date + "','" + ddate + "','" + amount + "','" + remarks + "','" + username + "','" + last + "') ");
-            query_list.add("insert into cust_bal values ('" + billno + "','" + date + "','" + ddate + "','" + cid + "','" + cname + "','" + amount + "','" + paid + "','" + last + "') ");
+            query_list.add("insert into cust_bill values ('" + sno + "','" + cid + "','" + cname + "','" + billno
+                    + "','" + date + "','" + ddate + "','" + amount + "','" + remarks + "','" + username + "','" + last
+                    + "') ");
+            query_list.add("insert into cust_bal values ('" + billno + "','" + date + "','" + ddate + "','" + cid
+                    + "','" + cname + "','" + amount + "','" + paid + "','" + last + "') ");
             int a = util.doManipulation_Batch(query_list);
             if (a > 0) {
-                JOptionPane.showMessageDialog(this, "<html><h1>Saved Successfully</h1></html>", "Saved", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(this, "<html><h1>Saved Successfully</h1></html>", "Saved",
+                        JOptionPane.PLAIN_MESSAGE);
                 clear();
             } else {
                 JOptionPane.showMessageDialog(this, "Please try again...");
@@ -235,7 +244,8 @@ public final class cust_bill extends javax.swing.JInternalFrame {
 
     void view(String sno) {
         try {
-            String query = "select sno,cid,cname,billno,date_format(dat,'%d/%m/%Y'),date_format(ddate,'%d/%m/%Y'),amount,remarks from cust_bill where sno='" + sno + "' ";
+            String query = "select sno,cid,cname,billno,date_format(dat,'%d/%m/%Y'),date_format(ddate,'%d/%m/%Y'),amount,remarks from cust_bill where sno='"
+                    + sno + "' ";
             r = util.doQuery(query);
             boolean selva = false;
             while (r.next()) {
@@ -269,7 +279,8 @@ public final class cust_bill extends javax.swing.JInternalFrame {
     void delete(String sno) {
         try {
             if (utype.equalsIgnoreCase("User")) {
-                JOptionPane.showMessageDialog(this, "Login as 'Administrator' to Delete!", "Permission Restricted", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Login as 'Administrator' to Delete!", "Permission Restricted",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
             int as = JOptionPane.showConfirmDialog(this, "Want to Delete ?", "Are You Sure", JOptionPane.YES_NO_OPTION);
@@ -290,8 +301,10 @@ public final class cust_bill extends javax.swing.JInternalFrame {
             String cid = h2.getText();
             String cname = h3.getText();
             String billno = h4.getSelectedItem().toString();
-            query_batch.add("delete from cust_bill where sno='" + sno + "' and cid='" + cid + "' and cname='" + cname + "'");
-            query_batch.add("delete from cust_bal where billno='" + billno + "' and cid='" + cid + "' and cname='" + cname + "'");
+            query_batch.add(
+                    "delete from cust_bill where sno='" + sno + "' and cid='" + cid + "' and cname='" + cname + "'");
+            query_batch.add("delete from cust_bal where billno='" + billno + "' and cid='" + cid + "' and cname='"
+                    + cname + "'");
             int count = util.doManipulation_Batch(query_batch);
             if (count > 0) {
                 JOptionPane.showMessageDialog(this, "Deleted Successfully", "Deleted", JOptionPane.PLAIN_MESSAGE);
@@ -347,7 +360,8 @@ public final class cust_bill extends javax.swing.JInternalFrame {
             }
 
             double total = 0;
-            query = "select date_format(dat,'%d/%m/%Y'),billno,tot-paid from cust_bal where cid='" + cid + "' and tot-paid >0 ";
+            query = "select date_format(dat,'%d/%m/%Y'),billno,tot-paid from cust_bal where cid='" + cid
+                    + "' and tot-paid >0 ";
             r = util.doQuery(query);
             while (r.next()) {
                 String date = r.getString(1);
@@ -409,7 +423,8 @@ public final class cust_bill extends javax.swing.JInternalFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         cname_list = new javax.swing.JDialog();
@@ -461,16 +476,15 @@ public final class cust_bill extends javax.swing.JInternalFrame {
 
         jTable2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jTable2.setRowHeight(25);
         jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -708,6 +722,7 @@ public final class cust_bill extends javax.swing.JInternalFrame {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 h7FocusGained(evt);
             }
+
             public void focusLost(java.awt.event.FocusEvent evt) {
                 h7FocusLost(evt);
             }
@@ -737,34 +752,34 @@ public final class cust_bill extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closebuttonActionPerformed
+    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closebuttonActionPerformed
         this.dispose();
-    }//GEN-LAST:event_closebuttonActionPerformed
+    }// GEN-LAST:event_closebuttonActionPerformed
 
-    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savebuttonActionPerformed
+    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_savebuttonActionPerformed
         save();
-    }//GEN-LAST:event_savebuttonActionPerformed
+    }// GEN-LAST:event_savebuttonActionPerformed
 
-    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbuttonActionPerformed
+    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_clearbuttonActionPerformed
         clear();
-    }//GEN-LAST:event_clearbuttonActionPerformed
+    }// GEN-LAST:event_clearbuttonActionPerformed
 
-    private void viewbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewbuttonActionPerformed
+    private void viewbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_viewbuttonActionPerformed
         String sno = JOptionPane.showInputDialog(this, "Enter Entry No ?", "Entry No", JOptionPane.PLAIN_MESSAGE);
         view(sno);
-    }//GEN-LAST:event_viewbuttonActionPerformed
+    }// GEN-LAST:event_viewbuttonActionPerformed
 
-    private void deletebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletebuttonActionPerformed
+    private void deletebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_deletebuttonActionPerformed
         String sno = h1.getText();
         delete(sno);
-    }//GEN-LAST:event_deletebuttonActionPerformed
+    }// GEN-LAST:event_deletebuttonActionPerformed
 
-    private void h1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h1FocusGained
+    private void h1FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h1FocusGained
 
         h2.requestFocus();
-    }//GEN-LAST:event_h1FocusGained
+    }// GEN-LAST:event_h1FocusGained
 
-    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTable2MouseClicked
 
         if (jTable2.getRowCount() > 0) {
             String cid = jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString();
@@ -773,14 +788,14 @@ public final class cust_bill extends javax.swing.JInternalFrame {
         }
         cname_list.dispose();
 
-    }//GEN-LAST:event_jTable2MouseClicked
+    }// GEN-LAST:event_jTable2MouseClicked
 
-    private void jTable2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTable2FocusLost
+    private void jTable2FocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jTable2FocusLost
         cname_list.dispose();
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTable2FocusLost
+    }// GEN-LAST:event_jTable2FocusLost
 
-    private void jTable2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable2KeyPressed
+    private void jTable2KeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jTable2KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (jTable2.getRowCount() > 0) {
                 String cid = jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString();
@@ -792,26 +807,26 @@ public final class cust_bill extends javax.swing.JInternalFrame {
             cname_list.dispose();
             h2.requestFocus();
         }
-    }//GEN-LAST:event_jTable2KeyPressed
+    }// GEN-LAST:event_jTable2KeyPressed
 
-    private void jScrollPane4FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jScrollPane4FocusLost
+    private void jScrollPane4FocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jScrollPane4FocusLost
 
         cname_list.dispose();
-    }//GEN-LAST:event_jScrollPane4FocusLost
+    }// GEN-LAST:event_jScrollPane4FocusLost
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton10ActionPerformed
 
         cname_list.setVisible(false);
         cname_list.dispose();
         h6.requestFocus();
-    }//GEN-LAST:event_jButton10ActionPerformed
+    }// GEN-LAST:event_jButton10ActionPerformed
 
-    private void cname_listFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cname_listFocusLost
+    private void cname_listFocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_cname_listFocusLost
 
         cname_list.dispose();
-    }//GEN-LAST:event_cname_listFocusLost
+    }// GEN-LAST:event_cname_listFocusLost
 
-    private void prebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prebuttonActionPerformed
+    private void prebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_prebuttonActionPerformed
 
         try {
             String query;
@@ -838,9 +853,9 @@ public final class cust_bill extends javax.swing.JInternalFrame {
         }
 
         // TODO add your handling code here:
-    }//GEN-LAST:event_prebuttonActionPerformed
+    }// GEN-LAST:event_prebuttonActionPerformed
 
-    private void nextbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextbuttonActionPerformed
+    private void nextbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_nextbuttonActionPerformed
 
         try {
             String query;
@@ -865,9 +880,9 @@ public final class cust_bill extends javax.swing.JInternalFrame {
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_nextbuttonActionPerformed
+    }// GEN-LAST:event_nextbuttonActionPerformed
 
-    private void jCalendarButton1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendarButton1PropertyChange
+    private void jCalendarButton1PropertyChange(java.beans.PropertyChangeEvent evt) {// GEN-FIRST:event_jCalendarButton1PropertyChange
 
         try {
             if (evt.getNewValue() instanceof Date) {
@@ -881,9 +896,9 @@ public final class cust_bill extends javax.swing.JInternalFrame {
         }
 
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCalendarButton1PropertyChange
+    }// GEN-LAST:event_jCalendarButton1PropertyChange
 
-    private void h2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_h2KeyPressed
+    private void h2KeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_h2KeyPressed
 
         cname_list.requestFocus();
         jTable2.requestFocus();
@@ -902,40 +917,41 @@ public final class cust_bill extends javax.swing.JInternalFrame {
                 cname_list.setLocation(l.x, l.y + jLabel23.getHeight());
                 cname_list.setSize(890, 310);
                 cname_list.setVisible(true);
-                String query = "select cid,cname,city from cust where cname like '" + h2.getText() + "%' order by cname limit 500";
+                String query = "select cid,cname,city from cust where cname like '" + h2.getText()
+                        + "%' order by cname limit 500";
                 r = util.doQuery(query);
                 while (r.next()) {
-                    s3.addRow(new Object[]{r.getString(1), r.getString(2), r.getString(3)});
+                    s3.addRow(new Object[] { r.getString(1), r.getString(2), r.getString(3) });
                 }
             } catch (ClassNotFoundException | SQLException e) {
                 System.out.println(e.getMessage());
             }
         }
-    }//GEN-LAST:event_h2KeyPressed
+    }// GEN-LAST:event_h2KeyPressed
 
-    private void h2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h2FocusLost
+    private void h2FocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h2FocusLost
         h2.setText(h2.getText().toUpperCase());
         if (hh.getText().equals("")) {
             get_patient_details(h2.getText());
         }
-    }//GEN-LAST:event_h2FocusLost
+    }// GEN-LAST:event_h2FocusLost
 
-    private void h3FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h3FocusGained
+    private void h3FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h3FocusGained
         h2.setEnabled(false);
-    }//GEN-LAST:event_h3FocusGained
+    }// GEN-LAST:event_h3FocusGained
 
-    private void h7FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h7FocusLost
+    private void h7FocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h7FocusLost
 
-    }//GEN-LAST:event_h7FocusLost
+    }// GEN-LAST:event_h7FocusLost
 
-    private void h7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h7ActionPerformed
+    private void h7ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h7ActionPerformed
 
-    }//GEN-LAST:event_h7ActionPerformed
+    }// GEN-LAST:event_h7ActionPerformed
 
-    private void h7FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h7FocusGained
-    }//GEN-LAST:event_h7FocusGained
+    private void h7FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h7FocusGained
+    }// GEN-LAST:event_h7FocusGained
 
-    private void jCalendarButton2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendarButton2PropertyChange
+    private void jCalendarButton2PropertyChange(java.beans.PropertyChangeEvent evt) {// GEN-FIRST:event_jCalendarButton2PropertyChange
         try {
             if (evt.getNewValue() instanceof Date) {
                 String ses = evt.getNewValue().toString();
@@ -945,8 +961,8 @@ public final class cust_bill extends javax.swing.JInternalFrame {
             }
         } catch (ParseException e) {
             System.out.println(e.getMessage());
-        }        // TODO add your handling code here:
-    }//GEN-LAST:event_jCalendarButton2PropertyChange
+        } // TODO add your handling code here:
+    }// GEN-LAST:event_jCalendarButton2PropertyChange
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton clearbutton;

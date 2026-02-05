@@ -1,5 +1,6 @@
 package stockpack;
 
+import Utils.ColorConstants;
 import com.selrom.db.DataUtil;
 import java.awt.Font;
 import java.io.File;
@@ -49,10 +50,9 @@ public class expiry_report extends javax.swing.JInternalFrame {
         hmany = me.getHmany();
         setTitle("Expiry Report");
         this.setSize(1021, 648);
-        java.net.URL iconUrl = ClassLoader.getSystemResource("/images/icon.png");
-        if (iconUrl != null) {
-            ImageIcon icon = new ImageIcon(iconUrl);
-            this.setFrameIcon(icon);
+        javax.swing.ImageIcon icon = ColorConstants.loadIcon("/images/icon.png");
+        if (icon != null) {
+            setFrameIcon(icon);
         }
     }
 

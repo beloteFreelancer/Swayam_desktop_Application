@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import menupack.sample2;
+import Utils.ColorConstants;
 
 /**
  *
@@ -33,9 +34,8 @@ public final class user_permissions extends javax.swing.JInternalFrame {
         titlelablel.setText("<html><u>User Permissions</u></html>");
         setTitle("User Permissions");
         this.setSize(491, 648);
-        java.net.URL iconUrl = ClassLoader.getSystemResource("/images/icon.png");
-        if (iconUrl != null) {
-            ImageIcon icon = new ImageIcon(iconUrl);
+        javax.swing.ImageIcon icon = ColorConstants.loadIcon("/images/icon.png");
+        if (icon != null) {
             this.setFrameIcon(icon);
         }
     }
@@ -204,7 +204,7 @@ public final class user_permissions extends javax.swing.JInternalFrame {
         jScrollPane1.setBounds(0, 82, 470, 480);
 
         generatebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        generatebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/select22.png"))); // NOI18N
+        generatebutton.setIcon(ColorConstants.loadIcon("/icons/select22.png")); // NOI18N
         generatebutton.setMnemonic('t');
         generatebutton.setText("Select");
         generatebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -216,7 +216,7 @@ public final class user_permissions extends javax.swing.JInternalFrame {
         generatebutton.setBounds(340, 50, 130, 30);
 
         clearbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        clearbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/clear45.png"))); // NOI18N
+        clearbutton.setIcon(ColorConstants.loadIcon("/icons/clear45.png")); // NOI18N
         clearbutton.setMnemonic('c');
         clearbutton.setText("Clear");
         clearbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -228,7 +228,7 @@ public final class user_permissions extends javax.swing.JInternalFrame {
         clearbutton.setBounds(220, 560, 130, 50);
 
         closebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        closebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/close45.png"))); // NOI18N
+        closebutton.setIcon(ColorConstants.loadIcon("/icons/close45.png")); // NOI18N
         closebutton.setMnemonic('o');
         closebutton.setText("Close");
         closebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -255,7 +255,7 @@ public final class user_permissions extends javax.swing.JInternalFrame {
         h3.setBounds(50, 50, 290, 30);
 
         savebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        savebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/save45.png"))); // NOI18N
+        savebutton.setIcon(ColorConstants.loadIcon("/icons/save45.png")); // NOI18N
         savebutton.setMnemonic('s');
         savebutton.setText("Save");
         savebutton.addActionListener(new java.awt.event.ActionListener() {

@@ -604,6 +604,7 @@ public final class menu_form extends javax.swing.JFrame {
 
         // SUPPLIER
         if (pm.hasPermission("Supplier")) {
+            System.out.println("Supplier permission granted");
             jMenu2.setVisible(true);
             jPanel15.setVisible(true); // Supplier Bal Tile
             jPanel14.setVisible(true); // Supplier Overdue Tile
@@ -1303,7 +1304,7 @@ public final class menu_form extends javax.swing.JFrame {
         jLabel1.setForeground(ColorConstants.TEXT_PRIMARY);
         jLabel1.setText("Today's Business Overview");
         jPanel4.add(jLabel1);
-        jLabel1.setBounds(20, 70, 250, 30);
+        jLabel1.setBounds(20, 60, 250, 30);
 
         jPanel3.setBackground(ColorConstants.SECONDARY_ORANGE);
         jPanel3.setLayout(null);
@@ -1522,14 +1523,14 @@ public final class menu_form extends javax.swing.JFrame {
 
         jLabel26.setFont(new java.awt.Font("Segoe UI", 1, 32)); // NOI18N
         jLabel26.setForeground(ColorConstants.TEXT_LIGHT);
-        jLabel26.setText("🎯 Target Billing Software");
+        jLabel26.setText("🎯 BBS Billing Software");
         jPanel12.add(jLabel26);
         jLabel26.setBounds(20, 15, 600, 35);
 
         jLabel42.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel42.setForeground(ColorConstants.TEXT_LIGHT);
         jLabel42.setText(
-                "📞 BBS Software   |    Email: BBSsoftwaretarget@gmail.com   |   🌐 Website: BBSerp.in");
+                "📞 BBS Software   |    Email: BBSsoftware+@gmail.com   |   Mob No: 7588168856   |   🌐 Website: BBSerp.in");
         jPanel12.add(jLabel42);
         jLabel42.setBounds(20, 55, 1200, 25);
 
@@ -1554,14 +1555,14 @@ public final class menu_form extends javax.swing.JFrame {
         activatel.setBounds(1000, 50, 340, 25);
 
         jPanel4.add(jPanel12);
-        jPanel12.setBounds(0, 540, 1360, 100);
+        jPanel12.setBounds(0, 520, 1360, 100);
 
         cnamel.setFont(new java.awt.Font("Bookman Old Style", 3, 36)); // NOI18N
         cnamel.setForeground(new java.awt.Color(255, 0, 102));
         cnamel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         cnamel.setText(".");
         jPanel4.add(cnamel);
-        cnamel.setBounds(20, 10, 1340, 50);
+        cnamel.setBounds(20, 5, 1340, 50);
 
         jLabel30.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel30.setForeground(ColorConstants.TEXT_PRIMARY);
@@ -1648,7 +1649,7 @@ public final class menu_form extends javax.swing.JFrame {
 
         clearl.setBackground(ColorConstants.SUCCESS_GREEN);
         clearl.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        clearl.setForeground(ColorConstants.TEXT_LIGHT);
+        clearl.setForeground(java.awt.Color.BLACK);
         clearl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         clearl.setText("🔄 Refresh");
         clearl.setBorder(javax.swing.BorderFactory.createCompoundBorder(
@@ -1814,17 +1815,23 @@ public final class menu_form extends javax.swing.JFrame {
                                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 589, Short.MAX_VALUE)));
 
         getContentPane().add(jDesktopPane1);
-        jDesktopPane1.setBounds(0, 0, 1360, 720);
+        jDesktopPane1.setBounds(0, 30, 1360, 690);
 
-        // jMenuBar1.setPreferredSize(new java.awt.Dimension(200, 30));
+        // Set menu bar to start from left edge
+        jMenuBar1.setBounds(0, 0, 1360, 30);
 
         jMenuBar1.setPreferredSize(new java.awt.Dimension(1360, 30));
         jMenuBar1.setBackground(ColorConstants.PRIMARY_BLUE);
         jMenuBar1.setForeground(ColorConstants.TEXT_LIGHT);
         jMenuBar1.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 
+        // Set as the frame's menu bar to ensure proper display
+        this.setJMenuBar(jMenuBar1);
+
+        jMenu10.setText("Sales");
         jMenu10.setForeground(ColorConstants.TEXT_LIGHT);
         jMenu10.setFont(new java.awt.Font("Arial", 1, 14));
+        jMenu10.setMnemonic('S');
 
         jSeparator85.setBackground(ColorConstants.PRIMARY_BLUE_LIGHT);
         jSeparator85.setForeground(ColorConstants.PRIMARY_BLUE_LIGHT);
@@ -2016,8 +2023,10 @@ public final class menu_form extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu10);
 
+        jMenu3.setText("Purchase");
         jMenu3.setForeground(ColorConstants.TEXT_LIGHT);
         jMenu3.setFont(new java.awt.Font("Arial", 1, 14));
+        jMenu3.setMnemonic('P');
 
         jSeparator68.setBackground(ColorConstants.SECONDARY_ORANGE);
         jSeparator68.setForeground(ColorConstants.SECONDARY_ORANGE);
@@ -2139,8 +2148,10 @@ public final class menu_form extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
+        jMenu21.setText("Estimate");
         jMenu21.setForeground(ColorConstants.TEXT_LIGHT);
         jMenu21.setFont(new java.awt.Font("Arial", 1, 14));
+        jMenu21.setMnemonic('E');
 
         jSeparator125.setBackground(ColorConstants.WARNING_YELLOW);
         jSeparator125.setForeground(ColorConstants.WARNING_YELLOW);
@@ -2380,7 +2391,10 @@ public final class menu_form extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
+        jMenu5.setText("Stock");
         jMenu5.setForeground(ColorConstants.TEXT_LIGHT);
+        jMenu5.setFont(new java.awt.Font("Arial", 1, 14));
+        jMenu5.setMnemonic('t');
         jMenu5.setFont(new java.awt.Font("Arial", 1, 14));
 
         jSeparator63.setBackground(ColorConstants.SUCCESS_GREEN);
@@ -2771,7 +2785,7 @@ public final class menu_form extends javax.swing.JFrame {
         jMenu12.add(jSeparator98);
 
         jMenuBar1.add(jMenu12);
-
+        jMenu2.setText("Supplier");
         jMenu2.setForeground(ColorConstants.TEXT_LIGHT);
         jMenu2.setFont(new java.awt.Font("Arial", 1, 14));
 

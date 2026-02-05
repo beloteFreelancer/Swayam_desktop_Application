@@ -1,5 +1,6 @@
 package venpack;
 
+import Utils.ColorConstants;
 import ca.odell.glazedlists.GlazedLists;
 import ca.odell.glazedlists.swing.AutoCompleteSupport;
 import com.selrom.db.DataUtil;
@@ -19,7 +20,7 @@ import menupack.sample2;
 /**
  *
  * @author K.SELVAKUMAR, copyrights K.SELVAKUMAR, +91 99427 32229,
- * mysoft.java@gmail.com
+ *         mysoft.java@gmail.com
  */
 public final class ven_bill extends javax.swing.JInternalFrame {
 
@@ -43,10 +44,9 @@ public final class ven_bill extends javax.swing.JInternalFrame {
 
         setTitle("Supplier Bill Register (Opening Balance)");
         this.setSize(979, 617);
-        java.net.URL imgUrl = getClass().getResource("/images/icon.png");
-        if (imgUrl != null) {
-            ImageIcon icon = new ImageIcon(imgUrl);
-            this.setFrameIcon(icon);
+        javax.swing.ImageIcon icon = ColorConstants.loadIcon("/images/icon.png");
+        if (icon != null) {
+            setFrameIcon(icon);
         }
         menu_form me = new menu_form();
         hmany = me.getHmany();
@@ -128,7 +128,8 @@ public final class ven_bill extends javax.swing.JInternalFrame {
     void save() {
         try {
             if (h2.getSelectedItem() == null || h2.getSelectedItem() == "") {
-                JOptionPane.showMessageDialog(this, "Enter Supplier Name ?", "Supplier Name", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Enter Supplier Name ?", "Supplier Name",
+                        JOptionPane.ERROR_MESSAGE);
                 h2.requestFocus();
                 return;
             }
@@ -179,7 +180,8 @@ public final class ven_bill extends javax.swing.JInternalFrame {
                 selva = true;
             }
             if (selva == true) {
-                JOptionPane.showMessageDialog(this, "Entry No Already Exist!", "Already Exist", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Entry No Already Exist!", "Already Exist",
+                        JOptionPane.ERROR_MESSAGE);
                 h2.requestFocus();
                 return;
             }
@@ -190,21 +192,27 @@ public final class ven_bill extends javax.swing.JInternalFrame {
                 selva1 = true;
             }
             if (selva1 == true) {
-                JOptionPane.showMessageDialog(this, "This Bill No: '" + billno + "'  is Already Exist for '" + cname + "' ", "Already Exist", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this,
+                        "This Bill No: '" + billno + "'  is Already Exist for '" + cname + "' ", "Already Exist",
+                        JOptionPane.ERROR_MESSAGE);
                 h3.requestFocus();
                 return;
             }
-            int aa = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Save ?</h1></html>", "Are You Sure", JOptionPane.YES_NO_OPTION);
+            int aa = JOptionPane.showConfirmDialog(this, "<html><h1>Want to Save ?</h1></html>", "Are You Sure",
+                    JOptionPane.YES_NO_OPTION);
             if (aa == JOptionPane.NO_OPTION) {
                 return;
             }
             ArrayList query_list = new ArrayList();
             double paid = 0;
-            query_list.add("insert into ven_bill values ('" + sno + "','" + cname + "','" + billno + "','" + date + "','" + ddate + "','" + amount + "','" + remarks + "','" + username + "','" + last + "') ");
-            query_list.add("insert into ven_bal values ('" + billno + "','" + date + "','" + ddate + "','" + cname + "','" + amount + "','" + paid + "','" + last + "') ");
+            query_list.add("insert into ven_bill values ('" + sno + "','" + cname + "','" + billno + "','" + date
+                    + "','" + ddate + "','" + amount + "','" + remarks + "','" + username + "','" + last + "') ");
+            query_list.add("insert into ven_bal values ('" + billno + "','" + date + "','" + ddate + "','" + cname
+                    + "','" + amount + "','" + paid + "','" + last + "') ");
             int a = util.doManipulation_Batch(query_list);
             if (a > 0) {
-                JOptionPane.showMessageDialog(this, "<html><h1>Saved Successfully</h1></html>", "Saved", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(this, "<html><h1>Saved Successfully</h1></html>", "Saved",
+                        JOptionPane.PLAIN_MESSAGE);
                 clear();
             } else {
                 JOptionPane.showMessageDialog(this, "Please try again...");
@@ -240,7 +248,8 @@ public final class ven_bill extends javax.swing.JInternalFrame {
 
     void view(String sno) {
         try {
-            String query = "select sno,cname,billno,date_format(dat,'%d/%m/%Y'),date_format(ddate,'%d/%m/%Y'),amount,remarks from ven_bill where sno='" + sno + "' ";
+            String query = "select sno,cname,billno,date_format(dat,'%d/%m/%Y'),date_format(ddate,'%d/%m/%Y'),amount,remarks from ven_bill where sno='"
+                    + sno + "' ";
             ResultSet r1 = util.doQuery(query);
             boolean selva = false;
             while (r1.next()) {
@@ -273,7 +282,8 @@ public final class ven_bill extends javax.swing.JInternalFrame {
     void delete(String sno) {
         try {
             if (utype.equalsIgnoreCase("User")) {
-                JOptionPane.showMessageDialog(this, "Login as 'Administrator' to Delete!", "Permission Restricted", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Login as 'Administrator' to Delete!", "Permission Restricted",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
             int as = JOptionPane.showConfirmDialog(this, "Want to Delete ?", "Are You Sure", JOptionPane.YES_NO_OPTION);
@@ -346,7 +356,8 @@ public final class ven_bill extends javax.swing.JInternalFrame {
             }
 
             double total = 0;
-            query = "select date_format(dat,'%d/%m/%Y'),billno,tot-paid from ven_bal where cname='" + cname + "' and tot-paid >0 ";
+            query = "select date_format(dat,'%d/%m/%Y'),billno,tot-paid from ven_bal where cname='" + cname
+                    + "' and tot-paid >0 ";
             r = util.doQuery(query);
             while (r.next()) {
                 String date = r.getString(1);
@@ -407,7 +418,8 @@ public final class ven_bill extends javax.swing.JInternalFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         titlelablel = new javax.swing.JLabel();
@@ -446,7 +458,7 @@ public final class ven_bill extends javax.swing.JInternalFrame {
         titlelablel.setBounds(10, 0, 410, 30);
 
         closebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        closebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/close45.png"))); // NOI18N
+        closebutton.setIcon(ColorConstants.loadIcon("/icons/close45.png")); // NOI18N
         closebutton.setMnemonic('o');
         closebutton.setText("Close");
         closebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -458,7 +470,7 @@ public final class ven_bill extends javax.swing.JInternalFrame {
         closebutton.setBounds(320, 340, 130, 50);
 
         savebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        savebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/save45.png"))); // NOI18N
+        savebutton.setIcon(ColorConstants.loadIcon("/icons/save45.png")); // NOI18N
         savebutton.setMnemonic('s');
         savebutton.setText("Save");
         savebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -470,7 +482,7 @@ public final class ven_bill extends javax.swing.JInternalFrame {
         savebutton.setBounds(60, 290, 130, 50);
 
         viewbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        viewbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/view45.png"))); // NOI18N
+        viewbutton.setIcon(ColorConstants.loadIcon("/icons/view45.png")); // NOI18N
         viewbutton.setMnemonic('v');
         viewbutton.setText("View");
         viewbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -482,7 +494,7 @@ public final class ven_bill extends javax.swing.JInternalFrame {
         viewbutton.setBounds(60, 340, 130, 50);
 
         deletebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        deletebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/delete45.png"))); // NOI18N
+        deletebutton.setIcon(ColorConstants.loadIcon("/icons/delete45.png")); // NOI18N
         deletebutton.setMnemonic('d');
         deletebutton.setText("Delete");
         deletebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -494,7 +506,7 @@ public final class ven_bill extends javax.swing.JInternalFrame {
         deletebutton.setBounds(60, 290, 130, 50);
 
         clearbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        clearbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/clear45.png"))); // NOI18N
+        clearbutton.setIcon(ColorConstants.loadIcon("/icons/clear45.png")); // NOI18N
         clearbutton.setMnemonic('c');
         clearbutton.setText("Clear");
         clearbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -539,7 +551,7 @@ public final class ven_bill extends javax.swing.JInternalFrame {
         h5.setBounds(100, 180, 310, 30);
 
         prebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        prebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/pre45.png"))); // NOI18N
+        prebutton.setIcon(ColorConstants.loadIcon("/icons/pre45.png")); // NOI18N
         prebutton.setMnemonic('r');
         prebutton.setText("Previous");
         prebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -551,7 +563,7 @@ public final class ven_bill extends javax.swing.JInternalFrame {
         prebutton.setBounds(190, 290, 130, 50);
 
         nextbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        nextbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/next45.png"))); // NOI18N
+        nextbutton.setIcon(ColorConstants.loadIcon("/icons/next45.png")); // NOI18N
         nextbutton.setMnemonic('n');
         nextbutton.setText("Next");
         nextbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -567,7 +579,7 @@ public final class ven_bill extends javax.swing.JInternalFrame {
         getContentPane().add(jLabel29);
         jLabel29.setBounds(20, 240, 80, 30);
 
-        jCalendarButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cal40.png"))); // NOI18N
+        jCalendarButton1.setIcon(ColorConstants.loadIcon("/icons/cal40.png")); // NOI18N
         jCalendarButton1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 jCalendarButton1PropertyChange(evt);
@@ -606,6 +618,7 @@ public final class ven_bill extends javax.swing.JInternalFrame {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 h6FocusGained(evt);
             }
+
             public void focusLost(java.awt.event.FocusEvent evt) {
                 h6FocusLost(evt);
             }
@@ -623,7 +636,7 @@ public final class ven_bill extends javax.swing.JInternalFrame {
         getContentPane().add(jLabel13);
         jLabel13.setBounds(20, 150, 80, 30);
 
-        jCalendarButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cal40.png"))); // NOI18N
+        jCalendarButton2.setIcon(ColorConstants.loadIcon("/icons/cal40.png")); // NOI18N
         jCalendarButton2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 jCalendarButton2PropertyChange(evt);
@@ -650,34 +663,34 @@ public final class ven_bill extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closebuttonActionPerformed
+    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closebuttonActionPerformed
         this.dispose();
-    }//GEN-LAST:event_closebuttonActionPerformed
+    }// GEN-LAST:event_closebuttonActionPerformed
 
-    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savebuttonActionPerformed
+    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_savebuttonActionPerformed
         save();
-    }//GEN-LAST:event_savebuttonActionPerformed
+    }// GEN-LAST:event_savebuttonActionPerformed
 
-    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbuttonActionPerformed
+    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_clearbuttonActionPerformed
         clear();
-    }//GEN-LAST:event_clearbuttonActionPerformed
+    }// GEN-LAST:event_clearbuttonActionPerformed
 
-    private void viewbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewbuttonActionPerformed
+    private void viewbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_viewbuttonActionPerformed
         String sno = JOptionPane.showInputDialog(this, "Enter Entry No ?", "Entry No", JOptionPane.PLAIN_MESSAGE);
         view(sno);
-    }//GEN-LAST:event_viewbuttonActionPerformed
+    }// GEN-LAST:event_viewbuttonActionPerformed
 
-    private void deletebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletebuttonActionPerformed
+    private void deletebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_deletebuttonActionPerformed
         String sno = h1.getText();
         delete(sno);
-    }//GEN-LAST:event_deletebuttonActionPerformed
+    }// GEN-LAST:event_deletebuttonActionPerformed
 
-    private void h1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h1FocusGained
+    private void h1FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h1FocusGained
 
         h2.requestFocus();
-    }//GEN-LAST:event_h1FocusGained
+    }// GEN-LAST:event_h1FocusGained
 
-    private void prebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prebuttonActionPerformed
+    private void prebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_prebuttonActionPerformed
 
         try {
             String query;
@@ -704,9 +717,9 @@ public final class ven_bill extends javax.swing.JInternalFrame {
         }
 
         // TODO add your handling code here:
-    }//GEN-LAST:event_prebuttonActionPerformed
+    }// GEN-LAST:event_prebuttonActionPerformed
 
-    private void nextbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextbuttonActionPerformed
+    private void nextbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_nextbuttonActionPerformed
 
         try {
             String query;
@@ -731,9 +744,9 @@ public final class ven_bill extends javax.swing.JInternalFrame {
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_nextbuttonActionPerformed
+    }// GEN-LAST:event_nextbuttonActionPerformed
 
-    private void jCalendarButton1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendarButton1PropertyChange
+    private void jCalendarButton1PropertyChange(java.beans.PropertyChangeEvent evt) {// GEN-FIRST:event_jCalendarButton1PropertyChange
 
         try {
             if (evt.getNewValue() instanceof Date) {
@@ -747,20 +760,20 @@ public final class ven_bill extends javax.swing.JInternalFrame {
         }
 
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCalendarButton1PropertyChange
+    }// GEN-LAST:event_jCalendarButton1PropertyChange
 
-    private void h6FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h6FocusLost
+    private void h6FocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h6FocusLost
 
-    }//GEN-LAST:event_h6FocusLost
+    }// GEN-LAST:event_h6FocusLost
 
-    private void h6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_h6ActionPerformed
+    private void h6ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_h6ActionPerformed
 
-    }//GEN-LAST:event_h6ActionPerformed
+    }// GEN-LAST:event_h6ActionPerformed
 
-    private void h6FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_h6FocusGained
-    }//GEN-LAST:event_h6FocusGained
+    private void h6FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_h6FocusGained
+    }// GEN-LAST:event_h6FocusGained
 
-    private void jCalendarButton2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendarButton2PropertyChange
+    private void jCalendarButton2PropertyChange(java.beans.PropertyChangeEvent evt) {// GEN-FIRST:event_jCalendarButton2PropertyChange
         try {
             if (evt.getNewValue() instanceof Date) {
                 String ses = evt.getNewValue().toString();
@@ -770,12 +783,12 @@ public final class ven_bill extends javax.swing.JInternalFrame {
             }
         } catch (ParseException e) {
             System.out.println(e.getMessage());
-        }        // TODO add your handling code here:
-    }//GEN-LAST:event_jCalendarButton2PropertyChange
+        } // TODO add your handling code here:
+    }// GEN-LAST:event_jCalendarButton2PropertyChange
 
-    private void h2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_h2ItemStateChanged
+    private void h2ItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_h2ItemStateChanged
         get_patient_details(h2.getSelectedItem().toString());
-    }//GEN-LAST:event_h2ItemStateChanged
+    }// GEN-LAST:event_h2ItemStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton clearbutton;

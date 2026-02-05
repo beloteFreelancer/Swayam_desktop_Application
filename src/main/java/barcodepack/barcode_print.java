@@ -2,6 +2,7 @@ package barcodepack;
 
 import Utils.CompanySettingUtil;
 import Utils.ItemUtil;
+import Utils.ColorConstants;
 import ca.odell.glazedlists.GlazedLists;
 import ca.odell.glazedlists.swing.AutoCompleteSupport;
 import com.selrom.db.DataUtil;
@@ -21,7 +22,7 @@ import menupack.sample2;
 /**
  *
  * @author K.SELVAKUMAR, copyrights K.SELVAKUMAR, +91 99427 32229,
- * mysoft.java@gmail.com
+ *         mysoft.java@gmail.com
  */
 public class barcode_print extends javax.swing.JInternalFrame {
 
@@ -41,8 +42,10 @@ public class barcode_print extends javax.swing.JInternalFrame {
         titlelablel.setText("<html><u>Barcode Printing</u></html>");
         setTitle("Barcode Printing");
         this.setSize(1021, 648);
-        ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("images/icon.png"));
-        this.setFrameIcon(icon);
+        javax.swing.ImageIcon icon = ColorConstants.loadIcon("/images/icon.png");
+        if (icon != null) {
+            this.setFrameIcon(icon);
+        }
     }
 
     final void load_list_table() {
@@ -165,7 +168,8 @@ public class barcode_print extends javax.swing.JInternalFrame {
             ArrayList rprice = new ArrayList();
             ArrayList wprice = new ArrayList();
             ArrayList tname = new ArrayList();
-            query = "select barcode,ino,iname,mrp,rprice,wprice,quan,iname1 from purchase_items where grn='" + h1.getSelectedItem() + "'";
+            query = "select barcode,ino,iname,mrp,rprice,wprice,quan,iname1 from purchase_items where grn='"
+                    + h1.getSelectedItem() + "'";
             r = util.doQuery(query);
             while (r.next()) {
                 String barcode1 = r.getString(1);
@@ -194,7 +198,8 @@ public class barcode_print extends javax.swing.JInternalFrame {
             }
 
             for (int i = 0; i < ino.size(); i++) {
-                s2.addRow(new Object[]{barcode.get(i), ino.get(i), iname.get(i), mrp.get(i), rprice.get(i), wprice.get(i), tname.get(i)});
+                s2.addRow(new Object[] { barcode.get(i), ino.get(i), iname.get(i), mrp.get(i), rprice.get(i),
+                        wprice.get(i), tname.get(i) });
             }
             totl.setText(" Total Records: " + jTable1.getRowCount());
         } catch (ClassNotFoundException | SQLException e) {
@@ -236,7 +241,8 @@ public class barcode_print extends javax.swing.JInternalFrame {
                 }
             }
             for (int i = 0; i < ino.size(); i++) {
-                s2.addRow(new Object[]{barcode.get(i), ino.get(i), iname.get(i), mrp.get(i), rprice.get(i), wprice.get(i), tname.get(i)});
+                s2.addRow(new Object[] { barcode.get(i), ino.get(i), iname.get(i), mrp.get(i), rprice.get(i),
+                        wprice.get(i), tname.get(i) });
             }
             totl.setText(" Total Records: " + jTable1.getRowCount());
         } catch (ClassNotFoundException | NumberFormatException | SQLException e) {
@@ -262,12 +268,12 @@ public class barcode_print extends javax.swing.JInternalFrame {
 
                 items.add(ino);
 
-                // Add query to batch list (ALWAYS sanitize or use PreparedStatement in real apps)
+                // Add query to batch list (ALWAYS sanitize or use PreparedStatement in real
+                // apps)
                 String query = String.format(
                         "INSERT INTO barcode (barcode, ino, iname, mrp, retail_price, wholesale_price, iname1) "
-                        + "VALUES ('%s', %d, '%s', '%s', '%s', '%s', '%s')",
-                        barcode, ino, iname, mrp, rprice, wprice, iname1
-                );
+                                + "VALUES ('%s', %d, '%s', '%s', '%s', '%s', '%s')",
+                        barcode, ino, iname, mrp, rprice, wprice, iname1);
 
                 query_batch.add(query);
             }
@@ -312,7 +318,8 @@ public class barcode_print extends javax.swing.JInternalFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         titlelablel = new javax.swing.JLabel();
@@ -346,16 +353,15 @@ public class barcode_print extends javax.swing.JInternalFrame {
 
         jTable1.setFont(new java.awt.Font("Arial Unicode MS", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jTable1.setRowHeight(25);
         jTable1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -373,7 +379,7 @@ public class barcode_print extends javax.swing.JInternalFrame {
         jScrollPane1.setBounds(0, 132, 1000, 430);
 
         generatebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        generatebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/generate30.png"))); // NOI18N
+        generatebutton.setIcon(ColorConstants.loadIcon("/icons/generate30.png")); // NOI18N
         generatebutton.setMnemonic('g');
         generatebutton.setText("Generate");
         generatebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -385,7 +391,7 @@ public class barcode_print extends javax.swing.JInternalFrame {
         generatebutton.setBounds(260, 50, 140, 30);
 
         savebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        savebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/print45.png"))); // NOI18N
+        savebutton.setIcon(ColorConstants.loadIcon("/icons/print45.png")); // NOI18N
         savebutton.setMnemonic('s');
         savebutton.setText("Save");
         savebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -397,7 +403,7 @@ public class barcode_print extends javax.swing.JInternalFrame {
         savebutton.setBounds(410, 560, 180, 50);
 
         clearbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        clearbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/clear45.png"))); // NOI18N
+        clearbutton.setIcon(ColorConstants.loadIcon("/icons/clear45.png")); // NOI18N
         clearbutton.setMnemonic('c');
         clearbutton.setText("Clear");
         clearbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -409,7 +415,7 @@ public class barcode_print extends javax.swing.JInternalFrame {
         clearbutton.setBounds(750, 560, 130, 50);
 
         closebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        closebutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/close45.png"))); // NOI18N
+        closebutton.setIcon(ColorConstants.loadIcon("/icons/close45.png")); // NOI18N
         closebutton.setMnemonic('o');
         closebutton.setText("Close");
         closebutton.addActionListener(new java.awt.event.ActionListener() {
@@ -455,7 +461,7 @@ public class barcode_print extends javax.swing.JInternalFrame {
         h2.setBounds(470, 50, 390, 30);
 
         generatebutton1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        generatebutton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/generate30.png"))); // NOI18N
+        generatebutton1.setIcon(ColorConstants.loadIcon("/icons/generate30.png")); // NOI18N
         generatebutton1.setMnemonic('g');
         generatebutton1.setText("Generate");
         generatebutton1.addActionListener(new java.awt.event.ActionListener() {
@@ -497,7 +503,7 @@ public class barcode_print extends javax.swing.JInternalFrame {
         h4.setBounds(470, 80, 390, 30);
 
         generatebutton2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        generatebutton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/generate30.png"))); // NOI18N
+        generatebutton2.setIcon(ColorConstants.loadIcon("/icons/generate30.png")); // NOI18N
         generatebutton2.setMnemonic('g');
         generatebutton2.setText("Generate");
         generatebutton2.addActionListener(new java.awt.event.ActionListener() {
@@ -509,7 +515,7 @@ public class barcode_print extends javax.swing.JInternalFrame {
         generatebutton2.setBounds(260, 80, 140, 30);
 
         generatebutton3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        generatebutton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/generate30.png"))); // NOI18N
+        generatebutton3.setIcon(ColorConstants.loadIcon("/icons/generate30.png")); // NOI18N
         generatebutton3.setMnemonic('g');
         generatebutton3.setText("Generate");
         generatebutton3.addActionListener(new java.awt.event.ActionListener() {
@@ -521,7 +527,7 @@ public class barcode_print extends javax.swing.JInternalFrame {
         generatebutton3.setBounds(860, 80, 140, 30);
 
         jButton1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/setting45.png"))); // NOI18N
+        jButton1.setIcon(ColorConstants.loadIcon("/icons/setting45.png")); // NOI18N
         jButton1.setText("Settings");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -534,46 +540,46 @@ public class barcode_print extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTable1MouseClicked
 
-    }//GEN-LAST:event_jTable1MouseClicked
+    }// GEN-LAST:event_jTable1MouseClicked
 
-    private void generatebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generatebuttonActionPerformed
+    private void generatebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_generatebuttonActionPerformed
         get_details_using_grn_no();
 
-    }//GEN-LAST:event_generatebuttonActionPerformed
+    }// GEN-LAST:event_generatebuttonActionPerformed
 
-    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savebuttonActionPerformed
+    private void savebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_savebuttonActionPerformed
         if (s2.getRowCount() <= 0) {
             JOptionPane.showMessageDialog(this, "Sorry, No Records Were Found!", "Oops", JOptionPane.ERROR_MESSAGE);
             return;
         }
         save();
 
-    }//GEN-LAST:event_savebuttonActionPerformed
+    }// GEN-LAST:event_savebuttonActionPerformed
 
-    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbuttonActionPerformed
+    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_clearbuttonActionPerformed
         clear();
 
-    }//GEN-LAST:event_clearbuttonActionPerformed
+    }// GEN-LAST:event_clearbuttonActionPerformed
 
-    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closebuttonActionPerformed
+    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closebuttonActionPerformed
         this.dispose();
-    }//GEN-LAST:event_closebuttonActionPerformed
+    }// GEN-LAST:event_closebuttonActionPerformed
 
-    private void jTable1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTable1FocusGained
+    private void jTable1FocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jTable1FocusGained
 
-    }//GEN-LAST:event_jTable1FocusGained
+    }// GEN-LAST:event_jTable1FocusGained
 
-    private void h1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_h1ItemStateChanged
+    private void h1ItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_h1ItemStateChanged
 
-    }//GEN-LAST:event_h1ItemStateChanged
+    }// GEN-LAST:event_h1ItemStateChanged
 
-    private void h2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_h2ItemStateChanged
+    private void h2ItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_h2ItemStateChanged
         // TODO add your handling code here:
-    }//GEN-LAST:event_h2ItemStateChanged
+    }// GEN-LAST:event_h2ItemStateChanged
 
-    private void generatebutton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generatebutton1ActionPerformed
+    private void generatebutton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_generatebutton1ActionPerformed
         try {
             String quan = JOptionPane.showInputDialog(this, "How Many Lables ?", "Nos", JOptionPane.PLAIN_MESSAGE);
             if (quan == null || "".equals(quan)) {
@@ -581,49 +587,53 @@ public class barcode_print extends javax.swing.JInternalFrame {
                 return;
             }
 
-            String query = "select barcode,ino,iname,mrp,rprice,wprice,iname1 from item where barcode='" + h2.getSelectedItem() + "' order by barcode limit 1";
+            String query = "select barcode,ino,iname,mrp,rprice,wprice,iname1 from item where barcode='"
+                    + h2.getSelectedItem() + "' order by barcode limit 1";
             load_default_data(query, quan);
         } catch (HeadlessException e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_generatebutton1ActionPerformed
+    }// GEN-LAST:event_generatebutton1ActionPerformed
 
-    private void h3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_h3ItemStateChanged
+    private void h3ItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_h3ItemStateChanged
         // TODO add your handling code here:
-    }//GEN-LAST:event_h3ItemStateChanged
+    }// GEN-LAST:event_h3ItemStateChanged
 
-    private void h4ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_h4ItemStateChanged
+    private void h4ItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_h4ItemStateChanged
         // TODO add your handling code here:
-    }//GEN-LAST:event_h4ItemStateChanged
+    }// GEN-LAST:event_h4ItemStateChanged
 
-    private void generatebutton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generatebutton2ActionPerformed
+    private void generatebutton2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_generatebutton2ActionPerformed
         try {
             String quan = JOptionPane.showInputDialog(this, "How Many Lables ?", "Nos", JOptionPane.PLAIN_MESSAGE);
             if (quan == null || "".equals(quan)) {
                 JOptionPane.showMessageDialog(this, "Invalid Quantity!", "Invalid", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            String query = "select barcode,ino,iname,mrp,rprice,wprice,iname1 from item where ino='" + h3.getSelectedItem() + "' order by barcode";
+            String query = "select barcode,ino,iname,mrp,rprice,wprice,iname1 from item where ino='"
+                    + h3.getSelectedItem() + "' order by barcode";
             load_default_data(query, quan);
         } catch (HeadlessException e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_generatebutton2ActionPerformed
+    }// GEN-LAST:event_generatebutton2ActionPerformed
 
-    private void generatebutton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generatebutton3ActionPerformed
+    private void generatebutton3ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_generatebutton3ActionPerformed
         try {
             try {
                 String selectedName = h4.getSelectedItem() != null ? h4.getSelectedItem().toString() : "";
-                String query = "SELECT ino, iname, barcode," + (CompanySettingUtil.getInstance().isDisplayBatch() ? "batch" : "size") + " FROM item WHERE iname = '" + selectedName + "'";
+                String query = "SELECT ino, iname, barcode,"
+                        + (CompanySettingUtil.getInstance().isDisplayBatch() ? "batch" : "size")
+                        + " FROM item WHERE iname = '" + selectedName + "'";
                 ResultSet set = util.doQuery(query);
 
                 List<Object[]> rows = new ArrayList<>();
                 while (set.next()) {
-                    rows.add(new Object[]{
-                        set.getString("ino"),
-                        set.getString("iname"),
-                        set.getString("barcode"),
-                        set.getString(CompanySettingUtil.getInstance().isDisplayBatch() ? "batch" : "size")
+                    rows.add(new Object[] {
+                            set.getString("ino"),
+                            set.getString("iname"),
+                            set.getString("barcode"),
+                            set.getString(CompanySettingUtil.getInstance().isDisplayBatch() ? "batch" : "size")
                     });
                 }
 
@@ -640,7 +650,8 @@ public class barcode_print extends javax.swing.JInternalFrame {
                         loadAndPrint(selectedIno);
                     } else {
                         // User cancelled or no selection
-                        JOptionPane.showMessageDialog(this, "No item selected.", "Cancelled", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "No item selected.", "Cancelled",
+                                JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
             } catch (ClassNotFoundException | SQLException e) {
@@ -651,16 +662,18 @@ public class barcode_print extends javax.swing.JInternalFrame {
         } catch (HeadlessException e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_generatebutton3ActionPerformed
+    }// GEN-LAST:event_generatebutton3ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
         Container parent = getTopLevelAncestor();
-        new barcodepack.jasper.BarcodeTemplateManager((parent instanceof Window) ? (Window) parent : null).setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+        new barcodepack.jasper.BarcodeTemplateManager((parent instanceof Window) ? (Window) parent : null)
+                .setVisible(true);
+    }// GEN-LAST:event_jButton1ActionPerformed
 
     private String showSelectionDialog(List<Object[]> data) {
         // Column names for the table
-        String[] columns = {"Item No", "Item Name", "Barcode", CompanySettingUtil.getInstance().isDisplayBatch() ? "Batch" : "Size"};
+        String[] columns = { "Item No", "Item Name", "Barcode",
+                CompanySettingUtil.getInstance().isDisplayBatch() ? "Batch" : "Size" };
 
         // Convert List<Object[]> to Object[][]
         Object[][] tableData = data.toArray(new Object[0][]);
@@ -671,7 +684,8 @@ public class barcode_print extends javax.swing.JInternalFrame {
         JScrollPane scrollPane = new JScrollPane(table);
 
         // Show dialog
-        int option = JOptionPane.showConfirmDialog(this, scrollPane, "Select Item", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        int option = JOptionPane.showConfirmDialog(this, scrollPane, "Select Item", JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE);
 
         if (option == JOptionPane.OK_OPTION) {
             int selectedRow = table.getSelectedRow();
@@ -689,7 +703,8 @@ public class barcode_print extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Invalid Quantity!", "Invalid", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        String query = "select barcode,ino,iname,mrp,rprice,wprice,iname1 from item where ino='" + ino + "' order by iname limit 1";
+        String query = "select barcode,ino,iname,mrp,rprice,wprice,iname1 from item where ino='" + ino
+                + "' order by iname limit 1";
         load_default_data(query, quan);
     }
 

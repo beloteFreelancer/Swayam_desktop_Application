@@ -6,6 +6,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.ImageIcon;
 import java.awt.BorderLayout;
 import userpack.UserPanel;
+import Utils.ColorConstants;
 
 public class AdminDashboard extends JInternalFrame {
 
@@ -24,10 +25,9 @@ public class AdminDashboard extends JInternalFrame {
         setClosable(false);
         setIconifiable(true);
 
-        try {
-            ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("images/icon.png"));
+        javax.swing.ImageIcon icon = ColorConstants.loadIcon("/images/icon.png");
+        if (icon != null) {
             setFrameIcon(icon);
-        } catch (Exception e) {
         }
 
         setLayout(new BorderLayout());

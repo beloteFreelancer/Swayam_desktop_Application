@@ -1,5 +1,6 @@
 package salespack;
 
+import Utils.ColorConstants;
 import com.selrom.db.DataUtil;
 import java.awt.Desktop;
 import java.awt.Font;
@@ -29,7 +30,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 /**
  *
  * @author K.SELVAKUMAR, copyrights K.SELVAKUMAR, +91 99427 32229,
- * mysoft.java@gmail.com
+ *         mysoft.java@gmail.com
  */
 public final class sales_report_terminal extends javax.swing.JInternalFrame {
 
@@ -47,10 +48,9 @@ public final class sales_report_terminal extends javax.swing.JInternalFrame {
         titlelablel.setText("<html><u>Terminal Wise Sales Report</u></html>");
         setTitle("Terminal Wise Sales Report");
         this.setSize(1017, 650);
-        java.net.URL imgUrl = getClass().getResource("/images/icon.png");
-        if (imgUrl != null) {
-            ImageIcon icon = new ImageIcon(imgUrl);
-            this.setFrameIcon(icon);
+        javax.swing.ImageIcon icon = ColorConstants.loadIcon("/images/icon.png");
+        if (icon != null) {
+            setFrameIcon(icon);
         }
         menu_form me = new menu_form();
         hmany = me.getHmany();
@@ -138,9 +138,12 @@ public final class sales_report_terminal extends javax.swing.JInternalFrame {
 
             String query;
             if (all.isSelected()) {
-                query = "select billno,date_format(dat,'%d/%m/%Y'),tim,location,terminal,cashier,items,quans,sub,disp,disamt,gross,taxamt,addamt,net,pby,paid,bal,price_type,cid,cname,mobile,last from sales where dat between '" + lk + "' and '" + lk1 + "' order by terminal,dat,billno";
+                query = "select billno,date_format(dat,'%d/%m/%Y'),tim,location,terminal,cashier,items,quans,sub,disp,disamt,gross,taxamt,addamt,net,pby,paid,bal,price_type,cid,cname,mobile,last from sales where dat between '"
+                        + lk + "' and '" + lk1 + "' order by terminal,dat,billno";
             } else {
-                query = "select billno,date_format(dat,'%d/%m/%Y'),tim,location,terminal,cashier,items,quans,sub,disp,disamt,gross,taxamt,addamt,net,pby,paid,bal,price_type,cid,cname,mobile,last from sales where dat between '" + lk + "' and '" + lk1 + "' and terminal='" + h3.getSelectedItem().toString() + "'  order by dat,billno";
+                query = "select billno,date_format(dat,'%d/%m/%Y'),tim,location,terminal,cashier,items,quans,sub,disp,disamt,gross,taxamt,addamt,net,pby,paid,bal,price_type,cid,cname,mobile,last from sales where dat between '"
+                        + lk + "' and '" + lk1 + "' and terminal='" + h3.getSelectedItem().toString()
+                        + "'  order by dat,billno";
             }
             r = util.doQuery(query);
             while (r.next()) {
@@ -162,7 +165,10 @@ public final class sales_report_terminal extends javax.swing.JInternalFrame {
                 String paid1 = String.format("%." + hmany + "f", paid);
                 String bal1 = String.format("%." + hmany + "f", bal);
 
-                s2.addRow(new Object[]{r.getString(1), r.getString(2), r.getString(3), r.getString(4), r.getString(5), r.getString(6), r.getString(7), r.getString(8), sub1, r.getString(10), disamt1, gross1, taxamt1, other1, net1, r.getString(16), paid1, bal1, r.getString(19), "  " + r.getString(20), r.getString(21), r.getString(22), r.getString(23)});
+                s2.addRow(new Object[] { r.getString(1), r.getString(2), r.getString(3), r.getString(4), r.getString(5),
+                        r.getString(6), r.getString(7), r.getString(8), sub1, r.getString(10), disamt1, gross1, taxamt1,
+                        other1, net1, r.getString(16), paid1, bal1, r.getString(19), "  " + r.getString(20),
+                        r.getString(21), r.getString(22), r.getString(23) });
                 selva = true;
             }
             sub = 0;
@@ -194,8 +200,10 @@ public final class sales_report_terminal extends javax.swing.JInternalFrame {
             String bal1 = String.format("%." + hmany + "f", bal);
 
             if (selva == true) {
-                s2.addRow(new Object[]{"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""});
-                s2.addRow(new Object[]{"", "", "TOTAL:" + (jTable1.getRowCount() - 1), "", "", "", "", "", "" + sub1, "", disamt1, gross1, taxamt1, other1, net1, "", paid1, bal1, "", "", "", "", ""});
+                s2.addRow(new Object[] { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "" });
+                s2.addRow(new Object[] { "", "", "TOTAL:" + (jTable1.getRowCount() - 1), "", "", "", "", "", "" + sub1,
+                        "", disamt1, gross1, taxamt1, other1, net1, "", paid1, bal1, "", "", "", "", "" });
 
                 h1.setEnabled(false);
                 h2.setEnabled(false);
@@ -234,7 +242,8 @@ public final class sales_report_terminal extends javax.swing.JInternalFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         titlelablel = new javax.swing.JLabel();
@@ -368,16 +377,15 @@ public final class sales_report_terminal extends javax.swing.JInternalFrame {
 
         jTable1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jTable1.setRowHeight(25);
         jScrollPane1.setViewportView(jTable1);
 
@@ -387,12 +395,12 @@ public final class sales_report_terminal extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closebuttonActionPerformed
+    private void closebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closebuttonActionPerformed
         this.dispose();
         // TODO add your handling code here:
-    }//GEN-LAST:event_closebuttonActionPerformed
+    }// GEN-LAST:event_closebuttonActionPerformed
 
-    private void generatebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generatebuttonActionPerformed
+    private void generatebuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_generatebuttonActionPerformed
         Date d = new Date();
         SimpleDateFormat g = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -404,9 +412,9 @@ public final class sales_report_terminal extends javax.swing.JInternalFrame {
         }
         load_report(h1.getText(), h2.getText());
 
-    }//GEN-LAST:event_generatebuttonActionPerformed
+    }// GEN-LAST:event_generatebuttonActionPerformed
 
-    private void excelbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelbuttonActionPerformed
+    private void excelbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_excelbuttonActionPerformed
         if (s2.getRowCount() <= 0) {
             JOptionPane.showMessageDialog(this, "Sorry, No Records Were Found!", "Oops", JOptionPane.ERROR_MESSAGE);
             return;
@@ -466,10 +474,10 @@ public final class sales_report_terminal extends javax.swing.JInternalFrame {
                                 try {
                                     // Try to parse double if it looks like a number and not the bill no or phone
                                     if (j != 0 && j != 21) {
-                                         double d = Double.parseDouble(val);
-                                         cell.setCellValue(d);
+                                        double d = Double.parseDouble(val);
+                                        cell.setCellValue(d);
                                     } else {
-                                         cell.setCellValue(val);
+                                        cell.setCellValue(val);
                                     }
                                 } catch (NumberFormatException e) {
                                     cell.setCellValue(val);
@@ -492,11 +500,12 @@ public final class sales_report_terminal extends javax.swing.JInternalFrame {
             Desktop.getDesktop().open(file);
         } catch (IOException e) {
             System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(this, "Error exporting to Excel: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error exporting to Excel: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_excelbuttonActionPerformed
+    }// GEN-LAST:event_excelbuttonActionPerformed
 
-    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbuttonActionPerformed
+    private void clearbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_clearbuttonActionPerformed
         if (s2.getRowCount() > 0) {
             s2.getDataVector().removeAllElements();
             s2.fireTableDataChanged();
@@ -513,9 +522,9 @@ public final class sales_report_terminal extends javax.swing.JInternalFrame {
         all.setSelected(false);
         generatebutton.setEnabled(true);
 
-    }//GEN-LAST:event_clearbuttonActionPerformed
+    }// GEN-LAST:event_clearbuttonActionPerformed
 
-    private void jCalendarButton1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendarButton1PropertyChange
+    private void jCalendarButton1PropertyChange(java.beans.PropertyChangeEvent evt) {// GEN-FIRST:event_jCalendarButton1PropertyChange
         try {
             if (evt.getNewValue() instanceof Date) {
                 String ses = evt.getNewValue().toString();
@@ -526,9 +535,9 @@ public final class sales_report_terminal extends javax.swing.JInternalFrame {
         } catch (ParseException e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_jCalendarButton1PropertyChange
+    }// GEN-LAST:event_jCalendarButton1PropertyChange
 
-    private void jCalendarButton2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendarButton2PropertyChange
+    private void jCalendarButton2PropertyChange(java.beans.PropertyChangeEvent evt) {// GEN-FIRST:event_jCalendarButton2PropertyChange
         try {
             if (evt.getNewValue() instanceof Date) {
                 String ses = evt.getNewValue().toString();
@@ -539,9 +548,9 @@ public final class sales_report_terminal extends javax.swing.JInternalFrame {
         } catch (ParseException e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_jCalendarButton2PropertyChange
+    }// GEN-LAST:event_jCalendarButton2PropertyChange
 
-    private void allActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allActionPerformed
+    private void allActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_allActionPerformed
 
         if (all.isSelected()) {
             h3.setEnabled(false);
@@ -549,7 +558,7 @@ public final class sales_report_terminal extends javax.swing.JInternalFrame {
             h3.setEnabled(true);
             h3.setSelectedIndex(0);
         }
-    }//GEN-LAST:event_allActionPerformed
+    }// GEN-LAST:event_allActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox all;
