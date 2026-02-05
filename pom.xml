@@ -198,7 +198,7 @@
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
 
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>Swayam_Software</mainClass>
+                                    <mainClass>BBS_Software</mainClass>
                                 </transformer>
                             </transformers>
 
@@ -222,11 +222,11 @@
                 <artifactId>jpackage-maven-plugin</artifactId>
                 <version>1.7.1</version>
                 <configuration>
-                    <name>Swayam</name>
+                    <name>BBS_Software</name>
                     <input>target</input>
                     <mainJar>${project.artifactId}-${project.version}.jar</mainJar>
-                    <mainClass>Swayam_Software</mainClass>
-                    <type>EXE</type>
+                    <mainClass>BBS_Software</mainClass>
+                    <type>MSI</type>
                     <appVersion>1.0.0</appVersion>
                     <addLauncher>true</addLauncher>
                     <icon>src/main/resources/app-icon.ico</icon>

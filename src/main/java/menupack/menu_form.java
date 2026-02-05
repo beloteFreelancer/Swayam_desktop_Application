@@ -1793,8 +1793,8 @@ public final class menu_form extends javax.swing.JFrame {
         jLabel43.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel43.setForeground(ColorConstants.TEXT_PRIMARY);
         jLabel43.setText("Financial Overview");
+        jLabel43.setBounds(880, 70, 210, 30);
         jPanel4.add(jLabel43);
-        jLabel43.setBounds(880, 70, 200, 30);
 
         jDesktopPane1.setLayer(jToolBar1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jPanel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
