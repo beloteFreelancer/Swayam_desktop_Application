@@ -270,6 +270,30 @@ public final class menu_form extends javax.swing.JFrame {
             }
             what_version = AES.decrypt(what_version, secretKey);
             cname = AES.decrypt(cname, secretKey);
+            
+            // Set version label and activation button state
+            if (what_version != null && !what_version.trim().isEmpty()) {
+                versionl.setText("🏆 " + what_version + " Edition");
+                
+                // Check if it's a full version
+                if (what_version.toLowerCase().contains("full") || what_version.toLowerCase().contains("professional") || what_version.toLowerCase().contains("premium")) {
+                    // Already activated - change button appearance
+                    activatel.setText("✓ Full Version Activated");
+                    activatel.setToolTipText("Full version is already activated");
+                    activatel.setVisible(true);
+                } else {
+                    // Trial version - show activation button
+                    activatel.setText("⚡ Activate Full Version");
+                    activatel.setToolTipText("Click here to activate full version");
+                    activatel.setVisible(true);
+                }
+            } else {
+                versionl.setText("🏆 BBS Professional Edition");
+                activatel.setText("⚡ Activate Full Version");
+                activatel.setToolTipText("Click here to activate full version");
+                activatel.setVisible(true);
+            }
+            
             if (cname != null && !cname.trim().isEmpty()) {
                 cnamel.setText(cname + "  ");
             }
@@ -2586,47 +2610,47 @@ public final class menu_form extends javax.swing.JFrame {
                         java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
                 g2d.setRenderingHint(java.awt.RenderingHints.KEY_RENDERING,
                         java.awt.RenderingHints.VALUE_RENDER_QUALITY);
-                
+
                 int w = getWidth();
                 int h = getHeight();
-                
+
                 // Material Design elevation shadow
                 for (int i = 0; i < 8; i++) {
                     int alpha = Math.max(0, 30 - i * 4);
                     g2d.setColor(new java.awt.Color(0, 0, 0, alpha));
                     g2d.fillRoundRect(-i, -i, w + (i * 2), h + (i * 2), 20 + i, 20 + i);
                 }
-                
+
                 // Professional gradient background
                 java.awt.Color color1 = new java.awt.Color(13, 71, 161, 255); // Material Blue 900
                 java.awt.Color color2 = new java.awt.Color(25, 118, 210, 255); // Material Blue 600
                 java.awt.Color color3 = new java.awt.Color(33, 150, 243, 255); // Material Blue 500
-                
+
                 java.awt.GradientPaint gradient = new java.awt.GradientPaint(
-                    0, 0, color3, 0, h, color1);
+                        0, 0, color3, 0, h, color1);
                 g2d.setPaint(gradient);
-                
+
                 // Rounded footer background
                 java.awt.geom.RoundRectangle2D footer = new java.awt.geom.RoundRectangle2D.Float(
-                    0, 0, w, h, 20, 20);
+                        0, 0, w, h, 20, 20);
                 g2d.fill(footer);
-                
+
                 // Subtle top highlight
                 java.awt.GradientPaint highlight = new java.awt.GradientPaint(
-                    0, 0, new java.awt.Color(255, 255, 255, 60),
-                    0, h / 3, new java.awt.Color(255, 255, 255, 0));
+                        0, 0, new java.awt.Color(255, 255, 255, 60),
+                        0, h / 3, new java.awt.Color(255, 255, 255, 0));
                 g2d.setPaint(highlight);
                 g2d.fill(footer);
-                
+
                 // Professional border accent
                 g2d.setStroke(new java.awt.BasicStroke(2));
                 g2d.setColor(new java.awt.Color(255, 255, 255, 40));
                 g2d.draw(footer);
-                
+
                 // Bottom accent line
                 g2d.setColor(new java.awt.Color(255, 255, 255, 80));
                 g2d.fillRoundRect(20, h - 4, w - 40, 2, 2, 2);
-                
+
                 g2d.dispose();
             }
         };
@@ -2666,28 +2690,28 @@ public final class menu_form extends javax.swing.JFrame {
                 java.awt.Graphics2D g2d = (java.awt.Graphics2D) g.create();
                 g2d.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
                         java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
-                
+
                 // Professional call-to-action button gradient
                 java.awt.Color color1 = new java.awt.Color(76, 175, 80, 200);
                 java.awt.Color color2 = new java.awt.Color(56, 142, 60, 200);
                 java.awt.GradientPaint gradient = new java.awt.GradientPaint(
-                    0, 0, color1, 0, getHeight(), color2);
+                        0, 0, color1, 0, getHeight(), color2);
                 g2d.setPaint(gradient);
-                
+
                 java.awt.geom.RoundRectangle2D button = new java.awt.geom.RoundRectangle2D.Float(
-                    0, 0, getWidth(), getHeight(), 15, 15);
+                        0, 0, getWidth(), getHeight(), 15, 15);
                 g2d.fill(button);
-                
+
                 // Highlight effect
                 g2d.setColor(new java.awt.Color(255, 255, 255, 60));
                 g2d.fill(new java.awt.geom.RoundRectangle2D.Float(
-                    0, 0, getWidth(), getHeight() / 2, 15, 15));
-                
+                        0, 0, getWidth(), getHeight() / 2, 15, 15));
+
                 // Professional border
                 g2d.setStroke(new java.awt.BasicStroke(1.5f));
                 g2d.setColor(new java.awt.Color(46, 125, 50, 180));
                 g2d.draw(button);
-                
+
                 g2d.dispose();
                 super.paintComponent(g);
             }
@@ -2696,7 +2720,7 @@ public final class menu_form extends javax.swing.JFrame {
         activatel.setFont(new java.awt.Font("Segoe UI", 1, 13)); // Consistent sizing
         activatel.setForeground(new java.awt.Color(255, 255, 255, 255)); // Pure white for contrast
         activatel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        activatel.setText("⚡ Activate Full Version");
+        activatel.setText("⚡ Activate Full Version"); // Default text, will be updated by version check
         activatel.setToolTipText("Click here to activate full version");
         activatel.setBorder(javax.swing.BorderFactory.createEmptyBorder(6, 16, 6, 16));
         activatel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -2704,13 +2728,15 @@ public final class menu_form extends javax.swing.JFrame {
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 activatel.setBorder(javax.swing.BorderFactory.createCompoundBorder(
-                    javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255, 80), 2),
-                    javax.swing.BorderFactory.createEmptyBorder(4, 14, 4, 14)));
+                        javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255, 80), 2),
+                        javax.swing.BorderFactory.createEmptyBorder(4, 14, 4, 14)));
             }
+
             @Override
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 activatel.setBorder(javax.swing.BorderFactory.createEmptyBorder(6, 16, 6, 16));
             }
+
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 activatelMouseClicked(evt);
             }
@@ -7383,13 +7409,32 @@ public final class menu_form extends javax.swing.JFrame {
     }// GEN-LAST:event_jMenuItem143ActionPerformed
 
     private void activatelMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_activatelMouseClicked
+        // Check if already activated
+        if (activatel.getText().contains("Activated")) {
+            JOptionPane.showMessageDialog(this, 
+                "Full version is already activated!\nEnjoy all premium features.",
+                "Already Activated", 
+                JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        
+        // Check internet connection for activation
         String connection = check_internet_connect();
         if (connection.equals("Yes")) {
-            new ActivationPack.activation_home().setVisible(true);
-            this.dispose();
+            try {
+                new ActivationPack.activation_home().setVisible(true);
+                this.dispose();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, 
+                    "Error opening activation window: " + e.getMessage(),
+                    "Activation Error", 
+                    JOptionPane.ERROR_MESSAGE);
+            }
         } else {
-            JOptionPane.showMessageDialog(this, "Internet connection is required for activation!",
-                    "No Internet Connection", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, 
+                "Internet connection is required for activation!\nPlease check your network connection and try again.",
+                "No Internet Connection", 
+                JOptionPane.WARNING_MESSAGE);
         }
     }// GEN-LAST:event_activatelMouseClicked
 
