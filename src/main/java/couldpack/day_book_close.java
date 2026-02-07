@@ -62,8 +62,8 @@ public class day_book_close extends javax.swing.JInternalFrame {
 
             // Backup H2 database file
             String backup_file_name = Utils.AppConfig.getAppPath() + "/" + file_name + ".mv.db";
-            // Assuming DB file is ./BBS_main.mv.db
-            java.nio.file.Files.copy(java.nio.file.Paths.get("./BBS_main.mv.db"),
+            // Assuming DB file is ./Swayam_main.mv.db
+            java.nio.file.Files.copy(java.nio.file.Paths.get("./Swayam_main.mv.db"),
                     java.nio.file.Paths.get(backup_file_name), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
             System.out.println("Backup Completed");
 

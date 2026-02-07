@@ -165,7 +165,7 @@ public final class activation_home extends javax.swing.JFrame {
     private void performActivation() {
         String token = txtLicenseKey.getText().trim();
 
-        if (!token.startsWith("BBS-ACT-")) {
+        if (!token.startsWith("Swayam-ACT-")) {
             JOptionPane.showMessageDialog(this, "Invalid Activation Token!", "Activation Error",
                     JOptionPane.ERROR_MESSAGE);
             return;
@@ -173,7 +173,7 @@ public final class activation_home extends javax.swing.JFrame {
 
         try {
             // 1. Decrypt token locally to get License ID (cid)
-            String encryptedPart = token.replace("BBS-ACT-", "");
+            String encryptedPart = token.replace("Swayam-ACT-", "");
             Map<String, String> tokenData = TokenDecrypter.decryptToken(encryptedPart);
             String cid = tokenData.get("cid");
             String licenseUname = tokenData.get("password"); // Username is in the 'password' field of the token map

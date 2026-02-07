@@ -8,7 +8,7 @@ public class CloudDatabase {
     // Constants for Cloud Database Credentials
     // TODO: Configure these with actual cloud database credentials or use a
     // configuration file
-    private static final String CLOUD_DB_URL = "jdbc:mysql://localhost:3306/BBS_admin?autoReconnect=true&useUnicode=yes&characterEncoding=UTF-8";
+    private static final String CLOUD_DB_URL = "jdbc:mysql://localhost:3306/Swayam_admin?autoReconnect=true&useUnicode=yes&characterEncoding=UTF-8";
     private static final String CLOUD_DB_USER = "root";
     private static final String CLOUD_DB_PASS = "root";
 

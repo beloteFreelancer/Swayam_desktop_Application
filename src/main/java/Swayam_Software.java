@@ -4,7 +4,7 @@ import com.selrom.db.Database;
 import com.selrom.db.DBSetupDialog; // Import the new dialog
 import javax.swing.*;
 
-public class BBS_Software {
+public class Swayam_Software {
 
     public static void main(String[] args) {
         // --- NEW: Initialize File Structure ---

@@ -19,7 +19,7 @@ public class AdminDashboard extends JInternalFrame {
     }
 
     private void initComponents(DataUtil util) {
-        setTitle("Administrator Dashboard - BBS Software");
+        setTitle("Administrator Dashboard - SwayamSoftware");
         setResizable(true);
         setMaximizable(true);
         setClosable(false);

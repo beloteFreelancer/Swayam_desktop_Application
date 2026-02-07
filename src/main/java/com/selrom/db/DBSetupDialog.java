@@ -15,7 +15,7 @@ public class DBSetupDialog extends JDialog {
     private boolean saved = false;
 
     // The database name is fixed for this application
-    private static final String DB_NAME = "BBS_main";
+    private static final String DB_NAME = "Swayam_main";
 
     public DBSetupDialog(Frame parent, boolean modal) {
         super(parent, "First Time Setup - Database Configuration", modal);

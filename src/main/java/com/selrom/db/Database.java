@@ -17,7 +17,7 @@ public class Database {
     private static Connection con;
 
     // MySQL Database Defaults
-    private static final String DEFAULT_DB_URL = "jdbc:mysql://localhost:3306/bbs_main?createDatabaseIfNotExist=true";
+    private static final String DEFAULT_DB_URL = "jdbc:mysql://localhost:3306/Swayam_main?createDatabaseIfNotExist=true";
     private static final String DEFAULT_USER = "root";
     private static final String DEFAULT_PASS = "admin";
     private static final String CONFIG_FILE = "db_main.properties";
