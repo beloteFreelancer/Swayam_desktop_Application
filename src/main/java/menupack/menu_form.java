@@ -1048,19 +1048,130 @@ public final class menu_form extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        jToolBar1.setBackground(ColorConstants.PRIMARY_BLUE);
-        jToolBar1.setRollover(true);
+        // Modern Material Design Toolbar with gradient and rounded corners
+        jToolBar1 = new javax.swing.JToolBar() {
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                java.awt.Graphics2D g2d = (java.awt.Graphics2D) g.create();
+                g2d.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
+                        java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+                g2d.setRenderingHint(java.awt.RenderingHints.KEY_RENDERING,
+                        java.awt.RenderingHints.VALUE_RENDER_QUALITY);
 
-        salesbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        salesbutton.setForeground(ColorConstants.TEXT_LIGHT);
-        salesbutton.setIcon(ColorConstants.loadIcon("/icons/pos45.png")); // NOI18N
+                // Material Design elevation shadow
+                for (int i = 0; i < 4; i++) {
+                    int alpha = Math.max(0, 20 - i * 5);
+                    g2d.setColor(new java.awt.Color(0, 0, 0, alpha));
+                    g2d.fillRoundRect(0, i + 1, getWidth(), getHeight() - i, 12, 12);
+                }
+
+                // Professional gradient background
+                java.awt.Color color1 = new java.awt.Color(25, 118, 210, 255); // Material Blue 600
+                java.awt.Color color2 = new java.awt.Color(21, 101, 192, 255); // Material Blue 700
+                java.awt.Color color3 = new java.awt.Color(30, 136, 229, 255); // Material Blue 500
+
+                java.awt.GradientPaint gradient = new java.awt.GradientPaint(
+                        0, 0, color3, 0, getHeight(), color2);
+                g2d.setPaint(gradient);
+
+                // Rounded toolbar background
+                java.awt.geom.RoundRectangle2D toolbar = new java.awt.geom.RoundRectangle2D.Float(
+                        0, 0, getWidth(), getHeight(), 12, 12);
+                g2d.fill(toolbar);
+
+                // Subtle top highlight
+                java.awt.GradientPaint highlight = new java.awt.GradientPaint(
+                        0, 0, new java.awt.Color(255, 255, 255, 40),
+                        0, getHeight() / 3, new java.awt.Color(255, 255, 255, 0));
+                g2d.setPaint(highlight);
+                g2d.fill(toolbar);
+
+                // Bottom accent line
+                g2d.setColor(new java.awt.Color(255, 255, 255, 60));
+                g2d.fillRoundRect(0, getHeight() - 2, getWidth(), 2, 2, 2);
+
+                g2d.dispose();
+            }
+        };
+        jToolBar1.setOpaque(false);
+        jToolBar1.setRollover(true);
+        jToolBar1.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
+        jToolBar1.setFloatable(false); // Modern toolbars shouldn't be floatable
+
+        // Force proper rendering
+        jToolBar1.addComponentListener(new java.awt.event.ComponentAdapter() {
+            @Override
+            public void componentResized(java.awt.event.ComponentEvent e) {
+                jToolBar1.revalidate();
+                jToolBar1.repaint();
+            }
+        });
+
+        // Modern Material Design Sales Button with proper hover
+        salesbutton = new javax.swing.JButton() {
+            private boolean isHovered = false;
+
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                if (isHovered) {
+                    java.awt.Graphics2D g2d = (java.awt.Graphics2D) g.create();
+                    g2d.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
+                            java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+                    g2d.setColor(new java.awt.Color(255, 255, 255, 50));
+                    g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 8, 8);
+                    g2d.dispose();
+                }
+                super.paintComponent(g);
+            }
+
+            public void setHovered(boolean hovered) {
+                this.isHovered = hovered;
+                repaint();
+            }
+        };
+        salesbutton.setFont(new java.awt.Font("Segoe UI", 1, 12));
+        salesbutton.setForeground(new java.awt.Color(255, 255, 255, 240));
+        salesbutton.setIcon(ColorConstants.loadIcon("/icons/pos45.png"));
         salesbutton.setMnemonic('s');
-        salesbutton.setText("Sales");
-        salesbutton.setToolTipText("");
+        salesbutton.setText("💰 Sales");
+        salesbutton.setToolTipText("Open Sales Module (Alt+S)");
         salesbutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         salesbutton.setFocusable(false);
         salesbutton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         salesbutton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        salesbutton.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
+        salesbutton.setOpaque(false);
+        salesbutton.setContentAreaFilled(false);
+        salesbutton.setBorderPainted(false);
+
+        // Proper hover effect with custom button
+        salesbutton.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ((javax.swing.JButton) evt.getSource()).putClientProperty("setHovered", true);
+                try {
+                    java.lang.reflect.Method setHovered = evt.getSource().getClass().getMethod("setHovered",
+                            boolean.class);
+                    setHovered.invoke(evt.getSource(), true);
+                } catch (Exception e) {
+                    // Fallback - force repaint
+                    evt.getComponent().repaint();
+                }
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ((javax.swing.JButton) evt.getSource()).putClientProperty("setHovered", false);
+                try {
+                    java.lang.reflect.Method setHovered = evt.getSource().getClass().getMethod("setHovered",
+                            boolean.class);
+                    setHovered.invoke(evt.getSource(), false);
+                } catch (Exception e) {
+                    // Fallback - force repaint
+                    evt.getComponent().repaint();
+                }
+            }
+        });
         salesbutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 salesbuttonActionPerformed(evt);
@@ -1070,16 +1181,66 @@ public final class menu_form extends javax.swing.JFrame {
 
         jToolBar1.addSeparator();
 
-        purchasebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        purchasebutton.setForeground(ColorConstants.TEXT_LIGHT);
-        purchasebutton.setIcon(ColorConstants.loadIcon("/icons/load45.jpg.png")); // NOI18N
+        // Modern Material Design Purchase Button with proper hover
+        purchasebutton = new javax.swing.JButton() {
+            private boolean isHovered = false;
+
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                if (isHovered) {
+                    java.awt.Graphics2D g2d = (java.awt.Graphics2D) g.create();
+                    g2d.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
+                            java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+                    g2d.setColor(new java.awt.Color(255, 255, 255, 50));
+                    g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 8, 8);
+                    g2d.dispose();
+                }
+                super.paintComponent(g);
+            }
+
+            public void setHovered(boolean hovered) {
+                this.isHovered = hovered;
+                repaint();
+            }
+        };
+        purchasebutton.setFont(new java.awt.Font("Segoe UI", 1, 12));
+        purchasebutton.setForeground(new java.awt.Color(255, 255, 255, 240));
+        purchasebutton.setIcon(ColorConstants.loadIcon("/icons/load45.jpg.png"));
         purchasebutton.setMnemonic('p');
-        purchasebutton.setText("Purchase   ");
-        purchasebutton.setToolTipText("");
+        purchasebutton.setText("📦 Purchase");
+        purchasebutton.setToolTipText("Open Purchase Module (Alt+P)");
         purchasebutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         purchasebutton.setFocusable(false);
         purchasebutton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         purchasebutton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        purchasebutton.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
+        purchasebutton.setOpaque(false);
+        purchasebutton.setContentAreaFilled(false);
+        purchasebutton.setBorderPainted(false);
+
+        purchasebutton.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                try {
+                    java.lang.reflect.Method setHovered = evt.getSource().getClass().getMethod("setHovered",
+                            boolean.class);
+                    setHovered.invoke(evt.getSource(), true);
+                } catch (Exception e) {
+                    evt.getComponent().repaint();
+                }
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                try {
+                    java.lang.reflect.Method setHovered = evt.getSource().getClass().getMethod("setHovered",
+                            boolean.class);
+                    setHovered.invoke(evt.getSource(), false);
+                } catch (Exception e) {
+                    evt.getComponent().repaint();
+                }
+            }
+        });
         purchasebutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 purchasebuttonActionPerformed(evt);
@@ -1089,16 +1250,66 @@ public final class menu_form extends javax.swing.JFrame {
 
         jToolBar1.addSeparator();
 
-        estimatebutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        estimatebutton.setForeground(ColorConstants.TEXT_LIGHT);
-        estimatebutton.setIcon(ColorConstants.loadIcon("/icons/est45.png")); // NOI18N
+        // Modern Material Design Estimate Button with proper hover
+        estimatebutton = new javax.swing.JButton() {
+            private boolean isHovered = false;
+
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                if (isHovered) {
+                    java.awt.Graphics2D g2d = (java.awt.Graphics2D) g.create();
+                    g2d.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
+                            java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+                    g2d.setColor(new java.awt.Color(255, 255, 255, 50));
+                    g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 8, 8);
+                    g2d.dispose();
+                }
+                super.paintComponent(g);
+            }
+
+            public void setHovered(boolean hovered) {
+                this.isHovered = hovered;
+                repaint();
+            }
+        };
+        estimatebutton.setFont(new java.awt.Font("Segoe UI", 1, 12));
+        estimatebutton.setForeground(new java.awt.Color(255, 255, 255, 240));
+        estimatebutton.setIcon(ColorConstants.loadIcon("/icons/est45.png"));
         estimatebutton.setMnemonic('m');
-        estimatebutton.setText("Estimate");
-        estimatebutton.setToolTipText("");
+        estimatebutton.setText("📊 Estimate");
+        estimatebutton.setToolTipText("Create Estimates (Alt+M)");
         estimatebutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         estimatebutton.setFocusable(false);
         estimatebutton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         estimatebutton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        estimatebutton.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
+        estimatebutton.setOpaque(false);
+        estimatebutton.setContentAreaFilled(false);
+        estimatebutton.setBorderPainted(false);
+
+        estimatebutton.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                try {
+                    java.lang.reflect.Method setHovered = evt.getSource().getClass().getMethod("setHovered",
+                            boolean.class);
+                    setHovered.invoke(evt.getSource(), true);
+                } catch (Exception e) {
+                    evt.getComponent().repaint();
+                }
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                try {
+                    java.lang.reflect.Method setHovered = evt.getSource().getClass().getMethod("setHovered",
+                            boolean.class);
+                    setHovered.invoke(evt.getSource(), false);
+                } catch (Exception e) {
+                    evt.getComponent().repaint();
+                }
+            }
+        });
         estimatebutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 estimatebuttonActionPerformed(evt);
@@ -1108,16 +1319,66 @@ public final class menu_form extends javax.swing.JFrame {
 
         jToolBar1.addSeparator();
 
-        itembutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        itembutton.setForeground(ColorConstants.TEXT_LIGHT);
-        itembutton.setIcon(ColorConstants.loadIcon("/icons/item45.png")); // NOI18N
+        // Modern Material Design Item Button with proper hover
+        itembutton = new javax.swing.JButton() {
+            private boolean isHovered = false;
+
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                if (isHovered) {
+                    java.awt.Graphics2D g2d = (java.awt.Graphics2D) g.create();
+                    g2d.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
+                            java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+                    g2d.setColor(new java.awt.Color(255, 255, 255, 50));
+                    g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 8, 8);
+                    g2d.dispose();
+                }
+                super.paintComponent(g);
+            }
+
+            public void setHovered(boolean hovered) {
+                this.isHovered = hovered;
+                repaint();
+            }
+        };
+        itembutton.setFont(new java.awt.Font("Segoe UI", 1, 12));
+        itembutton.setForeground(new java.awt.Color(255, 255, 255, 240));
+        itembutton.setIcon(ColorConstants.loadIcon("/icons/item45.png"));
         itembutton.setMnemonic('i');
-        itembutton.setText("New Item");
-        itembutton.setToolTipText("");
+        itembutton.setText("➕ New Item");
+        itembutton.setToolTipText("Add New Item (Alt+I)");
         itembutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         itembutton.setFocusable(false);
         itembutton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         itembutton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        itembutton.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
+        itembutton.setOpaque(false);
+        itembutton.setContentAreaFilled(false);
+        itembutton.setBorderPainted(false);
+
+        itembutton.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                try {
+                    java.lang.reflect.Method setHovered = evt.getSource().getClass().getMethod("setHovered",
+                            boolean.class);
+                    setHovered.invoke(evt.getSource(), true);
+                } catch (Exception e) {
+                    evt.getComponent().repaint();
+                }
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                try {
+                    java.lang.reflect.Method setHovered = evt.getSource().getClass().getMethod("setHovered",
+                            boolean.class);
+                    setHovered.invoke(evt.getSource(), false);
+                } catch (Exception e) {
+                    evt.getComponent().repaint();
+                }
+            }
+        });
         itembutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itembuttonActionPerformed(evt);
@@ -1125,16 +1386,66 @@ public final class menu_form extends javax.swing.JFrame {
         });
         jToolBar1.add(itembutton);
 
-        searchbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        searchbutton.setForeground(ColorConstants.TEXT_LIGHT);
-        searchbutton.setIcon(ColorConstants.loadIcon("/icons/search45.png")); // NOI18N
+        // Modern Material Design Search Button with proper hover
+        searchbutton = new javax.swing.JButton() {
+            private boolean isHovered = false;
+
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                if (isHovered) {
+                    java.awt.Graphics2D g2d = (java.awt.Graphics2D) g.create();
+                    g2d.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
+                            java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+                    g2d.setColor(new java.awt.Color(255, 255, 255, 50));
+                    g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 8, 8);
+                    g2d.dispose();
+                }
+                super.paintComponent(g);
+            }
+
+            public void setHovered(boolean hovered) {
+                this.isHovered = hovered;
+                repaint();
+            }
+        };
+        searchbutton.setFont(new java.awt.Font("Segoe UI", 1, 12));
+        searchbutton.setForeground(new java.awt.Color(255, 255, 255, 240));
+        searchbutton.setIcon(ColorConstants.loadIcon("/icons/search45.png"));
         searchbutton.setMnemonic('h');
-        searchbutton.setText("Search");
-        searchbutton.setToolTipText("");
+        searchbutton.setText("🔍 Search");
+        searchbutton.setToolTipText("Search Items & Records (Alt+H)");
         searchbutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         searchbutton.setFocusable(false);
         searchbutton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         searchbutton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        searchbutton.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
+        searchbutton.setOpaque(false);
+        searchbutton.setContentAreaFilled(false);
+        searchbutton.setBorderPainted(false);
+
+        searchbutton.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                try {
+                    java.lang.reflect.Method setHovered = evt.getSource().getClass().getMethod("setHovered",
+                            boolean.class);
+                    setHovered.invoke(evt.getSource(), true);
+                } catch (Exception e) {
+                    evt.getComponent().repaint();
+                }
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                try {
+                    java.lang.reflect.Method setHovered = evt.getSource().getClass().getMethod("setHovered",
+                            boolean.class);
+                    setHovered.invoke(evt.getSource(), false);
+                } catch (Exception e) {
+                    evt.getComponent().repaint();
+                }
+            }
+        });
         searchbutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchbuttonActionPerformed(evt);
@@ -1144,16 +1455,66 @@ public final class menu_form extends javax.swing.JFrame {
 
         jToolBar1.addSeparator();
 
-        cashbookbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        cashbookbutton.setForeground(ColorConstants.TEXT_LIGHT);
-        cashbookbutton.setIcon(ColorConstants.loadIcon("/icons/cashbook45.png")); // NOI18N
+        // Modern Material Design Voucher Button with proper hover
+        cashbookbutton = new javax.swing.JButton() {
+            private boolean isHovered = false;
+
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                if (isHovered) {
+                    java.awt.Graphics2D g2d = (java.awt.Graphics2D) g.create();
+                    g2d.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
+                            java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+                    g2d.setColor(new java.awt.Color(255, 255, 255, 50));
+                    g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 8, 8);
+                    g2d.dispose();
+                }
+                super.paintComponent(g);
+            }
+
+            public void setHovered(boolean hovered) {
+                this.isHovered = hovered;
+                repaint();
+            }
+        };
+        cashbookbutton.setFont(new java.awt.Font("Segoe UI", 1, 12));
+        cashbookbutton.setForeground(new java.awt.Color(255, 255, 255, 240));
+        cashbookbutton.setIcon(ColorConstants.loadIcon("/icons/cashbook45.png"));
         cashbookbutton.setMnemonic('v');
-        cashbookbutton.setText("Voucher");
-        cashbookbutton.setToolTipText("");
+        cashbookbutton.setText("📝 Voucher");
+        cashbookbutton.setToolTipText("Manage Vouchers (Alt+V)");
         cashbookbutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cashbookbutton.setFocusable(false);
         cashbookbutton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         cashbookbutton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        cashbookbutton.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
+        cashbookbutton.setOpaque(false);
+        cashbookbutton.setContentAreaFilled(false);
+        cashbookbutton.setBorderPainted(false);
+
+        cashbookbutton.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                try {
+                    java.lang.reflect.Method setHovered = evt.getSource().getClass().getMethod("setHovered",
+                            boolean.class);
+                    setHovered.invoke(evt.getSource(), true);
+                } catch (Exception e) {
+                    evt.getComponent().repaint();
+                }
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                try {
+                    java.lang.reflect.Method setHovered = evt.getSource().getClass().getMethod("setHovered",
+                            boolean.class);
+                    setHovered.invoke(evt.getSource(), false);
+                } catch (Exception e) {
+                    evt.getComponent().repaint();
+                }
+            }
+        });
         cashbookbutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cashbookbuttonActionPerformed(evt);
@@ -1161,16 +1522,66 @@ public final class menu_form extends javax.swing.JFrame {
         });
         jToolBar1.add(cashbookbutton);
 
-        customerbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        customerbutton.setForeground(ColorConstants.TEXT_LIGHT);
-        customerbutton.setIcon(ColorConstants.loadIcon("/icons/cust45.png")); // NOI18N
+        // Modern Material Design Customer Button with proper hover
+        customerbutton = new javax.swing.JButton() {
+            private boolean isHovered = false;
+
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                if (isHovered) {
+                    java.awt.Graphics2D g2d = (java.awt.Graphics2D) g.create();
+                    g2d.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
+                            java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+                    g2d.setColor(new java.awt.Color(255, 255, 255, 50));
+                    g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 8, 8);
+                    g2d.dispose();
+                }
+                super.paintComponent(g);
+            }
+
+            public void setHovered(boolean hovered) {
+                this.isHovered = hovered;
+                repaint();
+            }
+        };
+        customerbutton.setFont(new java.awt.Font("Segoe UI", 1, 12));
+        customerbutton.setForeground(new java.awt.Color(255, 255, 255, 240));
+        customerbutton.setIcon(ColorConstants.loadIcon("/icons/cust45.png"));
         customerbutton.setMnemonic('c');
-        customerbutton.setText("  Customer  ");
-        customerbutton.setToolTipText("");
+        customerbutton.setText("👥 Customer");
+        customerbutton.setToolTipText("Manage Customers (Alt+C)");
         customerbutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         customerbutton.setFocusable(false);
         customerbutton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         customerbutton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        customerbutton.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
+        customerbutton.setOpaque(false);
+        customerbutton.setContentAreaFilled(false);
+        customerbutton.setBorderPainted(false);
+
+        customerbutton.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                try {
+                    java.lang.reflect.Method setHovered = evt.getSource().getClass().getMethod("setHovered",
+                            boolean.class);
+                    setHovered.invoke(evt.getSource(), true);
+                } catch (Exception e) {
+                    evt.getComponent().repaint();
+                }
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                try {
+                    java.lang.reflect.Method setHovered = evt.getSource().getClass().getMethod("setHovered",
+                            boolean.class);
+                    setHovered.invoke(evt.getSource(), false);
+                } catch (Exception e) {
+                    evt.getComponent().repaint();
+                }
+            }
+        });
         customerbutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 customerbuttonActionPerformed(evt);
@@ -1180,16 +1591,66 @@ public final class menu_form extends javax.swing.JFrame {
 
         jToolBar1.addSeparator();
 
-        smsbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        smsbutton.setForeground(ColorConstants.TEXT_LIGHT);
-        smsbutton.setIcon(ColorConstants.loadIcon("/icons/sms45.png")); // NOI18N
+        // Modern Material Design SMS Button with proper hover
+        smsbutton = new javax.swing.JButton() {
+            private boolean isHovered = false;
+
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                if (isHovered) {
+                    java.awt.Graphics2D g2d = (java.awt.Graphics2D) g.create();
+                    g2d.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
+                            java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+                    g2d.setColor(new java.awt.Color(255, 255, 255, 50));
+                    g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 8, 8);
+                    g2d.dispose();
+                }
+                super.paintComponent(g);
+            }
+
+            public void setHovered(boolean hovered) {
+                this.isHovered = hovered;
+                repaint();
+            }
+        };
+        smsbutton.setFont(new java.awt.Font("Segoe UI", 1, 12));
+        smsbutton.setForeground(new java.awt.Color(255, 255, 255, 240));
+        smsbutton.setIcon(ColorConstants.loadIcon("/icons/sms45.png"));
         smsbutton.setMnemonic('y');
-        smsbutton.setText("  SMS  ");
-        smsbutton.setToolTipText("");
+        smsbutton.setText("📱 SMS");
+        smsbutton.setToolTipText("Send SMS Messages (Alt+Y)");
         smsbutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         smsbutton.setFocusable(false);
         smsbutton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         smsbutton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        smsbutton.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
+        smsbutton.setOpaque(false);
+        smsbutton.setContentAreaFilled(false);
+        smsbutton.setBorderPainted(false);
+
+        smsbutton.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                try {
+                    java.lang.reflect.Method setHovered = evt.getSource().getClass().getMethod("setHovered",
+                            boolean.class);
+                    setHovered.invoke(evt.getSource(), true);
+                } catch (Exception e) {
+                    evt.getComponent().repaint();
+                }
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                try {
+                    java.lang.reflect.Method setHovered = evt.getSource().getClass().getMethod("setHovered",
+                            boolean.class);
+                    setHovered.invoke(evt.getSource(), false);
+                } catch (Exception e) {
+                    evt.getComponent().repaint();
+                }
+            }
+        });
         smsbutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 smsbuttonActionPerformed(evt);
@@ -1197,16 +1658,66 @@ public final class menu_form extends javax.swing.JFrame {
         });
         jToolBar1.add(smsbutton);
 
-        settingbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        settingbutton.setForeground(ColorConstants.TEXT_LIGHT);
-        settingbutton.setIcon(ColorConstants.loadIcon("/icons/setting45.png")); // NOI18N
+        // Modern Material Design Settings Button with proper hover
+        settingbutton = new javax.swing.JButton() {
+            private boolean isHovered = false;
+
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                if (isHovered) {
+                    java.awt.Graphics2D g2d = (java.awt.Graphics2D) g.create();
+                    g2d.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
+                            java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+                    g2d.setColor(new java.awt.Color(255, 255, 255, 50));
+                    g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 8, 8);
+                    g2d.dispose();
+                }
+                super.paintComponent(g);
+            }
+
+            public void setHovered(boolean hovered) {
+                this.isHovered = hovered;
+                repaint();
+            }
+        };
+        settingbutton.setFont(new java.awt.Font("Segoe UI", 1, 12));
+        settingbutton.setForeground(new java.awt.Color(255, 255, 255, 240));
+        settingbutton.setIcon(ColorConstants.loadIcon("/icons/setting45.png"));
         settingbutton.setMnemonic('t');
-        settingbutton.setText("Setting");
-        settingbutton.setToolTipText("");
+        settingbutton.setText("⚙️ Settings");
+        settingbutton.setToolTipText("Application Settings (Alt+T)");
         settingbutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         settingbutton.setFocusable(false);
         settingbutton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         settingbutton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        settingbutton.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
+        settingbutton.setOpaque(false);
+        settingbutton.setContentAreaFilled(false);
+        settingbutton.setBorderPainted(false);
+
+        settingbutton.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                try {
+                    java.lang.reflect.Method setHovered = evt.getSource().getClass().getMethod("setHovered",
+                            boolean.class);
+                    setHovered.invoke(evt.getSource(), true);
+                } catch (Exception e) {
+                    evt.getComponent().repaint();
+                }
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                try {
+                    java.lang.reflect.Method setHovered = evt.getSource().getClass().getMethod("setHovered",
+                            boolean.class);
+                    setHovered.invoke(evt.getSource(), false);
+                } catch (Exception e) {
+                    evt.getComponent().repaint();
+                }
+            }
+        });
         settingbutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 settingbuttonActionPerformed(evt);
@@ -1216,16 +1727,66 @@ public final class menu_form extends javax.swing.JFrame {
 
         jToolBar1.addSeparator();
 
-        logbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        logbutton.setForeground(ColorConstants.TEXT_LIGHT);
-        logbutton.setIcon(ColorConstants.loadIcon("/icons/login45.png")); // NOI18N
+        // Modern Material Design Logout Button with proper hover
+        logbutton = new javax.swing.JButton() {
+            private boolean isHovered = false;
+
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                if (isHovered) {
+                    java.awt.Graphics2D g2d = (java.awt.Graphics2D) g.create();
+                    g2d.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
+                            java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+                    g2d.setColor(new java.awt.Color(255, 193, 7, 60));
+                    g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 8, 8);
+                    g2d.dispose();
+                }
+                super.paintComponent(g);
+            }
+
+            public void setHovered(boolean hovered) {
+                this.isHovered = hovered;
+                repaint();
+            }
+        };
+        logbutton.setFont(new java.awt.Font("Segoe UI", 1, 12));
+        logbutton.setForeground(new java.awt.Color(255, 255, 255, 240));
+        logbutton.setIcon(ColorConstants.loadIcon("/icons/login45.png"));
         logbutton.setMnemonic('l');
-        logbutton.setText("  Log out  ");
-        logbutton.setToolTipText("");
+        logbutton.setText("🚪 Log Out");
+        logbutton.setToolTipText("Log Out (Alt+L)");
         logbutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         logbutton.setFocusable(false);
         logbutton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         logbutton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        logbutton.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
+        logbutton.setOpaque(false);
+        logbutton.setContentAreaFilled(false);
+        logbutton.setBorderPainted(false);
+
+        logbutton.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                try {
+                    java.lang.reflect.Method setHovered = evt.getSource().getClass().getMethod("setHovered",
+                            boolean.class);
+                    setHovered.invoke(evt.getSource(), true);
+                } catch (Exception e) {
+                    evt.getComponent().repaint();
+                }
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                try {
+                    java.lang.reflect.Method setHovered = evt.getSource().getClass().getMethod("setHovered",
+                            boolean.class);
+                    setHovered.invoke(evt.getSource(), false);
+                } catch (Exception e) {
+                    evt.getComponent().repaint();
+                }
+            }
+        });
         logbutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 logbuttonActionPerformed(evt);
@@ -1233,16 +1794,66 @@ public final class menu_form extends javax.swing.JFrame {
         });
         jToolBar1.add(logbutton);
 
-        exitbutton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        exitbutton.setForeground(ColorConstants.TEXT_LIGHT);
-        exitbutton.setIcon(ColorConstants.loadIcon("/icons/exit45.png")); // NOI18N
+        // Modern Material Design Exit Button with proper hover
+        exitbutton = new javax.swing.JButton() {
+            private boolean isHovered = false;
+
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                if (isHovered) {
+                    java.awt.Graphics2D g2d = (java.awt.Graphics2D) g.create();
+                    g2d.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
+                            java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+                    g2d.setColor(new java.awt.Color(244, 67, 54, 60));
+                    g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 8, 8);
+                    g2d.dispose();
+                }
+                super.paintComponent(g);
+            }
+
+            public void setHovered(boolean hovered) {
+                this.isHovered = hovered;
+                repaint();
+            }
+        };
+        exitbutton.setFont(new java.awt.Font("Segoe UI", 1, 12));
+        exitbutton.setForeground(new java.awt.Color(255, 255, 255, 240));
+        exitbutton.setIcon(ColorConstants.loadIcon("/icons/exit45.png"));
         exitbutton.setMnemonic('e');
-        exitbutton.setText("  Exit  ");
-        exitbutton.setToolTipText("");
+        exitbutton.setText("❌ Exit");
+        exitbutton.setToolTipText("Exit Application (Alt+E)");
         exitbutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         exitbutton.setFocusable(false);
         exitbutton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         exitbutton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        exitbutton.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
+        exitbutton.setOpaque(false);
+        exitbutton.setContentAreaFilled(false);
+        exitbutton.setBorderPainted(false);
+
+        exitbutton.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                try {
+                    java.lang.reflect.Method setHovered = evt.getSource().getClass().getMethod("setHovered",
+                            boolean.class);
+                    setHovered.invoke(evt.getSource(), true);
+                } catch (Exception e) {
+                    evt.getComponent().repaint();
+                }
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                try {
+                    java.lang.reflect.Method setHovered = evt.getSource().getClass().getMethod("setHovered",
+                            boolean.class);
+                    setHovered.invoke(evt.getSource(), false);
+                } catch (Exception e) {
+                    evt.getComponent().repaint();
+                }
+            }
+        });
         exitbutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exitbuttonActionPerformed(evt);
@@ -1250,14 +1861,100 @@ public final class menu_form extends javax.swing.JFrame {
         });
         jToolBar1.add(exitbutton);
 
+        // Professional Main Panel with Material Design Background
+        jPanel4 = new javax.swing.JPanel() {
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                super.paintComponent(g);
+                java.awt.Graphics2D g2d = (java.awt.Graphics2D) g.create();
+                g2d.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
+                        java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+                g2d.setRenderingHint(java.awt.RenderingHints.KEY_RENDERING,
+                        java.awt.RenderingHints.VALUE_RENDER_QUALITY);
+
+                // Material Design background with subtle pattern
+                java.awt.Color color1 = new java.awt.Color(250, 252, 255, 255); // Pure white
+                java.awt.Color color2 = new java.awt.Color(245, 247, 252, 255); // Subtle blue-grey
+                java.awt.GradientPaint gradient = new java.awt.GradientPaint(0, 0, color1, 0, getHeight(), color2);
+                g2d.setPaint(gradient);
+                g2d.fillRect(0, 0, getWidth(), getHeight());
+
+                // Subtle dot pattern for depth
+                g2d.setColor(new java.awt.Color(0, 0, 0, 8));
+                for (int i = 0; i < getWidth(); i += 60) {
+                    for (int j = 0; j < getHeight(); j += 60) {
+                        g2d.fillOval(i, j, 2, 2);
+                    }
+                }
+
+                g2d.dispose();
+            }
+        };
         jPanel4.setLayout(null);
 
-        jPanel1.setBackground(ColorConstants.SUCCESS_GREEN);
-        jPanel1.setLayout(null);
+        // Material Design: Today's Sales Amount Panel with Professional Gradient
+        jPanel1 = new javax.swing.JPanel() {
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                super.paintComponent(g);
+                java.awt.Graphics2D g2d = (java.awt.Graphics2D) g.create();
+                g2d.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
+                        java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+                g2d.setRenderingHint(java.awt.RenderingHints.KEY_RENDERING,
+                        java.awt.RenderingHints.VALUE_RENDER_QUALITY);
 
-        jLabel12.setFont(new java.awt.Font("Arial Black", 1, 28)); // NOI18N
-        jLabel12.setForeground(ColorConstants.TEXT_LIGHT);
-        jLabel12.setText("0.00");
+                // Material Design elevation shadow
+                for (int i = 0; i < 6; i++) {
+                    int alpha = Math.max(0, 30 - i * 5);
+                    g2d.setColor(new java.awt.Color(0, 0, 0, alpha));
+                    g2d.fill(new java.awt.geom.RoundRectangle2D.Float(
+                            i, i + 2, getWidth() - 2 * i, getHeight() - 2 * i, 16, 16));
+                }
+
+                // Material Design Green gradient
+                java.awt.Color color1 = new java.awt.Color(67, 160, 71, 255);
+                java.awt.Color color2 = new java.awt.Color(56, 142, 60, 255);
+                java.awt.Color color3 = new java.awt.Color(76, 175, 80, 255);
+                java.awt.GradientPaint gradient = new java.awt.GradientPaint(0, 0, color3, getWidth(), getHeight(),
+                        color2);
+                g2d.setPaint(gradient);
+
+                // Card with rounded corners
+                java.awt.geom.RoundRectangle2D card = new java.awt.geom.RoundRectangle2D.Float(0, 0, getWidth(),
+                        getHeight(), 16, 16);
+                g2d.fill(card);
+
+                // Subtle highlight
+                java.awt.GradientPaint highlight = new java.awt.GradientPaint(0, 0,
+                        new java.awt.Color(255, 255, 255, 40), 0, getHeight() / 3,
+                        new java.awt.Color(255, 255, 255, 0));
+                g2d.setPaint(highlight);
+                g2d.fill(card);
+
+                g2d.dispose();
+            }
+        };
+        jPanel1.setOpaque(false);
+        jPanel1.setLayout(null);
+        jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        // Simple hover effect without complex animations
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(
+                        new java.awt.Color(255, 255, 255, 80), 2));
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel1.setBorder(null);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 28)); // Professional typography
+        jLabel12.setForeground(java.awt.Color.WHITE);
+        jLabel12.setText("₹ 0.00");
         jLabel12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1265,22 +1962,79 @@ public final class menu_form extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jLabel12);
-        jLabel12.setBounds(15, 15, 380, 45);
+        jLabel12.setBounds(20, 18, 370, 40);
 
-        jLabel13.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jLabel13.setForeground(ColorConstants.TEXT_LIGHT);
-        jLabel13.setText("Today's Sales Amount");
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // Clean secondary text
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255, 200)); // Semi-transparent white
+        jLabel13.setText("💰 Today's Sales Amount");
         jPanel1.add(jLabel13);
-        jLabel13.setBounds(15, 60, 200, 25);
+        jLabel13.setBounds(20, 58, 200, 25);
 
         jPanel4.add(jPanel1);
         jPanel1.setBounds(20, 100, 410, 90);
 
-        jPanel2.setBackground(ColorConstants.PRIMARY_BLUE);
-        jPanel2.setLayout(null);
+        // Material Design: Sales Bills Panel with Professional Blue Theme
+        jPanel2 = new javax.swing.JPanel() {
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                super.paintComponent(g);
+                java.awt.Graphics2D g2d = (java.awt.Graphics2D) g.create();
+                g2d.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
+                        java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+                g2d.setRenderingHint(java.awt.RenderingHints.KEY_RENDERING,
+                        java.awt.RenderingHints.VALUE_RENDER_QUALITY);
 
-        jLabel8.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
-        jLabel8.setForeground(ColorConstants.TEXT_LIGHT);
+                // Material Design elevation shadows with static values
+                for (int i = 0; i < 8; i++) {
+                    int alpha = Math.max(0, 40 - i * 5);
+                    g2d.setColor(new java.awt.Color(0, 0, 0, alpha));
+                    g2d.fillRoundRect(-i, -i, getWidth() + i * 2, getHeight() + i * 2, 14 + i, 14 + i);
+                }
+
+                // Material Design Blue gradient with depth
+                java.awt.Color color1 = new java.awt.Color(42, 132, 218, 255); // Material Blue 600
+                java.awt.Color color2 = new java.awt.Color(30, 116, 198, 255); // Material Blue 700
+                java.awt.Color color3 = new java.awt.Color(33, 150, 243, 255); // Material Blue 500
+
+                java.awt.GradientPaint gradient = new java.awt.GradientPaint(0, 0, color3, getWidth(), getHeight(),
+                        color2);
+                g2d.setPaint(gradient);
+
+                // Professional card design
+                java.awt.geom.RoundRectangle2D card = new java.awt.geom.RoundRectangle2D.Float(0, 0, getWidth(),
+                        getHeight(), 14, 14);
+                g2d.fill(card);
+
+                // Subtle top highlight
+                java.awt.GradientPaint highlight = new java.awt.GradientPaint(0, 0,
+                        new java.awt.Color(255, 255, 255, 25), 0, getHeight() / 4,
+                        new java.awt.Color(255, 255, 255, 0));
+                g2d.setPaint(highlight);
+                g2d.fill(card);
+
+                g2d.dispose();
+            }
+        };
+        jPanel2.setOpaque(false);
+        jPanel2.setLayout(null);
+        jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        // Simple hover effect like jPanel1
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(
+                        new java.awt.Color(255, 255, 255, 80), 2));
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel2.setBorder(null);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 26)); // Professional typography
+        jLabel8.setForeground(java.awt.Color.WHITE);
         jLabel8.setText("0");
         jLabel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1289,28 +2043,91 @@ public final class menu_form extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jLabel8);
-        jLabel8.setBounds(15, 15, 170, 45);
+        jLabel8.setBounds(18, 18, 160, 40);
 
-        jLabel9.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jLabel9.setForeground(ColorConstants.TEXT_LIGHT);
-        jLabel9.setText("Sales Bills Today");
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 13)); // Refined secondary text
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255, 180)); // Semi-transparent white
+        jLabel9.setText("📄 Sales Bills Today");
         jPanel2.add(jLabel9);
-        jLabel9.setBounds(15, 60, 170, 25);
+        jLabel9.setBounds(18, 58, 160, 22);
 
         jPanel4.add(jPanel2);
         jPanel2.setBounds(20, 200, 200, 90);
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel1.setForeground(ColorConstants.TEXT_PRIMARY);
-        jLabel1.setText("Today's Business Overview");
+        // Material Design Header with Professional Typography
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // Clean, professional font - reduced for better fit
+        jLabel1.setForeground(new java.awt.Color(33, 33, 33)); // Material Design dark grey
+        jLabel1.setText("📊 Today's Business Overview"); // More professional icon
+        jLabel1.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+                javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(33, 150, 243, 120)), // Material
+                                                                                                                // Blue
+                                                                                                                // accent
+                javax.swing.BorderFactory.createEmptyBorder(8, 0, 12, 0)));
         jPanel4.add(jLabel1);
-        jLabel1.setBounds(20, 60, 250, 30);
+        jLabel1.setBounds(20, 55, 280, 35);
 
-        jPanel3.setBackground(ColorConstants.SECONDARY_ORANGE);
+        // Material Design: Purchase Orders Panel with Professional Orange Theme
+        jPanel3 = new javax.swing.JPanel() {
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                super.paintComponent(g);
+                java.awt.Graphics2D g2d = (java.awt.Graphics2D) g.create();
+                g2d.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
+                        java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+                g2d.setRenderingHint(java.awt.RenderingHints.KEY_RENDERING,
+                        java.awt.RenderingHints.VALUE_RENDER_QUALITY);
+
+                // Material Design elevation shadows with static values
+                for (int i = 0; i < 8; i++) {
+                    int alpha = Math.max(0, 40 - i * 5);
+                    g2d.setColor(new java.awt.Color(255, 152, 0, alpha));
+                    g2d.fillRoundRect(-i, -i, getWidth() + i * 2, getHeight() + i * 2, 14 + i, 14 + i);
+                }
+
+                // Material Design Orange gradient with warmth
+                java.awt.Color color1 = new java.awt.Color(255, 152, 0, 255); // Material Orange 500
+                java.awt.Color color2 = new java.awt.Color(245, 124, 0, 255); // Material Orange 600
+                java.awt.Color color3 = new java.awt.Color(255, 183, 77, 255); // Material Orange 300
+
+                java.awt.GradientPaint gradient = new java.awt.GradientPaint(0, 0, color3, getWidth(), getHeight(),
+                        color2);
+                g2d.setPaint(gradient);
+
+                // Professional rounded card
+                java.awt.geom.RoundRectangle2D card = new java.awt.geom.RoundRectangle2D.Float(0, 0, getWidth(),
+                        getHeight(), 14, 14);
+                g2d.fill(card);
+
+                // Warm highlight effect
+                java.awt.GradientPaint warmHighlight = new java.awt.GradientPaint(0, 0,
+                        new java.awt.Color(255, 255, 255, 35), 0, getHeight() / 3,
+                        new java.awt.Color(255, 255, 255, 0));
+                g2d.setPaint(warmHighlight);
+                g2d.fill(card);
+
+                g2d.dispose();
+            }
+        };
+        jPanel3.setOpaque(false);
         jPanel3.setLayout(null);
+        jPanel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jLabel15.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
-        jLabel15.setForeground(ColorConstants.TEXT_LIGHT);
+        // Simple hover effect like jPanel1
+        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(
+                        new java.awt.Color(255, 255, 255, 80), 2));
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel3.setBorder(null);
+            }
+        });
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 26)); // Balanced typography
+        jLabel15.setForeground(java.awt.Color.WHITE);
         jLabel15.setText("0");
         jLabel15.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel15.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1319,22 +2136,79 @@ public final class menu_form extends javax.swing.JFrame {
             }
         });
         jPanel3.add(jLabel15);
-        jLabel15.setBounds(15, 15, 170, 45);
+        jLabel15.setBounds(18, 18, 160, 40);
 
-        jLabel16.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jLabel16.setForeground(ColorConstants.TEXT_LIGHT);
-        jLabel16.setText("Purchase Orders");
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 13)); // Clean secondary text
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255, 190)); // Slightly more opaque for orange background
+        jLabel16.setText("📦 Purchase Orders");
         jPanel3.add(jLabel16);
-        jLabel16.setBounds(15, 60, 170, 25);
+        jLabel16.setBounds(18, 58, 160, 22);
 
         jPanel4.add(jPanel3);
         jPanel3.setBounds(230, 200, 200, 90);
 
-        jPanel5.setBackground(ColorConstants.INFO_BLUE);
-        jPanel5.setLayout(null);
+        // Material Design: Customer Payments Panel with Professional Teal Theme
+        jPanel5 = new javax.swing.JPanel() {
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                super.paintComponent(g);
+                java.awt.Graphics2D g2d = (java.awt.Graphics2D) g.create();
+                g2d.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
+                        java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+                g2d.setRenderingHint(java.awt.RenderingHints.KEY_RENDERING,
+                        java.awt.RenderingHints.VALUE_RENDER_QUALITY);
 
-        jLabel10.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
-        jLabel10.setForeground(ColorConstants.TEXT_LIGHT);
+                // Material Design elevation shadows with teal tint
+                for (int i = 0; i < 8; i++) {
+                    int alpha = Math.max(0, 40 - i * 5);
+                    g2d.setColor(new java.awt.Color(0, 188, 212, alpha));
+                    g2d.fillRoundRect(-i, -i, getWidth() + i * 2, getHeight() + i * 2, 14 + i, 14 + i);
+                }
+
+                // Material Design Cyan gradient with depth
+                java.awt.Color color1 = new java.awt.Color(0, 188, 212, 255); // Material Cyan 600
+                java.awt.Color color2 = new java.awt.Color(0, 151, 167, 255); // Material Cyan 700
+                java.awt.Color color3 = new java.awt.Color(38, 198, 218, 255); // Material Cyan 400
+
+                java.awt.GradientPaint gradient = new java.awt.GradientPaint(0, 0, color3, getWidth(), getHeight(),
+                        color2);
+                g2d.setPaint(gradient);
+
+                // Professional card with smooth corners
+                java.awt.geom.RoundRectangle2D card = new java.awt.geom.RoundRectangle2D.Float(0, 0, getWidth(),
+                        getHeight(), 14, 14);
+                g2d.fill(card);
+
+                // Cool inner highlight
+                java.awt.GradientPaint coolHighlight = new java.awt.GradientPaint(0, 0,
+                        new java.awt.Color(255, 255, 255, 30), 0, getHeight() / 3,
+                        new java.awt.Color(255, 255, 255, 0));
+                g2d.setPaint(coolHighlight);
+                g2d.fill(card);
+
+                g2d.dispose();
+            }
+        };
+        jPanel5.setOpaque(false);
+        jPanel5.setLayout(null);
+        jPanel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        // Simple hover effect like jPanel1
+        jPanel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(
+                        new java.awt.Color(255, 255, 255, 80), 2));
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel5.setBorder(null);
+            }
+        });
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 26)); // Professional typography
+        jLabel10.setForeground(java.awt.Color.WHITE);
         jLabel10.setText("0");
         jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1343,22 +2217,79 @@ public final class menu_form extends javax.swing.JFrame {
             }
         });
         jPanel5.add(jLabel10);
-        jLabel10.setBounds(15, 15, 170, 45);
+        jLabel10.setBounds(18, 18, 160, 40);
 
-        jLabel25.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jLabel25.setForeground(ColorConstants.TEXT_LIGHT);
-        jLabel25.setText("Customer Payments");
+        jLabel25.setFont(new java.awt.Font("Segoe UI", 0, 13)); // Clean secondary text
+        jLabel25.setForeground(new java.awt.Color(255, 255, 255, 185)); // Semi-transparent white
+        jLabel25.setText("💳 Customer Payments");
         jPanel5.add(jLabel25);
-        jLabel25.setBounds(15, 60, 170, 25);
+        jLabel25.setBounds(18, 58, 160, 22);
 
         jPanel4.add(jPanel5);
         jPanel5.setBounds(20, 300, 200, 90);
 
-        jPanel6.setBackground(ColorConstants.WARNING_YELLOW);
-        jPanel6.setLayout(null);
+        // Material Design: Purchase Entries Panel with Professional Amber Theme
+        jPanel6 = new javax.swing.JPanel() {
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                super.paintComponent(g);
+                java.awt.Graphics2D g2d = (java.awt.Graphics2D) g.create();
+                g2d.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
+                        java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+                g2d.setRenderingHint(java.awt.RenderingHints.KEY_RENDERING,
+                        java.awt.RenderingHints.VALUE_RENDER_QUALITY);
 
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
-        jLabel6.setForeground(ColorConstants.TEXT_PRIMARY);
+                // Material Design elevation shadows with amber tint
+                for (int i = 0; i < 8; i++) {
+                    int alpha = Math.max(0, 40 - i * 5);
+                    g2d.setColor(new java.awt.Color(255, 193, 7, alpha));
+                    g2d.fillRoundRect(-i, -i, getWidth() + i * 2, getHeight() + i * 2, 14 + i, 14 + i);
+                }
+
+                // Material Design Amber gradient with richness
+                java.awt.Color color1 = new java.awt.Color(255, 193, 7, 255); // Material Amber 500
+                java.awt.Color color2 = new java.awt.Color(255, 160, 0, 255); // Material Amber 600
+                java.awt.Color color3 = new java.awt.Color(255, 213, 79, 255); // Material Amber 300
+
+                java.awt.GradientPaint gradient = new java.awt.GradientPaint(0, 0, color3, getWidth(), getHeight(),
+                        color2);
+                g2d.setPaint(gradient);
+
+                // Professional card with premium feel
+                java.awt.geom.RoundRectangle2D card = new java.awt.geom.RoundRectangle2D.Float(0, 0, getWidth(),
+                        getHeight(), 14, 14);
+                g2d.fill(card);
+
+                // Golden highlight
+                java.awt.GradientPaint goldHighlight = new java.awt.GradientPaint(0, 0,
+                        new java.awt.Color(255, 255, 255, 40), 0, getHeight() / 3,
+                        new java.awt.Color(255, 255, 255, 0));
+                g2d.setPaint(goldHighlight);
+                g2d.fill(card);
+
+                g2d.dispose();
+            }
+        };
+        jPanel6.setOpaque(false);
+        jPanel6.setLayout(null);
+        jPanel6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        // Simple hover effect like jPanel1
+        jPanel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(
+                        new java.awt.Color(255, 255, 255, 80), 2));
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel6.setBorder(null);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 26)); // Professional typography
+        jLabel6.setForeground(new java.awt.Color(33, 33, 33)); // Dark grey for better contrast on amber
         jLabel6.setText("0");
         jLabel6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1367,23 +2298,66 @@ public final class menu_form extends javax.swing.JFrame {
             }
         });
         jPanel6.add(jLabel6);
-        jLabel6.setBounds(15, 15, 170, 45);
+        jLabel6.setBounds(18, 18, 160, 40);
 
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jLabel7.setForeground(ColorConstants.TEXT_PRIMARY);
-        jLabel7.setText("Purchase Entries");
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 13)); // Clean secondary text
+        jLabel7.setForeground(new java.awt.Color(66, 66, 66, 160)); // Semi-transparent dark grey for amber background
+        jLabel7.setText("📋 Purchase Entries");
         jPanel6.add(jLabel7);
-        jLabel7.setBounds(15, 60, 170, 25);
+        jLabel7.setBounds(18, 58, 160, 22);
 
         jPanel4.add(jPanel6);
         jPanel6.setBounds(230, 300, 200, 90);
 
-        jPanel7.setBackground(ColorConstants.PRIMARY_BLUE_DARK);
-        jPanel7.setLayout(null);
+        // Professional Design: Total Stock Value Panel with Dark Modern Theme
+        jPanel7 = new javax.swing.JPanel() {
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                super.paintComponent(g);
+                java.awt.Graphics2D g2d = (java.awt.Graphics2D) g.create();
+                g2d.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
+                        java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
 
-        jLabel4.setFont(new java.awt.Font("Arial Black", 1, 28)); // NOI18N
-        jLabel4.setForeground(ColorConstants.TEXT_LIGHT);
-        jLabel4.setText("0.00");
+                // Dark professional gradient
+                java.awt.Color color1 = new java.awt.Color(55, 71, 79, 255); // Material Blue Grey
+                java.awt.Color color2 = new java.awt.Color(38, 50, 56, 255); // Darker blue grey
+                java.awt.GradientPaint gradient = new java.awt.GradientPaint(0, 0, color1, 0, getHeight(), color2);
+                g2d.setPaint(gradient);
+
+                // Modern card design
+                java.awt.geom.RoundRectangle2D card = new java.awt.geom.RoundRectangle2D.Float(0, 0, getWidth(),
+                        getHeight(), 15, 15);
+                g2d.fill(card);
+
+                // Premium border accent
+                g2d.setColor(new java.awt.Color(156, 39, 176, 150)); // Purple accent
+                g2d.setStroke(new java.awt.BasicStroke(2));
+                g2d.draw(card);
+
+                g2d.dispose();
+            }
+        };
+        jPanel7.setOpaque(false);
+        jPanel7.setLayout(null);
+        jPanel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        // Simple hover effect
+        jPanel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(
+                        new java.awt.Color(255, 255, 255, 100), 2));
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel7.setBorder(null);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 32));
+        jLabel4.setForeground(new java.awt.Color(220, 220, 220));
+        jLabel4.setText("₹ 0.00");
         jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1393,17 +2367,43 @@ public final class menu_form extends javax.swing.JFrame {
         jPanel7.add(jLabel4);
         jLabel4.setBounds(15, 15, 380, 45);
 
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jLabel5.setForeground(ColorConstants.TEXT_LIGHT);
-        jLabel5.setText("Total Stock Value");
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 15));
+        jLabel5.setForeground(new java.awt.Color(220, 220, 220));
+        jLabel5.setText("📦 Total Stock Value");
         jPanel7.add(jLabel5);
         jLabel5.setBounds(15, 60, 200, 25);
 
         jPanel4.add(jPanel7);
         jPanel7.setBounds(450, 100, 410, 90);
 
-        jPanel8.setBackground(ColorConstants.ERROR_RED);
+        jPanel8 = new javax.swing.JPanel() {
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                super.paintComponent(g);
+                java.awt.Graphics2D g2 = (java.awt.Graphics2D) g.create();
+                g2.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
+                        java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(ColorConstants.ERROR_RED);
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
+                g2.dispose();
+            }
+        };
+        jPanel8.setOpaque(false);
         jPanel8.setLayout(null);
+
+        // Simple hover effect like jPanel1
+        jPanel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(
+                        new java.awt.Color(255, 255, 255, 80), 2));
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel8.setBorder(null);
+            }
+        });
 
         jLabel17.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
         jLabel17.setForeground(ColorConstants.TEXT_LIGHT);
@@ -1426,8 +2426,34 @@ public final class menu_form extends javax.swing.JFrame {
         jPanel4.add(jPanel8);
         jPanel8.setBounds(450, 200, 200, 90);
 
-        jPanel9.setBackground(ColorConstants.ERROR_RED);
+        jPanel9 = new javax.swing.JPanel() {
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                super.paintComponent(g);
+                java.awt.Graphics2D g2 = (java.awt.Graphics2D) g.create();
+                g2.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
+                        java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(ColorConstants.ERROR_RED);
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
+                g2.dispose();
+            }
+        };
+        jPanel9.setOpaque(false);
         jPanel9.setLayout(null);
+
+        // Simple hover effect like jPanel1
+        jPanel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel9.setBorder(javax.swing.BorderFactory.createLineBorder(
+                        new java.awt.Color(255, 255, 255, 80), 2));
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel9.setBorder(null);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
         jLabel2.setForeground(ColorConstants.TEXT_LIGHT);
@@ -1450,8 +2476,34 @@ public final class menu_form extends javax.swing.JFrame {
         jPanel4.add(jPanel9);
         jPanel9.setBounds(660, 200, 200, 90);
 
-        jPanel10.setBackground(ColorConstants.SUCCESS_GREEN);
+        jPanel10 = new javax.swing.JPanel() {
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                super.paintComponent(g);
+                java.awt.Graphics2D g2 = (java.awt.Graphics2D) g.create();
+                g2.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
+                        java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(ColorConstants.SUCCESS_GREEN);
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
+                g2.dispose();
+            }
+        };
+        jPanel10.setOpaque(false);
         jPanel10.setLayout(null);
+
+        // Simple hover effect like jPanel1
+        jPanel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel10.setBorder(javax.swing.BorderFactory.createLineBorder(
+                        new java.awt.Color(255, 255, 255, 80), 2));
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel10.setBorder(null);
+            }
+        });
 
         jLabel19.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
         jLabel19.setForeground(ColorConstants.TEXT_LIGHT);
@@ -1474,8 +2526,34 @@ public final class menu_form extends javax.swing.JFrame {
         jPanel4.add(jPanel10);
         jPanel10.setBounds(450, 300, 200, 90);
 
-        jPanel11.setBackground(ColorConstants.WARNING_YELLOW);
+        jPanel11 = new javax.swing.JPanel() {
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                super.paintComponent(g);
+                java.awt.Graphics2D g2 = (java.awt.Graphics2D) g.create();
+                g2.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
+                        java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(ColorConstants.WARNING_YELLOW);
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
+                g2.dispose();
+            }
+        };
+        jPanel11.setOpaque(false);
         jPanel11.setLayout(null);
+
+        // Simple hover effect like jPanel1
+        jPanel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel11.setBorder(javax.swing.BorderFactory.createLineBorder(
+                        new java.awt.Color(255, 255, 255, 80), 2));
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel11.setBorder(null);
+            }
+        });
 
         jLabel21.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
         jLabel21.setForeground(ColorConstants.TEXT_PRIMARY);
@@ -1498,82 +2576,173 @@ public final class menu_form extends javax.swing.JFrame {
         jPanel4.add(jPanel11);
         jPanel11.setBounds(660, 300, 200, 90);
 
-        jPanel12.setBackground(ColorConstants.PRIMARY_BLUE);
-        jPanel12.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 0, 0, 0, ColorConstants.PRIMARY_BLUE_DARK));
-        jPanel12.setLayout(null);
-
-        // Override paintComponent for gradient background
+        // Override paintComponent for gradient background with curved corners
         jPanel12 = new javax.swing.JPanel() {
             @Override
             protected void paintComponent(java.awt.Graphics g) {
                 super.paintComponent(g);
-                java.awt.Graphics2D g2d = (java.awt.Graphics2D) g;
+                java.awt.Graphics2D g2d = (java.awt.Graphics2D) g.create();
+                g2d.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
+                        java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
                 g2d.setRenderingHint(java.awt.RenderingHints.KEY_RENDERING,
                         java.awt.RenderingHints.VALUE_RENDER_QUALITY);
+                
                 int w = getWidth();
                 int h = getHeight();
-                java.awt.Color color1 = ColorConstants.PRIMARY_BLUE;
-                java.awt.Color color2 = ColorConstants.PRIMARY_BLUE_DARK;
-                java.awt.GradientPaint gp = new java.awt.GradientPaint(0, 0, color1, 0, h, color2);
-                g2d.setPaint(gp);
-                g2d.fillRect(0, 0, w, h);
+                
+                // Material Design elevation shadow
+                for (int i = 0; i < 8; i++) {
+                    int alpha = Math.max(0, 30 - i * 4);
+                    g2d.setColor(new java.awt.Color(0, 0, 0, alpha));
+                    g2d.fillRoundRect(-i, -i, w + (i * 2), h + (i * 2), 20 + i, 20 + i);
+                }
+                
+                // Professional gradient background
+                java.awt.Color color1 = new java.awt.Color(13, 71, 161, 255); // Material Blue 900
+                java.awt.Color color2 = new java.awt.Color(25, 118, 210, 255); // Material Blue 600
+                java.awt.Color color3 = new java.awt.Color(33, 150, 243, 255); // Material Blue 500
+                
+                java.awt.GradientPaint gradient = new java.awt.GradientPaint(
+                    0, 0, color3, 0, h, color1);
+                g2d.setPaint(gradient);
+                
+                // Rounded footer background
+                java.awt.geom.RoundRectangle2D footer = new java.awt.geom.RoundRectangle2D.Float(
+                    0, 0, w, h, 20, 20);
+                g2d.fill(footer);
+                
+                // Subtle top highlight
+                java.awt.GradientPaint highlight = new java.awt.GradientPaint(
+                    0, 0, new java.awt.Color(255, 255, 255, 60),
+                    0, h / 3, new java.awt.Color(255, 255, 255, 0));
+                g2d.setPaint(highlight);
+                g2d.fill(footer);
+                
+                // Professional border accent
+                g2d.setStroke(new java.awt.BasicStroke(2));
+                g2d.setColor(new java.awt.Color(255, 255, 255, 40));
+                g2d.draw(footer);
+                
+                // Bottom accent line
+                g2d.setColor(new java.awt.Color(255, 255, 255, 80));
+                g2d.fillRoundRect(20, h - 4, w - 40, 2, 2, 2);
+                
+                g2d.dispose();
             }
         };
+        jPanel12.setOpaque(false);
+        jPanel12.setLayout(null);
         jPanel12.setLayout(null);
 
-        jLabel26.setFont(new java.awt.Font("Segoe UI", 1, 32)); // NOI18N
-        jLabel26.setForeground(ColorConstants.TEXT_LIGHT);
-        jLabel26.setText("🎯 BBS Billing Software");
+        jLabel26.setFont(new java.awt.Font("Segoe UI", 1, 28)); // Refined size for better balance
+        jLabel26.setForeground(new java.awt.Color(255, 255, 255, 245)); // Slightly transparent white
+        jLabel26.setText("🎯 BBS Billing Software - Professional Edition");
+        jLabel26.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 5, 0)); // Bottom spacing
         jPanel12.add(jLabel26);
-        jLabel26.setBounds(20, 15, 600, 35);
+        jLabel26.setBounds(30, 20, 700, 35);
 
-        jLabel42.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel42.setForeground(ColorConstants.TEXT_LIGHT);
+        jLabel42.setFont(new java.awt.Font("Segoe UI", 0, 13)); // Slightly smaller for better hierarchy
+        jLabel42.setForeground(new java.awt.Color(255, 255, 255, 200)); // Semi-transparent for secondary info
         jLabel42.setText(
-                "📞 BBS Software   |    Email: BBSsoftware+@gmail.com   |   Mob No: 7588168856   |   🌐 Website: BBSerp.in");
+                "📧 BBSsoftware+@gmail.com  •  📞 7588168856  •  🌐 BBSerp.in  •  💼 Complete Business Solution");
+        jLabel42.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 8, 0)); // Bottom spacing
         jPanel12.add(jLabel42);
-        jLabel42.setBounds(20, 55, 1200, 25);
+        jLabel42.setBounds(30, 55, 900, 25);
 
-        versionl.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        versionl.setForeground(ColorConstants.WARNING_YELLOW);
+        versionl.setFont(new java.awt.Font("Segoe UI", 1, 15)); // Consistent sizing
+        versionl.setForeground(new java.awt.Color(255, 235, 59, 255)); // Brighter yellow for visibility
         versionl.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        versionl.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+                javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 235, 59, 100), 1),
+                javax.swing.BorderFactory.createEmptyBorder(4, 12, 4, 12)));
+        versionl.setOpaque(true);
+        versionl.setBackground(new java.awt.Color(255, 235, 59, 20));
         jPanel12.add(versionl);
-        versionl.setBounds(800, 15, 540, 30);
+        versionl.setBounds(750, 18, 570, 30);
 
-        activatel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        activatel.setForeground(ColorConstants.WARNING_YELLOW);
-        activatel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        activatel.setText("🔓 Activate Full Version");
+        activatel = new javax.swing.JLabel() {
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                java.awt.Graphics2D g2d = (java.awt.Graphics2D) g.create();
+                g2d.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
+                        java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+                
+                // Professional call-to-action button gradient
+                java.awt.Color color1 = new java.awt.Color(76, 175, 80, 200);
+                java.awt.Color color2 = new java.awt.Color(56, 142, 60, 200);
+                java.awt.GradientPaint gradient = new java.awt.GradientPaint(
+                    0, 0, color1, 0, getHeight(), color2);
+                g2d.setPaint(gradient);
+                
+                java.awt.geom.RoundRectangle2D button = new java.awt.geom.RoundRectangle2D.Float(
+                    0, 0, getWidth(), getHeight(), 15, 15);
+                g2d.fill(button);
+                
+                // Highlight effect
+                g2d.setColor(new java.awt.Color(255, 255, 255, 60));
+                g2d.fill(new java.awt.geom.RoundRectangle2D.Float(
+                    0, 0, getWidth(), getHeight() / 2, 15, 15));
+                
+                // Professional border
+                g2d.setStroke(new java.awt.BasicStroke(1.5f));
+                g2d.setColor(new java.awt.Color(46, 125, 50, 180));
+                g2d.draw(button);
+                
+                g2d.dispose();
+                super.paintComponent(g);
+            }
+        };
+        activatel.setOpaque(false);
+        activatel.setFont(new java.awt.Font("Segoe UI", 1, 13)); // Consistent sizing
+        activatel.setForeground(new java.awt.Color(255, 255, 255, 255)); // Pure white for contrast
+        activatel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        activatel.setText("⚡ Activate Full Version");
         activatel.setToolTipText("Click here to activate full version");
+        activatel.setBorder(javax.swing.BorderFactory.createEmptyBorder(6, 16, 6, 16));
         activatel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         activatel.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                activatel.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+                    javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255, 80), 2),
+                    javax.swing.BorderFactory.createEmptyBorder(4, 14, 4, 14)));
+            }
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                activatel.setBorder(javax.swing.BorderFactory.createEmptyBorder(6, 16, 6, 16));
+            }
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 activatelMouseClicked(evt);
             }
         });
         jPanel12.add(activatel);
-        activatel.setBounds(1000, 50, 340, 25);
+        activatel.setBounds(950, 50, 220, 32);
 
         jPanel4.add(jPanel12);
-        jPanel12.setBounds(0, 520, 1360, 100);
+        jPanel12.setBounds(0, 510, 1360, 110);
 
-        cnamel.setFont(new java.awt.Font("Bookman Old Style", 3, 36)); // NOI18N
-        cnamel.setForeground(new java.awt.Color(255, 0, 102));
+        cnamel.setFont(new java.awt.Font("Segoe UI", 1, 40)); // Modern professional font
+        cnamel.setForeground(new java.awt.Color(33, 150, 243)); // Professional blue
         cnamel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         cnamel.setText(".");
+        // Add text shadow effect
+        cnamel.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+                javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2),
+                javax.swing.BorderFactory.createLineBorder(new java.awt.Color(33, 150, 243, 30), 1)));
         jPanel4.add(cnamel);
         cnamel.setBounds(20, 5, 1340, 50);
 
-        jLabel30.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel30.setForeground(ColorConstants.TEXT_PRIMARY);
+        // Modern System Info Cards
+        jLabel30.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        jLabel30.setForeground(new java.awt.Color(33, 33, 33));
         jLabel30.setText(" 🖥️ System IP");
         jLabel30.setBorder(javax.swing.BorderFactory.createCompoundBorder(
-                javax.swing.BorderFactory.createLineBorder(ColorConstants.PRIMARY_BLUE_LIGHT, 1),
-                javax.swing.BorderFactory.createEmptyBorder(2, 8, 2, 8)));
+                javax.swing.BorderFactory.createLineBorder(new java.awt.Color(33, 150, 243, 100), 1),
+                javax.swing.BorderFactory.createEmptyBorder(6, 12, 6, 12)));
         jLabel30.setOpaque(true);
-        jLabel30.setBackground(ColorConstants.BACKGROUND_LIGHT);
+        jLabel30.setBackground(new java.awt.Color(248, 249, 250));
         jPanel4.add(jLabel30);
-        jLabel30.setBounds(20, 420, 200, 30);
+        jLabel30.setBounds(20, 445, 200, 30);
 
         jLabel31.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel31.setForeground(ColorConstants.TEXT_PRIMARY);
@@ -1584,7 +2753,7 @@ public final class menu_form extends javax.swing.JFrame {
         jLabel31.setOpaque(true);
         jLabel31.setBackground(ColorConstants.BACKGROUND_LIGHT);
         jPanel4.add(jLabel31);
-        jLabel31.setBounds(20, 450, 200, 30);
+        jLabel31.setBounds(20, 475, 200, 30);
 
         jLabel32.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel32.setForeground(ColorConstants.TEXT_PRIMARY);
@@ -1595,7 +2764,7 @@ public final class menu_form extends javax.swing.JFrame {
         jLabel32.setOpaque(true);
         jLabel32.setBackground(ColorConstants.BACKGROUND_LIGHT);
         jPanel4.add(jLabel32);
-        jLabel32.setBounds(20, 390, 200, 30);
+        jLabel32.setBounds(20, 415, 200, 30);
 
         jLabel33.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel33.setForeground(ColorConstants.TEXT_PRIMARY);
@@ -1606,7 +2775,7 @@ public final class menu_form extends javax.swing.JFrame {
         jLabel33.setOpaque(true);
         jLabel33.setBackground(ColorConstants.INPUT_BACKGROUND);
         jPanel4.add(jLabel33);
-        jLabel33.setBounds(220, 390, 210, 30);
+        jLabel33.setBounds(220, 415, 210, 30);
 
         jLabel34.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel34.setForeground(ColorConstants.TEXT_PRIMARY);
@@ -1617,7 +2786,7 @@ public final class menu_form extends javax.swing.JFrame {
         jLabel34.setOpaque(true);
         jLabel34.setBackground(ColorConstants.INPUT_BACKGROUND);
         jPanel4.add(jLabel34);
-        jLabel34.setBounds(220, 420, 210, 30);
+        jLabel34.setBounds(220, 445, 210, 30);
 
         jLabel35.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel35.setForeground(ColorConstants.TEXT_PRIMARY);
@@ -1628,11 +2797,43 @@ public final class menu_form extends javax.swing.JFrame {
         jLabel35.setOpaque(true);
         jLabel35.setBackground(ColorConstants.INPUT_BACKGROUND);
         jPanel4.add(jLabel35);
-        jLabel35.setBounds(220, 450, 210, 30);
+        jLabel35.setBounds(220, 475, 210, 30);
 
-        dayclose.setBackground(ColorConstants.WARNING_YELLOW);
-        dayclose.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        dayclose.setForeground(ColorConstants.TEXT_PRIMARY);
+        // Professional Modern Day Close Button
+        dayclose = new javax.swing.JLabel() {
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                java.awt.Graphics2D g2d = (java.awt.Graphics2D) g.create();
+                g2d.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
+                        java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+
+                // Modern warning button gradient
+                java.awt.Color color1 = new java.awt.Color(255, 193, 7, 255);
+                java.awt.Color color2 = new java.awt.Color(255, 143, 0, 255);
+                java.awt.GradientPaint gradient = new java.awt.GradientPaint(0, 0, color1, 0, getHeight(), color2);
+                g2d.setPaint(gradient);
+
+                // Rounded button with shadow
+                java.awt.geom.RoundRectangle2D button = new java.awt.geom.RoundRectangle2D.Float(0, 0, getWidth(),
+                        getHeight(), 20, 20);
+                g2d.fill(button);
+
+                // Professional highlight
+                g2d.setColor(new java.awt.Color(255, 255, 255, 60));
+                g2d.fill(new java.awt.geom.RoundRectangle2D.Float(0, 0, getWidth(), getHeight() / 2, 20, 20));
+
+                // Border accent
+                g2d.setColor(new java.awt.Color(245, 124, 0, 180));
+                g2d.setStroke(new java.awt.BasicStroke(1));
+                g2d.draw(button);
+
+                g2d.dispose();
+                super.paintComponent(g);
+            }
+        };
+        dayclose.setOpaque(false);
+        dayclose.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        dayclose.setForeground(new java.awt.Color(66, 66, 66));
         dayclose.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         dayclose.setText("🔒 Day Book Close");
         dayclose.setBorder(javax.swing.BorderFactory.createCompoundBorder(
@@ -1647,9 +2848,36 @@ public final class menu_form extends javax.swing.JFrame {
         jPanel4.add(dayclose);
         dayclose.setBounds(560, 450, 140, 30);
 
-        clearl.setBackground(ColorConstants.SUCCESS_GREEN);
-        clearl.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        clearl.setForeground(java.awt.Color.BLACK);
+        // Professional Modern Button Design
+        clearl = new javax.swing.JLabel() {
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                java.awt.Graphics2D g2d = (java.awt.Graphics2D) g.create();
+                g2d.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
+                        java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+
+                // Modern button gradient
+                java.awt.Color color1 = new java.awt.Color(76, 175, 80, 255);
+                java.awt.Color color2 = new java.awt.Color(56, 142, 60, 255);
+                java.awt.GradientPaint gradient = new java.awt.GradientPaint(0, 0, color1, 0, getHeight(), color2);
+                g2d.setPaint(gradient);
+
+                // Rounded button
+                java.awt.geom.RoundRectangle2D button = new java.awt.geom.RoundRectangle2D.Float(0, 0, getWidth(),
+                        getHeight(), 20, 20);
+                g2d.fill(button);
+
+                // Glass effect highlight
+                g2d.setColor(new java.awt.Color(255, 255, 255, 80));
+                g2d.fill(new java.awt.geom.RoundRectangle2D.Float(0, 0, getWidth(), getHeight() / 2, 20, 20));
+
+                g2d.dispose();
+                super.paintComponent(g);
+            }
+        };
+        clearl.setOpaque(false);
+        clearl.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        clearl.setForeground(java.awt.Color.WHITE);
         clearl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         clearl.setText("🔄 Refresh");
         clearl.setBorder(javax.swing.BorderFactory.createCompoundBorder(
@@ -1664,8 +2892,34 @@ public final class menu_form extends javax.swing.JFrame {
         jPanel4.add(clearl);
         clearl.setBounds(710, 450, 120, 30);
 
-        jPanel13.setBackground(ColorConstants.PRIMARY_BLUE_LIGHT);
+        jPanel13 = new javax.swing.JPanel() {
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                super.paintComponent(g);
+                java.awt.Graphics2D g2 = (java.awt.Graphics2D) g.create();
+                g2.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
+                        java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(ColorConstants.PRIMARY_BLUE_LIGHT);
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
+                g2.dispose();
+            }
+        };
+        jPanel13.setOpaque(false);
         jPanel13.setLayout(null);
+
+        // Simple hover effect like jPanel1
+        jPanel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel13.setBorder(javax.swing.BorderFactory.createLineBorder(
+                        new java.awt.Color(255, 255, 255, 80), 2));
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel13.setBorder(null);
+            }
+        });
 
         jLabel23.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jLabel23.setForeground(ColorConstants.TEXT_LIGHT);
@@ -1688,8 +2942,34 @@ public final class menu_form extends javax.swing.JFrame {
         jPanel4.add(jPanel13);
         jPanel13.setBounds(880, 100, 410, 90);
 
-        jPanel14.setBackground(ColorConstants.ERROR_RED);
+        jPanel14 = new javax.swing.JPanel() {
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                super.paintComponent(g);
+                java.awt.Graphics2D g2 = (java.awt.Graphics2D) g.create();
+                g2.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
+                        java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(ColorConstants.ERROR_RED);
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
+                g2.dispose();
+            }
+        };
+        jPanel14.setOpaque(false);
         jPanel14.setLayout(null);
+
+        // Simple hover effect like jPanel1
+        jPanel14.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel14.setBorder(javax.swing.BorderFactory.createLineBorder(
+                        new java.awt.Color(255, 255, 255, 80), 2));
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel14.setBorder(null);
+            }
+        });
 
         jLabel39.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
         jLabel39.setForeground(ColorConstants.TEXT_LIGHT);
@@ -1712,8 +2992,34 @@ public final class menu_form extends javax.swing.JFrame {
         jPanel4.add(jPanel14);
         jPanel14.setBounds(1095, 300, 200, 90);
 
-        jPanel15.setBackground(ColorConstants.SECONDARY_ORANGE_DARK);
+        jPanel15 = new javax.swing.JPanel() {
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                super.paintComponent(g);
+                java.awt.Graphics2D g2 = (java.awt.Graphics2D) g.create();
+                g2.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
+                        java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(ColorConstants.SECONDARY_ORANGE_DARK);
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
+                g2.dispose();
+            }
+        };
+        jPanel15.setOpaque(false);
         jPanel15.setLayout(null);
+
+        // Simple hover effect like jPanel1
+        jPanel15.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel15.setBorder(javax.swing.BorderFactory.createLineBorder(
+                        new java.awt.Color(255, 255, 255, 80), 2));
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel15.setBorder(null);
+            }
+        });
 
         jLabel27.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
         jLabel27.setForeground(ColorConstants.TEXT_LIGHT);
@@ -1736,8 +3042,34 @@ public final class menu_form extends javax.swing.JFrame {
         jPanel4.add(jPanel15);
         jPanel15.setBounds(880, 200, 200, 90);
 
-        jPanel16.setBackground(ColorConstants.PRIMARY_BLUE);
+        jPanel16 = new javax.swing.JPanel() {
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                super.paintComponent(g);
+                java.awt.Graphics2D g2 = (java.awt.Graphics2D) g.create();
+                g2.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
+                        java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(ColorConstants.PRIMARY_BLUE);
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
+                g2.dispose();
+            }
+        };
+        jPanel16.setOpaque(false);
         jPanel16.setLayout(null);
+
+        // Simple hover effect like jPanel1
+        jPanel16.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel16.setBorder(javax.swing.BorderFactory.createLineBorder(
+                        new java.awt.Color(255, 255, 255, 80), 2));
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel16.setBorder(null);
+            }
+        });
 
         jLabel29.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
         jLabel29.setForeground(ColorConstants.TEXT_LIGHT);
@@ -1760,8 +3092,34 @@ public final class menu_form extends javax.swing.JFrame {
         jPanel4.add(jPanel16);
         jPanel16.setBounds(1095, 200, 200, 90);
 
-        jPanel17.setBackground(ColorConstants.ERROR_RED);
+        jPanel17 = new javax.swing.JPanel() {
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                super.paintComponent(g);
+                java.awt.Graphics2D g2 = (java.awt.Graphics2D) g.create();
+                g2.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
+                        java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(ColorConstants.ERROR_RED);
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
+                g2.dispose();
+            }
+        };
+        jPanel17.setOpaque(false);
         jPanel17.setLayout(null);
+
+        // Simple hover effect like jPanel1
+        jPanel17.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel17.setBorder(javax.swing.BorderFactory.createLineBorder(
+                        new java.awt.Color(255, 255, 255, 80), 2));
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel17.setBorder(null);
+            }
+        });
 
         jLabel37.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
         jLabel37.setForeground(ColorConstants.TEXT_LIGHT);
@@ -1784,15 +3142,21 @@ public final class menu_form extends javax.swing.JFrame {
         jPanel4.add(jPanel17);
         jPanel17.setBounds(880, 300, 200, 90);
 
-        jLabel41.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel41.setForeground(ColorConstants.TEXT_PRIMARY);
-        jLabel41.setText("Stock Management");
+        jLabel41.setFont(new java.awt.Font("Segoe UI", 1, 18)); // Modern typography - reduced for better fit
+        jLabel41.setForeground(new java.awt.Color(33, 33, 33));
+        jLabel41.setText("📦 Stock Management");
+        jLabel41.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+                javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(156, 39, 176, 100)),
+                javax.swing.BorderFactory.createEmptyBorder(5, 0, 10, 0)));
         jPanel4.add(jLabel41);
         jLabel41.setBounds(450, 70, 200, 30);
 
-        jLabel43.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel43.setForeground(ColorConstants.TEXT_PRIMARY);
-        jLabel43.setText("Financial Overview");
+        jLabel43.setFont(new java.awt.Font("Segoe UI", 1, 18)); // Reduced font for better fit
+        jLabel43.setForeground(new java.awt.Color(33, 33, 33));
+        jLabel43.setText("💰 Financial Overview");
+        jLabel43.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+                javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(76, 175, 80, 100)),
+                javax.swing.BorderFactory.createEmptyBorder(5, 0, 10, 0)));
         jLabel43.setBounds(880, 70, 210, 30);
         jPanel4.add(jLabel43);
 
@@ -1815,7 +3179,14 @@ public final class menu_form extends javax.swing.JFrame {
                                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 589, Short.MAX_VALUE)));
 
         getContentPane().add(jDesktopPane1);
-        jDesktopPane1.setBounds(0, 30, 1360, 690);
+
+        // Center jDesktopPane1 horizontally and align to top
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        int desktopPaneWidth = 1360;
+        int desktopPaneHeight = 690;
+        int x = (screenSize.width - desktopPaneWidth) / 2; // Center horizontally
+        int y = 30; // Align to top with menu bar offset
+        jDesktopPane1.setBounds(x, y, desktopPaneWidth, desktopPaneHeight);
 
         // Set menu bar to start from left edge
         jMenuBar1.setBounds(0, 0, 1360, 30);

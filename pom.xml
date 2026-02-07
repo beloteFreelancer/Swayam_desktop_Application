@@ -216,54 +216,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <plugin>
-                <groupId>org.panteleyev</groupId>
-                <artifactId>jpackage-maven-plugin</artifactId>
-                <version>1.7.1</version>
-                <configuration>
-                    <name>BBS_Software</name>
-                    <input>target</input>
-                    <mainJar>${project.artifactId}-${project.version}.jar</mainJar>
-                    <mainClass>BBS_Software</mainClass>
-                    <type>MSI</type>
-                    <appVersion>1.0.0</appVersion>
-                    <addLauncher>true</addLauncher>
-                    <icon>src/main/resources/app-icon.ico</icon>
-                    <destination>target/jpackage</destination>
-
-                    <winPerUserInstall>true</winPerUserInstall>
-                    <winMenu>true</winMenu>
-                    <winShortcut>true</winShortcut>
-                    <winDirChooser>true</winDirChooser>
-
-                    <javaOptions>
-                        <option>--add-opens=java.base/java.lang=ALL-UNNAMED</option>
-                        <option>--add-opens=java.base/java.util=ALL-UNNAMED</option>
-                        <option>--add-opens=java.base/java.io=ALL-UNNAMED</option>
-                        <option>--add-opens=java.desktop/java.awt=ALL-UNNAMED</option>
-                        <option>--add-opens=java.base/java.nio=ALL-UNNAMED</option>
-                    </javaOptions>
-
-                    <jlinkOptions>
-                        <addModules>
-                            <module>java.desktop</module>
-                            <module>java.sql</module>
-                            <module>java.mail</module>
-                            <module>java.xml</module>
-                            <module>java.naming</module>
-                            <module>jdk.unsupported</module> </addModules>
-                    </jlinkOptions>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>jpackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 </project>
