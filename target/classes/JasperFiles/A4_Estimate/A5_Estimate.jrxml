@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="A4_Invoice" language="groovy" pageWidth="421" pageHeight="595" columnWidth="381" leftMargin="2" rightMargin="20" topMargin="2" bottomMargin="20" uuid="67c319de-73b7-451f-8b0d-b5801d899306">
-	<property name="ireport.zoom" value="3.0"/>
-	<property name="ireport.x" value="2"/>
-	<property name="ireport.y" value="288"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="A5_Estimate" language="groovy" pageWidth="421" pageHeight="595" columnWidth="381" leftMargin="15" rightMargin="15" topMargin="2" bottomMargin="20" uuid="67c319de-73b7-451f-8b0d-b5801d899307">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="58"/>
+	<property name="ireport.y" value="471"/>
 	<parameter name="parameter1" class="java.lang.String"/>
 	<parameter name="parameter2" class="java.lang.String"/>
 	<parameter name="parameter3" class="java.lang.String"/>
