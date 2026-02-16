@@ -25,7 +25,8 @@ public final class DataUtil {
         }
     }
 
-    public void setup() throws ClassNotFoundException {
+    public void setup() throws ClassNotFoundException 
+    {
         try {
             conn = Database.getInstance().getConnection();
         } catch (ClassNotFoundException | SQLException ex) {
@@ -73,7 +74,6 @@ public final class DataUtil {
         }
         return -1;
     }
-
     public int doManipulation_Batch(ArrayList query) throws SQLException, ClassNotFoundException {
         try {
             connectionCheck();

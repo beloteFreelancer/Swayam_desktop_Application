@@ -1016,10 +1016,10 @@ CREATE TABLE IF NOT EXISTS `user_features` (
   PRIMARY KEY (`fname`)
 );
 CREATE TABLE IF NOT EXISTS `users` (
-  `utype` varchar(15) NOT NULL,
-  `user` varchar(15) NOT NULL,
+  `utype` varchar(150) NOT NULL,
+  `user` varchar(150) NOT NULL,
   `pass` varchar(100) NOT NULL,
-  `last` varchar(25) NOT NULL,
+  `last` varchar(100) NOT NULL,
   KEY `idx_user` (`user`)
 );
 CREATE TABLE IF NOT EXISTS `users_permissions` (

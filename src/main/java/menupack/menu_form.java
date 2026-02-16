@@ -192,7 +192,7 @@ public final class menu_form extends javax.swing.JFrame {
 
     DataUtil util = null;
     String username = "", user_type = "", drive = "", folder = Utils.AppConfig.getAppPath(),
-            version = "BBS software";
+            version = "Swayam software";
     int hmany = 2;
 
     public String getUsername() {
@@ -288,13 +288,15 @@ public final class menu_form extends javax.swing.JFrame {
                     activatel.setVisible(true);
                 }
             } else {
-                versionl.setText("🏆 BBS Professional Edition");
+                versionl.setText("🏆 Swayam Professional Edition");
                 activatel.setText("⚡ Activate Full Version");
                 activatel.setToolTipText("Click here to activate full version");
                 activatel.setVisible(true);
             }
             
             if (cname != null && !cname.trim().isEmpty()) {
+                // Replace any "BBS" references with "Swayam"
+                cname = cname.replace("BBS", "Swayam").replace("bbs", "Swayam");
                 cnamel.setText(cname + "  ");
             }
 
@@ -309,6 +311,8 @@ public final class menu_form extends javax.swing.JFrame {
             }
 
             if (shopName != null && !shopName.trim().isEmpty() && !shopName.trim().equals(".")) {
+                // Replace any "BBS" references with "Swayam"
+                shopName = shopName.replace("BBS", "Swayam").replace("bbs", "Swayam");
                 cnamel.setText(shopName + "  ");
             }
         } catch (IOException | ClassNotFoundException | SQLException e) {
@@ -2660,7 +2664,7 @@ public final class menu_form extends javax.swing.JFrame {
 
         jLabel26.setFont(new java.awt.Font("Segoe UI", 1, 28)); // Refined size for better balance
         jLabel26.setForeground(new java.awt.Color(255, 255, 255, 245)); // Slightly transparent white
-        jLabel26.setText("🎯 BBS Billing Software - Professional Edition");
+        jLabel26.setText("🎯 Swayam Billing Software - Professional Edition");
         jLabel26.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 5, 0)); // Bottom spacing
         jPanel12.add(jLabel26);
         jLabel26.setBounds(30, 20, 700, 35);
@@ -2668,7 +2672,7 @@ public final class menu_form extends javax.swing.JFrame {
         jLabel42.setFont(new java.awt.Font("Segoe UI", 0, 13)); // Slightly smaller for better hierarchy
         jLabel42.setForeground(new java.awt.Color(255, 255, 255, 200)); // Semi-transparent for secondary info
         jLabel42.setText(
-                "📧 BBSsoftware+@gmail.com  •  📞 7588168856  •  🌐 BBSerp.in  •  💼 Complete Business Solution");
+                "📧 Swayamsoftware+@gmail.com  •  📞9999999999   •  🌐 Swayamerp.in  •  💼 Complete Business Solution");
         jLabel42.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 8, 0)); // Bottom spacing
         jPanel12.add(jLabel42);
         jLabel42.setBounds(30, 55, 900, 25);

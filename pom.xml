@@ -9,7 +9,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <exec.mainClass>Swayam_Software</exec.mainClass>
+        <exec.mainClass> menupack.login</exec.mainClass>
     </properties>
     
     <dependencies>
@@ -171,6 +171,16 @@
             <version>2.2.224</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+    <groupId>net.java.dev.jna</groupId>
+    <artifactId>jna</artifactId>
+    <version>5.14.0</version>
+</dependency>
+<dependency>
+    <groupId>net.java.dev.jna</groupId>
+    <artifactId>jna-platform</artifactId>
+    <version>5.14.0</version>
+</dependency>
     </dependencies>
     <build>
         <plugins>
@@ -198,7 +208,7 @@
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
 
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>Swayam_Software</mainClass>
+                                    <mainClass>menupack.login</mainClass>
                                 </transformer>
                             </transformers>
 
