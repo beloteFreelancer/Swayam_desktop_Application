@@ -2,7 +2,82 @@ package menupack;
 
 public class SelRomJasper {
 
-    private String field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13, field14, field15, field16, field17, field18, field19, field20;
+    private String field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12,
+            field13, field14, field15, field16, field17, field18, field19, field20;
+
+    // Fields for JasperReports Sales_A4.jrxml
+    private String sno;
+    private String product_name;
+    private String size;
+    private String qty;
+    private String mrp;
+    private String disc_amt;
+    private String rate;
+    private String amount;
+
+    public String getSno() {
+        return sno;
+    }
+
+    public void setSno(String sno) {
+        this.sno = sno;
+    }
+
+    public String getProduct_name() {
+        return product_name;
+    }
+
+    public void setProduct_name(String product_name) {
+        this.product_name = product_name;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public String getQty() {
+        return qty;
+    }
+
+    public void setQty(String qty) {
+        this.qty = qty;
+    }
+
+    public String getMrp() {
+        return mrp;
+    }
+
+    public void setMrp(String mrp) {
+        this.mrp = mrp;
+    }
+
+    public String getDisc_amt() {
+        return disc_amt;
+    }
+
+    public void setDisc_amt(String disc_amt) {
+        this.disc_amt = disc_amt;
+    }
+
+    public String getRate() {
+        return rate;
+    }
+
+    public void setRate(String rate) {
+        this.rate = rate;
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
 
     public String getField1() {
         return field1;

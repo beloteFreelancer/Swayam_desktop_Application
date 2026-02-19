@@ -5,10 +5,11 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Base64;
 
-public class PasswordUtils {
-
+public class PasswordUtils
+ {
     // Generate a salt
-    private static String getSalt() {
+    private static String getSalt()
+     {
         SecureRandom sr = new SecureRandom();
         byte[] salt = new byte[16];
         sr.nextBytes(salt);
@@ -18,13 +19,16 @@ public class PasswordUtils {
     // Hash password with salt
     private static String hashPassword(String password, String salt) {
         try {
+
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             md.update(Base64.getDecoder().decode(salt));
             byte[] hashedPassword = md.digest(password.getBytes());
             return Base64.getEncoder().encodeToString(hashedPassword);
-        } catch (NoSuchAlgorithmException e) {
+          }
+         catch (NoSuchAlgorithmException e)
+          {
             throw new RuntimeException("Error hashing password", e);
-        }
+          }
     }
 
     // Public method to generate salt+hash
@@ -60,9 +64,12 @@ public class PasswordUtils {
         // If the stored password was created with this new logic (lowercased),
         // OR if we want to allow user to type "Admin" for a password stored as "admin".
         String calculatedHashLower = hashPassword(providedPassword.toLowerCase(), salt);
-        if (calculatedHashLower.equals(hash)) {
+        if (calculatedHashLower.equals(hash))
+         {
+
             return true;
-        }
+
+         }
 
         return false;
     }

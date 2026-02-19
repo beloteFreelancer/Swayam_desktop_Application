@@ -27,7 +27,7 @@ public class print_class {
                 new print_a4().Report(util, billno, drive, folder, billformat);
                 break;
             case "Sales A5":
-                new print_a4_half().Report(util, billno, drive, folder, billformat);
+            	new print_a4().Report(util, billno, drive, folder, billformat);
                 break;
 
             // Legacy / Existing Support

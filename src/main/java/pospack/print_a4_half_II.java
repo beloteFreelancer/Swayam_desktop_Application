@@ -3,6 +3,7 @@ package pospack;
 import com.selrom.db.DataUtil;
 import com.selrom.db.disable_warnigs;
 import com.selrom.utils.JasperReportCompiler;
+import net.sf.jasperreports.engine.util.JRLoader;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.sql.ResultSet;
@@ -32,7 +33,6 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 public class print_a4_half_II {
-
     JasperViewer jasperViewer;
     int num = 0;
     String rupe = "";
@@ -45,7 +45,8 @@ public class print_a4_half_II {
 
             Map<String, Object> parameters = new HashMap<>();
 
-            String add1 = "", add2 = "", add3 = "", add4 = "", add5 = "", sname = "", scode = "", letter = "", head = "", sms1 = "", sms2 = "", sms3 = "", sms4 = "", logoPath = "";
+            String add1 = "", add2 = "", add3 = "", add4 = "", add5 = "", sname = "", scode = "", letter = "",
+                    head = "", sms1 = "", sms2 = "", sms3 = "", sms4 = "", logoPath = "";
             String query = "select cname,add1,add2,add3,add4,state,scode,bhead,sms1,sms2,sms3,sms4,letter,hmany,logo_path from setting_bill";
             ResultSet r = util.doQuery(query);
             while (r.next()) {
@@ -65,7 +66,8 @@ public class print_a4_half_II {
                 letter = r.getString(13);
                 hmany = r.getInt(14);
             }
-            parameters.put("logo_path", logoPath);            parameters.put("parameter1", "" + add1);
+            parameters.put("logo_path", logoPath);
+            parameters.put("parameter1", "" + add1);
             parameters.put("parameter2", "");
             parameters.put("parameter3", "");
             parameters.put("parameter4", "");
@@ -90,7 +92,8 @@ public class print_a4_half_II {
 
             String date = "", cid = "", tax = "", salesman = "", ttype = "";
             double sub = 0, dis = 0, addamt = 0, net = 0, taxamt = 0, quans = 0;
-            query = "select date_format(dat,'%d/%m/%Y'),quans,sub,disamt,addamt,net,cid,taxamt,tax,tax_type from sales where billno='" + billno + "'";
+            query = "select date_format(dat,'%d/%m/%Y'),quans,sub,disamt,addamt,net,cid,taxamt,tax,tax_type from sales where billno='"
+                    + billno + "'";
             r = util.doQuery(query);
             while (r.next()) {
                 date = r.getString(1);
@@ -118,7 +121,8 @@ public class print_a4_half_II {
             parameters.put("parameter16", "");
             parameters.put("parameter17", "");
 
-            String cname = "", ad1 = "", ad2 = "", ad3 = "", area = "", mobile = "", phone = "", ctin = "", csname = "", cscode = "", route = "";
+            String cname = "", ad1 = "", ad2 = "", ad3 = "", area = "", mobile = "", phone = "", ctin = "", csname = "",
+                    cscode = "", route = "";
             query = "select cname,add1,add2,add3,city,mobile,phone,gstno,sname,scode from cust where cid='" + cid + "'";
             r = util.doQuery(query);
             while (r.next()) {
@@ -134,7 +138,8 @@ public class print_a4_half_II {
                 cscode = r.getString(10);
             }
 
-            // System.out.println("Customer Id: "+cid+"\nName: "+cname+"\nAddress: "+ad1+"\n"+ad2+"\n"+ad3+"\n PH: "+mobile);
+            // System.out.println("Customer Id: "+cid+"\nName: "+cname+"\nAddress:
+            // "+ad1+"\n"+ad2+"\n"+ad3+"\n PH: "+mobile);
             if (phone.length() > 1) {
                 mobile = mobile + ",  " + phone;
             }
@@ -247,7 +252,8 @@ public class print_a4_half_II {
             double quan, price, amount, disp, disamt, tot, taxp, taxamt1, total, free, mrp, samt;
             double namount = 0, ndisamt = 0, ntot = 0, ntax = 0, ntotal = 0, nfree = 0, new_net = 0, nsamt = 0;
 
-            query = "select iname1,quan,price,amount,disp,disamt,sub,taxp,taxamt,total,udes,hsn,iname,mrp from sales_items where billno='" + billno + "'";
+            query = "select iname1,quan,price,amount,disp,disamt,sub,taxp,taxamt,total,udes,hsn,iname,mrp from sales_items where billno='"
+                    + billno + "'";
             r = util.doQuery(query);
             while (r.next()) {
                 SelRomJasper selRomJasper = new SelRomJasper();
@@ -280,7 +286,7 @@ public class print_a4_half_II {
                 selRomJasper.setField1("" + serial);
                 selRomJasper.setField2(" " + iname);
                 selRomJasper.setField3("" + hsn);
-                //selRomJasper.setField5(""+udes);
+                // selRomJasper.setField5(""+udes);
 
                 String quan2 = String.format("%." + hmany1 + "f", quan);
                 String[] spli4 = quan2.split("\\.");
@@ -309,7 +315,7 @@ public class print_a4_half_II {
 
                 double sgst = taxamt1 / 2;
                 double sgst_per = taxp / 2;
-                //String sgst_per2=String.format("%."+hmany+"f", sgst_per);
+                // String sgst_per2=String.format("%."+hmany+"f", sgst_per);
                 String sgst2 = String.format("%." + hmany + "f", sgst);
 
                 selRomJasper.setField9("" + sgst_per);
@@ -351,7 +357,7 @@ public class print_a4_half_II {
                     selRomJasper.setField20("");
                     k.add(selRomJasper);
                 }
-            }//lessthan 5 records
+            } // lessthan 5 records
             else if (serial > 10) {
                 int diff = 29 - serial;
                 for (int i = 0; i < diff; i++) {
@@ -473,14 +479,15 @@ public class print_a4_half_II {
             parameters.put("parameter50", bal2);
 
             disable_warnigs.disableAccessWarnings();
+
             String reportPath = "";
             if (billformat.equalsIgnoreCase("A4-Half_II")) {
-                reportPath = "/JasperFiles/A4_Half/A4Half-III.jrxml";
+                reportPath = "JasperFiles/A4_Half/A4Half-III.jasper";
             } else if (billformat.equalsIgnoreCase("A4-Half_IV")) {
-                reportPath = "/JasperFiles/A4_Half/A4Half-IV.jrxml";
+                reportPath = "JasperFiles/A4_Half/A4Half-IV.jasper";
             }
 
-            JasperReport jasperReport = JasperReportCompiler.compileReport(reportPath);
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile(reportPath);
 
             JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(k);
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, beanColDataSource);
